@@ -4,6 +4,7 @@
 - This is how to start turning it into a Python app <https://grass.osgeo.org/grass79/manuals/libpython/script_intro.html>
 - The script also calls some Perl scripts that do text manipulation (I think those should be relatively straightforward to make Python modules).
 - Should the Bash and Perl scripts included in the repo somehow as a reference
+- How to write a Python tool for GRASS <https://github.com/wenzeslaus/python-grass-addon>
 
 ## Basic workflow of `gis_script.sh` is as follows
 
