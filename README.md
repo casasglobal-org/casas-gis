@@ -2,6 +2,7 @@
 
 - The functionality is already in a Bash (GRASS, <https://grass.osgeo.org/>) GIS script.
 - This is how to start turning it into a Python app <https://grass.osgeo.org/grass79/manuals/libpython/script_intro.html>
+- Converting Bash scripts to Python <https://grasswiki.osgeo.org/wiki/Converting_Bash_scripts_to_Python>
 - The script also calls some Perl scripts that do text manipulation (I think those should be relatively straightforward to make Python modules).
 - Should the Bash and Perl scripts included in the repo somehow as a reference
 - How to write a Python tool for GRASS <https://github.com/wenzeslaus/python-grass-addon>
