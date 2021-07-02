@@ -15,15 +15,8 @@ def csv_to_df(filepath):
 
 def get_df_info(df):
     print(df.head(), '\n')
-    print('rows, columns:', df.shape, '\n')
-    return df.info()
-
-
-# Deprecated as filepth and df are now two separate functions
-def get_ascii_table(filename, path=INPUT_FOLDER):
-    df = pd.read_csv(os.path.join(path, filename), sep='\t')
-    print(df.head(), '\n')
-    print('rows, columns:', df.shape, '\n')
+    rows, columns = df.shape
+    print(f'Dataframe has {rows} rows and {columns} columns.', '\n')
     return df.info()
 
 
