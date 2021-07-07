@@ -2,7 +2,7 @@
 (numbered) column names, number of rows, and the dictionary itself.
 """
 import os
-import glob
+from pathlib import Path
 import pandas as pd
 
 
@@ -26,7 +26,9 @@ def test_df_concat(input_folder=INPUT_FOLDER):
         and coefficient of variation of yearly values for multi year
         simulations."""
     df_dict = {}
-    for filepath in glob.iglob(f'{input_folder}/*.txt'):
+    # https://stackoverflow.com/a/10378012
+    pathlist = Path(input_folder).rglob('*.txt')
+    for filepath in pathlist:
         print(filepath)
         df = csv_to_df(filepath)
         get_df_info(df)
@@ -35,7 +37,7 @@ def test_df_concat(input_folder=INPUT_FOLDER):
         df_dict[dict_name] = df
     df_all = pd.concat(df_dict.values(), ignore_index=True)
     print('\n================================\n')
-    print('Following are info about conctatenated dataframe:\n')
+    print('Following is info about conctatenated dataframe:\n')
     get_df_info(df_all)
 
 
