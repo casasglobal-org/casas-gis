@@ -38,9 +38,14 @@ def combine_dfs_to_dict(input_dir=INPUT_DIR):
     for filepath in sorted(pathlist):
         df = csv_to_df(filepath)
         dict_name = os.path.splitext(os.path.basename(filepath))[0]
-        print('...processed', dict_name)
+        # print('...processed', dict_name)
         df_dict[dict_name] = df
     return(df_dict)
+
+
+def concat_dfs(input_dir=INPUT_DIR):
+    df_dict = combine_dfs_to_dict(input_dir)
+    return pd.concat(df_dict.values(), ignore_index=True)
 
 
 def extract_columns_from_df(df, column_id):
