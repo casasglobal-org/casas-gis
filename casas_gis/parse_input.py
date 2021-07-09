@@ -7,11 +7,19 @@ from pathlib import Path
 import pandas as pd
 
 
-INPUT_FOLDER = os.path.join(os.getcwd(), 'casas_gis/input_data')
+INPUT_DIR = os.path.join(os.getcwd(), 'casas_gis/input_data')
+INPUT_DIR.mkdir(parents=True, exist_ok=True)
+TMP_DIR = os.path.join(os.getcwd(), 'casas_gis/tmp')
+TMP_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def csv_to_df(filepath):
     return pd.read_csv(filepath, sep='\t')
+
+
+def df_to_csv(df, filename, tmp_dir=TMP_DIR):
+    filepath = os.path.join(tmp_dir, filename, index=False)
+    df.to_csv(filepath, sep='\t')
 
 
 def get_df_info(df):
@@ -23,10 +31,10 @@ def get_df_info(df):
     return df.info()
 
 
-def combine_dfs_to_dict(input_folder=INPUT_FOLDER):
+def combine_dfs_to_dict(input_dir=INPUT_DIR):
     df_dict = {}
     # https://stackoverflow.com/a/10378012 (glob directory)
-    pathlist = Path(input_folder).rglob('*.txt')
+    pathlist = Path(input_dir).rglob('*.txt')
     for filepath in sorted(pathlist):
         df = csv_to_df(filepath)
         dict_name = os.path.splitext(os.path.basename(filepath))[0]
@@ -35,17 +43,35 @@ def combine_dfs_to_dict(input_folder=INPUT_FOLDER):
     return(df_dict)
 
 
-# def generate_import_files():
+def extract_columns_from_df(df, column_id):
+    if isinstance(column_id, str):
+        column = df.loc[:, column_id]
+    elif isinstance(column_id, int):
+        column = df.iloc[:, column_id]
+    else:
+        raise ValueError('column_id must be str or int')
+    return column
 
 
-def test_df_concat(input_folder=INPUT_FOLDER):
+def select_variable(df_dict, lon, lat, variable, tmp_dir=TMP_DIR):
+    for key, df in df_dict.items():
+        lon_series = extract_columns_from_df(df, lon)
+        lat_series = extract_columns_from_df(df, lat)
+        variable_series = extract_columns_from_df(df, variable)
+        df_select = pd.concat([lon_series,
+                               lat_series,
+                               variable_series], axis=1)
+        df_to_csv(df_select, key)
+
+
+def test_df_concat(input_dir=INPUT_DIR):
     """ This would be for generating more CSV files that include
         summary statisics for mapping e.g., mean, stardard deviation
         and coefficient of variation of yearly values for multi year
         simulations."""
     df_dict = {}
     # https://stackoverflow.com/a/10378012 (glob directory)
-    pathlist = Path(input_folder).rglob('*.txt')
+    pathlist = Path(input_dir).rglob('*.txt')
     for filepath in sorted(pathlist):
         df = csv_to_df(filepath)
         get_df_info(df)
@@ -61,5 +87,5 @@ def test_df_concat(input_folder=INPUT_FOLDER):
 
 if __name__ == "__main__":
     test_df_concat()
-    dfs_dict = combine_dfs_to_dict()
-    print(dfs_dict)
+    dict_of_dataframes = combine_dfs_to_dict()
+    print(dict_of_dataframes)
