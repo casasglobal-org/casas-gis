@@ -3,7 +3,6 @@
 """
 import os
 from pathlib import Path
-from typing import Type
 import pandas as pd
 
 
@@ -67,8 +66,8 @@ def select_variable(df_dict, lon, lat, variable, tmp_dir=TMP_DIR):
         df_select = pd.concat([lon_series,
                                lat_series,
                                variable_series], axis=1)
-        print(variable_series.name)
-        tmp_file_name = key + '_' + variable_series.name + '.txt'
+        # print(variable_series.name)
+        tmp_file_name = f"{key}_{variable_series.name}.txt"
         df_to_csv(df_select, tmp_file_name, tmp_dir)
 
 
