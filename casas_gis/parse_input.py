@@ -17,8 +17,8 @@ def csv_to_df(filepath):
 
 
 def df_to_csv(df, filename, tmp_dir=TMP_DIR):
-    filepath = os.path.join(tmp_dir, filename, index=False)
-    df.to_csv(filepath, sep='\t')
+    filepath = os.path.join(tmp_dir, filename)
+    df.to_csv(filepath, sep='\t', index=False)
 
 
 def get_df_info(df_dict):
@@ -47,16 +47,11 @@ def csv_to_df_dict(input_dir=INPUT_DIR):
     return(df_dict)
 
 
-def concat_dfs(input_dir=INPUT_DIR):
-    df_dict = csv_to_df_dict(input_dir)
-    return pd.concat(df_dict.values(), ignore_index=True)
-
-
 def extract_columns_from_df(df, column_id):
-    if isinstance(column_id, str):
+    if isinstance(int(column_id), int):
+        column = df.iloc[:, int(column_id)]
+    elif isinstance(column_id, str):
         column = df.loc[:, column_id]
-    elif isinstance(column_id, int):
-        column = df.iloc[:, column_id]
     else:
         raise ValueError('column_id must be str or int')
     return column
@@ -71,7 +66,14 @@ def select_variable(df_dict, lon, lat, variable, tmp_dir=TMP_DIR):
         df_select = pd.concat([lon_series,
                                lat_series,
                                variable_series], axis=1)
-    return df_select
+        # print(variable_series.name)
+        tmp_file_name = f"{key}_{variable_series.name}.txt"
+        df_to_csv(df_select, tmp_file_name, tmp_dir)
+
+
+def concat_dfs(input_dir=INPUT_DIR):
+    df_dict = csv_to_df_dict(input_dir)
+    return pd.concat(df_dict.values(), ignore_index=True)
 
 
 def test_df_concat(input_dir=INPUT_DIR):
@@ -96,6 +98,10 @@ def test_df_concat(input_dir=INPUT_DIR):
 
 
 if __name__ == "__main__":
-    # test_df_concat()
     dict_of_dataframes = csv_to_df_dict()
     get_df_info(dict_of_dataframes)
+    longitude = input('Enter longitude "column name" or integer index: ')
+    latitude = input('Enter latitude "column name" or integer index:  ')
+    variable = input('Enter variable "column name" or integer index: ')
+    select_variable(dict_of_dataframes,
+                    longitude, latitude, variable, tmp_dir=TMP_DIR)
