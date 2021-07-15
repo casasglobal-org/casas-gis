@@ -1,6 +1,6 @@
 """ Read a tab-separated CSV text file into a pandas dataframe, return
-(numbered) column names, number of rows, and the dictionary itself.
-"""
+    (numbered) column names, number of rows, and the dictionary itself."""
+
 import os
 from pathlib import Path
 import pandas as pd
