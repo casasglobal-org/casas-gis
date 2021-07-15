@@ -126,3 +126,6 @@ dmypy.json
 
 fit_biodem_func/uploads
 fit_biodem_func/plots
+
+casas_gis/tmp/
+template-demo/result.html
