@@ -44,16 +44,15 @@ def csv_to_df_dict(input_dir=INPUT_DIR):
         dict_name = os.path.splitext(os.path.basename(filepath))[0]
         # print('...processed', dict_name)
         df_dict[dict_name] = df
-    return(df_dict)
+    return df_dict
 
 
 def extract_columns_from_df(df, column_id):
-    if isinstance(int(column_id), int):
-        column = df.iloc[:, int(column_id)]
-    elif isinstance(column_id, str):
+    try:
+        column_id = int(column_id)
+        column = df.iloc[:, column_id]
+    except ValueError:
         column = df.loc[:, column_id]
-    else:
-        raise ValueError('column_id must be str or int')
     return column
 
 
