@@ -29,6 +29,14 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
+name = "grass-script"
+version = "0.0.4"
+description = "A Python module that is basically a programming language"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "more-itertools"
 version = "8.8.0"
 description = "More routines for operating on iterables, beyond itertools"
@@ -158,7 +166,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "6da9f1def504eb35218ff8f87ead107a603d234e34983cd0ca5a62b055f1ecb4"
+content-hash = "1da61a74d26e11fca668b47e924b3d18d77926da21c8fcdc410028047ac1fb63"
 
 [metadata.files]
 atomicwrites = [
@@ -172,6 +180,9 @@ attrs = [
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
+]
+grass-script = [
+    {file = "grass_script-0.0.4.tar.gz", hash = "sha256:fc7a29596caa95ed39b0ced4106fa437e0b59eea817662640f69aada4494e33b"},
 ]
 more-itertools = [
     {file = "more-itertools-8.8.0.tar.gz", hash = "sha256:83f0308e05477c68f56ea3a888172c78ed5d5b3c282addb67508e7ba6c8f813a"},
