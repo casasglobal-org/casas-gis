@@ -8,6 +8,7 @@ authors = ["Luigi Ponti <quartese@gmail.com>"]
 python = "^3.8"
 pandas = "^1.2.5"
 grass-script = "^0.0.4"
+grass-session = "^0.5"
 
 [tool.poetry.dev-dependencies]
 pytest = "^4.6"

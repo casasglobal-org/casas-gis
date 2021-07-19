@@ -37,6 +37,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "grass-session"
+version = "0.5"
+description = "GRASS GIS session utilities"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "more-itertools"
 version = "8.8.0"
 description = "More routines for operating on iterables, beyond itertools"
@@ -166,7 +174,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "1da61a74d26e11fca668b47e924b3d18d77926da21c8fcdc410028047ac1fb63"
+content-hash = "16243bdf45fe7cd7cf4270588bfaf84c2c13d24e9d097bb8ae50de8aa0848c7f"
 
 [metadata.files]
 atomicwrites = [
@@ -183,6 +191,10 @@ colorama = [
 ]
 grass-script = [
     {file = "grass_script-0.0.4.tar.gz", hash = "sha256:fc7a29596caa95ed39b0ced4106fa437e0b59eea817662640f69aada4494e33b"},
+]
+grass-session = [
+    {file = "grass-session-0.5.tar.gz", hash = "sha256:7155314535790145da8e2e31b0d20cd2be91477d54083a738b5c319164e7f03b"},
+    {file = "grass_session-0.5-py2.py3-none-any.whl", hash = "sha256:ce03a53e28cc14bc7fff91482e83ed4f174a1325732c4333ed183dd15de39f8d"},
 ]
 more-itertools = [
     {file = "more-itertools-8.8.0.tar.gz", hash = "sha256:83f0308e05477c68f56ea3a888172c78ed5d5b3c282addb67508e7ba6c8f813a"},
