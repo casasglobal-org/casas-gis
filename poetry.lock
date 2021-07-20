@@ -29,14 +29,6 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
-name = "grass-script"
-version = "0.0.4"
-description = "A Python module that is basically a programming language"
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "grass-session"
 version = "0.5"
 description = "GRASS GIS session utilities"
@@ -174,7 +166,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "16243bdf45fe7cd7cf4270588bfaf84c2c13d24e9d097bb8ae50de8aa0848c7f"
+content-hash = "6e4927991ae016a97609aa827a95c78a1d334f1a3d55fae241c23e149408a368"
 
 [metadata.files]
 atomicwrites = [
@@ -188,9 +180,6 @@ attrs = [
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
-]
-grass-script = [
-    {file = "grass_script-0.0.4.tar.gz", hash = "sha256:fc7a29596caa95ed39b0ced4106fa437e0b59eea817662640f69aada4494e33b"},
 ]
 grass-session = [
     {file = "grass-session-0.5.tar.gz", hash = "sha256:7155314535790145da8e2e31b0d20cd2be91477d54083a738b5c319164e7f03b"},
