@@ -5,7 +5,28 @@
     https://actinia.mundialis.de/tutorial/
     https://grasswiki.osgeo.org/wiki/GRASS_and_Python
     https://baharmon.github.io/python-in-grass
+    https://grasswiki.osgeo.org/wiki/GRASS_Python_Scripting_Library
     """
+
+
+""" GRASS enviornment
+https://grasswiki.osgeo.org/wiki/Working_with_GRASS_without_starting_it_explicitly
+
+See also issue #15 https://github.com/luisponti/casas-gis/issues/15
+
+export GISBASE=/Applications/GRASS-8.0.app/Contents/Resources
+export GISRC=$HOME.grass8
+export PATH="$GISBASE/bin:$GISBASE/scripts:$PATH"
+export PYTHONPATH=
+
+If the GRASS libraries are shared libraries, the loader needs to be able 
+to find them. This normally means that LD_LIBRARY_PATH (Linux, Solaris), 
+DYLD_LIBRARY_PATH (MacOSX) or PATH (Windows) need to contain $GISBASE/lib
+
+export DYLD_LIBRARY_PATH="$GISBASE/lib:$DYLD_LIBRARY_PATH"
+
+
+"""
 
 import os
 import sys
