@@ -14,49 +14,43 @@ https://grasswiki.osgeo.org/wiki/Working_with_GRASS_without_starting_it_explicit
 
 See also issue #15 https://github.com/luisponti/casas-gis/issues/15
 
+
+
 export GISBASE=/Applications/GRASS-8.0.app/Contents/Resources
-export GISRC=$HOME.grass8
+export GISRC="$HOME.grass8"
 export PATH="$GISBASE/bin:$GISBASE/scripts:$PATH"
-export PYTHONPATH=
+export PYTHONPATH="$GISBASE/etc/python:$PYTHONPATH"
+
+export DYLD_LIBRARY_PATH="$GISBASE/lib:$DYLD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="$GISBASE/lib:$LD_LIBRARY_PATH"
+export MANPATH="$MANPATH:$GISBASE/man"
+
+export GRASS_LD_LIBRARY_PATH="$LD_LIBRARY_PATH"
+export GRASS_LD_LIBRARY_PATH="$DYLD_LIBRARY_PATH"
 
 If the GRASS libraries are shared libraries, the loader needs to be able 
 to find them. This normally means that LD_LIBRARY_PATH (Linux, Solaris), 
 DYLD_LIBRARY_PATH (MacOSX) or PATH (Windows) need to contain $GISBASE/lib
-
-export DYLD_LIBRARY_PATH="$GISBASE/lib:$DYLD_LIBRARY_PATH"
-
 
 """
 
 import os
 import sys
 import atexit
-# from grass_session import Session
+
+# Could the "module level import not at top of file" be fixed using
+# a different module that sets environmental variables somewhere else?
+grassbin = "/Applications/GRASS-8.0.app/Contents/Resources/bin/grass"
+os.environ['GRASSBIN'] = grassbin
+
+from grass_session import Session
 # see https://github.com/zarch/grass-session
 # http://osgeo-org.1560.x6.nabble.com/Using-grass-libraries-in-python-outside-of-GRASS-td5442894.html
 # http://osgeo-org.1560.x6.nabble.com/issue-with-grass-session-on-MacOSX-Cannot-find-GRASS-GIS-start-script-td5376619.html
 import grass.script as grass
 
-
 # Clenaup routine?
 # See https://grasswiki.osgeo.org/wiki/Converting_Bash_scripts_to_Python
-
-# GRSASS setup:  Setup, initialization, and clean-up functions that can be
-#  used in Python scripts to setup a GRASS environment and session without
-#  using grassXY (i.e., hardcoding a specific GRASS version).
-# https://grass.osgeo.org/grass78/manuals/libpython/script.html#module-script.setup
-
-# https://grasswiki.osgeo.org/wiki/Working_with_GRASS_without_starting_it_explicitly#Python:_GRASS_GIS_7_with_existing_location
-
-# path to the GRASS GIS launch script
-# Windows
-grass7path = r'C:\OSGeo4W\apps\grass\grass-7.8.dev'
-grass7bin_win = r'C:\OSGeo4W\bin\grass78dev.bat'
-# Linux
-grass7bin_lin = 'grass78'
-# MacOSX
-grass7bin_mac = '/Applications/GRASS-7.9.app/'
-print(grass7bin_mac)
 
 # DATA
 # define GRASS DATABASE
@@ -66,10 +60,17 @@ gisdb = os.path.join(os.path.expanduser("~"), "grassdata")
 # gisdb = os.path.join(os.path.expanduser("~"), "Documents/grassdata")
 print(gisdb)
 
-
 # specify (existing) location and mapset
 location = "latlong_medgold"
 mapset = "medgold"
+
+with Session(gisdb=gisdb, location=location, mapset=mapset):
+    # run something in PERMANENT mapset:
+    print(grass.parse_command("g.gisenv", flags="s"))
+    grass.run_command("g.list", flags="f", type="rast,vect")
+
+breakpoint()
+
 
 # Check platform
 if sys.platform.startswith('linux'):
@@ -85,7 +86,6 @@ else:
 
 print(sys.platform)
 
-breakpoint()
 
 
 def main():
