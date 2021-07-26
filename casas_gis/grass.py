@@ -3,9 +3,9 @@
     Ideas for cloud implmentation:
     https://actinia.mundialis.de/api_docs/
     https://actinia.mundialis.de/tutorial/
+    See a also
     https://grasswiki.osgeo.org/wiki/GRASS_and_Python
     https://baharmon.github.io/python-in-grass
-    https://grasswiki.osgeo.org/wiki/GRASS_Python_Scripting_Library
     """
 
 
@@ -14,7 +14,8 @@ https://grasswiki.osgeo.org/wiki/Working_with_GRASS_without_starting_it_explicit
 
 See also issue #15 https://github.com/luisponti/casas-gis/issues/15
 
-
+# List of variables that GRASS modules need to run without starting
+# the main GRASS program
 
 export GISBASE=/Applications/GRASS-8.0.app/Contents/Resources
 export GISRC="$HOME.grass8"
@@ -52,6 +53,9 @@ import grass.script as grass
 # Clenaup routine?
 # See https://grasswiki.osgeo.org/wiki/Converting_Bash_scripts_to_Python
 
+TMP_DIR = os.path.join(os.getcwd(), 'casas_gis/tmp')
+os.makedirs(TMP_DIR, exist_ok=True)
+
 # DATA
 # define GRASS DATABASE
 # add your path to grassdata (GRASS GIS database) directory
@@ -67,7 +71,25 @@ mapset = "medgold"
 with Session(gisdb=gisdb, location=location, mapset=mapset):
     # run something in PERMANENT mapset:
     print(grass.parse_command("g.gisenv", flags="s"))
-    grass.run_command("g.list", flags="f", type="rast,vect")
+    # List GIS maps in current location
+    grass.run_command("g.list", flags="f", type="vector", mapset=".")
+    grass.run_command("g.remove", flags="f", type="vector", pattern="map*")
+    # Import ASCII files generated in input.py module
+    filename = "Olive_30set19_00002_Bloomday.txt"
+    filepath = os.path.join(TMP_DIR, filename)
+    mapname = os.path.splitext(os.path.basename(filepath))[0]
+    grass.run_command("v.in.ascii",
+                      input=os.path.join(TMP_DIR, filename),
+                      output=f"map{mapname}",
+                      skip=1,
+                      separator='tab',
+                      x=1, y=2, z=0,
+                      columns=f"lon double precision, \
+                          lat double precision, \
+                          {mapname} double precision"
+                      )
+    # Check if the imported vector is there
+    grass.run_command("g.list", flags="f", type="vector", mapset=".")
 
 breakpoint()
 
