@@ -41,8 +41,13 @@ import atexit
 
 # Could the "module level import not at top of file" be fixed using
 # a different module that sets environmental variables somewhere else?
-grassbin = "/Applications/GRASS-8.0.app/Contents/Resources/bin/grass"
-os.environ['GRASSBIN'] = grassbin
+# grassbin = "/Applications/GRASS-8.0.app/Contents/Resources/bin/grass"
+# os.environ['GRASSBIN'] = grassbin
+
+# https://pybit.es/articles/persistent-environment-variables/
+from dotenv import load_dotenv
+load_dotenv()
+grassbin = os.getenv("GRASSBIN")
 
 from grass_session import Session
 # see https://github.com/zarch/grass-session
