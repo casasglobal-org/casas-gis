@@ -1,4 +1,5 @@
 """ Geospatial functionality accessed through GRASSS GIS
+    https://grasswiki.osgeo.org/wiki/Category:Python
     https://grass.osgeo.org/grass79/manuals/libpython/index.html
     Ideas for cloud implmentation:
     https://actinia.mundialis.de/api_docs/
