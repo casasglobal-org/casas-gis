@@ -58,8 +58,6 @@ with Session(gisdb=gisdb, location=location, mapset=mapset):
     print('\nImport ASCII files generated in input.py module:\n')
     pathlist = Path(TMP_DIR).rglob('*.txt')
     for path in pathlist:
-        # filename = "Olive_30set19_00002_Bloomday.txt"
-        # filepath = os.path.join(TMP_DIR, filename)
         filename = os.path.basename(path)
         mapname = os.path.splitext(os.path.basename(path))[0]
         grass.run_command("v.in.ascii",
