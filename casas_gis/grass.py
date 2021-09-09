@@ -13,6 +13,7 @@ import os
 import sys
 
 from dotenv import load_dotenv
+from pathlib import Path
 
 load_dotenv()  # needed for grass_session
 
@@ -40,27 +41,39 @@ location = "latlong_medgold"
 mapset = "medgold"
 
 with Session(gisdb=gisdb, location=location, mapset=mapset):
-    # run something in PERMANENT mapset:
+    # Run some GRASS commands in medgold mapset:
+    print('Current GIS environmental variables:\n')
     print(grass.parse_command("g.gisenv", flags="s"))
-    # List GIS maps in current location
-    grass.run_command("g.list", flags="f", type="vector", mapset=".")
-    grass.run_command("g.remove", flags="f", type="vector", pattern="map*")
-    # Import ASCII files generated in input.py module
-    filename = "Olive_30set19_00002_Bloomday.txt"
-    filepath = os.path.join(TMP_DIR, filename)
-    mapname = os.path.splitext(os.path.basename(filepath))[0]
-    grass.run_command("v.in.ascii",
-                      input=os.path.join(TMP_DIR, filename),
-                      output=f"map{mapname}",
-                      skip=1,
-                      separator='tab',
-                      x=1, y=2, z=0,
-                      columns=f"lon double precision, \
-                          lat double precision, \
-                          {mapname} double precision"
+
+    print('List vector maps in current location:\n')
+    grass.run_command("g.list",
+                      flags="p", verbose=True,
+                      type="vector", mapset="."
                       )
-    # Check if the imported vector is there
-    grass.run_command("g.list", flags="f", type="vector", mapset=".")
+    print('Remove previously imported vector map:')
+    grass.run_command("g.remove",
+                      flags="f", verbose=True,
+                      type="vector", pattern="map*"
+                      )
+    print('\nImport ASCII files generated in input.py module:\n')
+    pathlist = Path(TMP_DIR).rglob('*.txt')
+    for path in pathlist:
+        filename = os.path.basename(path)
+        mapname = os.path.splitext(os.path.basename(path))[0]
+        grass.run_command("v.in.ascii",
+                          input=os.path.join(TMP_DIR, filename),
+                          output=f"map{mapname}",
+                          skip=1,
+                          separator='tab',
+                          x=1, y=2, z=0,
+                          columns=f"lon double precision, \
+                              lat double precision, \
+                              {mapname} double precision"
+                          )
+    print('Check if the imported vector is there:\n')
+    grass.run_command("g.list",
+                      flags="p", verbose=True,
+                      type="vector", mapset=".")
 
 breakpoint()
 
