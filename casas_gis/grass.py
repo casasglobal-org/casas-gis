@@ -53,8 +53,8 @@ def print_grass_environment(gisdb, location, mapset):
 def list_vector_maps(gisdb, location, mapset):
     """ List vector maps in current location. """
     with Session(gisdb=gisdb, location=location, mapset=mapset):
-        print(f'\nVector maps in location \"{location}\" \
-             and mapset \"{mapset}\"\n')
+        print(f'\nVector maps in location \"{location}\"'
+              f' and mapset \"{mapset}\":\n')
         grass.run_command("g.list",
                           flags="p", verbose=True,
                           type="vector", mapset="."
@@ -125,6 +125,7 @@ if __name__ == "__main__":
     clean_up_vectors(gisdb, latlong_location, latlong_mapset)
     ascii_to_vector(gisdb, latlong_location, latlong_mapset)
     list_vector_maps(gisdb, latlong_location, latlong_mapset)
+    list_vector_maps(gisdb, mapping_location, mapping_mapset)
     clean_up_vectors(gisdb, mapping_location, mapping_mapset)
     project_vector_to_mapping_location(gisdb,
                                        mapping_location, mapping_mapset,
