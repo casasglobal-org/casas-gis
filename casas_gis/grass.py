@@ -10,7 +10,6 @@
     """
 
 import os
-import sys
 
 from dotenv import load_dotenv
 from pathlib import Path
@@ -37,10 +36,12 @@ gisdb = os.path.join(os.path.expanduser("~"), "grassdata")
 print(gisdb)
 
 # Specify (existing) locations and mapsets
-latlong_location = "latlong_medgold"
-latlong_mapset = "medgold"
-mapping_location = "laea_andalusia"
-mapping_mapset = "medgold"
+latlong_session = {"gisdb": f"{gisdb}",
+                   "location": "latlong_medgold",
+                   "mapset": "medgold"}
+mapping_session = {"gisdb": f"{gisdb}",
+                   "location": "laea_andalusia",
+                   "mapset": "medgold"}
 
 
 def print_grass_environment(gisdb, location, mapset):
@@ -53,8 +54,8 @@ def print_grass_environment(gisdb, location, mapset):
 def list_vector_maps(gisdb, location, mapset):
     """ List vector maps in current location. """
     with Session(gisdb=gisdb, location=location, mapset=mapset):
-        print(f'\nVector maps in location \"{location}\"'
-              f' and mapset \"{mapset}\":\n')
+        print(f"\nVector maps in location '{location}'"
+              f" and mapset '{mapset}':\n")
         grass.run_command("g.list",
                           flags="p", verbose=True,
                           type="vector", mapset="."
@@ -97,13 +98,13 @@ def ascii_to_vector(gisdb, location, mapset, tmp_dir=TMP_DIR):
 
 
 def project_vector_to_mapping_location(gisdb,
-                                       target_location, traget_mapset,
+                                       location, mapset,
                                        source_location, source_mapset,
                                        tmp_dir=TMP_DIR):
     """ Project imported vector from a latitude/longitude unprojected
         GRASS GIS location to a projected location where most GIS
         processing including mapping will occurr. """
-    with Session(gisdb=gisdb, location=target_location, mapset=traget_mapset):
+    with Session(gisdb=gisdb, location=location, mapset=mapset):
         print('\nProject imported vectors to mapping location:\n')
         pathlist = Path(tmp_dir).rglob('*.txt')
         for path in pathlist:
@@ -121,13 +122,14 @@ def project_vector_to_mapping_location(gisdb,
 
 
 if __name__ == "__main__":
-    print_grass_environment(gisdb, latlong_location, latlong_mapset)
-    clean_up_vectors(gisdb, latlong_location, latlong_mapset)
-    ascii_to_vector(gisdb, latlong_location, latlong_mapset)
-    list_vector_maps(gisdb, latlong_location, latlong_mapset)
-    list_vector_maps(gisdb, mapping_location, mapping_mapset)
-    clean_up_vectors(gisdb, mapping_location, mapping_mapset)
-    project_vector_to_mapping_location(gisdb,
-                                       mapping_location, mapping_mapset,
-                                       latlong_location, latlong_mapset,
-                                       TMP_DIR)
+    print_grass_environment(**latlong_session)
+    clean_up_vectors(**latlong_session)
+    ascii_to_vector(**latlong_session)
+    list_vector_maps(**latlong_session)
+    list_vector_maps(**mapping_session)
+    clean_up_vectors(**mapping_session)
+    project_vector_to_mapping_location(
+        **mapping_session,
+        source_location=latlong_session["location"],
+        source_mapset=latlong_session["mapset"]
+        )
