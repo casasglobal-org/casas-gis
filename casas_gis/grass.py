@@ -41,6 +41,12 @@ latlong_location = "latlong_medgold"
 latlong_mapset = "medgold"
 mapping_location = "laea_andalusia"
 mapping_mapset = "medgold"
+latlong_session = {"gisdb": f"{gisdb}",
+                   "location": "latlong_medgold",
+                   "mapset": "medgold"}
+mapping_session = {"gisdb": f"{gisdb}",
+                   "location": "laea_andalusia",
+                   "mapset": "medgold"}
 
 
 def print_grass_environment(gisdb, location, mapset):
@@ -53,8 +59,8 @@ def print_grass_environment(gisdb, location, mapset):
 def list_vector_maps(gisdb, location, mapset):
     """ List vector maps in current location. """
     with Session(gisdb=gisdb, location=location, mapset=mapset):
-        print(f'\nVector maps in location \"{location}\"'
-              f' and mapset \"{mapset}\":\n')
+        print(f"\nVector maps in location '{location}'"
+              f" and mapset '{mapset}':\n")
         grass.run_command("g.list",
                           flags="p", verbose=True,
                           type="vector", mapset="."
@@ -121,13 +127,13 @@ def project_vector_to_mapping_location(gisdb,
 
 
 if __name__ == "__main__":
-    print_grass_environment(gisdb, latlong_location, latlong_mapset)
-    clean_up_vectors(gisdb, latlong_location, latlong_mapset)
-    ascii_to_vector(gisdb, latlong_location, latlong_mapset)
-    list_vector_maps(gisdb, latlong_location, latlong_mapset)
-    list_vector_maps(gisdb, mapping_location, mapping_mapset)
-    clean_up_vectors(gisdb, mapping_location, mapping_mapset)
+    print_grass_environment(**latlong_session)
+    clean_up_vectors(**latlong_session)
+    ascii_to_vector(**latlong_session)
+    list_vector_maps(**latlong_session)
+    list_vector_maps(**mapping_session)
+    clean_up_vectors(**mapping_session)
     project_vector_to_mapping_location(gisdb,
                                        mapping_location, mapping_mapset,
-                                       latlong_location, latlong_mapset,
-                                       TMP_DIR)
+                                       latlong_location, latlong_mapset
+                                       )
