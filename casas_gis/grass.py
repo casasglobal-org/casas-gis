@@ -47,7 +47,9 @@ mapping_session = {"gisdb": f"{gisdb}",
 def print_grass_environment():
     """ Print current GIS environmental variables. """
     print('\nCurrent GIS environmental variables:\n')
-    print(grass.parse_command("g.gisenv", flags="s"))
+    grass_env = grass.parse_command("g.gisenv", flags="n")
+    for key, value in grass_env.items():
+        print('{:16}{}'.format(f"{key}:", value))
 
 
 def list_vector_maps():
