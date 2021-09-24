@@ -44,92 +44,82 @@ mapping_session = {"gisdb": f"{gisdb}",
                    "mapset": "medgold"}
 
 
-def print_grass_environment(gisdb, location, mapset):
+def print_grass_environment():
     """ Print current GIS environmental variables. """
-    with Session(gisdb=gisdb, location=location, mapset=mapset):
-        print('\nCurrent GIS environmental variables:\n')
-        print(grass.parse_command("g.gisenv", flags="s"))
+    print('\nCurrent GIS environmental variables:\n')
+    print(grass.parse_command("g.gisenv", flags="s"))
 
 
-def list_vector_maps(gisdb, location, mapset):
+def list_vector_maps():
     """ List vector maps in current location. """
-    with Session(gisdb=gisdb, location=location, mapset=mapset):
-        print(f"\nVector maps in location '{location}'"
-              f" and mapset '{mapset}':\n")
-        grass.run_command("g.list",
-                          flags="p", verbose=True,
-                          type="vector", mapset="."
-                          )
+    grass_env = grass.parse_command("g.gisenv", flags="n")
+    print(f"\nVector maps in location '{grass_env['LOCATION_NAME']}'"
+          f" and mapset '{grass_env['MAPSET']}':\n")
+    grass.run_command("g.list",
+                      flags="p", verbose=True,
+                      type="vector", mapset=".")
 
 
-def clean_up_vectors(gisdb, location, mapset):
+def clean_up_vectors():
     """ Clean up GIS files that are no longer needed. """
-    with Session(gisdb=gisdb, location=location, mapset=mapset):
-        print('\nRemove previously imported vector maps:\n')
-        grass.run_command("g.remove",
-                          flags="f", verbose=True,
-                          type="vector", pattern="map*"
-                          )
+    print('\nRemove previously imported vector maps:\n')
+    grass.run_command("g.remove",
+                      flags="f", verbose=True,
+                      type="vector", pattern="map*")
 
 
-def ascii_to_vector(gisdb, location, mapset, tmp_dir=TMP_DIR):
+def ascii_to_vector(tmp_dir=TMP_DIR):
     """ Import ASCII files generated in input.py module
         to a vector file in a given GRASS GIS location. """
-    with Session(gisdb=gisdb, location=location, mapset=mapset):
-        print('\nImport text files in temporary directory to vector maps:\n')
-        pathlist = Path(tmp_dir).rglob('*.txt')
-        for path in pathlist:
-            filename = os.path.basename(path)
-            mapname = os.path.splitext(os.path.basename(path))[0]
-            grass.run_command("v.in.ascii",
-                              input=os.path.join(tmp_dir, filename),
-                              output=f"map{mapname}",
-                              skip=1,
-                              separator='tab',
-                              x=1, y=2, z=0,
-                              columns=f"lon double precision, \
-                                lat double precision, \
-                                {mapname} double precision"
-                              )
-        print('\nChecking if the imported vectors are there:\n')
-        grass.run_command("g.list",
-                          flags="p", verbose=True,
-                          type="vector", mapset=".")
+    print('\nImport text files in temporary directory to vector maps:\n')
+    pathlist = Path(tmp_dir).rglob('*.txt')
+    for path in pathlist:
+        filename = os.path.basename(path)
+        mapname = os.path.splitext(os.path.basename(path))[0]
+        grass.run_command("v.in.ascii",
+                          input=os.path.join(tmp_dir, filename),
+                          output=f"map{mapname}",
+                          skip=1,
+                          separator='tab',
+                          x=1, y=2, z=0,
+                          columns=f"lon double precision, \
+                          lat double precision, \
+                          {mapname} double precision")
+    print('\nChecking if the imported vectors are there:\n')
+    grass.run_command("g.list",
+                      flags="p", verbose=True,
+                      type="vector", mapset=".")
 
 
-def project_vector_to_mapping_location(gisdb,
-                                       location, mapset,
-                                       source_location, source_mapset,
+def project_vector_to_current_location(source_location, source_mapset,
                                        tmp_dir=TMP_DIR):
     """ Project imported vector from a latitude/longitude unprojected
         GRASS GIS location to a projected location where most GIS
         processing including mapping will occurr. """
-    with Session(gisdb=gisdb, location=location, mapset=mapset):
-        print('\nProject imported vectors to mapping location:\n')
-        pathlist = Path(tmp_dir).rglob('*.txt')
-        for path in pathlist:
-            mapname = os.path.splitext(os.path.basename(path))[0]
-            grass.run_command("v.proj",
-                              input=f"map{mapname}",
-                              location=source_location,
-                              mapset=source_mapset,
-                              output=f"map{mapname}"
-                              )
-        print('\nChecking if the imported vectors are there:\n')
-        grass.run_command("g.list",
-                          flags="p", verbose=True,
-                          type="vector", mapset=".")
+    print('\nProject imported vectors to mappinsg location:\n')
+    pathlist = Path(tmp_dir).rglob('*.txt')
+    for path in pathlist:
+        mapname = os.path.splitext(os.path.basename(path))[0]
+        grass.run_command("v.proj",
+                          input=f"map{mapname}",
+                          location=source_location,
+                          mapset=source_mapset,
+                          output=f"map{mapname}")
+    print('\nChecking if the imported vectors are there:\n')
+    grass.run_command("g.list",
+                      flags="p", verbose=True,
+                      type="vector", mapset=".")
 
 
 if __name__ == "__main__":
-    print_grass_environment(**latlong_session)
-    clean_up_vectors(**latlong_session)
-    ascii_to_vector(**latlong_session)
-    list_vector_maps(**latlong_session)
-    list_vector_maps(**mapping_session)
-    clean_up_vectors(**mapping_session)
-    project_vector_to_mapping_location(
-        **mapping_session,
-        source_location=latlong_session["location"],
-        source_mapset=latlong_session["mapset"]
-        )
+    with Session(**latlong_session):
+        print_grass_environment()
+        clean_up_vectors()
+        ascii_to_vector()
+        list_vector_maps()
+    with Session(**mapping_session):
+        list_vector_maps()
+        clean_up_vectors()
+        project_vector_to_current_location(
+            source_location=latlong_session["location"],
+            source_mapset=latlong_session["mapset"])
