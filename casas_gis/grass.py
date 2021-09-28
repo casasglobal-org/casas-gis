@@ -43,9 +43,6 @@ mapping_session = {"gisdb": f"{gisdb}",
                    "location": "laea_andalusia",
                    "mapset": "medgold"}
 
-# Variables that are usually set by user in the GUI of the app
-PROVINCES = "all"
-
 
 def print_grass_environment():
     """ Print current GIS environmental variables. """
@@ -116,10 +113,14 @@ def project_vector_to_current_location(source_location, source_mapset,
                       type="vector", mapset=".")
 
 
-def set_mapping_region():
+def set_mapping_region(map_of_subregions,
+                       subregions,
+                       field_name,
+                       field_type):
     """ Define GRASS GIS region for computations mapping, including
-        geographical extent and spatial resolution. """
-    if PROVINCES == "all":
+        geographical extent and spatial resolution.
+        The 'field type' argumeent can be 'CHARACTER' or 'INTEGER'"""
+    if subregions == "all":
         grass.run_command("g.region",
                           vector="andalusia_provinces")
         grass.run_command("v.to.rast", overwrite=True,
@@ -127,15 +128,33 @@ def set_mapping_region():
                           output="mapping_region_vector",
                           use="val",
                           value=1)
+    else:
+        list_of_subregions = subregions.split(",")
+        forumla_items = []
+        for subregion in list_of_subregions:
+            if field_type == "CHARACTER":
+                forumla_items.append(f"({field_name}='{subregion}')")
+            elif field_type == "INTEGER":
+                forumla_items.append(f"({field_name}={subregion})")
+        formula = "or".join(forumla_items)
+        grass.run_command("v.extract", overwrite=True,
+                          input=map_of_subregions,
+                          output="selected_subregions",
+                          where=formula)
         grass.run_command("g.region",
-                          n="n+7000", s="s-7000", e="e+7000", w="w-7000")
-        grass.run_command("g.region",
-                          n="n+7000", s="s-7000", e="e+7000", w="w-7000")
-        grass.run_command("g.region",
-                          res=1000, flags="a")
-        grass_region = grass.parse_command("g.region",
-                                           flags="g")
-        print(grass_region)
+                          vector="selected_subregions")
+        grass.run_command("v.to.rast", overwrite=True,
+                          input="selected_subregions",
+                          output="mapping_region_vector",
+                          use="val",
+                          value=1)
+    grass.run_command("g.region",
+                      n="n+7000", s="s-7000", e="e+7000", w="w-7000")
+    grass.run_command("g.region",
+                      res=1000, flags="a")
+    grass_region = grass.parse_command("g.region",
+                                       flags="g")
+    print(grass_region)
 
 
 if __name__ == "__main__":
@@ -150,4 +169,8 @@ if __name__ == "__main__":
         # project_vector_to_current_location(
         #     source_location=latlong_session["location"],
         #     source_mapset=latlong_session["mapset"])
-        set_mapping_region()
+        set_mapping_region(map_of_subregions="andalusia_provinces",
+                           subregions=("ES-CA,ES-H,ES-AL,ES-GR,"
+                                       "ES-MA,ES-SE,ES-CO,ES-J"),
+                           field_name='iso_3166_2',
+                           field_type="CHARACTER")
