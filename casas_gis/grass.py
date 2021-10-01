@@ -120,15 +120,7 @@ def set_mapping_region(map_of_subregions,
     """ Define GRASS GIS region for computations mapping, including
         geographical extent and spatial resolution.
         The 'field type' argumeent can be 'CHARACTER' or 'INTEGER'"""
-    if subregions == "all":
-        grass.run_command("g.region",
-                          vector="andalusia_provinces")
-        grass.run_command("v.to.rast", overwrite=True,
-                          input="andalusia_provinces",
-                          output="mapping_region_vector",
-                          use="val",
-                          value=1)
-    else:
+    if subregions:
         list_of_subregions = subregions.split(",")
         forumla_items = []
         for subregion in list_of_subregions:
@@ -145,6 +137,14 @@ def set_mapping_region(map_of_subregions,
                           vector="selected_subregions")
         grass.run_command("v.to.rast", overwrite=True,
                           input="selected_subregions",
+                          output="mapping_region_vector",
+                          use="val",
+                          value=1)
+    else:
+        grass.run_command("g.region",
+                          vector=map_of_subregions)
+        grass.run_command("v.to.rast", overwrite=True,
+                          input=map_of_subregions,
                           output="mapping_region_vector",
                           use="val",
                           value=1)
