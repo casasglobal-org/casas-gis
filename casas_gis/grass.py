@@ -115,19 +115,20 @@ def project_vector_to_current_location(source_location, source_mapset,
 
 def set_mapping_region(map_of_subregions,
                        subregions,
-                       field_name,
-                       field_type):
+                       column_name):
     """ Define GRASS GIS region for computations mapping, including
         geographical extent and spatial resolution.
         The 'field type' argumeent can be 'CHARACTER' or 'INTEGER'"""
     if subregions:
         list_of_subregions = subregions.split(",")
         forumla_items = []
+        columns = grass.vector_columns(map_of_subregions, getDict=True)
+        column_type = columns[column_name]['type']
         for subregion in list_of_subregions:
-            if field_type == "CHARACTER":
-                forumla_items.append(f"({field_name}='{subregion}')")
-            elif field_type == "INTEGER":
-                forumla_items.append(f"({field_name}={subregion})")
+            if column_type == "CHARACTER":
+                forumla_items.append(f"({column_name}='{subregion}')")
+            else:
+                forumla_items.append(f"({column_name}={subregion})")
         formula = "or".join(forumla_items)
         grass.run_command("v.extract", overwrite=True,
                           input=map_of_subregions,
@@ -172,5 +173,4 @@ if __name__ == "__main__":
         set_mapping_region(map_of_subregions="andalusia_provinces",
                            subregions=("ES-CA,ES-H,ES-AL,ES-GR,"
                                        "ES-MA,ES-SE,ES-CO,ES-J"),
-                           field_name='iso_3166_2',
-                           field_type="CHARACTER")
+                           column_name='iso_3166_2')
