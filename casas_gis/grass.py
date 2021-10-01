@@ -132,23 +132,16 @@ def set_mapping_region(map_of_subregions,
         formula = "or".join(forumla_items)
         grass.run_command("v.extract", overwrite=True,
                           input=map_of_subregions,
-                          output="selected_subregions",
+                          output="selected_region",
                           where=formula)
-        grass.run_command("g.region",
-                          vector="selected_subregions")
-        grass.run_command("v.to.rast", overwrite=True,
-                          input="selected_subregions",
-                          output="mapping_region_vector",
-                          use="val",
-                          value=1)
-    else:
-        grass.run_command("g.region",
-                          vector=map_of_subregions)
-        grass.run_command("v.to.rast", overwrite=True,
-                          input=map_of_subregions,
-                          output="mapping_region_vector",
-                          use="val",
-                          value=1)
+        map_of_subregions = "selected_region"
+    grass.run_command("g.region",
+                      vector=map_of_subregions)
+    grass.run_command("v.to.rast", overwrite=True,
+                      input=map_of_subregions,
+                      output="mapping_region",
+                      use="val",
+                      value=1)
     grass.run_command("g.region",
                       n="n+7000", s="s-7000", e="e+7000", w="w-7000")
     grass.run_command("g.region",
