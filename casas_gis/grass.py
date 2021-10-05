@@ -13,6 +13,7 @@ import os
 
 from dotenv import load_dotenv
 from pathlib import Path
+from typing import Optional
 
 load_dotenv()  # needed for grass_session
 
@@ -114,12 +115,12 @@ def project_vector_to_current_location(source_location, source_mapset,
 
 
 def set_mapping_region(map_of_subregions,
-                       selected_subregions,
-                       column_name):
+                       column_name,
+                       selected_subregions: Optional[str] = None):
     """ Define GRASS GIS region for computations mapping, including
         geographical extent and spatial resolution.
         The 'field type' argumeent can be 'CHARACTER' or 'INTEGER'"""
-    if selected_subregions:
+    if selected_subregions is not None:
         list_of_selected_subregions = selected_subregions.split(",")
         forumla_items = []
         columns = grass.vector_columns(map_of_subregions, getDict=True)
