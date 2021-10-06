@@ -165,6 +165,6 @@ if __name__ == "__main__":
         #     source_location=latlong_session["location"],
         #     source_mapset=latlong_session["mapset"])
         set_mapping_region(map_of_subregions="andalusia_provinces",
+                           column_name='iso_3166_2',
                            selected_subregions=("ES-CA,ES-H,ES-AL,ES-GR,"
-                                                "ES-MA,ES-SE,ES-CO,ES-J"),
-                           column_name='iso_3166_2')
+                                                "ES-MA,ES-SE,ES-CO,ES-J"))
