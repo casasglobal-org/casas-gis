@@ -122,15 +122,15 @@ def set_mapping_region(map_of_subregions,
         The 'field type' argumeent can be 'CHARACTER' or 'INTEGER'"""
     if selected_subregions is not None:
         list_of_selected_subregions = selected_subregions.split(",")
-        forumla_items = []
+        formula_items = []
         columns = grass.vector_columns(map_of_subregions, getDict=True)
         column_type = columns[column_name]['type']
         for subregion in list_of_selected_subregions:
             if column_type == "CHARACTER":
-                forumla_items.append(f"({column_name}='{subregion}')")
+                formula_items.append(f"({column_name}='{subregion}')")
             else:
-                forumla_items.append(f"({column_name}={subregion})")
-        formula = "or".join(forumla_items)
+                formula_items.append(f"({column_name}={subregion})")
+        formula = "or".join(formula_items)
         grass.run_command("v.extract", overwrite=True,
                           input=map_of_subregions,
                           output="selected_region",
