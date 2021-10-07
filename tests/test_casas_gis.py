@@ -4,6 +4,10 @@ from casas_gis import __version__
 from casas_gis.grass import set_mapping_region, mapping_session, Session
 
 
+def test_version():
+    assert __version__ == '0.1.0'
+
+
 @pytest.mark.parametrize(
     "selected_subregions, expected",
     [
