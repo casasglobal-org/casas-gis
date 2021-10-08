@@ -152,6 +152,31 @@ def set_mapping_region(map_of_subregions,
     print(grass_region)
 
 
+def olive_growing_areas(digital_elevation,
+                        olive_area: Optional[str] = None,
+                        altitude_cap: Optional[str] = None,
+                        crop_fraction_cap: Optional[str] = None):
+    """ Use various olive growing areas for masking model output
+        (i.e., map model output only inside olive growing areas
+        obtained from various sources.
+        NOTE: Can (should!) be made more general by adding a crop
+        parameter to a function remaned to crop_growing_areas().
+        This would required different dictionaries for the switch.
+        Still not sure how to handle this."""
+    if olive_area is None:
+            # do some standard stuff
+            formula_crop = 
+            grass.mapcalc(formula)
+        else:
+            formula_crop = 
+            grass.mapcalc(formula)
+            # check which area and do some other stuff
+        formula_altitude = 
+        grass.mapcalc(formula)
+
+
+
+
 if __name__ == "__main__":
     # with Session(**latlong_session):
     #     print_grass_environment()
