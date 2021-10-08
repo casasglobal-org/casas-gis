@@ -164,15 +164,19 @@ def olive_growing_areas(digital_elevation,
         This would required different dictionaries for the switch.
         Still not sure how to handle this."""
     if olive_area is None:
-            # do some standard stuff
-            formula_crop = 
-            grass.mapcalc(formula)
+        formula_crop = (f"crop_mask ="
+                        " if ((mapping_region &&"
+                        " olive_HarvestedAreaFraction_andalusia"
+                        " > {crop_fraction_cap}),"
+                        " elevation_1KMmd_GMTEDmd_andalusia,"
+                        " null())")
+        grass.mapcalc(formula_crop, overwrite=True)
         else:
             formula_crop = 
-            grass.mapcalc(formula)
+            grass.mapcalc(formula_crop, overwrite=True)
             # check which area and do some other stuff
         formula_altitude = 
-        grass.mapcalc(formula)
+        grass.mapcalc(formula_altitude, overwrite=True)
 
 
 
