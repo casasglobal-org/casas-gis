@@ -122,19 +122,19 @@ def set_mapping_region(map_of_subregions,
         The 'field type' argumeent can be 'CHARACTER' or 'INTEGER'"""
     if selected_subregions is not None:
         list_of_selected_subregions = selected_subregions.split(",")
-        formula_items = []
+        sql_conditions = []
         columns = grass.vector_columns(map_of_subregions, getDict=True)
         column_type = columns[column_name]['type']
         for subregion in list_of_selected_subregions:
             if column_type == "CHARACTER":
-                formula_items.append(f"({column_name}='{subregion}')")
+                sql_conditions.append(f"({column_name}='{subregion}')")
             else:
-                formula_items.append(f"({column_name}={subregion})")
-        formula = "or".join(formula_items)
+                sql_conditions.append(f"({column_name}={subregion})")
+        sql_formula = "or".join(sql_conditions)
         grass.run_command("v.extract", overwrite=True,
                           input=map_of_subregions,
                           output="selected_region",
-                          where=formula)
+                          where=sql_formula)
         map_of_subregions = "selected_region"
     grass.run_command("g.region",
                       vector=map_of_subregions)
@@ -161,24 +161,22 @@ def olive_growing_areas(digital_elevation,
         obtained from various sources.
         NOTE: Can (should!) be made more general by adding a crop
         parameter to a function remaned to crop_growing_areas().
-        This would required different dictionaries for the switch.
+        This would require different dictionaries for the switch.
         Still not sure how to handle this."""
     if olive_area is None:
-        formula_crop = (f"crop_mask ="
-                        " if ((mapping_region &&"
-                        " olive_HarvestedAreaFraction_andalusia"
-                        " > {crop_fraction_cap}),"
-                        " elevation_1KMmd_GMTEDmd_andalusia,"
-                        " null())")
-        grass.mapcalc(formula_crop, overwrite=True)
-        else:
-            formula_crop = 
-            grass.mapcalc(formula_crop, overwrite=True)
-            # check which area and do some other stuff
-        formula_altitude = 
-        grass.mapcalc(formula_altitude, overwrite=True)
-
-
+        calc_expression_crop = (f"crop_mask ="
+                                " if ((mapping_region &&"
+                                " olive_HarvestedAreaFraction_andalusia"
+                                " > {crop_fraction_cap}),"
+                                " elevation_1KMmd_GMTEDmd_andalusia,"
+                                " null())")
+        grass.mapcalc(calc_expression_crop, overwrite=True)
+    else:
+        calc_expression_crop = 
+        grass.mapcalc(calc_expression_crop, overwrite=True)
+        # check which area and do some other stuff
+    calc_expression_altitude = 
+    grass.mapcalc(calc_expression_altitude, overwrite=True)
 
 
 if __name__ == "__main__":
