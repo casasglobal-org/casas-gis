@@ -152,10 +152,10 @@ def set_mapping_region(map_of_subregions,
     print(grass_region)
 
 
-def olive_growing_areas(digital_elevation,
-                        olive_area: Optional[str] = None,
-                        altitude_cap: Optional[str] = None,
-                        crop_fraction_cap: Optional[str] = None):
+def crop_growing_areas(digital_elevation_map,
+                       max_altitude,
+                       crop_area: Optional[str] = None,
+                       crop_fraction_cap: Optional[float] = None):
     """ Use various olive growing areas for masking model output
         (i.e., map model output only inside olive growing areas
         obtained from various sources.
@@ -163,19 +163,27 @@ def olive_growing_areas(digital_elevation,
         parameter to a function remaned to crop_growing_areas().
         This would require different dictionaries for the switch.
         Still not sure how to handle this."""
-    if olive_area is None:
-        calc_expression_crop = (f"crop_mask ="
-                                " if ((mapping_region &&"
-                                " olive_HarvestedAreaFraction_andalusia"
-                                " > {crop_fraction_cap}),"
-                                " elevation_1KMmd_GMTEDmd_andalusia,"
+    calc_expression_crop = ""
+    if crop_area is None:
+        calc_expression_crop = ("mask_crop = if ((mapping_region,"
+                                f" {digital_elevation_map},"
                                 " null())")
-        grass.mapcalc(calc_expression_crop, overwrite=True)
+    # If both crop_area and crop_fraction_cap are not None
+    # https://stackoverflow.com/a/42360987 (is there a better way?)
+    elif all(v is not None for v in [crop_area, crop_fraction_cap]):
+        calc_expression_crop = ("mask_crop = if ((mapping_region &&"
+                                f" {crop_area} > {crop_fraction_cap}),"
+                                f" {digital_elevation_map},"
+                                " null())")
     else:
-        calc_expression_crop = 
-        grass.mapcalc(calc_expression_crop, overwrite=True)
-        # check which area and do some other stuff
-    calc_expression_altitude = 
+        calc_expression_crop = ("mask_crop = if ((mapping_region &&"
+                                f" {crop_area} == 1),"
+                                f" {digital_elevation_map},"
+                                " null())")
+    grass.mapcalc(calc_expression_crop, overwrite=True)
+    calc_expression_altitude = ("mask_crop_elevation ="
+                                f" if (mask_crop < {max_altitude}, mask_crop,"
+                                " null())")
     grass.mapcalc(calc_expression_altitude, overwrite=True)
 
 
@@ -195,3 +203,7 @@ if __name__ == "__main__":
                            column_name='iso_3166_2',
                            selected_subregions=("ES-CA,ES-H,ES-AL,ES-GR,"
                                                 "ES-MA,ES-SE,ES-CO,ES-J"))
+        crop_growing_areas("elevation_1KMmd_GMTEDmd_andalusia",
+                           900,
+                           "olive_HarvestedAreaFraction_andalusia",
+                           0.3)
