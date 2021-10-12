@@ -145,10 +145,8 @@ def set_mapping_region(map_of_subregions,
                       value=1)
     grass.run_command("g.region",
                       n="n+7000", s="s-7000", e="e+7000", w="w-7000")
-    grass.run_command("g.region",
-                      res=1000, flags="a")
-    grass_region = grass.parse_command("g.region",
-                                       flags="g")
+    grass.run_command("g.region", res=1000, flags="a")
+    grass_region = grass.parse_command("g.region", flags="g")
     print(grass_region)
 
 
@@ -156,30 +154,20 @@ def crop_growing_areas(digital_elevation_map,
                        max_altitude,
                        crop_area: Optional[str] = None,
                        crop_fraction_cap: Optional[float] = None):
-    """ Use various olive growing areas for masking model output
-        (i.e., map model output only inside olive growing areas
-        obtained from various sources.
-        NOTE: Can (should!) be made more general by adding a crop
-        parameter to a function remaned to crop_growing_areas().
-        This would require different dictionaries for the switch.
-        Still not sure how to handle this."""
-    calc_expression_crop = ""
+    """ Use various olive growing areas for masking model output (i.e., map
+        model output only inside olive growing areas obtained from various
+        sources. Note that when crop_fraction_cap is not None, the function
+        will look for a crop_area raster map where each cell value is the
+        fraction of area in that cell that is covered by a certain crop."""
     if crop_area is None:
-        calc_expression_crop = ("mask_crop = if ((mapping_region,"
-                                f" {digital_elevation_map},"
-                                " null())")
-    # If both crop_area and crop_fraction_cap are not None
-    # https://stackoverflow.com/a/42360987 (is there a better way?)
-    elif all(v is not None for v in [crop_area, crop_fraction_cap]):
+        calc_expression_crop = ("mask_crop = if ((mapping_region,")
+    if (crop_area is not None) and (crop_fraction_cap is not None):
         calc_expression_crop = ("mask_crop = if ((mapping_region &&"
-                                f" {crop_area} > {crop_fraction_cap}),"
-                                f" {digital_elevation_map},"
-                                " null())")
+                                f" {crop_area} > {crop_fraction_cap}),")
     else:
         calc_expression_crop = ("mask_crop = if ((mapping_region &&"
-                                f" {crop_area} == 1),"
-                                f" {digital_elevation_map},"
-                                " null())")
+                                f" {crop_area} == 1),")
+    calc_expression_crop += f" {digital_elevation_map}, null())"
     grass.mapcalc(calc_expression_crop, overwrite=True)
     calc_expression_altitude = ("mask_crop_elevation ="
                                 f" if (mask_crop < {max_altitude}, mask_crop,"
