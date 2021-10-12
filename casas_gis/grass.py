@@ -160,13 +160,17 @@ def crop_growing_areas(digital_elevation_map,
         will look for a crop_area raster map where each cell value is the
         fraction of area in that cell that is covered by a certain crop."""
     if crop_area is None:
+        # Just use the whole mapping region from set_mapping_region()
         calc_expression_crop = ("mask_crop = if ((mapping_region,")
     if (crop_area is not None) and (crop_fraction_cap is not None):
+        # Select cells where land fraction covered by crop is above cap
         calc_expression_crop = ("mask_crop = if ((mapping_region &&"
                                 f" {crop_area} > {crop_fraction_cap}),")
     else:
+        # Select cells where crop is present (value = 1)
         calc_expression_crop = ("mask_crop = if ((mapping_region &&"
                                 f" {crop_area} == 1),")
+    # Put altitude values in crop area selected above, otherwise no data.
     calc_expression_crop += f" {digital_elevation_map}, null())"
     grass.mapcalc(calc_expression_crop, overwrite=True)
     calc_expression_altitude = ("mask_crop_elevation ="
