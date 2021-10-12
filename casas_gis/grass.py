@@ -154,13 +154,11 @@ def crop_growing_areas(digital_elevation_map,
                        max_altitude,
                        crop_area: Optional[str] = None,
                        crop_fraction_cap: Optional[float] = None):
-    """ Use various olive growing areas for masking model output
-        (i.e., map model output only inside olive growing areas
-        obtained from various sources.
-        NOTE: Can (should!) be made more general by adding a crop
-        parameter to a function remaned to crop_growing_areas().
-        This would require different dictionaries for the switch.
-        Still not sure how to handle this."""
+    """ Use various olive growing areas for masking model output (i.e., map
+        model output only inside olive growing areas obtained from various
+        sources. Note that when crop_fraction_cap is not None, the function
+        will look for a crop_area raster map where each cell value is the
+        fraction of area in that cell that is covered by a certain crop."""
     if crop_area is None:
         calc_expression_crop = ("mask_crop = if ((mapping_region,")
     if (crop_area is not None) and (crop_fraction_cap is not None):
