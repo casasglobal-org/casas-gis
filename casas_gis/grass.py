@@ -196,6 +196,6 @@ if __name__ == "__main__":
                            selected_subregions=("ES-CA,ES-H,ES-AL,ES-GR,"
                                                 "ES-MA,ES-SE,ES-CO,ES-J"))
         set_crop_area("elevation_1KMmd_GMTEDmd_andalusia",
-                           900,
-                           "olive_HarvestedAreaFraction_andalusia",
-                           0.3)
+                      900,
+                      "olive_HarvestedAreaFraction_andalusia",
+                      0.3)
