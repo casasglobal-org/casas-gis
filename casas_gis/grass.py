@@ -150,10 +150,10 @@ def set_mapping_region(map_of_subregions,
     print(grass_region)
 
 
-def crop_growing_areas(digital_elevation_map,
-                       max_altitude,
-                       crop_area: Optional[str] = None,
-                       crop_fraction_cap: Optional[float] = None):
+def set_crop_area(digital_elevation_map,
+                  max_altitude,
+                  crop_area: Optional[str] = None,
+                  crop_fraction_cap: Optional[float] = None):
     """ Use various olive growing areas for masking model output (i.e., map
         model output only inside olive growing areas obtained from various
         sources. Note that when crop_fraction_cap is not None, the function
@@ -195,7 +195,7 @@ if __name__ == "__main__":
                            column_name='iso_3166_2',
                            selected_subregions=("ES-CA,ES-H,ES-AL,ES-GR,"
                                                 "ES-MA,ES-SE,ES-CO,ES-J"))
-        crop_growing_areas("elevation_1KMmd_GMTEDmd_andalusia",
+        set_crop_area("elevation_1KMmd_GMTEDmd_andalusia",
                            900,
                            "olive_HarvestedAreaFraction_andalusia",
                            0.3)
