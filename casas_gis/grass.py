@@ -119,7 +119,7 @@ def set_mapping_region(map_of_subregions,
                        selected_subregions: Optional[str] = None):
     """ Define GRASS GIS region for computations mapping, including
         geographical extent and spatial resolution.
-        The 'field type' argumeent can be 'CHARACTER' or 'INTEGER'"""
+        The 'field type' argumeent can be 'CHARACTER' or 'INTEGER' """
     if selected_subregions is not None:
         list_of_selected_subregions = selected_subregions.split(",")
         sql_conditions = []
@@ -130,7 +130,7 @@ def set_mapping_region(map_of_subregions,
                 sql_conditions.append(f"({column_name}='{subregion}')")
             else:
                 sql_conditions.append(f"({column_name}={subregion})")
-        sql_formula = "or".join(sql_conditions)
+        sql_formula = " or ".join(sql_conditions)
         grass.run_command("v.extract", overwrite=True,
                           input=map_of_subregions,
                           output="selected_region",
@@ -158,7 +158,7 @@ def crop_growing_areas(digital_elevation_map,
         model output only inside olive growing areas obtained from various
         sources. Note that when crop_fraction_cap is not None, the function
         will look for a crop_area raster map where each cell value is the
-        fraction of area in that cell that is covered by a certain crop."""
+        fraction of area in that cell that is covered by a certain crop. """
     if crop_area is None:
         # Just use the whole mapping region from set_mapping_region()
         calc_expression_crop = ("mask_crop = if ((mapping_region,")
