@@ -146,7 +146,8 @@ def set_mapping_region(map_of_subregions,
     grass.run_command("g.region",
                       n="n+7000", s="s-7000", e="e+7000", w="w-7000")
     grass.run_command("g.region", res=1000, flags="a")
-    grass_region = grass.parse_command("g.region", flags="g")
+    # Return “g.region -gu” as a dictionary
+    grass_region = grass.region()
     print(grass_region)
 
 
@@ -177,6 +178,26 @@ def set_crop_area(digital_elevation_map,
                                 f" if (mask_crop < {max_altitude}, mask_crop,"
                                 " null())")
     grass.mapcalc(calc_expression_altitude, overwrite=True)
+
+
+def set_output_image(fig_resolution):
+    """Set size of output image based on the size of the GIS computational
+    region. Also set some GRASS envirnomental variables useful for rendering
+    GIS maps to image files. """
+    # Output image size in pixels
+    grass_region = grass.region()
+    number_of_cols = grass_region['cols']
+    number_of_rows = grass_region['rows']
+    fig_width = number_of_cols * fig_resolution
+    fig_height = (number_of_rows * 137 * fig_resolution) / 7
+    os.environ['GRASS_RENDER_WIDTH'] = fig_width
+    os.environ['GRASS_RENDER_HEIGHT'] = fig_height
+    # Display driver
+    os.environ['GRASS_RENDER_IMMEDIATE'] = 'cairo'
+    os.environ['GRASS_RENDER_TRANSPARENT'] = True
+    os.environ['GRASS_FONT'] = 'arial'
+    # Output file -- needs to be moved to a different function
+    os.environ['GRASS_RENDER_FILE'] = "filename.png"
 
 
 if __name__ == "__main__":
