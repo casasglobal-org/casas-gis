@@ -192,14 +192,15 @@ def set_output_image(fig_resolution):
     grass_region = grass.region()
     number_of_cols = grass_region['cols']
     number_of_rows = grass_region['rows']
+    # header = footer = number_of_rows * 0.15
     side = max(number_of_cols, number_of_rows)
     fig_width = side * fig_resolution
     fig_height = (side * 133 * fig_resolution) / 100
     os.environ['GRASS_RENDER_WIDTH'] = str(fig_width)
     os.environ['GRASS_RENDER_HEIGHT'] = str(fig_height)
     # Display driverß
-    os.environ['GRASS_RENDER_IMMEDIATE'] = "cairo"
-    os.environ['GRASS_RENDER_TRANSPARENT'] = "True"
+    # os.environ['GRASS_RENDER_IMMEDIATE'] = "cairo"
+    # os.environ['GRASS_RENDER_TRANSPARENT'] = "True"
     # os.environ['GRASS_FONT'] = 'Arial'
     # os.environ['GRASS_RENDER_TEXT_SIZE'] = 12
     # file_extensions = [".png", ".ps", ".pdf", ".svg"]
@@ -223,14 +224,16 @@ def set_output_image(fig_resolution):
 # figure out extent of single legend).
 
 
-def make_map(outfile_name, file_types: Optional[str] = None):
+def make_map(outfile_name,
+             bg_color: Optional[str] = None,
+             file_types: Optional[str] = None):
+    background_color = ["none"] if bg_color is None else bg_color
     extensions = ["png"] if file_types is None else file_types.split(",")
     for extension in extensions:
         outfile = os.path.join(OUT_DIR, f"{outfile_name}.{extension}")
-        print(outfile)
-        grass.run_command("d.mon",
+        grass.run_command("d.mon", overwrite=True,
                           start="cairo",
-                          # bgcolor="none",
+                          bgcolor=background_color,
                           output=outfile)
         grass.run_command("d.rast",
                           map="elevation_1KMmd_GMTEDmd_andalusia")
@@ -259,4 +262,4 @@ if __name__ == "__main__":
                       "olive_HarvestedAreaFraction_andalusia",
                       0.3)
         set_output_image(1)
-        make_map("test_figure", file_types="png,pdf")
+        make_map("test_figure", file_types="png,ps,pdf")
