@@ -25,8 +25,12 @@ grassbin = os.getenv("GRASSBIN")
 # Clenaup routine?
 # See https://grasswiki.osgeo.org/wiki/Converting_Bash_scripts_to_Python
 
+# Temporary directory for text files
 TMP_DIR = os.path.join(os.getcwd(), 'casas_gis/tmp')
 os.makedirs(TMP_DIR, exist_ok=True)
+# Directory for GIS output files
+OUT_DIR = os.path.join(os.getcwd(), 'casas_gis/out')
+os.makedirs(OUT_DIR, exist_ok=True)
 
 # DATA
 # define GRASS DATABASE
@@ -188,16 +192,50 @@ def set_output_image(fig_resolution):
     grass_region = grass.region()
     number_of_cols = grass_region['cols']
     number_of_rows = grass_region['rows']
-    fig_width = number_of_cols * fig_resolution
-    fig_height = (number_of_rows * 137 * fig_resolution) / 7
-    os.environ['GRASS_RENDER_WIDTH'] = fig_width
-    os.environ['GRASS_RENDER_HEIGHT'] = fig_height
-    # Display driver
-    os.environ['GRASS_RENDER_IMMEDIATE'] = 'cairo'
-    os.environ['GRASS_RENDER_TRANSPARENT'] = True
-    os.environ['GRASS_FONT'] = 'arial'
+    side = max(number_of_cols, number_of_rows)
+    fig_width = side * fig_resolution
+    fig_height = (side * 133 * fig_resolution) / 100
+    os.environ['GRASS_RENDER_WIDTH'] = str(fig_width)
+    os.environ['GRASS_RENDER_HEIGHT'] = str(fig_height)
+    # Display driverß
+    os.environ['GRASS_RENDER_IMMEDIATE'] = "cairo"
+    os.environ['GRASS_RENDER_TRANSPARENT'] = "True"
+    # os.environ['GRASS_FONT'] = 'Arial'
+    # os.environ['GRASS_RENDER_TEXT_SIZE'] = 12
+    # file_extensions = [".png", ".ps", ".pdf", ".svg"]
     # Output file -- needs to be moved to a different function
-    os.environ['GRASS_RENDER_FILE'] = "filename.png"
+    # outfile = os.path.join(OUT_DIR, f"{outfile_name}.png")
+    # os.environ['GRASS_RENDER_FILE'] = outfile
+
+
+# e.g. select which points to use in mapping
+# In general, do each step for all maps
+# and then map them all together with d.out.file
+# That way, you can get combined raster statistics
+# for all rasters that will be mapped (useful for
+# figure out extent of single legend).
+
+# e.g. select which points to use in mapping
+# In general, do each step for all maps
+# and then map them all together with d.out.file
+# That way, you can get combined raster statistics
+# for all rasters that will be mapped (useful for
+# figure out extent of single legend).
+
+
+def make_map(outfile_name, file_types: Optional[str] = None):
+    extensions = ["png"] if file_types is None else file_types.split(",")
+    for extension in extensions:
+        outfile = os.path.join(OUT_DIR, f"{outfile_name}.{extension}")
+        print(outfile)
+        grass.run_command("d.mon",
+                          start="cairo",
+                          # bgcolor="none",
+                          output=outfile)
+        grass.run_command("d.rast",
+                          map="elevation_1KMmd_GMTEDmd_andalusia")
+        # all other display commands
+        grass.run_command("d.mon", stop="cairo")
 
 
 if __name__ == "__main__":
@@ -220,3 +258,5 @@ if __name__ == "__main__":
                       900,
                       "olive_HarvestedAreaFraction_andalusia",
                       0.3)
+        set_output_image(1)
+        make_map("test_figure", file_types="png,pdf")
