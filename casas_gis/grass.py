@@ -186,21 +186,16 @@ def set_crop_area(digital_elevation_map,
 
 def set_output_image(fig_resolution):
     """Set size of output image based on the size of the GIS computational
-    region. Also set some GRASS envirnomental variables useful for rendering
-    GIS maps to image files. """
+    region and a resolution integer value. Resolution = 1 mean """
     # Output image size in pixels
     grass_region = grass.region()
     number_of_cols = grass_region['cols']
     number_of_rows = grass_region['rows']
     # header = footer = number_of_rows * 0.15
-    side = max(number_of_cols, number_of_rows)
-    fig_width = side * fig_resolution
-    fig_height = (side * 133 * fig_resolution) / 100
-    os.environ['GRASS_RENDER_WIDTH'] = str(fig_width)
-    os.environ['GRASS_RENDER_HEIGHT'] = str(fig_height)
-    # Display driverß
-    # os.environ['GRASS_RENDER_IMMEDIATE'] = "cairo"
-    # os.environ['GRASS_RENDER_TRANSPARENT'] = "True"
+    fig_width = number_of_cols * fig_resolution
+    fig_height = (number_of_rows + (number_of_rows * 0.5)) * fig_resolution
+    return fig_width, fig_height
+    # Display driver variables
     # os.environ['GRASS_FONT'] = 'Arial'
     # os.environ['GRASS_RENDER_TEXT_SIZE'] = 12
     # file_extensions = [".png", ".ps", ".pdf", ".svg"]
@@ -225,6 +220,8 @@ def set_output_image(fig_resolution):
 
 
 def make_map(outfile_name,
+             fig_width,
+             fig_height,
              bg_color: Optional[str] = None,
              file_types: Optional[str] = None):
     background_color = ["none"] if bg_color is None else bg_color
@@ -233,6 +230,8 @@ def make_map(outfile_name,
         outfile = os.path.join(OUT_DIR, f"{outfile_name}.{extension}")
         grass.run_command("d.mon", overwrite=True,
                           start="cairo",
+                          width=fig_width,
+                          height=fig_height,
                           bgcolor=background_color,
                           output=outfile)
         grass.run_command("d.rast",
@@ -261,5 +260,8 @@ if __name__ == "__main__":
                       900,
                       "olive_HarvestedAreaFraction_andalusia",
                       0.3)
-        set_output_image(1)
-        make_map("test_figure", file_types="png,ps,pdf")
+        fig_width, fig_height = set_output_image(2)
+        make_map("test_figure",
+                 fig_width,
+                 fig_height,
+                 file_types="png,ps,pdf")
