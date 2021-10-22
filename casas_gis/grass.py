@@ -7,6 +7,7 @@
     See a also
     https://grasswiki.osgeo.org/wiki/GRASS_and_Python
     https://baharmon.github.io/python-in-grass
+    https://amitness.com/2019/12/migrating-to-pathlib/
     """
 
 import os
