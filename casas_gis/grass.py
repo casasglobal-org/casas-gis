@@ -163,7 +163,7 @@ def set_crop_area(digital_elevation_map,
                   crop_fraction_cap: Optional[float] = None):
     """ Use various olive growing areas for masking model output (i.e., map
         model output only inside olive growing areas obtained from various
-        sources. Note that when crop_fraction_cap is not None, the function
+        sources). Note that when crop_fraction_cap is not None, the function
         will look for a crop_area raster map where each cell value is the
         fraction of area in that cell that is covered by a certain crop. """
     if crop_area is None:
@@ -195,26 +195,32 @@ def set_output_image(fig_resolution):
     grass_region = grass.region()
     number_of_cols = grass_region['cols']
     number_of_rows = grass_region['rows']
-    # header = footer = number_of_rows * 0.15
     fig_width = number_of_cols * fig_resolution
     fig_height = (number_of_rows + (number_of_rows * 0.5)) * fig_resolution
     return fig_width, fig_height
-    # Use frames?
-    # Display driver variables
-    # os.environ['GRASS_FONT'] = 'Arial'
-    # os.environ['GRASS_RENDER_TEXT_SIZE'] = 12
-    # file_extensions = [".png", ".ps", ".pdf", ".svg"]
-    # Output file -- needs to be moved to a different function
-    # outfile = os.path.join(OUT_DIR, f"{outfile_name}.png")
-    # os.environ['GRASS_RENDER_FILE'] = outfile
+    # Use frames for more deterministic location of elements such as title
+    # on top and legend at bottom?
 
 
-# e.g. select which points to use in mapping
-# In general, do each step for all maps
-# and then map them all together with d.out.file
-# That way, you can get combined raster statistics
-# for all rasters that will be mapped (useful for
-# figure out extent of single legend).
+def select_interpolation_points(digital_elevation_map,
+                                altitude_cap: Optional[float] = None,
+                                lower_bound: Optional[float] = None,
+                                upper_bound: Optional[float] = None,
+                                ):
+    """Extract vector points greater than cutting point, since some values
+    (e.g., bloom day <= 0) may be of little or no meaning. Enable user to
+    exclude from interpolation those verctor points located at altitude
+    greater than an threshold value and/or with point value point greaer than
+    or equal to a threshold."""
+    vector_list = grass.list_grouped("vector",
+                                     pattern='map*')
+    for vector_map in vector_list:
+        # Add a column to vector containing altitudes sampled from
+        # raster map of digital elevation.
+        # v.db.addcol map=map$i columns="elevation INT"
+        # v.what.rast vector=map$i raster=elevation_1KMmd_GMTEDmd_andalusia column="elevation"    
+        # Get sql statement for selecting interpolation point
+
 
 # e.g. select which points to use in mapping
 # In general, do each step for all maps
@@ -229,7 +235,7 @@ def make_map(outfile_name,
              fig_height,
              bg_color: Optional[str] = None,
              file_types: Optional[str] = None):
-    background_color = ["none"] if bg_color is None else bg_color
+    background_color = bg_color or ["none"]
     extensions = ["png"] if file_types is None else file_types.split(",")
     for extension in extensions:
         outfile = pathlib.Path(OUT_DIR).joinpath(f"{outfile_name}.{extension}")
