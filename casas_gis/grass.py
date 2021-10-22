@@ -10,9 +10,9 @@
     """
 
 import os
+import pathlib
 
 from dotenv import load_dotenv
-from pathlib import Path
 from typing import Optional
 
 load_dotenv()  # needed for grass_session
@@ -26,16 +26,17 @@ grassbin = os.getenv("GRASSBIN")
 # See https://grasswiki.osgeo.org/wiki/Converting_Bash_scripts_to_Python
 
 # Temporary directory for text files
-TMP_DIR = os.path.join(os.getcwd(), 'casas_gis/tmp')
-os.makedirs(TMP_DIR, exist_ok=True)
+TMP_DIR = (pathlib.Path(__file__).parent).joinpath('tmp')
+pathlib.Path(TMP_DIR).mkdir(parents=True, exist_ok=True)
+
 # Directory for GIS output files
-OUT_DIR = os.path.join(os.getcwd(), 'casas_gis/out')
-os.makedirs(OUT_DIR, exist_ok=True)
+OUT_DIR = (pathlib.Path(__file__).parent).joinpath('out')
+pathlib.Path(OUT_DIR).mkdir(parents=True, exist_ok=True)
 
 # DATA
 # define GRASS DATABASE
 # add your path to grassdata (GRASS GIS database) directory
-gisdb = os.path.join(os.path.expanduser("~"), "grassdata")
+gisdb = pathlib.Path.home().joinpath('grassdata')
 # the following path is the default path on MS Windows
 # gisdb = os.path.join(os.path.expanduser("~"), "Documents/grassdata")
 print(gisdb)
@@ -79,12 +80,12 @@ def ascii_to_vector(tmp_dir=TMP_DIR):
     """ Import ASCII files generated in input.py module
         to a vector file in a given GRASS GIS location. """
     print('\nImport text files in temporary directory to vector maps:\n')
-    pathlist = Path(tmp_dir).rglob('*.txt')
+    pathlist = pathlib.Path(tmp_dir).rglob('*.txt')
     for path in pathlist:
         filename = os.path.basename(path)
-        mapname = os.path.splitext(os.path.basename(path))[0]
+        mapname = pathlib.Path(path).stem
         grass.run_command("v.in.ascii",
-                          input=os.path.join(tmp_dir, filename),
+                          input=pathlib.Path(tmp_dir).joinpath(filename),
                           output=f"map{mapname}",
                           skip=1,
                           separator='tab',
@@ -104,9 +105,9 @@ def project_vector_to_current_location(source_location, source_mapset,
         GRASS GIS location to a projected location where most GIS
         processing including mapping will occurr. """
     print('\nProject imported vectors to mappinsg location:\n')
-    pathlist = Path(tmp_dir).rglob('*.txt')
+    pathlist = pathlib.Path(tmp_dir).rglob('*.txt')
     for path in pathlist:
-        mapname = os.path.splitext(os.path.basename(path))[0]
+        mapname = pathlib.Path(path).stem
         grass.run_command("v.proj",
                           input=f"map{mapname}",
                           location=source_location,
@@ -230,7 +231,7 @@ def make_map(outfile_name,
     background_color = ["none"] if bg_color is None else bg_color
     extensions = ["png"] if file_types is None else file_types.split(",")
     for extension in extensions:
-        outfile = os.path.join(OUT_DIR, f"{outfile_name}.{extension}")
+        outfile = pathlib.Path(OUT_DIR).joinpath(f"{outfile_name}.{extension}")
         grass.run_command("d.mon", overwrite=True,
                           start="cairo",
                           width=fig_width,
@@ -255,14 +256,14 @@ if __name__ == "__main__":
         # project_vector_to_current_location(
         #     source_location=latlong_session["location"],
         #     source_mapset=latlong_session["mapset"])
-        set_mapping_region(map_of_subregions="andalusia_provinces",
-                           column_name='iso_3166_2',
-                           selected_subregions=("ES-CA,ES-H,ES-AL,ES-GR,"
-                                                "ES-MA,ES-SE,ES-CO,ES-J"))
-        set_crop_area("elevation_1KMmd_GMTEDmd_andalusia",
-                      900,
-                      "olive_HarvestedAreaFraction_andalusia",
-                      0.3)
+        # set_mapping_region(map_of_subregions="andalusia_provinces",
+        #                    column_name='iso_3166_2',
+        #                    selected_subregions=("ES-CA,ES-H,ES-AL,ES-GR,"
+        #                                         "ES-MA,ES-SE,ES-CO,ES-J"))
+        # set_crop_area("elevation_1KMmd_GMTEDmd_andalusia",
+        #               900,
+        #               "olive_HarvestedAreaFraction_andalusia",
+        #               0.3)
         fig_width, fig_height = set_output_image(2)
         make_map("test_figure",
                  fig_width,
