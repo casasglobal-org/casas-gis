@@ -74,7 +74,7 @@ def clean_up_vectors():
     print('\nRemove previously imported vector maps:\n')
     grass.run_command("g.remove",
                       flags="f", verbose=True,
-                      type="vector", pattern="map*")
+                      type="vector", pattern="imported_*")
 
 
 def ascii_to_vector(tmp_dir=TMP_DIR):
@@ -83,11 +83,11 @@ def ascii_to_vector(tmp_dir=TMP_DIR):
     print('\nImport text files in temporary directory to vector maps:\n')
     pathlist = pathlib.Path(tmp_dir).rglob('*.txt')
     for path in pathlist:
-        filename = os.path.basename(path)
+        filename = pathlib.Path(path).name
         mapname = pathlib.Path(path).stem
         grass.run_command("v.in.ascii",
                           input=pathlib.Path(tmp_dir).joinpath(filename),
-                          output=f"map{mapname}",
+                          output=f"imported_{mapname}",
                           skip=1,
                           separator='tab',
                           x=1, y=2, z=0,
@@ -110,10 +110,10 @@ def project_vector_to_current_location(source_location, source_mapset,
     for path in pathlist:
         mapname = pathlib.Path(path).stem
         grass.run_command("v.proj",
-                          input=f"map{mapname}",
+                          input=f"imported_{mapname}",
                           location=source_location,
                           mapset=source_mapset,
-                          output=f"map{mapname}")
+                          output=f"imported_{mapname}")
     print('\nChecking if the imported vectors are there:\n')
     grass.run_command("g.list",
                       flags="p", verbose=True,
@@ -133,9 +133,9 @@ def set_mapping_region(map_of_subregions,
         column_type = columns[column_name]['type']
         for subregion in list_of_selected_subregions:
             if column_type == "CHARACTER":
-                sql_conditions.append(f"({column_name}='{subregion}')")
+                sql_conditions.append(f"({column_name} = '{subregion}')")
             else:
-                sql_conditions.append(f"({column_name}={subregion})")
+                sql_conditions.append(f"({column_name} = {subregion})")
         sql_formula = " or ".join(sql_conditions)
         grass.run_command("v.extract", overwrite=True,
                           input=map_of_subregions,
@@ -205,22 +205,41 @@ def set_output_image(fig_resolution):
 def select_interpolation_points(digital_elevation_map,
                                 altitude_cap: Optional[float] = None,
                                 lower_bound: Optional[float] = None,
-                                upper_bound: Optional[float] = None,
-                                ):
+                                upper_bound: Optional[float] = None):
     """Extract vector points greater than cutting point, since some values
-    (e.g., bloom day <= 0) may be of little or no meaning. Enable user to
-    exclude from interpolation those verctor points located at altitude
-    greater than an threshold value and/or with point value point greaer than
-    or equal to a threshold."""
+        (e.g., bloom day <= 0) may be of little or no meaning. Enable user to
+        exclude from interpolation those verctor points located at altitude
+        greater than an threshold value and/or with point value point greaer
+        than or equal to a threshold."""
+    # vector_list = grass.parse_command("g.list",
+    #                                   type="vector",
+    #                                   pattern="imported_*",
+    #                                   mapset=".")
+    # print(vector_list)
+    current_mapset = grass.gisenv()['MAPSET']
     vector_list = grass.list_grouped("vector",
-                                     pattern='map*')
+                                     pattern="imported_*")[current_mapset]
     for vector_map in vector_list:
-        # Add a column to vector containing altitudes sampled from
-        # raster map of digital elevation.
-        # v.db.addcol map=map$i columns="elevation INT"
-        # v.what.rast vector=map$i raster=elevation_1KMmd_GMTEDmd_andalusia column="elevation"    
-        # Get sql statement for selecting interpolation point
+        grass.run_command("v.db.addcolumn",
+                          map=vector_map,
+                          columns="elevation double precision")
+        grass.run_command("v.what.rast",
+                          map=vector_map,
+                          raster=digital_elevation_map,
+                          column="elevation")
+        sql_conditions = []
+        if altitude_cap is not None:
+            sql_conditions.append(f"(elevation < {altitude_cap})")
+        elif upper_bound is not None:
+            sql_conditions.append(f"({vector_map} <= {upper_bound})")
+        elif lower_bound is not None:
+            sql_conditions.append(f"({vector_map} >= {lower_bound})")
+        sql_formula = " and ".join(sql_conditions)
 
+        grass.run_command("v.extract", overwrite=True,
+                          input=vector_map,
+                          output=f"selected_{vector_map}",
+                          where=sql_formula)
 
 # e.g. select which points to use in mapping
 # In general, do each step for all maps
@@ -235,6 +254,9 @@ def make_map(outfile_name,
              fig_height,
              bg_color: Optional[str] = None,
              file_types: Optional[str] = None):
+    """ Test ouput map figure.
+        PLEASE CHECK as PDF and PS ouput does not get vecotors displayed on
+        top of rasters. """
     background_color = bg_color or ["none"]
     extensions = ["png"] if file_types is None else file_types.split(",")
     for extension in extensions:
@@ -247,30 +269,35 @@ def make_map(outfile_name,
                           output=outfile)
         grass.run_command("d.rast",
                           map="elevation_1KMmd_GMTEDmd_andalusia")
+        grass.run_command("d.vect",
+                          map="mapOlive_30set19_00002_OfPupSum")
         # all other display commands
         grass.run_command("d.mon", stop="cairo")
 
 
 if __name__ == "__main__":
-    # with Session(**latlong_session):
-    #     print_grass_environment()
-    #     clean_up_vectors()
-    #     ascii_to_vector()
-    #     list_vector_maps()
+    with Session(**latlong_session):
+        print_grass_environment()
+        clean_up_vectors()
+        ascii_to_vector()
+        list_vector_maps()
     with Session(**mapping_session):
-        # list_vector_maps()
-        # clean_up_vectors()
-        # project_vector_to_current_location(
-        #     source_location=latlong_session["location"],
-        #     source_mapset=latlong_session["mapset"])
-        # set_mapping_region(map_of_subregions="andalusia_provinces",
-        #                    column_name='iso_3166_2',
-        #                    selected_subregions=("ES-CA,ES-H,ES-AL,ES-GR,"
-        #                                         "ES-MA,ES-SE,ES-CO,ES-J"))
-        # set_crop_area("elevation_1KMmd_GMTEDmd_andalusia",
-        #               900,
-        #               "olive_HarvestedAreaFraction_andalusia",
-        #               0.3)
+        list_vector_maps()
+        clean_up_vectors()
+        project_vector_to_current_location(
+            source_location=latlong_session["location"],
+            source_mapset=latlong_session["mapset"])
+        set_mapping_region(map_of_subregions="andalusia_provinces",
+                           column_name='iso_3166_2',
+                           selected_subregions=("ES-CA,ES-H,ES-AL,ES-GR,"
+                                                "ES-MA,ES-SE,ES-CO,ES-J"))
+        set_crop_area("elevation_1KMmd_GMTEDmd_andalusia",
+                      900,
+                      "olive_HarvestedAreaFraction_andalusia",
+                      0.3)
+        select_interpolation_points("elevation_1KMmd_GMTEDmd_andalusia",
+                                    altitude_cap=2000,
+                                    lower_bound=0)
         fig_width, fig_height = set_output_image(2)
         make_map("test_figure",
                  fig_width,
