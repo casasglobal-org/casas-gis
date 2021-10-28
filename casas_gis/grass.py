@@ -34,6 +34,15 @@ pathlib.Path(TMP_DIR).mkdir(parents=True, exist_ok=True)
 OUT_DIR = (pathlib.Path(__file__).parent).joinpath('out')
 pathlib.Path(OUT_DIR).mkdir(parents=True, exist_ok=True)
 
+# Output file extensions
+PNG = "png"
+PS = "ps"
+PDF = "pdf"
+SVG = "svg"
+
+# GRASS constants
+NO_BG_COLOR = "none"
+
 # DATA
 # define GRASS DATABASE
 # add your path to grassdata (GRASS GIS database) directory
@@ -253,12 +262,12 @@ def make_map(outfile_name,
              fig_width,
              fig_height,
              bg_color: Optional[str] = None,
-             file_types: Optional[str] = None):
+             file_types: Optional[list] = None):
     """ Test ouput map figure.
-        PLEASE CHECK as PDF and PS ouput does not get vecotors displayed on
+        PLEASE CHECK as PDF and PS output does not get vectors displayed on
         top of rasters. """
-    background_color = bg_color or ["none"]
-    extensions = ["png"] if file_types is None else file_types.split(",")
+    background_color = bg_color or [NO_BG_COLOR]
+    extensions = [PNG] if file_types is None else file_types
     for extension in extensions:
         outfile = pathlib.Path(OUT_DIR).joinpath(f"{outfile_name}.{extension}")
         grass.run_command("d.mon", overwrite=True,
@@ -270,7 +279,10 @@ def make_map(outfile_name,
         grass.run_command("d.rast",
                           map="elevation_1KMmd_GMTEDmd_andalusia")
         grass.run_command("d.vect",
-                          map="mapOlive_30set19_00002_OfPupSum")
+                          map="mapOlive_30set19_00002_OfPupSum",
+                          type="point",
+                          color="150:0:0",
+                          size=20)
         # all other display commands
         grass.run_command("d.mon", stop="cairo")
 
@@ -302,4 +314,4 @@ if __name__ == "__main__":
         make_map("test_figure",
                  fig_width,
                  fig_height,
-                 file_types="png,ps,pdf")
+                 file_types=[PNG, PS, PDF, SVG])
