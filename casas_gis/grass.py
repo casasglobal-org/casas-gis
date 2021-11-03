@@ -40,6 +40,9 @@ PS = "ps"
 PDF = "pdf"
 SVG = "svg"
 
+#
+IMPORTED_PREFIX = "imp_"
+
 # GRASS constants
 NO_BG_COLOR = "none"
 
@@ -83,7 +86,7 @@ def clean_up_vectors():
     print('\nRemove previously imported vector maps:\n')
     grass.run_command("g.remove",
                       flags="f", verbose=True,
-                      type="vector", pattern="imported_*")
+                      type="vector", pattern=f"{IMPORTED_PREFIX}*")
 
 
 def ascii_to_vector(tmp_dir=TMP_DIR):
@@ -96,7 +99,7 @@ def ascii_to_vector(tmp_dir=TMP_DIR):
         mapname = pathlib.Path(path).stem
         grass.run_command("v.in.ascii",
                           input=pathlib.Path(tmp_dir).joinpath(filename),
-                          output=f"imported_{mapname}",
+                          output=f"{IMPORTED_PREFIX}{mapname}",
                           skip=1,
                           separator='tab',
                           x=1, y=2, z=0,
@@ -119,10 +122,10 @@ def project_vector_to_current_location(source_location, source_mapset,
     for path in pathlist:
         mapname = pathlib.Path(path).stem
         grass.run_command("v.proj",
-                          input=f"imported_{mapname}",
+                          input=f"{IMPORTED_PREFIX}{mapname}",
                           location=source_location,
                           mapset=source_mapset,
-                          output=f"imported_{mapname}")
+                          output=f"{IMPORTED_PREFIX}{mapname}")
     print('\nChecking if the imported vectors are there:\n')
     grass.run_command("g.list",
                       flags="p", verbose=True,
@@ -226,8 +229,10 @@ def select_interpolation_points(digital_elevation_map,
     #                                   mapset=".")
     # print(vector_list)
     current_mapset = grass.gisenv()['MAPSET']
-    vector_list = grass.list_grouped("vector",
-                                     pattern="imported_*")[current_mapset]
+    vector_list_dict = grass.list_grouped("vector",
+                                          pattern=f"{IMPORTED_PREFIX}*")
+    vector_list = vector_list_dict[current_mapset]
+    print(vector_list)
     for vector_map in vector_list:
         grass.run_command("v.db.addcolumn",
                           map=vector_map,
