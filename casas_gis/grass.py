@@ -293,6 +293,10 @@ def make_map(outfile_name,
 
 
 if __name__ == "__main__":
+    # The following groups of functions may become a specialized function
+    # to which a GRASS session and a dictionary of (constant?) parameters
+    # are fed, so that the different current variants of the GIS scripts
+    # are run transparently for e.g., Italy, Europe, North America, etc.
     with Session(**latlong_session):
         print_grass_environment()
         clean_up_vectors()
