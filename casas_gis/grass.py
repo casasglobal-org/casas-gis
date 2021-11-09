@@ -35,15 +35,13 @@ OUT_DIR = (pathlib.Path(__file__).parent).joinpath('out')
 pathlib.Path(OUT_DIR).mkdir(parents=True, exist_ok=True)
 
 # Output file extensions
+# See 162. Enumerations in Pybites book
 PNG = "png"
 PS = "ps"
 PDF = "pdf"
 SVG = "svg"
 
-#
 IMPORTED_PREFIX = "imp_"
-
-# GRASS constants
 NO_BG_COLOR = "none"
 
 # DATA
@@ -199,10 +197,11 @@ def set_crop_area(digital_elevation_map,
 
 
 def set_output_image(fig_resolution):
-    """Set size of output image based on rows and colums of the GRASS
-    computational region and a resolution integer value. A resolution of one
-    means one pixel will be shown in the output image for each cell of the
-    current GRASS region. A resolution of two will double the resolution."""
+    """ Set size of output image based on rows and colums of the GRASS
+        computational region and a resolution integer value. A resolution of
+        one means one pixel will be shown in the output image for each cell
+        of the current GRASS region. A resolution of two will double the
+        resolution. """
     # Output image size in pixels
     grass_region = grass.region()
     number_of_cols = grass_region['cols']
@@ -214,25 +213,28 @@ def set_output_image(fig_resolution):
     # on top and legend at bottom?
 
 
+def render_postscript_hack(section, truth):
+    """ This is a workaround to combine the output from multiple GRASS
+        display commands into a single output image file. All commands but
+        the first should have GRASS_RENDER_PS_HEADER=FALSE, while all commands
+        but the last should have GRASS_RENDER_PS_TRAILER=FALSE.
+        See this grass-dev mailing list thread:
+        https://marc.info/?l=grass-dev&m=146346954429631&w=2 """
+    os.environ[f"GRASS_RENDER_PS_{section}"] = f"{truth}"
+
+
 def select_interpolation_points(digital_elevation_map,
                                 altitude_cap: Optional[float] = None,
                                 lower_bound: Optional[float] = None,
                                 upper_bound: Optional[float] = None):
-    """Extract vector points greater than cutting point, since some values
+    """ Extract vector points greater than cutting point, since some values
         (e.g., bloom day <= 0) may be of little or no meaning. Enable user to
         exclude from interpolation those verctor points located at altitude
         greater than an threshold value and/or with point value point greaer
-        than or equal to a threshold."""
-    # vector_list = grass.parse_command("g.list",
-    #                                   type="vector",
-    #                                   pattern="imported_*",
-    #                                   mapset=".")
-    # print(vector_list)
-    current_mapset = grass.gisenv()['MAPSET']
-    vector_list_dict = grass.list_grouped("vector",
-                                          pattern=f"{IMPORTED_PREFIX}*")
-    vector_list = vector_list_dict[current_mapset]
-    print(vector_list)
+        than or equal to a threshold. """
+    vector_list = grass.list_strings(type="vector",
+                                     pattern=f"{IMPORTED_PREFIX}*",
+                                     mapset=".")
     for vector_map in vector_list:
         grass.run_command("v.db.addcolumn",
                           map=vector_map,
@@ -271,25 +273,43 @@ def make_map(outfile_name,
     """ Test ouput map figure.
         PLEASE CHECK as PDF and PS output does not get vectors displayed on
         top of rasters. """
-    background_color = bg_color or [NO_BG_COLOR]
+    # background_color = bg_color or [NO_BG_COLOR]
     extensions = [PNG] if file_types is None else file_types
     for extension in extensions:
         outfile = pathlib.Path(OUT_DIR).joinpath(f"{outfile_name}.{extension}")
-        grass.run_command("d.mon", overwrite=True,
-                          start="cairo",
-                          width=fig_width,
-                          height=fig_height,
-                          bgcolor=background_color,
-                          output=outfile)
+        # all commands but the first should have GRASS_RENDER_PS_HEADER=FALSE
+        os.environ["GRASS_RENDER_IMMEDIATE"] = extension
+        os.environ["GRASS_RENDER_TRUECOLOR"] = "TRUE"
+        os.environ["GRASS_RENDER_WIDTH"] = str(fig_width)
+        os.environ["GRASS_RENDER_HEIGHT"] = str(fig_height)
+        os.environ["GRASS_RENDER_FILE"] = str(outfile)
+        render_postscript_hack("HEADER", "TRUE")
+        render_postscript_hack("TRAILER", "FALSE")
+        # grass.run_command("d.mon", overwrite=True,
+        #                   start="ps",
+        #                   width=fig_width,
+        #                   height=fig_height,
+        #                   bgcolor=background_color,
+        #                   output=outfile)
+        grass.run_command("d.mon", start=extension,
+                          overwrite=True)
         grass.run_command("d.rast",
                           map="elevation_1KMmd_GMTEDmd_andalusia")
+        render_postscript_hack("HEADER", "FALSE")
+        grass.run_command("d.vect",
+                          map="ne_10m_admin_0_countries_lakes_andalusia",
+                          type="boundary",
+                          color="128:128:128",
+                          width=3)
+        # all commands but the last should have GRASS_RENDER_PS_TRAILER=FALSE
+        # include more display commands here:
+        render_postscript_hack("TRAILER", "TRUE")
         grass.run_command("d.vect",
                           map="mapOlive_30set19_00002_OfPupSum",
                           type="point",
                           color="150:0:0",
                           size=20)
-        # all other display commands
-        grass.run_command("d.mon", stop="cairo")
+        grass.run_command("d.mon", stop=extension)
 
 
 if __name__ == "__main__":
@@ -323,4 +343,4 @@ if __name__ == "__main__":
         make_map("test_figure",
                  fig_width,
                  fig_height,
-                 file_types=[PNG, PS, PDF, SVG])
+                 file_types=[PS, PNG])
