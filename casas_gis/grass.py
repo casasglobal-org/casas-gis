@@ -34,6 +34,18 @@ pathlib.Path(TMP_DIR).mkdir(parents=True, exist_ok=True)
 OUT_DIR = (pathlib.Path(__file__).parent).joinpath('out')
 pathlib.Path(OUT_DIR).mkdir(parents=True, exist_ok=True)
 
+# Output file extensions
+PNG = "png"
+PS = "ps"
+PDF = "pdf"
+SVG = "svg"
+
+#
+IMPORTED_PREFIX = "imp_"
+
+# GRASS constants
+NO_BG_COLOR = "none"
+
 # DATA
 # define GRASS DATABASE
 # add your path to grassdata (GRASS GIS database) directory
@@ -74,7 +86,7 @@ def clean_up_vectors():
     print('\nRemove previously imported vector maps:\n')
     grass.run_command("g.remove",
                       flags="f", verbose=True,
-                      type="vector", pattern="imported_*")
+                      type="vector", pattern=f"{IMPORTED_PREFIX}*")
 
 
 def ascii_to_vector(tmp_dir=TMP_DIR):
@@ -87,7 +99,7 @@ def ascii_to_vector(tmp_dir=TMP_DIR):
         mapname = pathlib.Path(path).stem
         grass.run_command("v.in.ascii",
                           input=pathlib.Path(tmp_dir).joinpath(filename),
-                          output=f"imported_{mapname}",
+                          output=f"{IMPORTED_PREFIX}{mapname}",
                           skip=1,
                           separator='tab',
                           x=1, y=2, z=0,
@@ -110,10 +122,10 @@ def project_vector_to_current_location(source_location, source_mapset,
     for path in pathlist:
         mapname = pathlib.Path(path).stem
         grass.run_command("v.proj",
-                          input=f"imported_{mapname}",
+                          input=f"{IMPORTED_PREFIX}{mapname}",
                           location=source_location,
                           mapset=source_mapset,
-                          output=f"imported_{mapname}")
+                          output=f"{IMPORTED_PREFIX}{mapname}")
     print('\nChecking if the imported vectors are there:\n')
     grass.run_command("g.list",
                       flags="p", verbose=True,
@@ -217,8 +229,10 @@ def select_interpolation_points(digital_elevation_map,
     #                                   mapset=".")
     # print(vector_list)
     current_mapset = grass.gisenv()['MAPSET']
-    vector_list = grass.list_grouped("vector",
-                                     pattern="imported_*")[current_mapset]
+    vector_list_dict = grass.list_grouped("vector",
+                                          pattern=f"{IMPORTED_PREFIX}*")
+    vector_list = vector_list_dict[current_mapset]
+    print(vector_list)
     for vector_map in vector_list:
         grass.run_command("v.db.addcolumn",
                           map=vector_map,
@@ -253,12 +267,12 @@ def make_map(outfile_name,
              fig_width,
              fig_height,
              bg_color: Optional[str] = None,
-             file_types: Optional[str] = None):
+             file_types: Optional[list] = None):
     """ Test ouput map figure.
-        PLEASE CHECK as PDF and PS ouput does not get vecotors displayed on
+        PLEASE CHECK as PDF and PS output does not get vectors displayed on
         top of rasters. """
-    background_color = bg_color or ["none"]
-    extensions = ["png"] if file_types is None else file_types.split(",")
+    background_color = bg_color or [NO_BG_COLOR]
+    extensions = [PNG] if file_types is None else file_types
     for extension in extensions:
         outfile = pathlib.Path(OUT_DIR).joinpath(f"{outfile_name}.{extension}")
         grass.run_command("d.mon", overwrite=True,
@@ -270,7 +284,10 @@ def make_map(outfile_name,
         grass.run_command("d.rast",
                           map="elevation_1KMmd_GMTEDmd_andalusia")
         grass.run_command("d.vect",
-                          map="mapOlive_30set19_00002_OfPupSum")
+                          map="mapOlive_30set19_00002_OfPupSum",
+                          type="point",
+                          color="150:0:0",
+                          size=20)
         # all other display commands
         grass.run_command("d.mon", stop="cairo")
 
@@ -302,4 +319,4 @@ if __name__ == "__main__":
         make_map("test_figure",
                  fig_width,
                  fig_height,
-                 file_types="png,ps,pdf")
+                 file_types=[PNG, PS, PDF, SVG])
