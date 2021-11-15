@@ -38,6 +38,7 @@ pathlib.Path(OUT_DIR).mkdir(parents=True, exist_ok=True)
 # See 162. Enumerations in Pybites book
 PNG = "png"
 PS = "ps"
+EPS = "eps"
 PDF = "pdf"
 SVG = "svg"
 
@@ -213,16 +214,6 @@ def set_output_image(fig_resolution):
     # on top and legend at bottom?
 
 
-def render_postscript_hack(section, truth):
-    """ This is a workaround to combine the output from multiple GRASS
-        display commands into a single output image file. All commands but
-        the first should have GRASS_RENDER_PS_HEADER=FALSE, while all commands
-        but the last should have GRASS_RENDER_PS_TRAILER=FALSE.
-        See this grass-dev mailing list thread:
-        https://marc.info/?l=grass-dev&m=146346954429631&w=2 """
-    os.environ[f"GRASS_RENDER_PS_{section}"] = f"{truth}"
-
-
 def select_interpolation_points(digital_elevation_map,
                                 altitude_cap: Optional[float] = None,
                                 lower_bound: Optional[float] = None,
@@ -265,45 +256,31 @@ def select_interpolation_points(digital_elevation_map,
 # figure out extent of single legend).
 
 
-def make_map(outfile_name,
-             fig_width,
-             fig_height,
-             bg_color: Optional[str] = None,
-             file_types: Optional[list] = None):
-    """ Test ouput map figure.
-        PLEASE CHECK as PDF and PS output does not get vectors displayed on
-        top of rasters. """
-    # background_color = bg_color or [NO_BG_COLOR]
+def make_png_map(outfile_name,
+                 fig_width,
+                 fig_height,
+                 bg_color: Optional[str] = None,
+                 file_types: Optional[list] = None):
+    """ Currently only PNG is supported (e.g., no file_types as argument). """
+    background_color = bg_color or [NO_BG_COLOR]
     extensions = [PNG] if file_types is None else file_types
     for extension in extensions:
         outfile = pathlib.Path(OUT_DIR).joinpath(f"{outfile_name}.{extension}")
-        # all commands but the first should have GRASS_RENDER_PS_HEADER=FALSE
-        os.environ["GRASS_RENDER_IMMEDIATE"] = extension
-        os.environ["GRASS_RENDER_TRUECOLOR"] = "TRUE"
-        os.environ["GRASS_RENDER_WIDTH"] = str(fig_width)
-        os.environ["GRASS_RENDER_HEIGHT"] = str(fig_height)
-        os.environ["GRASS_RENDER_FILE"] = str(outfile)
-        render_postscript_hack("HEADER", "TRUE")
-        render_postscript_hack("TRAILER", "FALSE")
-        # grass.run_command("d.mon", overwrite=True,
-        #                   start="ps",
-        #                   width=fig_width,
-        #                   height=fig_height,
-        #                   bgcolor=background_color,
-        #                   output=outfile)
-        grass.run_command("d.mon", start=extension,
-                          overwrite=True)
+        grass.run_command("d.mon", overwrite=True,
+                          start=extension,
+                          width=fig_width,
+                          height=fig_height,
+                          bgcolor=background_color,
+                          output=outfile)
         grass.run_command("d.rast",
                           map="elevation_1KMmd_GMTEDmd_andalusia")
-        render_postscript_hack("HEADER", "FALSE")
         grass.run_command("d.vect",
-                          map="ne_10m_admin_0_countries_lakes_andalusia",
+                          map="andalusia_provinces",
                           type="boundary",
-                          color="128:128:128",
+                          color="black",
                           width=3)
         # all commands but the last should have GRASS_RENDER_PS_TRAILER=FALSE
         # include more display commands here:
-        render_postscript_hack("TRAILER", "TRUE")
         grass.run_command("d.vect",
                           map="mapOlive_30set19_00002_OfPupSum",
                           type="point",
@@ -340,7 +317,6 @@ if __name__ == "__main__":
                                     altitude_cap=2000,
                                     lower_bound=0)
         fig_width, fig_height = set_output_image(2)
-        make_map("test_figure",
-                 fig_width,
-                 fig_height,
-                 file_types=[PS, PNG])
+        make_png_map("test_figure",
+                     fig_width,
+                     fig_height)
