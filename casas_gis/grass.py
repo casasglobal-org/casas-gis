@@ -27,11 +27,11 @@ grassbin = os.getenv("GRASSBIN")
 # See https://grasswiki.osgeo.org/wiki/Converting_Bash_scripts_to_Python
 
 # Temporary directory for text files
-TMP_DIR = (pathlib.Path(__file__).parent).joinpath('tmp')
+TMP_DIR = pathlib.Path(__file__).parent / "tmp"
 pathlib.Path(TMP_DIR).mkdir(parents=True, exist_ok=True)
 
 # Directory for GIS output files
-OUT_DIR = (pathlib.Path(__file__).parent).joinpath('out')
+OUT_DIR = pathlib.Path(__file__).parent / "out"
 pathlib.Path(OUT_DIR).mkdir(parents=True, exist_ok=True)
 
 # Output file extensions
@@ -60,6 +60,15 @@ latlong_session = {"gisdb": f"{gisdb}",
 mapping_session = {"gisdb": f"{gisdb}",
                    "location": "laea_andalusia",
                    "mapset": "medgold"}
+
+# Add here another dictionary with GIS mapping data
+# for a particular mapping session, e.g.,
+mapping_data = {"digital_elevation": "elevation_1KMmd_GMTEDmd_andalusia",
+                "shaded relief": "SR_HR_andalusia_clip_250m",
+                "coastline": "ne_10m_coastline_andalusia",
+                # etc.
+                "": "",
+                }
 
 
 def print_grass_environment():
@@ -214,6 +223,68 @@ def set_output_image(fig_resolution):
     # on top and legend at bottom?
 
 
+def write_psmap_instructions(outfile_name,
+                             outfile_path: Optional[os.PathLike] = None):
+    """ Generates text file including mapping instructions to serve as input
+        to ps.map GRASS GIS command. Returns output file name with path. """
+    outfile_path = OUT_DIR or outfile_path
+    outfile_name = f"{outfile_name}.psmap"
+    outfile = outfile_path / outfile_name
+    psmap_file = f"""
+border y
+    color black
+    width 1
+    end
+
+# Main raster
+# cum_pup_tuta_nasa_gt1_shaded_relief cum_pup_tuta_nasa_eu_med_gt1
+raster {mapping_data["shaded relief"]}
+
+# Legend elements for raster
+# {mapping_data["shaded relief"]}
+
+colortable y
+    raster {mapping_data["shaded relief"]}
+    where 0.7 6.6
+    # range 1 211
+    # height 0.2
+    width 2.7
+    font Helvetica
+    fontsize 16
+    end
+
+text 1.55% -26% cumulative pupae m^-2 y^-1
+    color black
+    width 1
+    # background white
+    fontsize 14
+    ref lower left
+    end
+
+vlegend
+    where 4 6.3
+    border none
+    font Helvetica
+    fontsize 14
+    width 0.7
+    cols 1
+    end
+
+# Lines of general use (e.g., coastline)
+
+vlines {mapping_data["coastline"]}
+    type line
+    color grey
+    width 1
+    lpos 0
+    end
+
+"""
+    with open(outfile, 'w') as f:
+        f.write(psmap_file)
+    return outfile
+
+
 def select_interpolation_points(digital_elevation_map,
                                 altitude_cap: Optional[float] = None,
                                 lower_bound: Optional[float] = None,
@@ -253,7 +324,8 @@ def select_interpolation_points(digital_elevation_map,
 # and then map them all together with d.out.file
 # That way, you can get combined raster statistics
 # for all rasters that will be mapped (useful for
-# figure out extent of single legend).
+# figure out the extent of single legend used for
+# multiple maps).
 
 
 def make_png_map(outfile_name,
@@ -320,3 +392,4 @@ if __name__ == "__main__":
         make_png_map("test_figure",
                      fig_width,
                      fig_height)
+        write_psmap_instructions("text")
