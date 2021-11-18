@@ -1,4 +1,3 @@
-
 border y
     color black
     width 1
@@ -11,15 +10,15 @@ raster SR_HR_andalusia_clip_250m
 # Legend elements for raster
 # SR_HR_andalusia_clip_250m
 
-colortable y
-    raster SR_HR_andalusia_clip_250m
-    where 0.7 6.6
-    # range 1 211
-    # height 0.2
-    width 2.7
-    font Helvetica
-    fontsize 16
-    end
+# colortable y
+#     raster SR_HR_andalusia_clip_250m
+#     where 0.7 6.6
+#     # range 1 211
+#     # height 0.2
+#     width 2.7
+#     font Helvetica
+#     fontsize 16
+#     end
 
 text 1.55% -26% cumulative pupae m^-2 y^-1
     color black

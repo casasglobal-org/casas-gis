@@ -230,8 +230,7 @@ def write_psmap_instructions(outfile_name,
     outfile_path = OUT_DIR or outfile_path
     outfile_name = f"{outfile_name}.psmap"
     outfile = outfile_path / outfile_name
-    psmap_file = f"""
-border y
+    psmap_file = f"""border y
     color black
     width 1
     end
@@ -247,7 +246,7 @@ colortable y
     raster {mapping_data["shaded relief"]}
     where 0.7 6.6
     # range 1 211
-    # height 0.2
+    # height 0.2
     width 2.7
     font Helvetica
     fontsize 16
@@ -328,37 +327,45 @@ def select_interpolation_points(digital_elevation_map,
 # multiple maps).
 
 
-def make_png_map(outfile_name,
-                 fig_width,
-                 fig_height,
-                 bg_color: Optional[str] = None,
-                 file_types: Optional[list] = None):
-    """ Currently only PNG is supported (e.g., no file_types as argument). """
+def make_map(outfile_name,
+             fig_width,
+             fig_height,
+             bg_color: Optional[str] = None,
+             file_types: Optional[list] = None):
+    """ Currently only PNG and PS (PostScript) formats are supported.  """
     background_color = bg_color or [NO_BG_COLOR]
     extensions = [PNG] if file_types is None else file_types
     for extension in extensions:
-        outfile = pathlib.Path(OUT_DIR).joinpath(f"{outfile_name}.{extension}")
-        grass.run_command("d.mon", overwrite=True,
-                          start=extension,
-                          width=fig_width,
-                          height=fig_height,
-                          bgcolor=background_color,
-                          output=outfile)
-        grass.run_command("d.rast",
-                          map="elevation_1KMmd_GMTEDmd_andalusia")
-        grass.run_command("d.vect",
-                          map="andalusia_provinces",
-                          type="boundary",
-                          color="black",
-                          width=3)
-        # all commands but the last should have GRASS_RENDER_PS_TRAILER=FALSE
-        # include more display commands here:
-        grass.run_command("d.vect",
-                          map="mapOlive_30set19_00002_OfPupSum",
-                          type="point",
-                          color="150:0:0",
-                          size=20)
-        grass.run_command("d.mon", stop=extension)
+        outfile = pathlib.Path(OUT_DIR) / f"{outfile_name}.{extension}"
+        if extension == "png":
+            grass.run_command("d.mon", overwrite=True,
+                              start=extension,
+                              width=fig_width,
+                              height=fig_height,
+                              bgcolor=background_color,
+                              output=outfile)
+            grass.run_command("d.rast",
+                              map="elevation_1KMmd_GMTEDmd_andalusia")
+            grass.run_command("d.vect",
+                              map="andalusia_provinces",
+                              type="boundary",
+                              color="black",
+                              width=3)
+            grass.run_command("d.vect",
+                              map="mapOlive_30set19_00002_OfPupSum",
+                              type="point",
+                              color="150:0:0",
+                              size=20)
+            grass.run_command("d.mon", stop=extension)
+        elif extension == "ps":
+            ps_instructions_file = write_psmap_instructions("test")
+            grass.run_command("ps.map", overwrite=True,
+                              flags="e",
+                              input=ps_instructions_file,
+                              output=outfile)
+            print(str(outfile))
+            breakpoint()
+            outfile.rename(outfile.with_suffix(".eps"))
 
 
 if __name__ == "__main__":
@@ -389,7 +396,7 @@ if __name__ == "__main__":
                                     altitude_cap=2000,
                                     lower_bound=0)
         fig_width, fig_height = set_output_image(2)
-        make_png_map("test_figure",
-                     fig_width,
-                     fig_height)
-        write_psmap_instructions("text")
+        make_map("test_figure",
+                 fig_width,
+                 fig_height,
+                 file_types=["png", "ps"])
