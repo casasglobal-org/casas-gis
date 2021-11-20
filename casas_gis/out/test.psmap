@@ -1,48 +1,16 @@
+# GRASS GIS ps.map instruction file
 border y
     color black
     width 1
     end
 
 # Main raster
-# cum_pup_tuta_nasa_gt1_shaded_relief cum_pup_tuta_nasa_eu_med_gt1
 raster SR_HR_andalusia_clip_250m
 
-# Legend elements for raster
-# SR_HR_andalusia_clip_250m
-
-# colortable y
-#     raster SR_HR_andalusia_clip_250m
-#     where 0.7 6.6
-#     # range 1 211
-#     # height 0.2
-#     width 2.7
-#     font Helvetica
-#     fontsize 16
-#     end
-
-text 1.55% -26% cumulative pupae m^-2 y^-1
-    color black
-    width 1
-    # background white
-    fontsize 14
-    ref lower left
-    end
-
-vlegend
-    where 4 6.3
-    border none
-    font Helvetica
-    fontsize 14
-    width 0.7
-    cols 1
-    end
-
-# Lines of general use (e.g., coastline)
-
+# Some boundary lines
 vlines ne_10m_coastline_andalusia
     type line
     color grey
     width 1
     lpos 0
     end
-

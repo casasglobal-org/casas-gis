@@ -230,54 +230,22 @@ def write_psmap_instructions(outfile_name,
     outfile_path = OUT_DIR or outfile_path
     outfile_name = f"{outfile_name}.psmap"
     outfile = outfile_path / outfile_name
-    psmap_file = f"""border y
+    psmap_file = f"""# GRASS GIS ps.map instruction file
+border y
     color black
     width 1
     end
 
 # Main raster
-# cum_pup_tuta_nasa_gt1_shaded_relief cum_pup_tuta_nasa_eu_med_gt1
 raster {mapping_data["shaded relief"]}
 
-# Legend elements for raster
-# {mapping_data["shaded relief"]}
-
-colortable y
-    raster {mapping_data["shaded relief"]}
-    where 0.7 6.6
-    # range 1 211
-    # height 0.2
-    width 2.7
-    font Helvetica
-    fontsize 16
-    end
-
-text 1.55% -26% cumulative pupae m^-2 y^-1
-    color black
-    width 1
-    # background white
-    fontsize 14
-    ref lower left
-    end
-
-vlegend
-    where 4 6.3
-    border none
-    font Helvetica
-    fontsize 14
-    width 0.7
-    cols 1
-    end
-
-# Lines of general use (e.g., coastline)
-
+# Some boundary lines
 vlines {mapping_data["coastline"]}
     type line
     color grey
     width 1
     lpos 0
     end
-
 """
     with open(outfile, 'w') as f:
         f.write(psmap_file)
@@ -363,8 +331,6 @@ def make_map(outfile_name,
                               flags="e",
                               input=ps_instructions_file,
                               output=outfile)
-            print(str(outfile))
-            breakpoint()
             outfile.rename(outfile.with_suffix(".eps"))
 
 
