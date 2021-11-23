@@ -34,6 +34,14 @@ pathlib.Path(TMP_DIR).mkdir(parents=True, exist_ok=True)
 OUT_DIR = pathlib.Path(__file__).parent / "out"
 pathlib.Path(OUT_DIR).mkdir(parents=True, exist_ok=True)
 
+# Directory for PNG output files
+PNG_DIR = OUT_DIR / "png"
+pathlib.Path(PNG_DIR).mkdir(parents=True, exist_ok=True)
+
+# Directory for PNG output files
+PS_DIR = OUT_DIR / "postscript"
+pathlib.Path(PS_DIR).mkdir(parents=True, exist_ok=True)
+
 # Output file extensions
 # See 162. Enumerations in Pybites book
 PNG = "png"
@@ -304,8 +312,8 @@ def make_map(outfile_name,
     background_color = bg_color or [NO_BG_COLOR]
     extensions = [PNG] if file_types is None else file_types
     for extension in extensions:
-        outfile = pathlib.Path(OUT_DIR) / f"{outfile_name}.{extension}"
         if extension == "png":
+            outfile = PNG_DIR / f"{outfile_name}.{extension}"
             grass.run_command("d.mon", overwrite=True,
                               start=extension,
                               width=fig_width,
@@ -326,6 +334,7 @@ def make_map(outfile_name,
                               size=20)
             grass.run_command("d.mon", stop=extension)
         elif extension == "ps":
+            outfile = PS_DIR / f"{outfile_name}.{extension}"
             ps_instructions_file = write_psmap_instructions("test")
             grass.run_command("ps.map", overwrite=True,
                               flags="e",
