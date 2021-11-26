@@ -38,7 +38,7 @@ pathlib.Path(OUT_DIR).mkdir(parents=True, exist_ok=True)
 PNG_DIR = OUT_DIR / "png"
 pathlib.Path(PNG_DIR).mkdir(parents=True, exist_ok=True)
 
-# Directory for PNG output files
+# Directory for PostScript output files
 PS_DIR = OUT_DIR / "postscript"
 pathlib.Path(PS_DIR).mkdir(parents=True, exist_ok=True)
 
@@ -294,6 +294,24 @@ def select_interpolation_points(digital_elevation_map,
                           output=f"selected_{vector_map}",
                           where=sql_formula)
 
+
+def interpolate_points_idw(vector_point_data,
+                           number_of_points: Optional[int] = None,
+                           vector_layer: Optional[str] = None,
+                           method: Optional[list] = None):
+    """ Generate interpolated raster surface from vector point data based on
+        inverse distance weighting using v.surf.idw GRASS GIS command. """
+
+
+def interpolate_points_bspline(vector_point_data,
+                               number_of_points: Optional[int] = None,
+                               vector_layer: Optional[str] = None,
+                               method: Optional[list] = None):
+    """ Generate interpolated raster surface from vector point data based on
+        bicubic or bilinear spline interpolation with Tykhonov regularization
+        using v.surf.bspline GRASS GIS command. """
+
+
 # e.g. select which points to use in mapping
 # In general, do each step for all maps
 # and then map them all together with d.out.file
@@ -308,7 +326,7 @@ def make_map(outfile_name,
              fig_height,
              bg_color: Optional[str] = None,
              file_types: Optional[list] = None):
-    """ Currently only PNG and PS (PostScript) formats are supported.  """
+    """ Currently only PNG and PS (PostScript) formats are supported. """
     background_color = bg_color or [NO_BG_COLOR]
     extensions = [PNG] if file_types is None else file_types
     for extension in extensions:
