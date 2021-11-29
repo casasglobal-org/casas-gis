@@ -313,8 +313,9 @@ def interpolate_points_idw(vector_layer: Optional[str] = None,
     vector_list = grass.list_strings(type="vector",
                                      pattern=f"{SELECTED_PREFIX}*",
                                      mapset=".")
-    # Set interpolation mask
-
+    # Clip interpolated raster to mapping region
+    grass.run_command("g.copy", overwrite=True,
+                      rast=(REGION_RASTER, "MASK"))
     for vector_map in vector_list:
         map_name, mapset_name = vector_map.split("@")
         base_map_name = map_name.replace(SELECTED_PREFIX, "", 1)
@@ -328,7 +329,9 @@ def interpolate_points_idw(vector_layer: Optional[str] = None,
                           output=output_map,
                           npoints=n_points,
                           power=power)
-
+    grass.run_command("g.remove",
+                      type="raster",
+                      name="MASK")
 
 def interpolate_points_bspline(vector_point_data,
                                number_of_points: Optional[int] = None,
