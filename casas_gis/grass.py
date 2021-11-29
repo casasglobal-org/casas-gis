@@ -53,6 +53,7 @@ SVG = "svg"
 IMPORTED_PREFIX = "imp_"
 SELECTED_PREFIX = "sel_"
 INTERPOLATED_PREFIX = "surf_"
+REGION_RASTER = "mapping_region"
 NO_BG_COLOR = "none"
 
 # DATA
@@ -177,14 +178,14 @@ def set_mapping_region(map_of_subregions,
         map_of_subregions = "selected_region"
     grass.run_command("g.region",
                       vector=map_of_subregions)
-    grass.run_command("v.to.rast", overwrite=True,
-                      input=map_of_subregions,
-                      output="mapping_region",
-                      use="val",
-                      value=1)
     grass.run_command("g.region",
                       n="n+7000", s="s-7000", e="e+7000", w="w-7000")
     grass.run_command("g.region", res=1000, flags="a")
+    grass.run_command("v.to.rast", overwrite=True,
+                      input=map_of_subregions,
+                      output=REGION_RASTER,
+                      use="val",
+                      value=1)
     # Return “g.region -gu” as a dictionary
     grass_region = grass.region()
     print(grass_region)
@@ -201,14 +202,14 @@ def set_crop_area(digital_elevation_map,
         fraction of area in that cell that is covered by a certain crop. """
     if crop_area is None:
         # Just use the whole mapping region from set_mapping_region()
-        calc_expression_crop = ("mask_crop = if ((mapping_region,")
+        calc_expression_crop = (f"mask_crop = if (({REGION_RASTER},")
     if (crop_area is not None) and (crop_fraction_cap is not None):
         # Select cells where land fraction covered by crop is above cap
-        calc_expression_crop = ("mask_crop = if ((mapping_region &&"
+        calc_expression_crop = (f"mask_crop = if (({REGION_RASTER} &&"
                                 f" {crop_area} > {crop_fraction_cap}),")
     else:
         # Select cells where crop is present (value = 1)
-        calc_expression_crop = ("mask_crop = if ((mapping_region &&"
+        calc_expression_crop = (f"mask_crop = if (({REGION_RASTER} &&"
                                 f" {crop_area} == 1),")
     # Put altitude values in crop area selected above, otherwise no data.
     calc_expression_crop += f" {digital_elevation_map}, null())"
@@ -312,6 +313,9 @@ def interpolate_points_idw(vector_layer: Optional[str] = None,
     vector_list = grass.list_strings(type="vector",
                                      pattern=f"{SELECTED_PREFIX}*",
                                      mapset=".")
+    # Clip interpolated raster to mapping region
+    grass.run_command("g.copy", overwrite=True,
+                      rast=(REGION_RASTER, "MASK"))
     for vector_map in vector_list:
         map_name, mapset_name = vector_map.split("@")
         base_map_name = map_name.replace(SELECTED_PREFIX, "", 1)
@@ -325,7 +329,9 @@ def interpolate_points_idw(vector_layer: Optional[str] = None,
                           output=output_map,
                           npoints=n_points,
                           power=power)
-
+    grass.run_command("g.remove",
+                      type="raster",
+                      name="MASK")
 
 def interpolate_points_bspline(vector_point_data,
                                number_of_points: Optional[int] = None,
