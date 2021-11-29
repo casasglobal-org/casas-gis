@@ -51,6 +51,8 @@ PDF = "pdf"
 SVG = "svg"
 
 IMPORTED_PREFIX = "imp_"
+SELECTED_PREFIX = "sel_"
+INTERPOLATED_PREFIX = "surf_"
 NO_BG_COLOR = "none"
 
 # DATA
@@ -103,6 +105,9 @@ def clean_up_vectors():
     grass.run_command("g.remove",
                       flags="f", verbose=True,
                       type="vector", pattern=f"{IMPORTED_PREFIX}*")
+    grass.run_command("g.remove",
+                      flags="f", verbose=True,
+                      type="vector", pattern=f"{SELECTED_PREFIX}*")
 
 
 def ascii_to_vector(tmp_dir=TMP_DIR):
@@ -267,8 +272,8 @@ def select_interpolation_points(digital_elevation_map,
     """ Extract vector points greater than cutting point, since some values
         (e.g., bloom day <= 0) may be of little or no meaning. Enable user to
         exclude from interpolation those verctor points located at altitude
-        greater than an threshold value and/or with point value point greaer
-        than or equal to a threshold. """
+        greater than an threshold value and/or with point value greather than
+        or equal to a threshold. """
     vector_list = grass.list_strings(type="vector",
                                      pattern=f"{IMPORTED_PREFIX}*",
                                      mapset=".")
@@ -288,19 +293,38 @@ def select_interpolation_points(digital_elevation_map,
         elif lower_bound is not None:
             sql_conditions.append(f"({vector_map} >= {lower_bound})")
         sql_formula = " and ".join(sql_conditions)
-
+        output_map = vector_map.replace(IMPORTED_PREFIX,
+                                        SELECTED_PREFIX, 1)
         grass.run_command("v.extract", overwrite=True,
                           input=vector_map,
-                          output=f"selected_{vector_map}",
+                          output=output_map,
                           where=sql_formula)
 
 
-def interpolate_points_idw(vector_point_data,
+def interpolate_points_idw(vector_layer: Optional[str] = None,
                            number_of_points: Optional[int] = None,
-                           vector_layer: Optional[str] = None,
-                           method: Optional[list] = None):
+                           power: Optional[float] = None):
     """ Generate interpolated raster surface from vector point data based on
         inverse distance weighting using v.surf.idw GRASS GIS command. """
+    v_layer = vector_layer or 1
+    n_points = number_of_points or 3
+    power = power or 2.0
+    vector_list = grass.list_strings(type="vector",
+                                     pattern=f"{SELECTED_PREFIX}*",
+                                     mapset=".")
+    for vector_map in vector_list:
+        map_name, mapset_name = vector_map.split("@")
+        base_map_name = map_name.replace(SELECTED_PREFIX, "", 1)
+        output_map = map_name.replace(SELECTED_PREFIX,
+                                      INTERPOLATED_PREFIX, 1)
+        grass.run_command("v.surf.idw", overwrite=True,
+                          flags="n",
+                          input=vector_map,
+                          layer=v_layer,
+                          column=f"{base_map_name}",
+                          output=output_map,
+                          npoints=n_points,
+                          power=power)
 
 
 def interpolate_points_bspline(vector_point_data,
@@ -388,6 +412,9 @@ if __name__ == "__main__":
         select_interpolation_points("elevation_1KMmd_GMTEDmd_andalusia",
                                     altitude_cap=2000,
                                     lower_bound=0)
+        interpolate_points_idw(vector_layer=1,
+                               number_of_points=3,
+                               power=2.0)
         fig_width, fig_height = set_output_image(2)
         make_map("test_figure",
                  fig_width,
