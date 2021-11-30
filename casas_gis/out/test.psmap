@@ -5,7 +5,7 @@ border y
     end
 
 # Main raster
-raster SR_HR_andalusia_clip_250m
+raster surf_Olive_30set19_00002_OfPupSum
 
 # Some boundary lines
 vlines ne_10m_coastline_andalusia
