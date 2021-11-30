@@ -352,12 +352,23 @@ def interpolate_points_bspline(vector_layer: Optional[str] = None,
         base_map_name = map_name.replace(SELECTED_PREFIX, "", 1)
         output_map = map_name.replace(SELECTED_PREFIX,
                                       INTERPOLATED_PREFIX, 1)
-        grass.run_command("v.surf.idw", overwrite=True,
-                          flags="n",
+        # https://lists.osgeo.org/pipermail/grass-user/2010-February/054868.html
+        # https://grass.osgeo.org/grass80/manuals/v.surf.bspline.html
+        # 1. run v.surf.bspline with the -e flag first to get estimated
+        #    mean distance between points. That needs to be multiplied by two
+        #    and assigned to ew_step and ns_step
+        # 2. run v.surf.bspline with the -c flag to find the best Tykhonov
+        #    regularizing parameter using a "leave-one-out" cross validation
+        #    method, and assign the resulting value to lambda_i
+        grass.run_command("v.surf.bspline", overwrite=True,
                           input=vector_map,
                           layer=v_layer,
                           column=f"{base_map_name}",
-                          output=output_map)
+                          raster_output=output_map,
+                          ew_step=float,
+                          ns_step=float,
+                          method=method,
+                          lambda_i=float)
     grass.run_command("g.remove",
                       type="raster",
                       name="MASK")
@@ -389,8 +400,9 @@ def make_map(outfile_name,
                               height=fig_height,
                               bgcolor=background_color,
                               output=outfile)
-            grass.run_command("d.rast",
-                              map="surf_Olive_30set19_00002_OfPupSum")
+            grass.run_command("d.his",
+                              i="SR_HR_andalusia_clip_250m",
+                              h="surf_Olive_30set19_00002_OfPupSum")
             grass.run_command("d.vect",
                               map="andalusia_provinces",
                               type="boundary",
@@ -399,8 +411,11 @@ def make_map(outfile_name,
             grass.run_command("d.vect",
                               map="mapOlive_30set19_00002_OfPupSum",
                               type="point",
-                              color="150:0:0",
-                              size=20)
+                              color="white",
+                              fill_color="black",
+                              icon="basic/point",
+                              size=15,
+                              width=2)
             grass.run_command("d.mon", stop=extension)
         elif extension == "ps":
             outfile = PS_DIR / f"{outfile_name}.{extension}"
