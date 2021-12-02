@@ -370,6 +370,7 @@ def interpolate_points_bspline(vector_layer: Optional[str] = None,
                           method=method,
                           lambda_i=float)
     grass.run_command("g.remove",
+                      flags="f",
                       type="raster",
                       name="MASK")
 
@@ -383,7 +384,7 @@ def get_distance_points_bspline(vector_layer: Optional[str] = None,
 
 def cross_validate_bspline(vector_layer: Optional[str] = None,
                                method: Optional[str] = None):
-    """Run v.surf.bspline with the -c flag to find the best Tykhonov
+    """ Run v.surf.bspline with the -c flag to find the best Tykhonov
         regularizing parameter using a "leave-one-out" cross validation
         method, and assign the resulting value to lambda_i. """
 
