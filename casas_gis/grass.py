@@ -374,6 +374,20 @@ def interpolate_points_bspline(vector_layer: Optional[str] = None,
                       name="MASK")
 
 
+def get_distance_points_bspline(vector_layer: Optional[str] = None,
+                               method: Optional[str] = None):
+    """ Run v.surf.bspline with the -e flag first to get estimated mean
+        distance between points. That needs to be multiplied by two and
+        assigned to ew_step and ns_step. """
+
+
+def cross_validate_bspline(vector_layer: Optional[str] = None,
+                               method: Optional[str] = None):
+    """Run v.surf.bspline with the -c flag to find the best Tykhonov
+        regularizing parameter using a "leave-one-out" cross validation
+        method, and assign the resulting value to lambda_i. """
+
+
 # e.g. select which points to use in mapping
 # In general, do each step for all maps
 # and then map them all together with d.out.file
