@@ -52,7 +52,8 @@ SVG = "svg"
 
 IMPORTED_PREFIX = "imp_"
 SELECTED_PREFIX = "sel_"
-INTERPOLATED_PREFIX = "surf_"
+IDW_PREFIX = "idw_"
+BSPLINE_PREFIX = "bspline_"
 REGION_RASTER = "mapping_region"
 NO_BG_COLOR = "none"
 
@@ -78,7 +79,7 @@ mapping_data = {"digital_elevation": "elevation_1KMmd_GMTEDmd_andalusia",
                 "shaded relief": "SR_HR_andalusia_clip_250m",
                 "coastline": "ne_10m_coastline_andalusia",
                 # etc.
-                "test_interpolation": "surf_Olive_30set19_00002_OfPupSum",
+                "test_interpolation": "bspline_Olive_30set19_00002_OfPupSum",
                 }
 
 
@@ -320,7 +321,7 @@ def interpolate_points_idw(vector_layer: Optional[str] = None,
         map_name, mapset_name = vector_map.split("@")
         base_map_name = map_name.replace(SELECTED_PREFIX, "", 1)
         output_map = map_name.replace(SELECTED_PREFIX,
-                                      INTERPOLATED_PREFIX, 1)
+                                      IDW_PREFIX, 1)
         grass.run_command("v.surf.idw", overwrite=True,
                           flags="n",
                           input=vector_map,
@@ -330,6 +331,7 @@ def interpolate_points_idw(vector_layer: Optional[str] = None,
                           npoints=n_points,
                           power=power)
     grass.run_command("g.remove",
+                      flags="f",
                       type="raster",
                       name="MASK")
 
@@ -344,14 +346,11 @@ def interpolate_points_bspline(vector_layer: Optional[str] = None,
     vector_list = grass.list_strings(type="vector",
                                      pattern=f"{SELECTED_PREFIX}*",
                                      mapset=".")
-    # Clip interpolated raster to mapping region
-    grass.run_command("g.copy", overwrite=True,
-                      rast=(REGION_RASTER, "MASK"))
     for vector_map in vector_list:
         map_name, mapset_name = vector_map.split("@")
         base_map_name = map_name.replace(SELECTED_PREFIX, "", 1)
         output_map = map_name.replace(SELECTED_PREFIX,
-                                      INTERPOLATED_PREFIX, 1)
+                                      BSPLINE_PREFIX, 1)
         # https://lists.osgeo.org/pipermail/grass-user/2010-February/054868.html
         # https://grass.osgeo.org/grass80/manuals/v.surf.bspline.html
         # 1. run v.surf.bspline with the -e flag first to get estimated
@@ -365,28 +364,28 @@ def interpolate_points_bspline(vector_layer: Optional[str] = None,
                           layer=v_layer,
                           column=f"{base_map_name}",
                           raster_output=output_map,
-                          ew_step=float,
-                          ns_step=float,
+                          mask=REGION_RASTER,
+                          ew_step=20000,
+                          ns_step=20000,
                           method=method,
-                          lambda_i=float)
-    grass.run_command("g.remove",
-                      type="raster",
-                      name="MASK")
+                          lambda_i=0.01)
+        # Remember to implement min-max check (lines 620-630 in gis script).
 
 
 def get_distance_points_bspline(vector_layer: Optional[str] = None,
-                               method: Optional[str] = None):
+                                method: Optional[str] = None):
     """ Run v.surf.bspline with the -e flag first to get estimated mean
         distance between points. That needs to be multiplied by two and
         assigned to ew_step and ns_step. """
+    pass
 
 
 def cross_validate_bspline(vector_layer: Optional[str] = None,
-                               method: Optional[str] = None):
-    """Run v.surf.bspline with the -c flag to find the best Tykhonov
+                           method: Optional[str] = None):
+    """ Run v.surf.bspline with the -c flag to find the best Tykhonov
         regularizing parameter using a "leave-one-out" cross validation
         method, and assign the resulting value to lambda_i. """
-
+    pass
 
 # e.g. select which points to use in mapping
 # In general, do each step for all maps
@@ -416,7 +415,7 @@ def make_map(outfile_name,
                               output=outfile)
             grass.run_command("d.his",
                               i="SR_HR_andalusia_clip_250m",
-                              h="surf_Olive_30set19_00002_OfPupSum")
+                              h="bspline_Olive_30set19_00002_OfPupSum")
             grass.run_command("d.vect",
                               map="andalusia_provinces",
                               type="boundary",
@@ -471,6 +470,8 @@ if __name__ == "__main__":
         interpolate_points_idw(vector_layer=1,
                                number_of_points=3,
                                power=2.0)
+        interpolate_points_bspline(vector_layer=1,
+                                   method="bicubic")
         fig_width, fig_height = set_output_image(2)
         make_map("test_figure",
                  fig_width,
