@@ -337,7 +337,10 @@ def interpolate_points_idw(vector_layer: Optional[str] = None,
 
 
 def interpolate_points_bspline(vector_layer: Optional[str] = None,
-                               method: Optional[str] = None):
+                               ew_step: Optional[float] = None,
+                               ns_step: Optional[float] = None,
+                               method: Optional[str] = None,
+                               lambda_i: Optional[float] = None):
     """ Generate interpolated raster surface from vector point data based on
         bicubic or bilinear spline interpolation with Tykhonov regularization
         using v.surf.bspline GRASS GIS command. """
@@ -365,10 +368,10 @@ def interpolate_points_bspline(vector_layer: Optional[str] = None,
                           column=f"{base_map_name}",
                           raster_output=output_map,
                           mask=REGION_RASTER,
-                          ew_step=20000,
-                          ns_step=20000,
+                          ew_step=ew_step,
+                          ns_step=ns_step,
                           method=method,
-                          lambda_i=0.01)
+                          lambda_i=lambda_i)
         # Remember to implement min-max check (lines 620-630 in gis script).
 
 
@@ -471,7 +474,10 @@ if __name__ == "__main__":
                                number_of_points=3,
                                power=2.0)
         interpolate_points_bspline(vector_layer=1,
-                                   method="bicubic")
+                                   ew_step=2000,
+                                   ns_step=2000,
+                                   method="bicubic",
+                                   lambda_i=0.001)
         fig_width, fig_height = set_output_image(2)
         make_map("test_figure",
                  fig_width,
