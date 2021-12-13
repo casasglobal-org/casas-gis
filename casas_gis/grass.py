@@ -303,14 +303,11 @@ def select_interpolation_points(digital_elevation_map,
                           where=sql_formula)
 
 
-def interpolate_points_idw(vector_layer: Optional[str] = None,
-                           number_of_points: Optional[int] = None,
-                           power: Optional[float] = None):
+def interpolate_points_idw(vector_layer: Optional[str] = 1,
+                           number_of_points: Optional[int] = 3,
+                           power: Optional[float] = 2.0):
     """ Generate interpolated raster surface from vector point data based on
         inverse distance weighting using v.surf.idw GRASS GIS command. """
-    v_layer = vector_layer or 1
-    n_points = number_of_points or 3
-    power = power or 2.0
     vector_list = grass.list_strings(type="vector",
                                      pattern=f"{SELECTED_PREFIX}*",
                                      mapset=".")
@@ -325,10 +322,10 @@ def interpolate_points_idw(vector_layer: Optional[str] = None,
         grass.run_command("v.surf.idw", overwrite=True,
                           flags="n",
                           input=vector_map,
-                          layer=v_layer,
+                          layer=vector_layer,
                           column=f"{base_map_name}",
                           output=output_map,
-                          npoints=n_points,
+                          npoints=number_of_points,
                           power=power)
     grass.run_command("g.remove",
                       flags="f",
@@ -336,16 +333,14 @@ def interpolate_points_idw(vector_layer: Optional[str] = None,
                       name="MASK")
 
 
-def interpolate_points_bspline(vector_layer: Optional[str] = None,
+def interpolate_points_bspline(vector_layer: Optional[str] = 1,
                                ew_step: Optional[float] = None,
                                ns_step: Optional[float] = None,
-                               method: Optional[str] = None,
+                               method: Optional[str] = "bicubic",
                                lambda_i: Optional[float] = None):
     """ Generate interpolated raster surface from vector point data based on
         bicubic or bilinear spline interpolation with Tykhonov regularization
         using v.surf.bspline GRASS GIS command. """
-    v_layer = vector_layer or 1
-    method = method or "bicubic"
     vector_list = grass.list_strings(type="vector",
                                      pattern=f"{SELECTED_PREFIX}*",
                                      mapset=".")
@@ -364,7 +359,7 @@ def interpolate_points_bspline(vector_layer: Optional[str] = None,
         #    method, and assign the resulting value to lambda_i
         grass.run_command("v.surf.bspline", overwrite=True,
                           input=vector_map,
-                          layer=v_layer,
+                          layer=vector_layer,
                           column=f"{base_map_name}",
                           raster_output=output_map,
                           mask=REGION_RASTER,
@@ -388,6 +383,8 @@ def cross_validate_bspline(vector_layer: Optional[str] = None,
     """ Run v.surf.bspline with the -c flag to find the best Tykhonov
         regularizing parameter using a "leave-one-out" cross validation
         method, and assign the resulting value to lambda_i. """
+    # Parse cross-validation output e.g. by line and get key param values
+    # into a list so that it can be selected by an algo such as min
     pass
 
 # e.g. select which points to use in mapping
@@ -399,13 +396,21 @@ def cross_validate_bspline(vector_layer: Optional[str] = None,
 # multiple maps).
 
 
-def make_map(outfile_name,
-             fig_width,
-             fig_height,
-             bg_color: Optional[str] = None,
+def make_map(outfile_name: str,
+             fig_width: float,
+             fig_height: float,
+             background_color: Optional[str] = NO_BG_COLOR,
              file_types: Optional[list] = None):
     """ Currently only PNG and PS (PostScript) formats are supported. """
-    background_color = bg_color or [NO_BG_COLOR]
+    try:
+        if len((set(["PNG", "PS"])) & set(file_types)) == 0:
+            raise NotImplementedError("\nNot implemented error:\n"
+                                      "Only PNG and PostScript output"
+                                      " is implmenented!\n"
+                                      "Please select PNG and/or PostScript"
+                                      " output.")
+    except NotImplementedError as nie:
+        print(nie)
     extensions = [PNG] if file_types is None else file_types
     for extension in extensions:
         if extension == "png":
@@ -477,7 +482,7 @@ if __name__ == "__main__":
                                    ew_step=2000,
                                    ns_step=2000,
                                    method="bicubic",
-                                   lambda_i=0.001)
+                                   lambda_i=0.01)
         fig_width, fig_height = set_output_image(2)
         make_map("test_figure",
                  fig_width,
