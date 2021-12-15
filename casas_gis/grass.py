@@ -346,15 +346,26 @@ def interpolate_points_bspline(vector_layer: Optional[str] = "1",
                                      pattern=f"{SELECTED_PREFIX}*",
                                      mapset=".")
     for vector_map in vector_list:
-        map_name, mapset_name = vector_map.split("@")
+        map_name = vector_map.split("@")[0]
         base_map_name = map_name.replace(SELECTED_PREFIX, "", 1)
         output_map = map_name.replace(SELECTED_PREFIX,
                                       BSPLINE_PREFIX, 1)
-        # https://lists.osgeo.org/pipermail/grass-user/2010-February/054868.html
-        # https://grass.osgeo.org/grass80/manuals/v.surf.bspline.html
-        # 1. run v.surf.bspline with the -e flag first to get estimated
-        #    mean distance between points. That needs to be multiplied by two
-        #    and assigned to ew_step and ns_step
+        if ew_step or ns_step is None:
+            # https://lists.osgeo.org/pipermail/grass-user/2010-February/054868.html
+            # https://grass.osgeo.org/grass80/manuals/v.surf.bspline.html
+            # 1. run v.surf.bspline with the -e flag first to get estimated
+            #    mean distance between points. That needs to be multiplied by
+            #    two and assigned to ew_step and ns_step
+            distance_output = grass.read_command("v.surf.bspline",
+                                                 overwrite=True,
+                                                 flags="e",
+                                                 input=vector_map,
+                                                 layer=vector_layer,
+                                                 column=f"{base_map_name}",
+                                                 raster_output=output_map)
+            distance = distance_output.split()
+            decimal_distance = float(distance[-1])
+            ew_step = ns_step = decimal_distance * 2
         # 2. run v.surf.bspline with the -c flag to find the best Tykhonov
         #    regularizing parameter using a "leave-one-out" cross validation
         #    method, and assign the resulting value to lambda_i
@@ -368,11 +379,11 @@ def interpolate_points_bspline(vector_layer: Optional[str] = "1",
                           ns_step=ns_step,
                           method=method,
                           lambda_i=lambda_i)
+        print("distance:", ew_step, ns_step)
         # Remember to implement min-max check (lines 620-630 in gis script).
 
 
-def get_distance_points_bspline(vector_layer: Optional[str] = None,
-                                method: Optional[str] = None):
+def get_distance_points_bspline(vector_layer: Optional[str] = "1"):
     """ Run v.surf.bspline with the -e flag first to get estimated mean
         distance between points. That needs to be multiplied by two and
         assigned to ew_step and ns_step. """
@@ -481,12 +492,10 @@ if __name__ == "__main__":
                                number_of_points=3,
                                power=2.0)
         interpolate_points_bspline(vector_layer=1,
-                                   ew_step=2000,
-                                   ns_step=2000,
                                    method="bicubic",
                                    lambda_i=0.01)
         fig_width, fig_height = set_output_image(2)
         make_map("test_figure",
                  fig_width,
                  fig_height,
-                 file_types=["png", "svg"])
+                 file_types=["png", "ps"])
