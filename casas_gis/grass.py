@@ -12,9 +12,11 @@
 
 import os
 import pathlib
+import pandas as pd
 
 from dotenv import load_dotenv
 from typing import Optional
+from io import StringIO
 
 load_dotenv()  # needed for grass_session
 
@@ -41,6 +43,11 @@ pathlib.Path(PNG_DIR).mkdir(parents=True, exist_ok=True)
 # Directory for PostScript output files
 PS_DIR = OUT_DIR / "postscript"
 pathlib.Path(PS_DIR).mkdir(parents=True, exist_ok=True)
+
+# Directory for report files
+REPORT_DIR = OUT_DIR / "reports"
+pathlib.Path(REPORT_DIR).mkdir(parents=True, exist_ok=True)
+
 
 # Output file extensions
 # See 162. Enumerations in Pybites book
@@ -243,7 +250,7 @@ def write_psmap_instructions(outfile_name,
                              outfile_path: Optional[os.PathLike] = None):
     """ Generates text file including mapping instructions to serve as input
         to ps.map GRASS GIS command. Returns output file name with path. """
-    outfile_path = OUT_DIR or outfile_path
+    outfile_path = PS_DIR or outfile_path
     outfile_name = f"{outfile_name}.psmap"
     outfile = outfile_path / outfile_name
     psmap_file = f"""# GRASS GIS ps.map instruction file
@@ -366,9 +373,48 @@ def interpolate_points_bspline(vector_layer: Optional[str] = "1",
             distance = distance_output.split()
             decimal_distance = float(distance[-1])
             ew_step = ns_step = decimal_distance * 2
-        # 2. run v.surf.bspline with the -c flag to find the best Tykhonov
-        #    regularizing parameter using a "leave-one-out" cross validation
-        #    method, and assign the resulting value to lambda_i
+        if lambda_i is None:
+            # 2. run v.surf.bspline with the -c flag to find the best Tykhonov
+            #    regularizing parameter using a "leave-one-out" cross
+            #    validation method, and assign the resulting value to lambda_i
+            cross_validation_output = grass.read_command(
+                "v.surf.bspline",
+                overwrite=True,
+                flags="c",
+                input=vector_map,
+                layer=vector_layer,
+                column=f"{base_map_name}",
+                raster_output=output_map,
+                mask=REGION_RASTER,
+                ew_step=ew_step,
+                ns_step=ns_step,
+                method=method
+                )
+            # https://stackoverflow.com/a/22605281
+            cross_validation_text_buffer = StringIO(cross_validation_output)
+            cross_validation_df = pd.read_csv(
+                cross_validation_text_buffer, sep='|'
+                )
+            # https://stackoverflow.com/a/21607530
+            cross_validation_df = cross_validation_df.rename(
+                columns=lambda x: x.strip()
+                )
+            # https://stackoverflow.com/a/61801746
+            minimizer_column = "mean"
+            lambda_i = cross_validation_df.loc[
+                cross_validation_df[minimizer_column].idxmin()]["lambda"]
+            # Print cross validation report
+            outfile_path = REPORT_DIR
+            outfile_name = f"{base_map_name}_cross_validation.txt"
+            outfile = outfile_path / outfile_name
+            cross_validation_output = (
+                "Cross validation for ew_step = "
+                f"{ew_step} and ns_step = {ns_step}\n"
+                f"Selected lambda_i = {lambda_i}"
+                f" (minimizes {minimizer_column})\n\n"
+                f"{cross_validation_output}")
+            with open(outfile, 'w') as f:
+                f.write(cross_validation_output)
         grass.run_command("v.surf.bspline", overwrite=True,
                           input=vector_map,
                           layer=vector_layer,
@@ -492,8 +538,7 @@ if __name__ == "__main__":
                                number_of_points=3,
                                power=2.0)
         interpolate_points_bspline(vector_layer=1,
-                                   method="bicubic",
-                                   lambda_i=0.01)
+                                   method="bicubic")
         fig_width, fig_height = set_output_image(2)
         make_map("test_figure",
                  fig_width,
