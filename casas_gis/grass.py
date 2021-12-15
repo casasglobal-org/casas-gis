@@ -49,6 +49,7 @@ PS = "ps"
 EPS = "eps"
 PDF = "pdf"
 SVG = "svg"
+SUPPORTED_FILE_TYPES = {PNG, PS}
 
 IMPORTED_PREFIX = "imp_"
 SELECTED_PREFIX = "sel_"
@@ -333,7 +334,7 @@ def interpolate_points_idw(vector_layer: Optional[str] = 1,
                       name="MASK")
 
 
-def interpolate_points_bspline(vector_layer: Optional[str] = 1,
+def interpolate_points_bspline(vector_layer: Optional[str] = "1",
                                ew_step: Optional[float] = None,
                                ns_step: Optional[float] = None,
                                method: Optional[str] = "bicubic",
@@ -401,14 +402,15 @@ def make_map(outfile_name: str,
              fig_height: float,
              background_color: Optional[str] = NO_BG_COLOR,
              file_types: Optional[list] = None):
-    """ Currently only PNG and PS (PostScript) formats are supported. """
+    """ Currently only png and ps (PostScript) formats are supported. """
     try:
-        if len((set(["PNG", "PS"])) & set(file_types)) == 0:
+        # if len(SUPPORTED_FILE_TYPES & set(file_types)) < len(file_types):
+        if any(f not in SUPPORTED_FILE_TYPES for f in file_types):
             raise NotImplementedError("\nNot implemented error:\n"
                                       "Only PNG and PostScript output"
                                       " is implmenented!\n"
                                       "Please select PNG and/or PostScript"
-                                      " output.")
+                                      " output.\n")
     except NotImplementedError as nie:
         print(nie)
     extensions = [PNG] if file_types is None else file_types
@@ -487,4 +489,4 @@ if __name__ == "__main__":
         make_map("test_figure",
                  fig_width,
                  fig_height,
-                 file_types=["png", "ps"])
+                 file_types=["png", "svg"])
