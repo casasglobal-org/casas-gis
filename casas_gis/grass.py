@@ -342,38 +342,32 @@ def interpolate_points_idw(vector_layer: Optional[str] = 1,
 
 
 def interpolate_points_bspline(vector_layer: Optional[str] = "1",
-                               ew_step: Optional[float] = None,
-                               ns_step: Optional[float] = None,
+                               avg_west_distance: Optional[float] = None,
+                               avg_north_distance: Optional[float] = None,
                                method: Optional[str] = "bicubic",
-                               lambda_i: Optional[float] = None):
+                               smoothing_parameter: Optional[float] = None):
     """ Generate interpolated raster surface from vector point data based on
         bicubic or bilinear spline interpolation with Tykhonov regularization
         using v.surf.bspline GRASS GIS command. """
     vector_list = grass.list_strings(type="vector",
                                      pattern=f"{SELECTED_PREFIX}*",
                                      mapset=".")
+    if avg_west_distance or avg_north_distance is None:
+        compute_distance_between_points = True
+    if smoothing_parameter is None:
+        compute_smoothing_parameter = True
     for vector_map in vector_list:
         map_name = vector_map.split("@")[0]
         base_map_name = map_name.replace(SELECTED_PREFIX, "", 1)
         output_map = map_name.replace(SELECTED_PREFIX,
                                       BSPLINE_PREFIX, 1)
-        if ew_step or ns_step is None:
-            # https://lists.osgeo.org/pipermail/grass-user/2010-February/054868.html
-            # https://grass.osgeo.org/grass80/manuals/v.surf.bspline.html
-            # 1. run v.surf.bspline with the -e flag first to get estimated
-            #    mean distance between points. That needs to be multiplied by
-            #    two and assigned to ew_step and ns_step
-            distance_output = grass.read_command("v.surf.bspline",
-                                                 overwrite=True,
-                                                 flags="e",
-                                                 input=vector_map,
-                                                 layer=vector_layer,
-                                                 column=f"{base_map_name}",
-                                                 raster_output=output_map)
-            distance = distance_output.split()
-            decimal_distance = float(distance[-1])
-            ew_step = ns_step = decimal_distance * 2
-        if lambda_i is None:
+        if compute_distance_between_points is True:
+            distance_pair = get_distance_points_bspline(
+                vector_map,
+                output_map,
+                base_map_name)
+            avg_west_distance, avg_north_distance = distance_pair
+        if compute_smoothing_parameter is True:
             # 2. run v.surf.bspline with the -c flag to find the best Tykhonov
             #    regularizing parameter using a "leave-one-out" cross
             #    validation method, and assign the resulting value to lambda_i
@@ -386,8 +380,8 @@ def interpolate_points_bspline(vector_layer: Optional[str] = "1",
                 column=f"{base_map_name}",
                 raster_output=output_map,
                 mask=REGION_RASTER,
-                ew_step=ew_step,
-                ns_step=ns_step,
+                ew_step=avg_west_distance,
+                ns_step=avg_north_distance,
                 method=method
                 )
             # https://stackoverflow.com/a/22605281
@@ -401,46 +395,61 @@ def interpolate_points_bspline(vector_layer: Optional[str] = "1",
                 )
             # https://stackoverflow.com/a/61801746
             minimizer_column = "mean"
-            lambda_i = cross_validation_df.loc[
+            smoothing_parameter = cross_validation_df.loc[
                 cross_validation_df[minimizer_column].idxmin()]["lambda"]
             # Print cross validation report
             outfile_path = REPORT_DIR
             outfile_name = f"{base_map_name}_cross_validation.txt"
             outfile = outfile_path / outfile_name
             cross_validation_output = (
-                "Cross validation for ew_step = "
-                f"{ew_step} and ns_step = {ns_step}\n"
-                f"Selected lambda_i = {lambda_i}"
-                f" (minimizes {minimizer_column})\n\n"
+                "Cross validation for\new_step (average west distance) = "
+                f"{avg_west_distance} and\n"
+                "ns_step (average west distance) = "
+                f"{avg_north_distance}\n"
+                "Selected lambda_i (smoothing parameter) = "
+                f"{smoothing_parameter} (minimizes {minimizer_column})\n\n"
                 f"{cross_validation_output}")
             with open(outfile, 'w') as f:
                 f.write(cross_validation_output)
+            smoothing_parameter = None
         grass.run_command("v.surf.bspline", overwrite=True,
                           input=vector_map,
                           layer=vector_layer,
-                          column=f"{base_map_name}",
+                          column=base_map_name,
                           raster_output=output_map,
                           mask=REGION_RASTER,
-                          ew_step=ew_step,
-                          ns_step=ns_step,
+                          ew_step=avg_west_distance,
+                          ns_step=avg_north_distance,
                           method=method,
-                          lambda_i=lambda_i)
-        print("distance:", ew_step, ns_step)
+                          lambda_i=smoothing_parameter)
         # Remember to implement min-max check (lines 620-630 in gis script).
 
 
-def get_distance_points_bspline(vector_layer: Optional[str] = "1"):
+def get_distance_points_bspline(input_vector_map: str,
+                                output_raster_map: str,
+                                column_name: str,
+                                vector_layer: Optional[str] = "1",):
     """ Run v.surf.bspline with the -e flag first to get estimated mean
         distance between points. That needs to be multiplied by two and
         assigned to ew_step and ns_step. """
-    pass
+    distance_output = grass.read_command("v.surf.bspline",
+                                         overwrite=True,
+                                         flags="e",
+                                         input=input_vector_map,
+                                         layer=vector_layer,
+                                         column=column_name,
+                                         raster_output=output_raster_map)
+    distance = distance_output.split()
+    decimal_distance = float(distance[-1])
+    avg_west_distance = avg_north_distance = decimal_distance * 2
+    return avg_west_distance, avg_north_distance
 
 
 def cross_validate_bspline(vector_layer: Optional[str] = None,
                            method: Optional[str] = None):
     """ Run v.surf.bspline with the -c flag to find the best Tykhonov
         regularizing parameter using a "leave-one-out" cross validation
-        method, and assign the resulting value to lambda_i. """
+        method, and assign the resulting value to lambda_i (smoothing). """
     # Parse cross-validation output e.g. by line and get key param values
     # into a list so that it can be selected by an algo such as min
     pass
