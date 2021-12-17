@@ -352,22 +352,21 @@ def interpolate_points_bspline(vector_layer: Optional[str] = "1",
     vector_list = grass.list_strings(type="vector",
                                      pattern=f"{SELECTED_PREFIX}*",
                                      mapset=".")
-    if avg_west_distance or avg_north_distance is None:
-        compute_distance_between_points = True
-    if smoothing_parameter is None:
-        compute_smoothing_parameter = True
+    compute_distance_between_points = (avg_west_distance or
+                                       avg_north_distance) is None
+    compute_smoothing_parameter = smoothing_parameter is None
     for vector_map in vector_list:
         map_name = vector_map.split("@")[0]
         base_map_name = map_name.replace(SELECTED_PREFIX, "", 1)
         output_map = map_name.replace(SELECTED_PREFIX,
                                       BSPLINE_PREFIX, 1)
-        if compute_distance_between_points is True:
+        if compute_distance_between_points:
             distance_pair = get_distance_points_bspline(
                 vector_map,
                 output_map,
                 base_map_name)
             avg_west_distance, avg_north_distance = distance_pair
-        if compute_smoothing_parameter is True:
+        if compute_smoothing_parameter:
             # 2. run v.surf.bspline with the -c flag to find the best Tykhonov
             #    regularizing parameter using a "leave-one-out" cross
             #    validation method, and assign the resulting value to lambda_i
@@ -428,7 +427,7 @@ def interpolate_points_bspline(vector_layer: Optional[str] = "1",
 def get_distance_points_bspline(input_vector_map: str,
                                 output_raster_map: str,
                                 column_name: str,
-                                vector_layer: Optional[str] = "1",):
+                                vector_layer: Optional[str] = "1"):
     """ Run v.surf.bspline with the -e flag first to get estimated mean
         distance between points. That needs to be multiplied by two and
         assigned to ew_step and ns_step. """
