@@ -68,7 +68,7 @@ NO_BG_COLOR = "none"
 # DATA
 # define GRASS DATABASE
 # add your path to grassdata (GRASS GIS database) directory
-gisdb = pathlib.Path.home().joinpath('grassdata')
+gisdb = pathlib.Path.home() / "grassdata"
 # the following path is the default path on MS Windows
 # gisdb = os.path.join(os.path.expanduser("~"), "Documents/grassdata")
 print(gisdb)
@@ -323,7 +323,7 @@ def interpolate_points_idw(vector_layer: Optional[str] = 1,
     grass.run_command("g.copy", overwrite=True,
                       rast=(REGION_RASTER, "MASK"))
     for vector_map in vector_list:
-        map_name, mapset_name = vector_map.split("@")
+        map_name = vector_map.split("@")[0]
         base_map_name = map_name.replace(SELECTED_PREFIX, "", 1)
         output_map = map_name.replace(SELECTED_PREFIX,
                                       IDW_PREFIX, 1)
@@ -335,10 +335,8 @@ def interpolate_points_idw(vector_layer: Optional[str] = 1,
                           output=output_map,
                           npoints=number_of_points,
                           power=power)
-    grass.run_command("g.remove",
-                      flags="f",
-                      type="raster",
-                      name="MASK")
+    # This needs to be moved to a cleanup routine
+    # grass.run_command("r.mask", flags="r")
 
 
 def interpolate_points_bspline(vector_layer: Optional[str] = "1",
@@ -393,7 +391,7 @@ def interpolate_points_bspline(vector_layer: Optional[str] = "1",
                 columns=lambda x: x.strip()
                 )
             # https://stackoverflow.com/a/61801746
-            minimizer_column = "mean"
+            minimizer_column = "rms"
             smoothing_parameter = cross_validation_df.loc[
                 cross_validation_df[minimizer_column].idxmin()]["lambda"]
             # Print cross validation report
@@ -410,8 +408,8 @@ def interpolate_points_bspline(vector_layer: Optional[str] = "1",
                 f"{cross_validation_output}")
             with open(outfile, 'w') as f:
                 f.write(cross_validation_output)
-            smoothing_parameter = None
         grass.run_command("v.surf.bspline", overwrite=True,
+                          verbose=True,
                           input=vector_map,
                           layer=vector_layer,
                           column=base_map_name,
@@ -439,6 +437,7 @@ def get_distance_points_bspline(input_vector_map: str,
                                          column=column_name,
                                          raster_output=output_raster_map)
     distance = distance_output.split()
+    # use tuple unpacking? (Bob 2021-12-15)
     decimal_distance = float(distance[-1])
     avg_west_distance = avg_north_distance = decimal_distance * 2
     return avg_west_distance, avg_north_distance
@@ -490,7 +489,7 @@ def make_map(outfile_name: str,
                               output=outfile)
             grass.run_command("d.his",
                               i="SR_HR_andalusia_clip_250m",
-                              h="bspline_Olive_30set19_00002_OfPupSum")
+                              h="idw_Olive_30set19_00002_OfPupSum")
             grass.run_command("d.vect",
                               map="andalusia_provinces",
                               type="boundary",
