@@ -319,9 +319,8 @@ def interpolate_points_idw(vector_layer: Optional[str] = 1,
     vector_list = grass.list_strings(type="vector",
                                      pattern=f"{SELECTED_PREFIX}*",
                                      mapset=".")
-    # Clip interpolated raster to mapping region
-    grass.run_command("g.copy", overwrite=True,
-                      rast=(REGION_RASTER, "MASK"))
+    # grass.run_command("r.mask",
+    #                   rast=REGION_RASTER)
     for vector_map in vector_list:
         map_name = vector_map.split("@")[0]
         base_map_name = map_name.replace(SELECTED_PREFIX, "", 1)
@@ -335,8 +334,12 @@ def interpolate_points_idw(vector_layer: Optional[str] = 1,
                           output=output_map,
                           npoints=number_of_points,
                           power=power)
-    # This needs to be moved to a cleanup routine
-    # grass.run_command("r.mask", flags="r")
+        # Clip interpolated raster to mapping region using map
+        # calculator becuase r.mask does not work with v.surf.idw
+        # seee https://trac.osgeo.org/grass/ticket/3363
+        calc_expression_mask = (f"{output_map} = "
+                                f"if ({REGION_RASTER}, {output_map}, null())")
+        grass.mapcalc(calc_expression_mask, overwrite=True)
 
 
 def interpolate_points_bspline(vector_layer: Optional[str] = "1",
@@ -360,54 +363,19 @@ def interpolate_points_bspline(vector_layer: Optional[str] = "1",
                                       BSPLINE_PREFIX, 1)
         if compute_distance_between_points:
             distance_pair = get_distance_points_bspline(
-                vector_map,
-                output_map,
-                base_map_name)
+                input_vector_map=vector_map,
+                output_raster_map=output_map,
+                column_name=base_map_name)
             avg_west_distance, avg_north_distance = distance_pair
         if compute_smoothing_parameter:
-            # 2. run v.surf.bspline with the -c flag to find the best Tykhonov
-            #    regularizing parameter using a "leave-one-out" cross
-            #    validation method, and assign the resulting value to lambda_i
-            cross_validation_output = grass.read_command(
-                "v.surf.bspline",
-                overwrite=True,
-                flags="c",
-                input=vector_map,
-                layer=vector_layer,
-                column=f"{base_map_name}",
-                raster_output=output_map,
-                mask=REGION_RASTER,
-                ew_step=avg_west_distance,
-                ns_step=avg_north_distance,
-                method=method
-                )
-            # https://stackoverflow.com/a/22605281
-            cross_validation_text_buffer = StringIO(cross_validation_output)
-            cross_validation_df = pd.read_csv(
-                cross_validation_text_buffer, sep='|'
-                )
-            # https://stackoverflow.com/a/21607530
-            cross_validation_df = cross_validation_df.rename(
-                columns=lambda x: x.strip()
-                )
-            # https://stackoverflow.com/a/61801746
-            minimizer_column = "rms"
-            smoothing_parameter = cross_validation_df.loc[
-                cross_validation_df[minimizer_column].idxmin()]["lambda"]
-            # Print cross validation report
-            outfile_path = REPORT_DIR
-            outfile_name = f"{base_map_name}_cross_validation.txt"
-            outfile = outfile_path / outfile_name
-            cross_validation_output = (
-                "Cross validation for\new_step (average west distance) = "
-                f"{avg_west_distance} and\n"
-                "ns_step (average west distance) = "
-                f"{avg_north_distance}\n"
-                "Selected lambda_i (smoothing parameter) = "
-                f"{smoothing_parameter} (minimizes {minimizer_column})\n\n"
-                f"{cross_validation_output}")
-            with open(outfile, 'w') as f:
-                f.write(cross_validation_output)
+            smoothing_parameter = cross_validate_bspline(
+                input_vector_map=vector_map,
+                output_raster_map=output_map,
+                column_name=base_map_name,
+                avg_west_distance=avg_west_distance,
+                avg_north_distance=avg_north_distance,
+                method=method,
+                vector_layer=vector_layer)
         grass.run_command("v.surf.bspline", overwrite=True,
                           verbose=True,
                           input=vector_map,
@@ -443,16 +411,56 @@ def get_distance_points_bspline(input_vector_map: str,
     return avg_west_distance, avg_north_distance
 
 
-def cross_validate_bspline(vector_layer: Optional[str] = None,
-                           method: Optional[str] = None):
+def cross_validate_bspline(input_vector_map: str,
+                           output_raster_map: str,
+                           column_name: str,
+                           avg_west_distance: float,
+                           avg_north_distance: float,
+                           method: str,
+                           vector_layer: Optional[str] = "1"):
     """ Run v.surf.bspline with the -c flag to find the best Tykhonov
         regularizing parameter using a "leave-one-out" cross validation
         method, and assign the resulting value to lambda_i (smoothing). """
-    # Parse cross-validation output e.g. by line and get key param values
-    # into a list so that it can be selected by an algo such as min
-    pass
+    cross_validation_output = grass.read_command(
+        "v.surf.bspline",
+        overwrite=True,
+        flags="c",
+        input=input_vector_map,
+        layer=vector_layer,
+        column=f"{column_name}",
+        raster_output=output_raster_map,
+        mask=REGION_RASTER,
+        ew_step=avg_west_distance,
+        ns_step=avg_north_distance,
+        method=method)
+    # https://stackoverflow.com/a/22605281
+    cross_validation_text_buffer = StringIO(cross_validation_output)
+    cross_validation_df = pd.read_csv(
+        cross_validation_text_buffer, sep='|')
+    # https://stackoverflow.com/a/21607530
+    cross_validation_df = cross_validation_df.rename(
+        columns=lambda x: x.strip())
+    # https://stackoverflow.com/a/61801746
+    minimizer_column = "rms"
+    smoothing_parameter = cross_validation_df.loc[
+        cross_validation_df[minimizer_column].idxmin()]["lambda"]
+    # Print cross validation report
+    outfile_path = REPORT_DIR
+    outfile_name = f"{column_name}_cross_validation.txt"
+    outfile = outfile_path / outfile_name
+    cross_validation_output = (
+        "Cross validation for\new_step (average west distance) = "
+        f"{avg_west_distance} and\n"
+        "ns_step (average west distance) = "
+        f"{avg_north_distance}\n"
+        "Selected lambda_i (smoothing parameter) = "
+        f"{smoothing_parameter} (minimizes {minimizer_column})\n\n"
+        f"{cross_validation_output}")
+    with open(outfile, 'w') as f:
+        f.write(cross_validation_output)
+    return smoothing_parameter
 
-# e.g. select which points to use in mapping
+
 # In general, do each step for all maps
 # and then map them all together with d.out.file
 # That way, you can get combined raster statistics
@@ -468,7 +476,6 @@ def make_map(outfile_name: str,
              file_types: Optional[list] = None):
     """ Currently only png and ps (PostScript) formats are supported. """
     try:
-        # if len(SUPPORTED_FILE_TYPES & set(file_types)) < len(file_types):
         if any(f not in SUPPORTED_FILE_TYPES for f in file_types):
             raise NotImplementedError("\nNot implemented error:\n"
                                       "Only PNG and PostScript output"
