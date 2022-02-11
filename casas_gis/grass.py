@@ -319,8 +319,9 @@ def interpolate_points_idw(vector_layer: Optional[str] = 1,
     vector_list = grass.list_strings(type="vector",
                                      pattern=f"{SELECTED_PREFIX}*",
                                      mapset=".")
-    # grass.run_command("r.mask",
-    #                   rast=REGION_RASTER)
+    raster_stats = {}
+    max_values = []
+    min_values = []
     for vector_map in vector_list:
         map_name = vector_map.split("@")[0]
         base_map_name = map_name.replace(SELECTED_PREFIX, "", 1)
@@ -340,6 +341,14 @@ def interpolate_points_idw(vector_layer: Optional[str] = 1,
         calc_expression_mask = (f"{output_map} = "
                                 f"if ({REGION_RASTER}, {output_map}, null())")
         grass.mapcalc(calc_expression_mask, overwrite=True)
+        raster_stats[output_map] = grass.parse_command("r.univar",
+                                                       flags=("ge"),
+                                                       map=output_map)
+        max_values.append(raster_stats[output_map]["max"])
+        min_values.append(raster_stats[output_map]["min"])
+    # This is testing code that may go away at some point
+    print("Abs raster max is ", max(max_values))
+    print("Abs raster min is ", min(min_values))
 
 
 def interpolate_points_bspline(vector_layer: Optional[str] = "1",
@@ -349,13 +358,18 @@ def interpolate_points_bspline(vector_layer: Optional[str] = "1",
                                smoothing_parameter: Optional[float] = None):
     """ Generate interpolated raster surface from vector point data based on
         bicubic or bilinear spline interpolation with Tykhonov regularization
-        using v.surf.bspline GRASS GIS command. """
+        using v.surf.bspline GRASS GIS command. See also
+        https://lists.osgeo.org/pipermail/grass-user/2010-February/054868.html
+        """
     vector_list = grass.list_strings(type="vector",
                                      pattern=f"{SELECTED_PREFIX}*",
                                      mapset=".")
     compute_distance_between_points = (avg_west_distance or
                                        avg_north_distance) is None
     compute_smoothing_parameter = smoothing_parameter is None
+    raster_stats = {}
+    max_values = []
+    min_values = []
     for vector_map in vector_list:
         map_name = vector_map.split("@")[0]
         base_map_name = map_name.replace(SELECTED_PREFIX, "", 1)
@@ -388,6 +402,27 @@ def interpolate_points_bspline(vector_layer: Optional[str] = "1",
                           method=method,
                           lambda_i=smoothing_parameter)
         # Remember to implement min-max check (lines 620-630 in gis script).
+        vector_stats = grass.parse_command("v.univar",
+                                           flags=("ge"),
+                                           map=vector_map,
+                                           layer=vector_layer,
+                                           type="point",
+                                           column=base_map_name)
+        vector_max = vector_stats["max"]
+        vector_min = vector_stats["min"]
+        calc_expression_minmax = (f"{output_map} = "
+                                  f"if (({output_map} < {vector_max}) && "
+                                  f"({output_map} > {vector_min}), "
+                                  f"{output_map}, null())")
+        grass.mapcalc(calc_expression_minmax, overwrite=True)
+        raster_stats[output_map] = grass.parse_command("r.univar",
+                                                       flags=("ge"),
+                                                       map=output_map)
+        max_values.append(raster_stats[output_map]["max"])
+        min_values.append(raster_stats[output_map]["min"])
+    # This is testing code that may go away at some point
+    print("Abs raster max is ", max(max_values))
+    print("Abs raster min is ", min(min_values))
 
 
 def get_distance_points_bspline(input_vector_map: str,
