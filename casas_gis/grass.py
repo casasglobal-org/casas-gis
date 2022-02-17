@@ -337,7 +337,7 @@ def interpolate_points_idw(vector_layer: Optional[str] = 1,
                           power=power)
         # Clip interpolated raster to mapping region using map
         # calculator becuase r.mask does not work with v.surf.idw
-        # seee https://trac.osgeo.org/grass/ticket/3363
+        # see https://trac.osgeo.org/grass/ticket/3363
         calc_expression_mask = (f"{output_map} = "
                                 f"if ({REGION_RASTER}, {output_map}, null())")
         grass.mapcalc(calc_expression_mask, overwrite=True)
@@ -347,8 +347,8 @@ def interpolate_points_idw(vector_layer: Optional[str] = 1,
         max_values.append(raster_stats[output_map]["max"])
         min_values.append(raster_stats[output_map]["min"])
     # This is testing code that may go away at some point
-    print("Abs raster max is ", max(max_values))
-    print("Abs raster min is ", min(min_values))
+    print("Absolute (idw) raster max is ", max(max_values))
+    print("Absolute (idw) raster min is ", min(min_values))
 
 
 def interpolate_points_bspline(vector_layer: Optional[str] = "1",
@@ -421,8 +421,8 @@ def interpolate_points_bspline(vector_layer: Optional[str] = "1",
         max_values.append(raster_stats[output_map]["max"])
         min_values.append(raster_stats[output_map]["min"])
     # This is testing code that may go away at some point
-    print("Abs raster max is ", max(max_values))
-    print("Abs raster min is ", min(min_values))
+    print("Absolute (bspline) raster max is ", max(max_values))
+    print("Absolute (bspline) raster min is ", min(min_values))
 
 
 def get_distance_points_bspline(input_vector_map: str,
@@ -500,15 +500,14 @@ def cross_validate_bspline(input_vector_map: str,
 # and then map them all together with d.out.file
 # That way, you can get combined raster statistics
 # for all rasters that will be mapped (useful for
-# figure out the extent of single legend used for
+# figuring out the extent of single legend used for
 # multiple maps).
 
 
-def make_map(outfile_name: str,
-             fig_width: float,
-             fig_height: float,
-             background_color: Optional[str] = NO_BG_COLOR,
-             file_types: Optional[list] = None):
+def make_maps(fig_width: float,
+              fig_height: float,
+              background_color: Optional[str] = NO_BG_COLOR,
+              file_types: Optional[list] = None):
     """ Currently only png and ps (PostScript) formats are supported. """
     try:
         if any(f not in SUPPORTED_FILE_TYPES for f in file_types):
@@ -522,38 +521,83 @@ def make_map(outfile_name: str,
     extensions = [PNG] if file_types is None else file_types
     for extension in extensions:
         if extension == "png":
-            outfile = PNG_DIR / f"{outfile_name}.{extension}"
-            grass.run_command("d.mon", overwrite=True,
-                              start=extension,
-                              width=fig_width,
-                              height=fig_height,
-                              bgcolor=background_color,
-                              output=outfile)
-            grass.run_command("d.his",
-                              i="SR_HR_andalusia_clip_250m",
-                              h="idw_Olive_30set19_00002_OfPupSum")
-            grass.run_command("d.vect",
-                              map="andalusia_provinces",
-                              type="boundary",
-                              color="black",
-                              width=3)
-            grass.run_command("d.vect",
-                              map="mapOlive_30set19_00002_OfPupSum",
-                              type="point",
-                              color="white",
-                              fill_color="black",
-                              icon="basic/point",
-                              size=15,
-                              width=2)
-            grass.run_command("d.mon", stop=extension)
-        elif extension == "ps":
-            outfile = PS_DIR / f"{outfile_name}.{extension}"
-            ps_instructions_file = write_psmap_instructions("test")
-            grass.run_command("ps.map", overwrite=True,
-                              flags="e",
-                              input=ps_instructions_file,
-                              output=outfile)
-            outfile.rename(outfile.with_suffix(".eps"))
+            make_png_maps(extension=extension,
+                          fig_width=fig_width,
+                          fig_height=fig_height,
+                          background_color=background_color)
+            # outfile = PNG_DIR / f"{outfile_name}.{extension}"
+            # grass.run_command("d.mon", overwrite=True,
+            #                   start=extension,
+            #                   width=fig_width,
+            #                   height=fig_height,
+            #                   bgcolor=background_color,
+            #                   output=outfile)
+            # grass.run_command("d.his",
+            #                   i="SR_HR_andalusia_clip_250m",
+            #                   h="idw_Olive_30set19_00002_OfPupSum")
+            # grass.run_command("d.vect",
+            #                   map="andalusia_provinces",
+            #                   type="boundary",
+            #                   color="black",
+            #                   width=3)
+            # grass.run_command("d.vect",
+            #                   map="mapOlive_30set19_00002_OfPupSum",
+            #                   type="point",
+            #                   color="white",
+            #                   fill_color="black",
+            #                   icon="basic/point",
+            #                   size=15,
+            #                   width=2)
+            # grass.run_command("d.mon", stop=extension)
+
+        # Here make a
+        # make_ps_maps() function
+        # elif extension == "ps":
+        #     outfile = PS_DIR / f"{outfile_name}.{extension}"
+        #     ps_instructions_file = write_psmap_instructions("test")
+        #     grass.run_command("ps.map", overwrite=True,
+        #                       flags="e",
+        #                       input=ps_instructions_file,
+        #                       output=outfile)
+        #     outfile.rename(outfile.with_suffix(".eps"))
+
+
+def make_png_maps(extension: str,
+                  fig_width: float,
+                  fig_height: float,
+                  background_color: Optional[str] = NO_BG_COLOR):
+    """ Cycle through interpolated surfaces and generate maps. """
+    idw_rasters = grass.list_grouped('rast', pattern='idw_*')
+    sel_vectors = grass.list_grouped('vect', pattern='sel_*')
+    mapping_mapset = mapping_session["mapset"]
+    idw_rasters_list = idw_rasters[f"{mapping_mapset}"]
+    sel_vector_list = sel_vectors[f"{mapping_mapset}"]
+    for idw_raster, sel_vector in zip(idw_rasters_list, sel_vector_list):
+        outfile = PNG_DIR / f"{idw_raster}.{extension}"
+        grass.run_command("d.mon", overwrite=True,
+                          start=extension,
+                          width=fig_width,
+                          height=fig_height,
+                          bgcolor=background_color,
+                          output=outfile)
+        grass.run_command("d.his",
+                          i="SR_HR_andalusia_clip_250m",
+                          h=idw_raster)
+        grass.run_command("d.vect",
+                          map="andalusia_provinces",
+                          type="boundary",
+                          color="black",
+                          width=3)
+        grass.run_command("d.vect",
+                          map=sel_vector,
+                          type="point",
+                          color="white",
+                          fill_color="black",
+                          icon="basic/point",
+                          size=15,
+                          width=2)
+        # Legned?
+        grass.run_command("d.mon", stop=extension)
 
 
 if __name__ == "__main__":
@@ -589,7 +633,6 @@ if __name__ == "__main__":
         interpolate_points_bspline(vector_layer=1,
                                    method="bicubic")
         fig_width, fig_height = set_output_image(2)
-        make_map("test_figure",
-                 fig_width,
-                 fig_height,
-                 file_types=["png", "ps"])
+        make_maps(fig_width,
+                  fig_height,
+                  file_types=["png", "ps"])
