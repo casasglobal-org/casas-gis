@@ -246,7 +246,8 @@ def set_output_image(fig_resolution):
     # on top and legend at bottom?
 
 
-def write_psmap_instructions(outfile_name,
+def write_psmap_instructions(interpolated_raster: str,
+                             outfile_name: str,
                              outfile_path: Optional[os.PathLike] = None):
     """ Generates text file including mapping instructions to serve as input
         to ps.map GRASS GIS command. Returns output file name with path. """
@@ -260,7 +261,7 @@ border y
     end
 
 # Main raster
-raster {mapping_data["test_interpolation"]}
+raster {interpolated_raster}
 
 # Some boundary lines
 vlines {mapping_data["coastline"]}
@@ -525,41 +526,38 @@ def make_maps(fig_width: float,
                           fig_width=fig_width,
                           fig_height=fig_height,
                           background_color=background_color)
-            # outfile = PNG_DIR / f"{outfile_name}.{extension}"
-            # grass.run_command("d.mon", overwrite=True,
-            #                   start=extension,
-            #                   width=fig_width,
-            #                   height=fig_height,
-            #                   bgcolor=background_color,
-            #                   output=outfile)
-            # grass.run_command("d.his",
-            #                   i="SR_HR_andalusia_clip_250m",
-            #                   h="idw_Olive_30set19_00002_OfPupSum")
-            # grass.run_command("d.vect",
-            #                   map="andalusia_provinces",
-            #                   type="boundary",
-            #                   color="black",
-            #                   width=3)
-            # grass.run_command("d.vect",
-            #                   map="mapOlive_30set19_00002_OfPupSum",
-            #                   type="point",
-            #                   color="white",
-            #                   fill_color="black",
-            #                   icon="basic/point",
-            #                   size=15,
-            #                   width=2)
-            # grass.run_command("d.mon", stop=extension)
+        elif extension == "ps":
+            make_ps_maps(extension=extension)
 
-        # Here make a
-        # make_ps_maps() function
-        # elif extension == "ps":
-        #     outfile = PS_DIR / f"{outfile_name}.{extension}"
-        #     ps_instructions_file = write_psmap_instructions("test")
-        #     grass.run_command("ps.map", overwrite=True,
-        #                       flags="e",
-        #                       input=ps_instructions_file,
-        #                       output=outfile)
-        #     outfile.rename(outfile.with_suffix(".eps"))
+
+def make_ps_maps(extension: str):
+    """ Cycle through interpolated surfaces and generate maps. """
+    idw_rasters = grass.list_grouped('rast', pattern='idw_*')
+    bspline_rasters = grass.list_grouped('rast', pattern='bspline_*')
+    sel_vectors = grass.list_grouped('vect', pattern='sel_*')
+    mapping_mapset = mapping_session["mapset"]
+    bspline_rasters_list = bspline_rasters[f"{mapping_mapset}"]
+    idw_rasters_list = idw_rasters[f"{mapping_mapset}"]
+    sel_vector_list = sel_vectors[f"{mapping_mapset}"]
+    for idw_raster, sel_vector in zip(idw_rasters_list, sel_vector_list):
+        outfile = PS_DIR / f"{idw_raster}.{extension}"
+        ps_instructions_file = write_psmap_instructions(
+            interpolated_raster=idw_raster,
+            outfile_name=idw_raster)
+        grass.run_command("ps.map", overwrite=True,
+                          flags="e",
+                          input=ps_instructions_file,
+                          output=outfile)
+    for bspline_raster, sel_vector in zip(bspline_rasters_list,
+                                          sel_vector_list):
+        outfile = PS_DIR / f"{bspline_raster}.{extension}"
+        ps_instructions_file = write_psmap_instructions(
+            interpolated_raster=bspline_raster,
+            outfile_name=bspline_raster)
+        grass.run_command("ps.map", overwrite=True,
+                          flags="e",
+                          input=ps_instructions_file,
+                          output=outfile)
 
 
 def make_png_maps(extension: str,
