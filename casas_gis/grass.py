@@ -530,48 +530,25 @@ def make_maps(fig_width: float,
             make_ps_maps(extension=extension)
 
 
-def make_ps_maps(extension: str):
-    """ Cycle through interpolated surfaces and generate maps. """
-    idw_rasters = grass.list_grouped('rast', pattern='idw_*')
-    bspline_rasters = grass.list_grouped('rast', pattern='bspline_*')
-    sel_vectors = grass.list_grouped('vect', pattern='sel_*')
-    mapping_mapset = mapping_session["mapset"]
-    idw_rasters_list = idw_rasters[f"{mapping_mapset}"]
-    bspline_rasters_list = bspline_rasters[f"{mapping_mapset}"]
-    sel_vector_list = sel_vectors[f"{mapping_mapset}"]
-    for idw_raster, sel_vector in zip(idw_rasters_list, sel_vector_list):
-        outfile = PS_DIR / f"{idw_raster}.{extension}"
-        ps_instructions_file = write_psmap_instructions(
-            interpolated_raster=idw_raster,
-            outfile_name=idw_raster)
-        grass.run_command("ps.map", overwrite=True,
-                          flags="e",
-                          input=ps_instructions_file,
-                          output=outfile)
-    for bspline_raster, sel_vector in zip(bspline_rasters_list,
-                                          sel_vector_list):
-        outfile = PS_DIR / f"{bspline_raster}.{extension}"
-        ps_instructions_file = write_psmap_instructions(
-            interpolated_raster=bspline_raster,
-            outfile_name=bspline_raster)
-        grass.run_command("ps.map", overwrite=True,
-                          flags="e",
-                          input=ps_instructions_file,
-                          output=outfile)
-
-
 def make_png_maps(extension: str,
                   fig_width: float,
                   fig_height: float,
                   background_color: Optional[str] = NO_BG_COLOR):
     """ Cycle through interpolated surfaces and generate maps. """
-    idw_rasters = grass.list_grouped('rast', pattern='idw_*')
-    bspline_rasters = grass.list_grouped('rast', pattern='bspline_*')
-    sel_vectors = grass.list_grouped('vect', pattern='sel_*')
     mapping_mapset = mapping_session["mapset"]
-    idw_rasters_list = idw_rasters[f"{mapping_mapset}"]
-    bspline_rasters_list = bspline_rasters[f"{mapping_mapset}"]
-    sel_vector_list = sel_vectors[f"{mapping_mapset}"]
+    idw_rasters_list = get_map_list_from_pattern(
+        map_type="raster",
+        pattern="idw_*",
+        mapping_mapset=mapping_mapset)
+    bspline_rasters_list = get_map_list_from_pattern(
+        map_type="raster",
+        pattern="bspline_*",
+        mapping_mapset=mapping_mapset)
+    sel_vector_list = get_map_list_from_pattern(
+        map_type="vector",
+        pattern="sel_*",
+        mapping_mapset=mapping_mapset)
+    # The two for loops could be one function?
     for idw_raster, sel_vector in zip(idw_rasters_list, sel_vector_list):
         outfile = PNG_DIR / f"{idw_raster}.{extension}"
         grass.run_command("d.mon", overwrite=True,
@@ -625,6 +602,49 @@ def make_png_maps(extension: str,
                           width=2)
         # Legned?
         grass.run_command("d.mon", stop=extension)
+
+
+def make_ps_maps(extension: str):
+    """ Cycle through interpolated surfaces and generate maps. """
+    mapping_mapset = mapping_session["mapset"]
+    idw_rasters_list = get_map_list_from_pattern(
+        map_type="raster",
+        pattern="idw_*",
+        mapping_mapset=mapping_mapset)
+    bspline_rasters_list = get_map_list_from_pattern(
+        map_type="raster",
+        pattern="bspline_*",
+        mapping_mapset=mapping_mapset)
+    sel_vector_list = get_map_list_from_pattern(
+        map_type="vector",
+        pattern="sel_*",
+        mapping_mapset=mapping_mapset)
+    for idw_raster, sel_vector in zip(idw_rasters_list, sel_vector_list):
+        outfile = PS_DIR / f"{idw_raster}.{extension}"
+        ps_instructions_file = write_psmap_instructions(
+            interpolated_raster=idw_raster,
+            outfile_name=idw_raster)
+        grass.run_command("ps.map", overwrite=True,
+                          flags="e",
+                          input=ps_instructions_file,
+                          output=outfile)
+    for bspline_raster, sel_vector in zip(bspline_rasters_list,
+                                          sel_vector_list):
+        outfile = PS_DIR / f"{bspline_raster}.{extension}"
+        ps_instructions_file = write_psmap_instructions(
+            interpolated_raster=bspline_raster,
+            outfile_name=bspline_raster)
+        grass.run_command("ps.map", overwrite=True,
+                          flags="e",
+                          input=ps_instructions_file,
+                          output=outfile)
+
+
+def get_map_list_from_pattern(map_type: str,
+                              pattern: str,
+                              mapping_mapset: str):
+    map_dict = grass.list_grouped(type=map_type, pattern=pattern)
+    return map_dict[f"{mapping_mapset}"]
 
 
 if __name__ == "__main__":
