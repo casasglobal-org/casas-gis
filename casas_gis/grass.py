@@ -536,8 +536,8 @@ def make_ps_maps(extension: str):
     bspline_rasters = grass.list_grouped('rast', pattern='bspline_*')
     sel_vectors = grass.list_grouped('vect', pattern='sel_*')
     mapping_mapset = mapping_session["mapset"]
-    bspline_rasters_list = bspline_rasters[f"{mapping_mapset}"]
     idw_rasters_list = idw_rasters[f"{mapping_mapset}"]
+    bspline_rasters_list = bspline_rasters[f"{mapping_mapset}"]
     sel_vector_list = sel_vectors[f"{mapping_mapset}"]
     for idw_raster, sel_vector in zip(idw_rasters_list, sel_vector_list):
         outfile = PS_DIR / f"{idw_raster}.{extension}"
@@ -566,9 +566,11 @@ def make_png_maps(extension: str,
                   background_color: Optional[str] = NO_BG_COLOR):
     """ Cycle through interpolated surfaces and generate maps. """
     idw_rasters = grass.list_grouped('rast', pattern='idw_*')
+    bspline_rasters = grass.list_grouped('rast', pattern='bspline_*')
     sel_vectors = grass.list_grouped('vect', pattern='sel_*')
     mapping_mapset = mapping_session["mapset"]
     idw_rasters_list = idw_rasters[f"{mapping_mapset}"]
+    bspline_rasters_list = bspline_rasters[f"{mapping_mapset}"]
     sel_vector_list = sel_vectors[f"{mapping_mapset}"]
     for idw_raster, sel_vector in zip(idw_rasters_list, sel_vector_list):
         outfile = PNG_DIR / f"{idw_raster}.{extension}"
@@ -581,6 +583,33 @@ def make_png_maps(extension: str,
         grass.run_command("d.his",
                           i="SR_HR_andalusia_clip_250m",
                           h=idw_raster)
+        grass.run_command("d.vect",
+                          map="andalusia_provinces",
+                          type="boundary",
+                          color="black",
+                          width=3)
+        grass.run_command("d.vect",
+                          map=sel_vector,
+                          type="point",
+                          color="white",
+                          fill_color="black",
+                          icon="basic/point",
+                          size=15,
+                          width=2)
+        # Legned?
+        grass.run_command("d.mon", stop=extension)
+    for bspline_raster, sel_vector in zip(bspline_rasters_list,
+                                          sel_vector_list):
+        outfile = PNG_DIR / f"{bspline_raster}.{extension}"
+        grass.run_command("d.mon", overwrite=True,
+                          start=extension,
+                          width=fig_width,
+                          height=fig_height,
+                          bgcolor=background_color,
+                          output=outfile)
+        grass.run_command("d.his",
+                          i="SR_HR_andalusia_clip_250m",
+                          h=bspline_raster)
         grass.run_command("d.vect",
                           map="andalusia_provinces",
                           type="boundary",
