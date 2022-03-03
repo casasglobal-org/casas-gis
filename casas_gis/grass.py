@@ -58,6 +58,10 @@ PDF = "pdf"
 SVG = "svg"
 SUPPORTED_FILE_TYPES = {PNG, PS}
 
+IDW = "idw"
+BSPLINE = "bspline"
+INTERPOLATION_METHODS = {IDW, BSPLINE}
+
 IMPORTED_PREFIX = "imp_"
 SELECTED_PREFIX = "sel_"
 IDW_PREFIX = "idw_"
@@ -247,6 +251,7 @@ def set_output_image(fig_resolution):
 
 
 def write_psmap_instructions(interpolated_raster: str,
+                             selected_points: str,
                              outfile_name: str,
                              outfile_path: Optional[os.PathLike] = None):
     """ Generates text file including mapping instructions to serve as input
@@ -270,6 +275,17 @@ vlines {mapping_data["coastline"]}
     width 1
     lpos 0
     end
+
+# Input points
+vpoints {selected_points}
+    type point
+    color white
+    fcolor black
+    width 0.5
+    symbol basic/circle
+    size 7
+    end
+
 """
     with open(outfile, 'w') as f:
         f.write(psmap_file)
@@ -347,9 +363,13 @@ def interpolate_points_idw(vector_layer: Optional[str] = 1,
                                                        map=output_map)
         max_values.append(raster_stats[output_map]["max"])
         min_values.append(raster_stats[output_map]["min"])
+    abs_max_idw = max(max_values)
+    abs_min_idw = min(min_values)
     # This is testing code that may go away at some point
     print("Absolute (idw) raster max is ", max(max_values))
     print("Absolute (idw) raster min is ", min(min_values))
+
+    return abs_max_idw, abs_min_idw
 
 
 def interpolate_points_bspline(vector_layer: Optional[str] = "1",
@@ -421,9 +441,13 @@ def interpolate_points_bspline(vector_layer: Optional[str] = "1",
                                                        map=output_map)
         max_values.append(raster_stats[output_map]["max"])
         min_values.append(raster_stats[output_map]["min"])
+    abs_max_bspline = max(max_values)
+    abs_min_bspline = min(min_values)
     # This is testing code that may go away at some point
-    print("Absolute (bspline) raster max is ", max(max_values))
-    print("Absolute (bspline) raster min is ", min(min_values))
+    print("Absolute (bspline) raster max is ", abs_max_bspline)
+    print("Absolute (bspline) raster min is ", abs_min_bspline)
+
+    return abs_max_bspline, abs_min_bspline
 
 
 def get_distance_points_bspline(input_vector_map: str,
@@ -508,7 +532,8 @@ def cross_validate_bspline(input_vector_map: str,
 def make_maps(fig_width: float,
               fig_height: float,
               background_color: Optional[str] = NO_BG_COLOR,
-              file_types: Optional[list] = None):
+              file_types: Optional[list] = None,
+              interpolation_method: Optional[str] = None):
     """ Currently only png and ps (PostScript) formats are supported. """
     try:
         if any(f not in SUPPORTED_FILE_TYPES for f in file_types):
@@ -529,6 +554,9 @@ def make_maps(fig_width: float,
         elif extension == "ps":
             make_ps_maps(extension=extension)
 
+        # draw_map_legend() here ???
+        # See func def below
+
 
 def make_png_maps(extension: str,
                   fig_width: float,
@@ -536,6 +564,10 @@ def make_png_maps(extension: str,
                   background_color: Optional[str] = NO_BG_COLOR):
     """ Cycle through interpolated surfaces and generate maps. """
     mapping_mapset = mapping_session["mapset"]
+    sel_vector_list = get_map_list_from_pattern(
+        map_type="vector",
+        pattern="sel_*",
+        mapping_mapset=mapping_mapset)
     idw_rasters_list = get_map_list_from_pattern(
         map_type="raster",
         pattern="idw_*",
@@ -543,10 +575,6 @@ def make_png_maps(extension: str,
     bspline_rasters_list = get_map_list_from_pattern(
         map_type="raster",
         pattern="bspline_*",
-        mapping_mapset=mapping_mapset)
-    sel_vector_list = get_map_list_from_pattern(
-        map_type="vector",
-        pattern="sel_*",
         mapping_mapset=mapping_mapset)
     # The two for loops could be one function?
     for idw_raster, sel_vector in zip(idw_rasters_list, sel_vector_list):
@@ -623,6 +651,7 @@ def make_ps_maps(extension: str):
         outfile = PS_DIR / f"{idw_raster}.{extension}"
         ps_instructions_file = write_psmap_instructions(
             interpolated_raster=idw_raster,
+            selected_points=sel_vector,
             outfile_name=idw_raster)
         grass.run_command("ps.map", overwrite=True,
                           flags="e",
@@ -633,6 +662,7 @@ def make_ps_maps(extension: str):
         outfile = PS_DIR / f"{bspline_raster}.{extension}"
         ps_instructions_file = write_psmap_instructions(
             interpolated_raster=bspline_raster,
+            selected_points=sel_vector,
             outfile_name=bspline_raster)
         grass.run_command("ps.map", overwrite=True,
                           flags="e",
@@ -645,6 +675,15 @@ def get_map_list_from_pattern(map_type: str,
                               mapping_mapset: str):
     map_dict = grass.list_grouped(type=map_type, pattern=pattern)
     return map_dict[f"{mapping_mapset}"]
+
+
+def draw_map_legend(extension: str,
+                    ):
+    if extension == "png":
+        pass
+
+    elif extension == "ps":
+        pass
 
 
 if __name__ == "__main__":
