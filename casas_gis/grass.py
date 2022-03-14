@@ -237,6 +237,12 @@ def make_png_maps(extension: str,
                   fig_height: float,
                   background_color: Optional[str] = k.NO_BG_COLOR):
     """ Cycle through interpolated surfaces and generate maps. """
+    monitor = grass.read_command("d.mon", flags="p", quiet=True).strip()
+    print("This is current monintor: ", monitor)
+    print("This length of monintor var: ", len(monitor))
+    # if len(monitor) < 1:
+    #     print("No monitor running: ", monitor)
+    #     grass.run_command("d.mon", stop=extension)
     mapping_mapset = k.mapping_session["mapset"]
     sel_vector_list = get_map_list_from_pattern(
         map_type="vector",
@@ -259,6 +265,9 @@ def make_png_maps(extension: str,
                           height=fig_height,
                           bgcolor=background_color,
                           output=outfile)
+        monitor = grass.read_command("d.mon", flags="p", quiet=True).strip()
+        print("This is current monintor: ", monitor)
+        # breakpoint()
         grass.run_command("d.his",
                           i="SR_HR_andalusia_clip_250m",
                           h=idw_raster)
@@ -275,7 +284,9 @@ def make_png_maps(extension: str,
                           icon="basic/point",
                           size=15,
                           width=2)
-        # Legned?
+        draw_map_legend(extension=extension,
+                        map_name=idw_raster)
+        # breakpoint()
         grass.run_command("d.mon", stop=extension)
     for bspline_raster, sel_vector in zip(bspline_rasters_list,
                                           sel_vector_list):
@@ -352,10 +363,15 @@ def get_map_list_from_pattern(map_type: str,
 
 
 def draw_map_legend(extension: str,
-                    ):
+                    map_name: str):
     if extension == "png":
-        pass
-
+        grass.run_command("d.legend",
+                          flags="s",
+                          raster=map_name,
+                          color="black",
+                          labelnum=5,
+                          at=(6, 10, 20, 80)
+                          )
     elif extension == "ps":
         pass
 
@@ -395,4 +411,5 @@ if __name__ == "__main__":
         fig_width, fig_height = set_output_image(2)
         make_maps(fig_width,
                   fig_height,
+                  background_color="white",
                   file_types=["png", "ps"])
