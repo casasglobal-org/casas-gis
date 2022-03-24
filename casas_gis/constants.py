@@ -36,10 +36,15 @@ INTERPOLATION_METHODS = {IDW, BSPLINE}
 
 IMPORTED_PREFIX = "imp_"
 SELECTED_PREFIX = "sel_"
+
 IDW_PREFIX = "idw_"
 BSPLINE_PREFIX = "bspline_"
+INTERPOLATION_PREFIXES = {IDW_PREFIX, BSPLINE_PREFIX}
+
+DRAPE_PREFIX = "drape_"
 REGION_RASTER = "mapping_region"
 NO_BG_COLOR = "none"
+
 
 # DATA
 # define GRASS DATABASE
@@ -60,7 +65,7 @@ mapping_session = {"gisdb": f"{gisdb}",
 # Add here another dictionary with GIS mapping data
 # for a particular mapping session, e.g.,
 mapping_data = {"digital_elevation": "elevation_1KMmd_GMTEDmd_andalusia",
-                "shaded relief": "SR_HR_andalusia_clip_250m",
+                "shaded_relief": "SR_HR_andalusia_clip_250m",
                 "coastline": "ne_10m_coastline_andalusia",
                 # etc.
                 "test_interpolation": "bspline_Olive_30set19_00002_OfPupSum",

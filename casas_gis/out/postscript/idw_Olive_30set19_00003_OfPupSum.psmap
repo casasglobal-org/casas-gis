@@ -1,27 +1,26 @@
 # GRASS GIS ps.map instruction file
-border y
-    color black
-    width 1
-    end
+                     border y
+                        color black
+                        width 1
+                        end
 
-# Main raster
-raster idw_Olive_30set19_00003_OfPupSum
+                     # Main raster
+                     raster drape_Olive_30set19_00003_OfPupSum
 
-# Some boundary lines
-vlines ne_10m_coastline_andalusia
-    type line
-    color grey
-    width 1
-    lpos 0
-    end
+                     # Some boundary lines
+                     vlines ne_10m_coastline_andalusia
+                        type line
+                        color grey
+                        width 1
+                        lpos 0
+                        end
 
-# Input points
-vpoints sel_Olive_30set19_00003_OfPupSum
-    type point
-    color white
-    fcolor black
-    width 0.5
-    symbol basic/circle
-    size 7
-    end
-
+                     # Input points
+                     vpoints sel_Olive_30set19_00003_OfPupSum
+                        type point
+                        color white
+                        fcolor black
+                        width 0.5
+                        symbol basic/circle
+                        size 7
+                        end

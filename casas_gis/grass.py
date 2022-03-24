@@ -162,37 +162,48 @@ def write_psmap_instructions(interpolated_raster: str,
     outfile_path = k.PS_DIR or outfile_path
     outfile_name = f"{outfile_name}.psmap"
     outfile = outfile_path / outfile_name
+    for prefix in k.INTERPOLATION_PREFIXES:
+        print(interpolated_raster)
+        if interpolated_raster.startswith(prefix):
+            drape_map_name = interpolated_raster.replace(prefix,
+                                                         k.DRAPE_PREFIX, 1)
+    grass.run_command("r.shade", overwrite=True,
+                      flags="c",
+                      shade={k.mapping_data["shaded_relief"]},
+                      color=interpolated_raster,
+                      output=drape_map_name,
+                      brighten=0)
+
     psmap_file = f"""# GRASS GIS ps.map instruction file
-border y
-    color black
-    width 1
-    end
+                     border y
+                        color black
+                        width 1
+                        end
 
-# Main raster
-raster {interpolated_raster}
+                     # Main raster
+                     raster {drape_map_name}
 
-# Some boundary lines
-vlines {k.mapping_data["coastline"]}
-    type line
-    color grey
-    width 1
-    lpos 0
-    end
+                     # Some boundary lines
+                     vlines {k.mapping_data["coastline"]}
+                        type line
+                        color grey
+                        width 1
+                        lpos 0
+                        end
 
-# Input points
-vpoints {selected_points}
-    type point
-    color white
-    fcolor black
-    width 0.5
-    symbol basic/circle
-    size 7
-    end
+                     # Input points
+                     vpoints {selected_points}
+                        type point
+                        color white
+                        fcolor black
+                        width 0.5
+                        symbol basic/circle
+                        size 7
+                        end"""
 
-"""
     with open(outfile, 'w') as f:
         f.write(psmap_file)
-    return outfile
+        return outfile
 
 
 # In general, do each step for all maps
@@ -400,7 +411,7 @@ if __name__ == "__main__":
                       900,
                       "olive_HarvestedAreaFraction_andalusia",
                       0.3)
-        surf.select_interpolation_points("elevation_1KMmd_GMTEDmd_andalusia",
+        surf.select_interpolation_points(k.mapping_data["digital_elevation"],
                                          altitude_cap=2000,
                                          lower_bound=0)
         surf.interpolate_points_idw(vector_layer=1,
