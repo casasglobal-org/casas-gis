@@ -173,33 +173,64 @@ def write_psmap_instructions(interpolated_raster: str,
                       color=interpolated_raster,
                       output=drape_map_name,
                       brighten=0)
+    # Need to find a way to place legend and text nicely
+    # https://grass.osgeo.org/grass80/manuals/ps.map.html
+    psmap_file = f"""
+        # GRASS GIS ps.map instruction file
 
-    psmap_file = f"""# GRASS GIS ps.map instruction file
-                     border y
-                        color black
-                        width 1
-                        end
+        paper
+            width 10
+            height 10
+            left 1
+            right 1
+            bottom 1
+            top 1
+        end
 
-                     # Main raster
-                     raster {drape_map_name}
+        border y
+            color black
+            width 1
+        end
 
-                     # Some boundary lines
-                     vlines {k.mapping_data["coastline"]}
-                        type line
-                        color grey
-                        width 1
-                        lpos 0
-                        end
+        # Main raster
+        raster {drape_map_name}
 
-                     # Input points
-                     vpoints {selected_points}
-                        type point
-                        color white
-                        fcolor black
-                        width 0.5
-                        symbol basic/circle
-                        size 7
-                        end"""
+        colortable y
+            raster {interpolated_raster}
+            where 0.7 6.6
+            # range 1 211
+            # height 0.2
+            width 2.7
+            font Helvetica
+            fontsize 16
+        end
+
+        text 1.55% -20% this is sample text m^-2 y^-1
+            color black
+            width 1
+            # background white
+            fontsize 14
+            ref lower left
+        end
+
+        # Some boundary lines
+        vlines {k.mapping_data["coastline"]}
+            type line
+            color grey
+            width 1
+            lpos 0
+        end
+
+        # Input points
+        vpoints {selected_points}
+            type point
+            color white
+            fcolor black
+            width 0.5
+            symbol basic/circle
+            size 7
+        end
+        """
 
     with open(outfile, 'w') as f:
         f.write(psmap_file)
