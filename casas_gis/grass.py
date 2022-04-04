@@ -146,9 +146,14 @@ def set_output_image(fig_resolution):
     grass_region = grass.region()
     number_of_cols = grass_region['cols']
     number_of_rows = grass_region['rows']
-    fig_width = number_of_cols * fig_resolution
-    fig_height = (number_of_rows + (number_of_rows * 0.5)) * fig_resolution
-    return fig_width, fig_height
+    if number_of_cols >= number_of_rows:
+        fig_width = number_of_cols * fig_resolution
+        fig_height = (number_of_rows + (number_of_rows * 0.5)) * fig_resolution
+    else:
+        fig_width = (number_of_cols + (number_of_cols * 0.5)) * fig_resolution
+        fig_height = number_of_rows * fig_resolution
+
+    return fig_width, fig_height, number_of_cols, number_of_rows
     # Use frames for more deterministic location of elements such as title
     # on top and legend at bottom?
 
@@ -406,6 +411,10 @@ def get_map_list_from_pattern(map_type: str,
 
 def draw_map_legend(extension: str,
                     map_name: str):
+    # Check fig_width, fig_height and
+    # if number_of_cols >= number_of_rows then legend goes to bottom
+    # if number_of_cols < number_of_rows the legend goes to right
+    # See set_output_image()
     if extension == "png":
         grass.run_command("d.legend",
                           flags="s",
@@ -450,7 +459,8 @@ if __name__ == "__main__":
                                     power=2.0)
         surf.interpolate_points_bspline(vector_layer=1,
                                         method="bicubic")
-        fig_width, fig_height = set_output_image(2)
+        (fig_width, fig_height,
+            number_of_cols, number_of_rows) = set_output_image(2)
         make_maps(fig_width,
                   fig_height,
                   background_color="white",
