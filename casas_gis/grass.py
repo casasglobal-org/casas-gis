@@ -416,13 +416,18 @@ def draw_map_legend(extension: str,
     # if number_of_cols < number_of_rows the legend goes to right
     # See set_output_image()
     if extension == "png":
+        if number_of_cols >= number_of_rows:
+            # bottom,top,left,right
+            # as % of screen coords
+            legend_coords = (6, 10, 20, 80)
+        else:
+            legend_coords = (20, 80, 86, 90)
         grass.run_command("d.legend",
                           flags="s",
                           raster=map_name,
                           color="black",
                           labelnum=5,
-                          at=(6, 10, 20, 80)
-                          )
+                          at=legend_coords)
     elif extension == "ps":
         pass
 
