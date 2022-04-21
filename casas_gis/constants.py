@@ -45,6 +45,8 @@ DRAPE_PREFIX = "drape_"
 REGION_RASTER = "mapping_region"
 NO_BG_COLOR = "none"
 
+BASE_PAPER_SIDE = 5
+
 
 # DATA
 # define GRASS DATABASE
