@@ -1,7 +1,7 @@
 """ Geospatial functionality accessed through GRASSS GIS
     https://grasswiki.osgeo.org/wiki/Category:Python
     https://grass.osgeo.org/grass79/manuals/libpython/index.html
-    Ideas for cloud implmentation:
+    Ideas for cloud implementation:
     https://actinia.mundialis.de/api_docs/
     https://actinia.mundialis.de/tutorial/
     See a also
@@ -54,8 +54,8 @@ def project_vector_to_current_location(source_location, source_mapset,
                                        tmp_dir=k.TMP_DIR):
     """ Project imported vector from a latitude/longitude unprojected
         GRASS GIS location to a projected location where most GIS
-        processing including mapping will occurr. """
-    print('\nProject imported vectors to mappinsg location:\n')
+        processing including mapping will occur. """
+    print('\nProject imported vectors to mapping location:\n')
     pathlist = pathlib.Path(tmp_dir).rglob('*.txt')
     for path in pathlist:
         mapname = pathlib.Path(path).stem
@@ -75,7 +75,7 @@ def set_mapping_region(map_of_subregions,
                        selected_subregions: Optional[str] = None):
     """ Define GRASS GIS region for computations mapping, including
         geographical extent and spatial resolution.
-        The 'field type' argumeent can be 'CHARACTER' or 'INTEGER' """
+        The 'field type' argument can be 'CHARACTER' or 'INTEGER' """
     if selected_subregions is not None:
         list_of_selected_subregions = selected_subregions.split(",")
         sql_conditions = []
@@ -137,20 +137,22 @@ def set_crop_area(digital_elevation_map,
 
 
 def set_output_image(fig_resolution):
-    """ Set size of output image based on rows and colums of the GRASS
+    """ Set size of output image based on rows and columns of the GRASS
         computational region and a resolution integer value. A resolution of
         one means one pixel will be shown in the output image for each cell
         of the current GRASS region. A resolution of two will double the
         resolution. """
-    # Output image size in pixels
+    # Output image size in pixels (this is for PNG or other raster output)
     grass_region = grass.region()
     number_of_cols = grass_region['cols']
     number_of_rows = grass_region['rows']
     if number_of_cols >= number_of_rows:
         fig_width = number_of_cols * fig_resolution
-        fig_height = (number_of_rows + (number_of_rows * 0.5)) * fig_resolution
+        fig_height = (number_of_rows + (number_of_rows * 0.5))
+        fig_height *= fig_resolution
     else:
-        fig_width = (number_of_cols + (number_of_cols * 0.5)) * fig_resolution
+        fig_width = (number_of_cols + (number_of_cols * 0.5))
+        fig_width *= fig_resolution
         fig_height = number_of_rows * fig_resolution
 
     return fig_width, fig_height, number_of_cols, number_of_rows
@@ -179,6 +181,8 @@ def write_psmap_instructions(interpolated_raster: str,
                       output=drape_map_name,
                       brighten=0)
     # Need to find a way to place legend and text nicely
+    # Another idea could be have different pieces of pasmap_file
+    # that are combined according to specific context/options.
     # https://grass.osgeo.org/grass80/manuals/ps.map.html
     psmap_file = f"""
         # GRASS GIS ps.map instruction file
@@ -200,6 +204,7 @@ def write_psmap_instructions(interpolated_raster: str,
         # Main raster
         raster {drape_map_name}
 
+        # Legend
         colortable y
             raster {interpolated_raster}
             where 0.7 6.6
@@ -260,7 +265,7 @@ def make_maps(fig_width: float,
         if any(f not in k.SUPPORTED_FILE_TYPES for f in file_types):
             raise NotImplementedError("\nNot implemented error:\n"
                                       "Only PNG and PostScript output"
-                                      " is implmenented!\n"
+                                      " is implemented!\n"
                                       "Please select PNG and/or PostScript"
                                       " output.\n")
     except NotImplementedError as nie:
@@ -285,8 +290,8 @@ def make_png_maps(extension: str,
                   background_color: Optional[str] = k.NO_BG_COLOR):
     """ Cycle through interpolated surfaces and generate maps. """
     monitor = grass.read_command("d.mon", flags="p", quiet=True).strip()
-    print("This is current monintor: ", monitor)
-    print("This length of monintor var: ", len(monitor))
+    print("This is current monitor: ", monitor)
+    print("This length of monitor var: ", len(monitor))
     # if len(monitor) < 1:
     #     print("No monitor running: ", monitor)
     #     grass.run_command("d.mon", stop=extension)
@@ -410,17 +415,19 @@ def get_map_list_from_pattern(map_type: str,
 
 
 def draw_map_legend(extension: str,
-                    map_name: str):
+                    map_name: str,
+                    n_of_cols: int,
+                    n_of_rows: int):
     # Check fig_width, fig_height and
-    # if number_of_cols >= number_of_rows then legend goes to bottom
-    # if number_of_cols < number_of_rows the legend goes to right
+    # if n_of_cols >= n_of_rows then legend goes to bottom
+    # if n_of_cols < n_of_rows the legend goes to right
     # See set_output_image()
     if extension == "png":
-        if number_of_cols >= number_of_rows:
+        if n_of_cols >= n_of_rows:
             # bottom,top,left,right
             # as % of screen coords
             legend_coords = (6, 10, 20, 80)
-        else:
+        elif n_of_cols < n_of_rows:
             legend_coords = (20, 80, 86, 90)
         grass.run_command("d.legend",
                           flags="s",
@@ -429,7 +436,17 @@ def draw_map_legend(extension: str,
                           labelnum=5,
                           at=legend_coords)
     elif extension == "ps":
-        pass
+        # Compute paper size and legend position
+        if n_of_cols >= n_of_rows:
+            # make room for legend below map
+            paper_width = k.BASE_PAPER_SIDE
+            paper_height = (n_of_rows / n_of_cols) * k.BASE_PAPER_SIDE
+            paper_height *= 0.5
+        elif n_of_cols < n_of_rows:
+            # make room for legend on the right
+            paper_width = (n_of_cols / n_of_rows) * k.BASE_PAPER_SIDE
+            paper_width *= 0.5
+            paper_height = k.BASE_PAPER_SIDE
 
 
 if __name__ == "__main__":
