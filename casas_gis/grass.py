@@ -163,7 +163,8 @@ def set_output_image(fig_resolution):
 def write_psmap_instructions(interpolated_raster: str,
                              selected_points: str,
                              outfile_name: str,
-                             outfile_path: Optional[os.PathLike] = None):
+                             outfile_path: Optional[os.PathLike] = None,
+                             margin: Optional[float] = 0.1):
     """ Generates text file including mapping instructions to serve as input
         to ps.map GRASS GIS command. Returns output file name with path. """
     outfile_path = k.PS_DIR or outfile_path
@@ -184,16 +185,33 @@ def write_psmap_instructions(interpolated_raster: str,
     # Another idea could be have different pieces of pasmap_file
     # that are combined according to specific context/options.
     # https://grass.osgeo.org/grass80/manuals/ps.map.html
+    (paper_width, paper_height,
+     bottom_legend) = map_legend(extension=k.PS,
+                                 n_of_cols=number_of_cols,
+                                 n_of_rows=number_of_rows)
+    if bottom_legend:
+        # legend goes below map
+        legend_x = (paper_width * 0.20) + margin
+        legend_y = (paper_height * 0.94) + margin
+        legend_width = paper_width * 0.6
+        legend_height = paper_height * 0.04
+    else:
+        # legend goes to the right
+        legend_x = (paper_width * 0.86) + margin
+        legend_y = (paper_height * 0.20) + margin
+        legend_width = paper_width * 0.04
+        legend_height = paper_height * 0.6
+
     psmap_file = f"""
         # GRASS GIS ps.map instruction file
 
         paper
-            width 10
-            height 10
-            left 1
-            right 1
-            bottom 1
-            top 1
+            width {paper_width}
+            height {paper_height}
+            left {margin}
+            right {margin}
+            bottom {margin}
+            top {margin}
         end
 
         border y
@@ -207,10 +225,11 @@ def write_psmap_instructions(interpolated_raster: str,
         # Legend
         colortable y
             raster {interpolated_raster}
-            where 0.7 6.6
+            where {legend_x} {legend_y}
             # range 1 211
             # height 0.2
-            width 2.7
+            width {legend_width}
+            height {legend_height}
             font Helvetica
             fontsize 16
         end
@@ -257,6 +276,8 @@ def write_psmap_instructions(interpolated_raster: str,
 
 def make_maps(fig_width: float,
               fig_height: float,
+              number_of_cols: int,
+              number_of_rows: int,
               background_color: Optional[str] = k.NO_BG_COLOR,
               file_types: Optional[list] = None,
               interpolation_method: Optional[str] = None):
@@ -276,17 +297,21 @@ def make_maps(fig_width: float,
             make_png_maps(extension=extension,
                           fig_width=fig_width,
                           fig_height=fig_height,
+                          number_of_cols=number_of_cols,
+                          number_of_rows=number_of_rows,
                           background_color=background_color)
         elif extension == "ps":
             make_ps_maps(extension=extension)
 
-        # draw_map_legend() here ???
+        # map_legend() here ???
         # See func def below
 
 
 def make_png_maps(extension: str,
                   fig_width: float,
                   fig_height: float,
+                  number_of_cols: int,
+                  number_of_rows: int,
                   background_color: Optional[str] = k.NO_BG_COLOR):
     """ Cycle through interpolated surfaces and generate maps. """
     monitor = grass.read_command("d.mon", flags="p", quiet=True).strip()
@@ -336,9 +361,10 @@ def make_png_maps(extension: str,
                           icon="basic/point",
                           size=15,
                           width=2)
-        draw_map_legend(extension=extension,
-                        map_name=idw_raster)
-        # breakpoint()
+        map_legend(extension=extension,
+                   map_name=idw_raster,
+                   n_of_cols=number_of_cols,
+                   n_of_rows=number_of_rows)
         grass.run_command("d.mon", stop=extension)
     for bspline_raster, sel_vector in zip(bspline_rasters_list,
                                           sel_vector_list):
@@ -365,7 +391,10 @@ def make_png_maps(extension: str,
                           icon="basic/point",
                           size=15,
                           width=2)
-        # Legned?
+        map_legend(extension=extension,
+                   map_name=idw_raster,
+                   n_of_cols=number_of_cols,
+                   n_of_rows=number_of_rows)
         grass.run_command("d.mon", stop=extension)
 
 
@@ -414,21 +443,18 @@ def get_map_list_from_pattern(map_type: str,
     return map_dict[f"{mapping_mapset}"]
 
 
-def draw_map_legend(extension: str,
-                    map_name: str,
-                    n_of_cols: int,
-                    n_of_rows: int):
+def map_legend(extension: str,
+               n_of_cols: int,
+               n_of_rows: int,
+               map_name: Optional[str] = None):
     # Check fig_width, fig_height and
     # if n_of_cols >= n_of_rows then legend goes to bottom
     # if n_of_cols < n_of_rows the legend goes to right
     # See set_output_image()
+    # bottom,top,left,right as % of screen coordinates (0,0 is lower left)
     if extension == "png":
-        if n_of_cols >= n_of_rows:
-            # bottom,top,left,right
-            # as % of screen coords
-            legend_coords = (6, 10, 20, 80)
-        elif n_of_cols < n_of_rows:
-            legend_coords = (20, 80, 86, 90)
+        legend_coords = ((6, 10, 20, 80) if n_of_cols >= n_of_rows
+                         else (20, 80, 86, 90))
         grass.run_command("d.legend",
                           flags="s",
                           raster=map_name,
@@ -442,11 +468,13 @@ def draw_map_legend(extension: str,
             paper_width = k.BASE_PAPER_SIDE
             paper_height = (n_of_rows / n_of_cols) * k.BASE_PAPER_SIDE
             paper_height *= 0.5
-        elif n_of_cols < n_of_rows:
+        else:
             # make room for legend on the right
             paper_width = (n_of_cols / n_of_rows) * k.BASE_PAPER_SIDE
             paper_width *= 0.5
             paper_height = k.BASE_PAPER_SIDE
+        bottom_legend = n_of_cols >= n_of_rows
+        return paper_width, paper_height, bottom_legend
 
 
 if __name__ == "__main__":
@@ -482,8 +510,11 @@ if __name__ == "__main__":
         surf.interpolate_points_bspline(vector_layer=1,
                                         method="bicubic")
         (fig_width, fig_height,
-            number_of_cols, number_of_rows) = set_output_image(2)
-        make_maps(fig_width,
-                  fig_height,
+         number_of_cols, number_of_rows) = set_output_image(2)
+        make_maps(
+                  fig_width=fig_width,
+                  fig_height=fig_height,
+                  number_of_cols=number_of_cols,
+                  number_of_rows=number_of_rows,
                   background_color="white",
                   file_types=["png", "ps"])

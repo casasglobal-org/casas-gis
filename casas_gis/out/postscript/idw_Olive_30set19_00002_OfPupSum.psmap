@@ -2,12 +2,12 @@
         # GRASS GIS ps.map instruction file
 
         paper
-            width 10
-            height 10
-            left 1
-            right 1
-            bottom 1
-            top 1
+            width 5
+            height 1.4785447761194028
+            left 0.1
+            right 0.1
+            bottom 0.1
+            top 0.1
         end
 
         border y
@@ -18,12 +18,14 @@
         # Main raster
         raster drape_Olive_30set19_00002_OfPupSum
 
+        # Legend
         colortable y
             raster idw_Olive_30set19_00002_OfPupSum
-            where 0.7 6.6
+            where 1.1 1.4898320895522386
             # range 1 211
             # height 0.2
-            width 2.7
+            width 3.0
+            height 0.05914179104477611
             font Helvetica
             fontsize 16
         end
