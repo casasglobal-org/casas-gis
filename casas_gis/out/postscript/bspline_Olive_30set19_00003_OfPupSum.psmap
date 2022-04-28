@@ -3,7 +3,7 @@
 
         paper
             width 5
-            height 1.4785447761194028
+            height 4.4356343283582085
             left 0.1
             right 0.1
             bottom 0.1
@@ -21,21 +21,22 @@
         # Legend
         colortable y
             raster bspline_Olive_30set19_00003_OfPupSum
-            where 1.1 1.4898320895522386
+            where 0.5 3.3267257462686564
             # range 1 211
             # height 0.2
-            width 3.0
-            height 0.05914179104477611
+            # cols 10
+            width 4.0
+            height 0.17742537313432835
             font Helvetica
-            fontsize 16
+            # fontsize 12
         end
 
-        text 1.55% -20% this is sample text m^-2 y^-1
+        text 50% -40% this is sample text
             color black
-            width 1
+            # width 1
             # background white
-            fontsize 14
-            ref lower left
+            # fontsize 12
+            # ref lower left
         end
 
         # Some boundary lines
@@ -53,6 +54,6 @@
             fcolor black
             width 0.5
             symbol basic/circle
-            size 7
+            size 4
         end
         
