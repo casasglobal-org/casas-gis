@@ -162,6 +162,8 @@ def set_output_image(fig_resolution):
 
 def write_psmap_instructions(interpolated_raster: str,
                              selected_points: str,
+                             fig_width: float,
+                             fig_height: float,
                              outfile_name: str,
                              outfile_path: Optional[os.PathLike] = None,
                              margin: Optional[float] = 0.1):
@@ -187,21 +189,24 @@ def write_psmap_instructions(interpolated_raster: str,
     # https://grass.osgeo.org/grass80/manuals/ps.map.html
     (paper_width, paper_height,
      bottom_legend) = map_legend(extension=k.PS,
+                                 fig_width=fig_width,
+                                 fig_height=fig_height,
                                  n_of_cols=number_of_cols,
                                  n_of_rows=number_of_rows)
     if bottom_legend:
         # legend goes below map
-        legend_x = (paper_width * 0.20) + margin
-        legend_y = (paper_height * 0.94) + margin
-        legend_width = paper_width * 0.6
+        legend_x = (paper_width * 0.10)
+        legend_y = (paper_height * 0.75)
+        legend_width = paper_width * 0.8
         legend_height = paper_height * 0.04
     else:
         # legend goes to the right
-        legend_x = (paper_width * 0.86) + margin
-        legend_y = (paper_height * 0.20) + margin
+        legend_x = (paper_width * 0.75)
+        legend_y = (paper_height * 0.10)
         legend_width = paper_width * 0.04
-        legend_height = paper_height * 0.6
-
+        legend_height = paper_height * 0.8
+    # https://unicode-table.com/en/
+    sample_text = "this is sample text"
     psmap_file = f"""
         # GRASS GIS ps.map instruction file
 
@@ -228,18 +233,19 @@ def write_psmap_instructions(interpolated_raster: str,
             where {legend_x} {legend_y}
             # range 1 211
             # height 0.2
+            # cols 10
             width {legend_width}
             height {legend_height}
             font Helvetica
-            fontsize 16
+            # fontsize 12
         end
 
-        text 1.55% -20% this is sample text m^-2 y^-1
+        text 50% -40% {sample_text}
             color black
-            width 1
+            # width 1
             # background white
-            fontsize 14
-            ref lower left
+            # fontsize 12
+            # ref lower left
         end
 
         # Some boundary lines
@@ -257,7 +263,7 @@ def write_psmap_instructions(interpolated_raster: str,
             fcolor black
             width 0.5
             symbol basic/circle
-            size 7
+            size 4
         end
         """
 
@@ -301,8 +307,9 @@ def make_maps(fig_width: float,
                           number_of_rows=number_of_rows,
                           background_color=background_color)
         elif extension == "ps":
-            make_ps_maps(extension=extension)
-
+            make_ps_maps(extension=extension,
+                         fig_width=fig_width,
+                         fig_height=fig_height)
         # map_legend() here ???
         # See func def below
 
@@ -363,6 +370,8 @@ def make_png_maps(extension: str,
                           width=2)
         map_legend(extension=extension,
                    map_name=idw_raster,
+                   fig_width=fig_width,
+                   fig_height=fig_height,
                    n_of_cols=number_of_cols,
                    n_of_rows=number_of_rows)
         grass.run_command("d.mon", stop=extension)
@@ -393,12 +402,16 @@ def make_png_maps(extension: str,
                           width=2)
         map_legend(extension=extension,
                    map_name=idw_raster,
+                   fig_width=fig_width,
+                   fig_height=fig_height,
                    n_of_cols=number_of_cols,
                    n_of_rows=number_of_rows)
         grass.run_command("d.mon", stop=extension)
 
 
-def make_ps_maps(extension: str):
+def make_ps_maps(extension: str,
+                 fig_width: float,
+                 fig_height: float):
     """ Cycle through interpolated surfaces and generate maps. """
     mapping_mapset = k.mapping_session["mapset"]
     idw_rasters_list = get_map_list_from_pattern(
@@ -418,7 +431,9 @@ def make_ps_maps(extension: str):
         ps_instructions_file = write_psmap_instructions(
             interpolated_raster=idw_raster,
             selected_points=sel_vector,
-            outfile_name=idw_raster)
+            outfile_name=idw_raster,
+            fig_width=fig_width,
+            fig_height=fig_height)
         grass.run_command("ps.map", overwrite=True,
                           flags="e",
                           input=ps_instructions_file,
@@ -429,7 +444,9 @@ def make_ps_maps(extension: str):
         ps_instructions_file = write_psmap_instructions(
             interpolated_raster=bspline_raster,
             selected_points=sel_vector,
-            outfile_name=bspline_raster)
+            outfile_name=bspline_raster,
+            fig_width=fig_width,
+            fig_height=fig_height)
         grass.run_command("ps.map", overwrite=True,
                           flags="e",
                           input=ps_instructions_file,
@@ -444,6 +461,8 @@ def get_map_list_from_pattern(map_type: str,
 
 
 def map_legend(extension: str,
+               fig_width: float,
+               fig_height: float,
                n_of_cols: int,
                n_of_rows: int,
                map_name: Optional[str] = None):
@@ -466,12 +485,10 @@ def map_legend(extension: str,
         if n_of_cols >= n_of_rows:
             # make room for legend below map
             paper_width = k.BASE_PAPER_SIDE
-            paper_height = (n_of_rows / n_of_cols) * k.BASE_PAPER_SIDE
-            paper_height *= 0.5
+            paper_height = (fig_height / fig_width) * k.BASE_PAPER_SIDE
         else:
             # make room for legend on the right
-            paper_width = (n_of_cols / n_of_rows) * k.BASE_PAPER_SIDE
-            paper_width *= 0.5
+            paper_width = (fig_width / fig_height) * k.BASE_PAPER_SIDE
             paper_height = k.BASE_PAPER_SIDE
         bottom_legend = n_of_cols >= n_of_rows
         return paper_width, paper_height, bottom_legend
