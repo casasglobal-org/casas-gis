@@ -340,8 +340,51 @@ def make_png_maps(extension: str,
         map_type="raster",
         pattern="bspline_*",
         mapping_mapset=mapping_mapset)
-    # The two for loops could be one function?
-    for idw_raster, sel_vector in zip(idw_rasters_list, sel_vector_list):
+    for surf_raster_list in (idw_rasters_list, bspline_rasters_list):
+        loop_and_map_png(extension=extension,
+                         surf_raster_list=surf_raster_list,
+                         sel_vector_list=sel_vector_list,
+                         fig_width=fig_width,
+                         fig_height=fig_height,
+                         number_of_cols=number_of_cols,
+                         number_of_rows=number_of_rows,
+                         background_color=background_color)
+
+
+def make_ps_maps(extension: str,
+                 fig_width: float,
+                 fig_height: float):
+    """ Cycle through interpolated surfaces and generate maps. """
+    mapping_mapset = k.mapping_session["mapset"]
+    idw_rasters_list = get_map_list_from_pattern(
+        map_type="raster",
+        pattern="idw_*",
+        mapping_mapset=mapping_mapset)
+    bspline_rasters_list = get_map_list_from_pattern(
+        map_type="raster",
+        pattern="bspline_*",
+        mapping_mapset=mapping_mapset)
+    sel_vector_list = get_map_list_from_pattern(
+        map_type="vector",
+        pattern="sel_*",
+        mapping_mapset=mapping_mapset)
+    for surf_raster_list in (idw_rasters_list, bspline_rasters_list):
+        loop_and_map_ps(extension=extension,
+                        surf_raster_list=surf_raster_list,
+                        sel_vector_list=sel_vector_list,
+                        fig_width=fig_width,
+                        fig_height=fig_height)
+
+
+def loop_and_map_png(extension: str,
+                     surf_raster_list: list,
+                     sel_vector_list: list,
+                     fig_width: float,
+                     fig_height: float,
+                     number_of_cols: int,
+                     number_of_rows: int,
+                     background_color: Optional[str] = k.NO_BG_COLOR):
+    for idw_raster, sel_vector in zip(surf_raster_list, sel_vector_list):
         outfile = k.PNG_DIR / f"{idw_raster}.{extension}"
         grass.run_command("d.mon", overwrite=True,
                           start=extension,
@@ -349,9 +392,6 @@ def make_png_maps(extension: str,
                           height=fig_height,
                           bgcolor=background_color,
                           output=outfile)
-        monitor = grass.read_command("d.mon", flags="p", quiet=True).strip()
-        print("This is current monintor: ", monitor)
-        # breakpoint()
         grass.run_command("d.his",
                           i="SR_HR_andalusia_clip_250m",
                           h=idw_raster)
@@ -375,76 +415,19 @@ def make_png_maps(extension: str,
                    n_of_cols=number_of_cols,
                    n_of_rows=number_of_rows)
         grass.run_command("d.mon", stop=extension)
-    for bspline_raster, sel_vector in zip(bspline_rasters_list,
-                                          sel_vector_list):
-        outfile = k.PNG_DIR / f"{bspline_raster}.{extension}"
-        grass.run_command("d.mon", overwrite=True,
-                          start=extension,
-                          width=fig_width,
-                          height=fig_height,
-                          bgcolor=background_color,
-                          output=outfile)
-        grass.run_command("d.his",
-                          i="SR_HR_andalusia_clip_250m",
-                          h=bspline_raster)
-        grass.run_command("d.vect",
-                          map="andalusia_provinces",
-                          type="boundary",
-                          color="black",
-                          width=3)
-        grass.run_command("d.vect",
-                          map=sel_vector,
-                          type="point",
-                          color="white",
-                          fill_color="black",
-                          icon="basic/point",
-                          size=15,
-                          width=2)
-        map_legend(extension=extension,
-                   map_name=idw_raster,
-                   fig_width=fig_width,
-                   fig_height=fig_height,
-                   n_of_cols=number_of_cols,
-                   n_of_rows=number_of_rows)
-        grass.run_command("d.mon", stop=extension)
 
 
-def make_ps_maps(extension: str,
-                 fig_width: float,
-                 fig_height: float):
-    """ Cycle through interpolated surfaces and generate maps. """
-    mapping_mapset = k.mapping_session["mapset"]
-    idw_rasters_list = get_map_list_from_pattern(
-        map_type="raster",
-        pattern="idw_*",
-        mapping_mapset=mapping_mapset)
-    bspline_rasters_list = get_map_list_from_pattern(
-        map_type="raster",
-        pattern="bspline_*",
-        mapping_mapset=mapping_mapset)
-    sel_vector_list = get_map_list_from_pattern(
-        map_type="vector",
-        pattern="sel_*",
-        mapping_mapset=mapping_mapset)
-    for idw_raster, sel_vector in zip(idw_rasters_list, sel_vector_list):
+def loop_and_map_ps(extension: str,
+                    surf_raster_list: list,
+                    sel_vector_list: list,
+                    fig_width: float,
+                    fig_height: float):
+    for idw_raster, sel_vector in zip(surf_raster_list, sel_vector_list):
         outfile = k.PS_DIR / f"{idw_raster}.{extension}"
         ps_instructions_file = write_psmap_instructions(
             interpolated_raster=idw_raster,
             selected_points=sel_vector,
             outfile_name=idw_raster,
-            fig_width=fig_width,
-            fig_height=fig_height)
-        grass.run_command("ps.map", overwrite=True,
-                          flags="e",
-                          input=ps_instructions_file,
-                          output=outfile)
-    for bspline_raster, sel_vector in zip(bspline_rasters_list,
-                                          sel_vector_list):
-        outfile = k.PS_DIR / f"{bspline_raster}.{extension}"
-        ps_instructions_file = write_psmap_instructions(
-            interpolated_raster=bspline_raster,
-            selected_points=sel_vector,
-            outfile_name=bspline_raster,
             fig_width=fig_width,
             fig_height=fig_height)
         grass.run_command("ps.map", overwrite=True,
