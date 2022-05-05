@@ -1,4 +1,5 @@
 import pathlib
+import locations as loc
 
 # Temporary directory for text files
 TMP_DIR = pathlib.Path(__file__).parent / "tmp"
@@ -47,17 +48,12 @@ NO_BG_COLOR = "none"
 
 BASE_PAPER_SIDE = 5
 
-
-# DATA
-# define GRASS DATABASE
-# add your path to grassdata (GRASS GIS database) directory
-gisdb = pathlib.Path.home() / "grassdata"
-# the following path is the default path on MS Windows
-# gisdb = os.path.join(os.path.expanduser("~"), "Documents/grassdata")
-print(gisdb)
-
 # Specify (existing) locations and mapsets
-latlong_session = {"gisdb": f"{gisdb}",
+latlong_session = loc.andalusia["latlong_session"]
+mapping_session = loc.andalusia["mapping_session"]
+mapping_data = loc.andalusia["mapping_data"]
+
+""" latlong_session = {"gisdb": f"{gisdb}",
                    "location": "latlong_medgold",
                    "mapset": "medgold"}
 mapping_session = {"gisdb": f"{gisdb}",
@@ -72,3 +68,4 @@ mapping_data = {"digital_elevation": "elevation_1KMmd_GMTEDmd_andalusia",
                 # etc.
                 "test_interpolation": "bspline_Olive_30set19_00002_OfPupSum",
                 }
+ """
