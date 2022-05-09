@@ -52,20 +52,3 @@ BASE_PAPER_SIDE = 5
 latlong_session = loc.andalusia["latlong_session"]
 mapping_session = loc.andalusia["mapping_session"]
 mapping_data = loc.andalusia["mapping_data"]
-
-""" latlong_session = {"gisdb": f"{gisdb}",
-                   "location": "latlong_medgold",
-                   "mapset": "medgold"}
-mapping_session = {"gisdb": f"{gisdb}",
-                   "location": "laea_andalusia",
-                   "mapset": "medgold"}
-
-# Add here another dictionary with GIS mapping data
-# for a particular mapping session, e.g.,
-mapping_data = {"digital_elevation": "elevation_1KMmd_GMTEDmd_andalusia",
-                "shaded_relief": "SR_HR_andalusia_clip_250m",
-                "coastline": "ne_10m_coastline_andalusia",
-                # etc.
-                "test_interpolation": "bspline_Olive_30set19_00002_OfPupSum",
-                }
- """
