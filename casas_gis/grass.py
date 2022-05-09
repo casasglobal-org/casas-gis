@@ -321,12 +321,6 @@ def make_png_maps(extension: str,
                   number_of_rows: int,
                   background_color: Optional[str] = k.NO_BG_COLOR):
     """ Cycle through interpolated surfaces and generate maps. """
-    monitor = grass.read_command("d.mon", flags="p", quiet=True).strip()
-    print("This is current monitor: ", monitor)
-    print("This length of monitor var: ", len(monitor))
-    # if len(monitor) < 1:
-    #     print("No monitor running: ", monitor)
-    #     grass.run_command("d.mon", stop=extension)
     mapping_mapset = k.mapping_session["mapset"]
     sel_vector_list = get_map_list_from_pattern(
         map_type="vector",
@@ -384,6 +378,15 @@ def loop_and_map_png(extension: str,
                      number_of_cols: int,
                      number_of_rows: int,
                      background_color: Optional[str] = k.NO_BG_COLOR):
+    # Debugging code follows as a reminder that when no PNG monitor is
+    # running, the monitor variable is as string of length == zero.
+    monitor = grass.read_command("d.mon", flags="p", quiet=True).strip()
+    print("This is current monitor: ", monitor)
+    print("This is length of monitor var: ", len(monitor))
+    # Sometimes the PNG monitor remains open (e.g., app runs with error)
+    # and needs to be closed before the for loop below starts.
+    if len(monitor) != 0:
+        grass.run_command("d.mon", stop=extension)
     for idw_raster, sel_vector in zip(surf_raster_list, sel_vector_list):
         outfile = k.PNG_DIR / f"{idw_raster}.{extension}"
         grass.run_command("d.mon", overwrite=True,
@@ -393,10 +396,10 @@ def loop_and_map_png(extension: str,
                           bgcolor=background_color,
                           output=outfile)
         grass.run_command("d.his",
-                          i="SR_HR_andalusia_clip_250m",
+                          i=k.mapping_data["shaded_relief"],
                           h=idw_raster)
         grass.run_command("d.vect",
-                          map="andalusia_provinces",
+                          map=k.mapping_data["admin_divisions"]["map_name"],
                           type="boundary",
                           color="black",
                           width=3)
@@ -493,13 +496,14 @@ if __name__ == "__main__":
         project_vector_to_current_location(
             source_location=k.latlong_session["location"],
             source_mapset=k.latlong_session["mapset"])
-        set_mapping_region(map_of_subregions="andalusia_provinces",
-                           column_name='iso_3166_2',
-                           selected_subregions=("ES-CA,ES-H,ES-AL,ES-GR,"
-                                                "ES-MA,ES-SE,ES-CO,ES-J"))
-        set_crop_area("elevation_1KMmd_GMTEDmd_andalusia",
+        set_mapping_region(
+            map_of_subregions=k.mapping_data["admin_divisions"]["map_name"],
+            column_name=k.mapping_data["admin_divisions"]["column"],
+            selected_subregions=("ES-CA,ES-H,ES-AL,ES-GR,"
+                                 "ES-MA,ES-SE,ES-CO,ES-J"))
+        set_crop_area(k.mapping_data["digital_elevation"],
                       900,
-                      "olive_HarvestedAreaFraction_andalusia",
+                      k.mapping_data["crop"]["harvest_area_fraction"],
                       0.3)
         surf.select_interpolation_points(k.mapping_data["digital_elevation"],
                                          altitude_cap=2000,
