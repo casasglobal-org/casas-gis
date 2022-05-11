@@ -1,6 +1,11 @@
 import pathlib
 import locations as loc
 
+# Specify (existing) locations and mapsets
+latlong_session = loc.colombia["latlong_session"]
+mapping_session = loc.colombia["mapping_session"]
+mapping_data = loc.colombia["mapping_data"]
+
 # Temporary directory for text files
 TMP_DIR = pathlib.Path(__file__).parent / "tmp"
 pathlib.Path(TMP_DIR).mkdir(parents=True, exist_ok=True)
@@ -47,8 +52,3 @@ REGION_RASTER = "mapping_region"
 NO_BG_COLOR = "none"
 
 BASE_PAPER_SIDE = 5
-
-# Specify (existing) locations and mapsets
-latlong_session = loc.andalusia["latlong_session"]
-mapping_session = loc.andalusia["mapping_session"]
-mapping_data = loc.andalusia["mapping_data"]
