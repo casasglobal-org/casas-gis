@@ -387,6 +387,8 @@ def loop_and_map_png(extension: str,
     # and needs to be closed before the for loop below starts.
     if len(monitor) != 0:
         grass.run_command("d.mon", stop=extension)
+    # There should probably be a way to adjust vector line size depending on
+    # fig_width,fig_height or maybe number_of_cols,number_of_rows (rescale)
     for idw_raster, sel_vector in zip(surf_raster_list, sel_vector_list):
         outfile = k.PNG_DIR / f"{idw_raster}.{extension}"
         grass.run_command("d.mon", overwrite=True,
@@ -499,8 +501,13 @@ if __name__ == "__main__":
         set_mapping_region(
             map_of_subregions=k.mapping_data["admin_divisions"]["map_name"],
             column_name=k.mapping_data["admin_divisions"]["column"],
-            selected_subregions=("ES-CA,ES-H,ES-AL,ES-GR,"
-                                 "ES-MA,ES-SE,ES-CO,ES-J"))
+            selected_subregions=(
+                "CO-NAR,CO-PUT,CO-CHO,CO-GUA,CO-VAU,CO-AMA,"
+                "CO-LAG,CO-CES,CO-NSA,CO-ARA,CO-BOY,CO-VID,CO-CAU,CO-VAC,"
+                "CO-ANT,CO-COR,CO-SUC,CO-BOL,CO-ATL,CO-MAG,CO-SAP,CO-CAQ,"
+                "CO-HUI,CO-GUV,CO-CAL,CO-CAS,CO-MET,CO-CUN,CO-SAN,CO-TOL,"
+                "CO-QUI,CO-CUN,CO-RIS")
+            )
         set_crop_area(k.mapping_data["digital_elevation"],
                       900,
                       k.mapping_data["crop"]["harvest_area_fraction"],
