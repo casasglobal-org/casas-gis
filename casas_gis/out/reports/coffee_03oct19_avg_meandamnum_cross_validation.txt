@@ -1,6 +1,6 @@
 Cross validation for
 ew_step (average west distance) = 83660.0 and
-ns_step (average west distance) = 83660.0
+ns_step (average north distance) = 83660.0
 Selected lambda_i (smoothing parameter) = 0.05 (minimizes rms)
 
     lambda |       mean |        rms |

@@ -136,7 +136,8 @@ def set_crop_area(digital_elevation_map,
     grass.mapcalc(calc_expression_altitude, overwrite=True)
 
 
-def set_output_image(fig_resolution):
+def set_output_image(fig_resolution,
+                     smart_positioning: Optional[bool] = False):
     """ Set size of output image based on rows and columns of the GRASS
         computational region and a resolution integer value. A resolution of
         one means one pixel will be shown in the output image for each cell
@@ -146,14 +147,16 @@ def set_output_image(fig_resolution):
     grass_region = grass.region()
     number_of_cols = grass_region['cols']
     number_of_rows = grass_region['rows']
-    if number_of_cols >= number_of_rows:
-        fig_width = number_of_cols * fig_resolution
-        fig_height = (number_of_rows + (number_of_rows * 0.5))
-        fig_height *= fig_resolution
-    else:
+    if smart_positioning and (number_of_cols >= number_of_rows):
+        # Make room on the right
         fig_width = (number_of_cols + (number_of_cols * 0.5))
         fig_width *= fig_resolution
         fig_height = number_of_rows * fig_resolution
+    else:
+        # Make room on the botton
+        fig_width = number_of_cols * fig_resolution
+        fig_height = (number_of_rows + (number_of_rows * 0.5))
+        fig_height *= fig_resolution
 
     return fig_width, fig_height, number_of_cols, number_of_rows
     # Use frames for more deterministic location of elements such as title
@@ -195,14 +198,14 @@ def write_psmap_instructions(interpolated_raster: str,
                                  n_of_rows=number_of_rows)
     if bottom_legend:
         # legend goes below map
-        legend_x = (paper_width * 0.10)
-        legend_y = (paper_height * 0.75)
+        legend_x = paper_width * 0.10
+        legend_y = paper_height * 0.75
         legend_width = paper_width * 0.8
         legend_height = paper_height * 0.04
     else:
         # legend goes to the right
-        legend_x = (paper_width * 0.75)
-        legend_y = (paper_height * 0.10)
+        legend_x = paper_width * 0.75
+        legend_y = paper_height * 0.10
         legend_width = paper_width * 0.04
         legend_height = paper_height * 0.8
     # https://unicode-table.com/en/
@@ -453,32 +456,38 @@ def map_legend(extension: str,
                fig_height: float,
                n_of_cols: int,
                n_of_rows: int,
-               map_name: Optional[str] = None):
+               map_name: Optional[str] = None,
+               smart_positioning: Optional[bool] = False):
+    # sourcery skip: assign-if-exp, switch
     # Check fig_width, fig_height and
     # if n_of_cols >= n_of_rows then legend goes to bottom
     # if n_of_cols < n_of_rows the legend goes to right
     # See set_output_image()
     # bottom,top,left,right as % of screen coordinates (0,0 is lower left)
     if extension == "png":
-        legend_coords = ((6, 10, 20, 80) if n_of_cols >= n_of_rows
-                         else (20, 80, 86, 90))
+        if smart_positioning and (n_of_cols < n_of_rows):
+            legend_coords = (20, 80, 86, 90)
+        else:
+            legend_coords = (6, 10, 20, 80)
         grass.run_command("d.legend",
-                          flags="s",
+                          flags="st",
                           raster=map_name,
                           color="black",
                           labelnum=5,
-                          at=legend_coords)
+                          at=legend_coords,
+                          font="Arial")
     elif extension == "ps":
         # Compute paper size and legend position
-        if n_of_cols >= n_of_rows:
-            # make room for legend below map
-            paper_width = k.BASE_PAPER_SIDE
-            paper_height = (fig_height / fig_width) * k.BASE_PAPER_SIDE
-        else:
+        bottom_legend = True
+        if smart_positioning and (n_of_cols < n_of_rows):
             # make room for legend on the right
             paper_width = (fig_width / fig_height) * k.BASE_PAPER_SIDE
             paper_height = k.BASE_PAPER_SIDE
-        bottom_legend = n_of_cols >= n_of_rows
+            bottom_legend = False
+        else:
+            # make room for legend below map
+            paper_width = k.BASE_PAPER_SIDE
+            paper_height = (fig_height / fig_width) * k.BASE_PAPER_SIDE
         return paper_width, paper_height, bottom_legend
 
 
@@ -518,8 +527,8 @@ if __name__ == "__main__":
         surf.interpolate_points_idw(vector_layer=1,
                                     number_of_points=3,
                                     power=2.0)
-        surf.interpolate_points_bspline(vector_layer=1,
-                                        method="bicubic")
+        # surf.interpolate_points_bspline(vector_layer=1,
+        #                                 method="bicubic")
         (fig_width, fig_height,
          number_of_cols, number_of_rows) = set_output_image(2)
         make_maps(

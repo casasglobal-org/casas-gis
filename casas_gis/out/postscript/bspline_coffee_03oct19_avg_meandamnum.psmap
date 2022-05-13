@@ -2,8 +2,8 @@
         # GRASS GIS ps.map instruction file
 
         paper
-            width 6.2135311871227366
-            height 5
+            width 5
+            height 9.052823315118397
             left 0.1
             right 0.1
             bottom 0.1
@@ -21,12 +21,12 @@
         # Legend
         colortable y
             raster bspline_coffee_03oct19_avg_meandamnum
-            where 4.660148390342052 0.5
+            where 0.5 6.789617486338798
             # range 1 211
             # height 0.2
             # cols 10
-            width 0.24854124748490947
-            height 4.0
+            width 4.0
+            height 0.36211293260473587
             font Helvetica
             # fontsize 12
         end

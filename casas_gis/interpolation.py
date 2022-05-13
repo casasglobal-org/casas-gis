@@ -236,7 +236,7 @@ def cross_validate_bspline(input_vector_map: str,
     cross_validation_output = (
         "Cross validation for\new_step (average west distance) = "
         f"{avg_west_distance} and\n"
-        "ns_step (average west distance) = "
+        "ns_step (average north distance) = "
         f"{avg_north_distance}\n"
         "Selected lambda_i (smoothing parameter) = "
         f"{smoothing_parameter} (minimizes {minimizer_column})\n\n"
