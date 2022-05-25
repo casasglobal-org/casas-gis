@@ -252,7 +252,7 @@ def write_psmap_instructions(interpolated_raster: str,
         end
 
         # Some boundary lines
-        vlines {k.mapping_data["coastline"]}
+        vlines {k.mapping_data["coastline"]["map_name"]}
             type line
             color grey
             width 1
@@ -403,6 +403,10 @@ def loop_and_map_png(extension: str,
         grass.run_command("d.his",
                           i=k.mapping_data["shaded_relief"],
                           h=idw_raster)
+        grass.run_command("d.vect",
+                          map=k.mapping_data["coastline"]["map_name"],
+                          color=k.mapping_data["coastline"]["color"],
+                          width=k.mapping_data["coastline"]["width"])
         grass.run_command("d.vect",
                           map=k.mapping_data["admin_divisions"]["map_name"],
                           type="boundary",

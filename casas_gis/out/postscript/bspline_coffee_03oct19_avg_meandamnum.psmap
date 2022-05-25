@@ -48,7 +48,7 @@
         end
 
         # Input points
-        vpoints sel_coffee_03oct19_avg_meandamnum
+        vpoints sel_coffee_03oct19_avg_meanTdda
             type point
             color white
             fcolor black
