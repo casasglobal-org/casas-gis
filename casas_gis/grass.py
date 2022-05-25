@@ -508,6 +508,7 @@ if __name__ == "__main__":
     with Session(**k.mapping_session):
         cleanup.list_vector_maps()
         cleanup.clean_up_vectors()
+        cleanup.clean_up_rasters()
         project_vector_to_current_location(
             source_location=k.latlong_session["location"],
             source_mapset=k.latlong_session["mapset"])

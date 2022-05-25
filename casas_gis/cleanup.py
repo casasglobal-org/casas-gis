@@ -41,3 +41,12 @@ def clean_up_vectors():
     grass.run_command("g.remove",
                       flags="f", verbose=True,
                       type="vector", pattern=f"{k.SELECTED_PREFIX}*")
+
+
+def clean_up_rasters():
+    grass.run_command("g.remove",
+                      flags="f", verbose=True,
+                      type="raster", pattern=f"{k.IDW_PREFIX}*")
+    grass.run_command("g.remove",
+                      flags="f", verbose=True,
+                      type="raster", pattern=f"{k.BSPLINE_PREFIX}*")
