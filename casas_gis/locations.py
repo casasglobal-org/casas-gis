@@ -12,8 +12,16 @@ andalusia = {
         "mapset": "medgold"
     },
     "mapping_data": {
-        "coastline": "ne_10m_coastline_andalusia",
-        "countries": "ne_10m_admin_0_countries_lakes_andalusia",
+        "coastline": {
+            "map_name": "ne_10m_coastline_andalusia",
+            "color": "150:150:150",
+            "width": 3
+        },
+        "countries": {
+            "map_name": "ne_10m_admin_0_countries_lakes_andalusia",
+            "color": "128:128:128",
+            "width": 3
+        },
         "target_region": "andalusia",
         "admin_divisions": {
             "map_name": "andalusia_provinces",
@@ -50,8 +58,16 @@ colombia = {
         "mapset": "medgold"
     },
     "mapping_data": {
-        "coastline": "ne_10m_coastline_colombia",
-        "countries": "ne_10m_admin_0_countries_lakes_colombia",
+        "coastline": {
+            "map_name": "ne_10m_coastline_colombia",
+            "color": "150:150:150",
+            "width": 4
+        },
+        "countries": {
+            "map_name": "ne_10m_admin_0_countries_lakes_colombia",
+            "color": "128:128:128",
+            "width": 4
+        },
         "target_region": "colombia",
         "admin_divisions": {
             "map_name": "colombia_departments",
