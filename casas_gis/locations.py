@@ -43,7 +43,8 @@ andalusia = {
             "area_sigpac_buffered_3km":
                 "olive_monoculture_sigpac_2018_grow_3000"
         }
-    }
+    },
+    "room_for_bottom_legend": 0.37
 }
 
 colombia = {
@@ -88,6 +89,23 @@ colombia = {
         "satellite_landuse": "NE1_HR_LC_SR_W_DR.composite_colombia",
         "crop": {
             "harvest_area_fraction": "coffee_HarvestedAreaFraction_colombia"
+        }
+    },
+    "room_for_bottom_legend": 0.37,
+    "region_settings": {
+        "full": {
+            "north": "n-70000",
+            "south": "s-50000",
+            "east": "e+50000",
+            "west": "w+233000",
+            "resolution": 1000
+        },
+        "subset": {
+            "north": "n+50000",
+            "south": "s-50000",
+            "east": "e+50000",
+            "west": "w-50000",
+            "resolution": 1000
         }
     }
 }

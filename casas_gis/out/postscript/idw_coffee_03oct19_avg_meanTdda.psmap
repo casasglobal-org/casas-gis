@@ -3,7 +3,7 @@
 
         paper
             width 5
-            height 9.052823315118397
+            height 9.174191328286303
             left 0.1
             right 0.1
             bottom 0.1
@@ -21,12 +21,12 @@
         # Legend
         colortable y
             raster idw_coffee_03oct19_avg_meanTdda
-            where 0.5 6.789617486338798
+            where 0.5 6.880643496214727
             # range 1 211
             # height 0.2
             # cols 10
             width 4.0
-            height 0.36211293260473587
+            height 0.36696765313145213
             font Helvetica
             # fontsize 12
         end
