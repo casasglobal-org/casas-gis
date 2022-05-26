@@ -92,11 +92,27 @@ def set_mapping_region(map_of_subregions,
                           output="selected_region",
                           where=sql_formula)
         map_of_subregions = "selected_region"
-    grass.run_command("g.region",
-                      vector=map_of_subregions)
-    grass.run_command("g.region",
-                      n="n+7000", s="s-7000", e="e+7000", w="w-7000")
-    grass.run_command("g.region", res=1000, flags="a")
+        grass.run_command("g.region",
+                          vector=map_of_subregions)
+        grass.run_command("g.region",
+                          n=k.region["subset"]["north"],
+                          s=k.region["subset"]["south"],
+                          e=k.region["subset"]["east"],
+                          w=k.region["subset"]["west"])
+        grass.run_command("g.region",
+                          res=k.region["full"]["resolution"],
+                          flags="a")
+    else:
+        grass.run_command("g.region",
+                          vector=map_of_subregions)
+        grass.run_command("g.region",
+                          n=k.region["full"]["north"],
+                          s=k.region["full"]["south"],
+                          e=k.region["full"]["east"],
+                          w=k.region["full"]["west"])
+        grass.run_command("g.region",
+                          res=k.region["subset"]["resolution"],
+                          flags="a")
     grass.run_command("v.to.rast", overwrite=True,
                       input=map_of_subregions,
                       output=k.REGION_RASTER,
@@ -137,7 +153,7 @@ def set_crop_area(digital_elevation_map,
 
 
 def set_output_image(fig_resolution,
-                     smart_positioning: Optional[bool] = False):
+                     smart_legend_position: Optional[bool] = False):
     """ Set size of output image based on rows and columns of the GRASS
         computational region and a resolution integer value. A resolution of
         one means one pixel will be shown in the output image for each cell
@@ -147,7 +163,7 @@ def set_output_image(fig_resolution,
     grass_region = grass.region()
     number_of_cols = grass_region['cols']
     number_of_rows = grass_region['rows']
-    if smart_positioning and (number_of_cols >= number_of_rows):
+    if smart_legend_position and (number_of_cols >= number_of_rows):
         # Make room on the right
         fig_width = (number_of_cols + (number_of_cols * 0.5))
         fig_width *= fig_resolution
@@ -155,7 +171,7 @@ def set_output_image(fig_resolution,
     else:
         # Make room on the botton
         fig_width = number_of_cols * fig_resolution
-        fig_height = (number_of_rows + (number_of_rows * 0.5))
+        fig_height = (number_of_rows + (number_of_rows * k.room_for_legend))
         fig_height *= fig_resolution
 
     return fig_width, fig_height, number_of_cols, number_of_rows
@@ -388,7 +404,7 @@ def loop_and_map_png(extension: str,
     print("This is length of monitor var: ", len(monitor))
     # Sometimes the PNG monitor remains open (e.g., app runs with error)
     # and needs to be closed before the for loop below starts.
-    if len(monitor) != 0:
+    if len(monitor) > 0:
         grass.run_command("d.mon", stop=extension)
     # There should probably be a way to adjust vector line size depending on
     # fig_width,fig_height or maybe number_of_cols,number_of_rows (rescale)
@@ -461,7 +477,7 @@ def map_legend(extension: str,
                n_of_cols: int,
                n_of_rows: int,
                map_name: Optional[str] = None,
-               smart_positioning: Optional[bool] = False):
+               smart_legend_position: Optional[bool] = False):
     # sourcery skip: assign-if-exp, switch
     # Check fig_width, fig_height and
     # if n_of_cols >= n_of_rows then legend goes to bottom
@@ -469,7 +485,7 @@ def map_legend(extension: str,
     # See set_output_image()
     # bottom,top,left,right as % of screen coordinates (0,0 is lower left)
     if extension == "png":
-        if smart_positioning and (n_of_cols < n_of_rows):
+        if smart_legend_position and (n_of_cols < n_of_rows):
             legend_coords = (20, 80, 86, 90)
         else:
             legend_coords = (6, 10, 20, 80)
@@ -483,7 +499,7 @@ def map_legend(extension: str,
     elif extension == "ps":
         # Compute paper size and legend position
         bottom_legend = True
-        if smart_positioning and (n_of_cols < n_of_rows):
+        if smart_legend_position and (n_of_cols < n_of_rows):
             # make room for legend on the right
             paper_width = (fig_width / fig_height) * k.BASE_PAPER_SIDE
             paper_height = k.BASE_PAPER_SIDE
@@ -515,12 +531,9 @@ if __name__ == "__main__":
         set_mapping_region(
             map_of_subregions=k.mapping_data["admin_divisions"]["map_name"],
             column_name=k.mapping_data["admin_divisions"]["column"],
-            selected_subregions=(
-                "CO-NAR,CO-PUT,CO-CHO,CO-GUA,CO-VAU,CO-AMA,"
-                "CO-LAG,CO-CES,CO-NSA,CO-ARA,CO-BOY,CO-VID,CO-CAU,CO-VAC,"
-                "CO-ANT,CO-COR,CO-SUC,CO-BOL,CO-ATL,CO-MAG,CO-SAP,CO-CAQ,"
-                "CO-HUI,CO-GUV,CO-CAL,CO-CAS,CO-MET,CO-CUN,CO-SAN,CO-TOL,"
-                "CO-QUI,CO-CUN,CO-RIS")
+            selected_subregions=",".join(k.mapping_data["admin_divisions"]
+                                                       ["division_names"]
+                                                       [0:10])
             )
         set_crop_area(k.mapping_data["digital_elevation"],
                       900,
@@ -535,7 +548,7 @@ if __name__ == "__main__":
         # surf.interpolate_points_bspline(vector_layer=1,
         #                                 method="bicubic")
         (fig_width, fig_height,
-         number_of_cols, number_of_rows) = set_output_image(2)
+         number_of_cols, number_of_rows) = set_output_image(1)
         make_maps(
                   fig_width=fig_width,
                   fig_height=fig_height,
