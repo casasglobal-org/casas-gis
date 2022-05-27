@@ -3,11 +3,11 @@
 
         paper
             width 5
-            height 9.174191328286303
+            height 11.024191328286303
             left 0.1
             right 0.1
             bottom 0.1
-            top 0.1
+            top 3.0120956641431516
         end
 
         border y
@@ -21,12 +21,12 @@
         # Legend
         colortable y
             raster idw_coffee_03oct19_avg_meanTdda
-            where 0.5 6.880643496214727
+            where 0.5 8.268143496214726
             # range 1 211
             # height 0.2
             # cols 10
             width 4.0
-            height 0.36696765313145213
+            height 0.44096765313145214
             font Helvetica
             # fontsize 12
         end
@@ -39,14 +39,6 @@
             # ref lower left
         end
 
-        # Some boundary lines
-        vlines ne_10m_coastline_colombia
-            type line
-            color grey
-            width 1
-            lpos 0
-        end
-
         # Input points
         vpoints sel_coffee_03oct19_avg_meanTdda
             type point
@@ -54,6 +46,39 @@
             fcolor black
             width 0.5
             symbol basic/circle
-            size 4
+            size 2
         end
+
+        # Some boundary lines
+        vlines colombia
+            type boundary
+            color black
+            width 3
+            lpos 0
+        end
+
+        # Some boundary lines
+        vlines colombia_departments
+            type boundary
+            color black
+            width 1
+            lpos 0
+        end
+
+        # Some boundary lines
+        vlines ne_10m_admin_0_countries_lakes_colombia
+            type boundary
+            color grey
+            width 2
+            lpos 0
+        end
+
+        # Some boundary lines
+        vlines ne_10m_coastline_colombia
+            type boundary
+            color grey
+            width 3
+            lpos 0
+        end
+
         

@@ -44,7 +44,23 @@ andalusia = {
                 "olive_monoculture_sigpac_2018_grow_3000"
         }
     },
-    "room_for_bottom_legend": 0.37
+    "room_for_bottom_legend": 0.37,
+    "region_settings": {
+        "full": {
+            "north": "n+7000",
+            "south": "s-7000",
+            "east": "e+7000",
+            "west": "w-7000",
+            "resolution": 1000
+        },
+        "subset": {
+            "north": "n+7000",
+            "south": "s-7000",
+            "east": "e+7000",
+            "west": "w-7000",
+            "resolution": 1000
+        }
+    }
 }
 
 colombia = {
@@ -69,9 +85,15 @@ colombia = {
             "color": "128:128:128",
             "width": 4
         },
-        "target_region": "colombia",
+        "target_region": {
+            "map_name": "colombia",
+            "color": "23:23:23",
+            "width": 10
+        },
         "admin_divisions": {
             "map_name": "colombia_departments",
+            "color": "23:23:23",
+            "width": 3,
             "column": "iso_3166_2",
             "division_names": [
                 "CO-NAR", "CO-PUT", "CO-CHO", "CO-GUA", "CO-VAU",

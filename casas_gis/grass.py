@@ -165,7 +165,7 @@ def set_output_image(fig_resolution,
     number_of_rows = grass_region['rows']
     if smart_legend_position and (number_of_cols >= number_of_rows):
         # Make room on the right
-        fig_width = (number_of_cols + (number_of_cols * 0.5))
+        fig_width = (number_of_cols + (number_of_cols * k.room_for_legend))
         fig_width *= fig_resolution
         fig_height = number_of_rows * fig_resolution
     else:
@@ -212,18 +212,21 @@ def write_psmap_instructions(interpolated_raster: str,
                                  fig_height=fig_height,
                                  n_of_cols=number_of_cols,
                                  n_of_rows=number_of_rows)
+    left_margin = right_margin = bottom_margin = top_margin = margin
     if bottom_legend:
         # legend goes below map
         legend_x = paper_width * 0.10
         legend_y = paper_height * 0.75
         legend_width = paper_width * 0.8
         legend_height = paper_height * 0.04
+        top_margin = (paper_height - paper_width) * 0.5
     else:
         # legend goes to the right
         legend_x = paper_width * 0.75
         legend_y = paper_height * 0.10
         legend_width = paper_width * 0.04
         legend_height = paper_height * 0.8
+        left_margin = (paper_width - paper_height) * 0.5
     # https://unicode-table.com/en/
     sample_text = "this is sample text"
     psmap_file = f"""
@@ -232,10 +235,10 @@ def write_psmap_instructions(interpolated_raster: str,
         paper
             width {paper_width}
             height {paper_height}
-            left {margin}
-            right {margin}
-            bottom {margin}
-            top {margin}
+            left {left_margin}
+            right {right_margin}
+            bottom {bottom_margin}
+            top {top_margin}
         end
 
         border y
@@ -267,14 +270,6 @@ def write_psmap_instructions(interpolated_raster: str,
             # ref lower left
         end
 
-        # Some boundary lines
-        vlines {k.mapping_data["coastline"]["map_name"]}
-            type line
-            color grey
-            width 1
-            lpos 0
-        end
-
         # Input points
         vpoints {selected_points}
             type point
@@ -282,8 +277,41 @@ def write_psmap_instructions(interpolated_raster: str,
             fcolor black
             width 0.5
             symbol basic/circle
-            size 4
+            size 2
         end
+
+        # Some boundary lines
+        vlines {k.mapping_data["target_region"]["map_name"]}
+            type boundary
+            color black
+            width 3
+            lpos 0
+        end
+
+        # Some boundary lines
+        vlines {k.mapping_data["admin_divisions"]["map_name"]}
+            type boundary
+            color black
+            width 1
+            lpos 0
+        end
+
+        # Some boundary lines
+        vlines {k.mapping_data["countries"]["map_name"]}
+            type boundary
+            color grey
+            width 2
+            lpos 0
+        end
+
+        # Some boundary lines
+        vlines {k.mapping_data["coastline"]["map_name"]}
+            type boundary
+            color grey
+            width 3
+            lpos 0
+        end
+
         """
 
     with open(outfile, 'w') as f:
@@ -499,15 +527,17 @@ def map_legend(extension: str,
     elif extension == "ps":
         # Compute paper size and legend position
         bottom_legend = True
-        if smart_legend_position and (n_of_cols < n_of_rows):
+        if smart_legend_position and (n_of_cols >= n_of_rows):
             # make room for legend on the right
-            paper_width = (fig_width / fig_height) * k.BASE_PAPER_SIDE
+            paper_width = ((k.BASE_PAPER_SIDE * (fig_width / fig_height)) +
+                           (k.BASE_PAPER_SIDE * k.room_for_legend))
             paper_height = k.BASE_PAPER_SIDE
             bottom_legend = False
         else:
             # make room for legend below map
             paper_width = k.BASE_PAPER_SIDE
-            paper_height = (fig_height / fig_width) * k.BASE_PAPER_SIDE
+            paper_height = ((k.BASE_PAPER_SIDE * (fig_height / fig_width)) +
+                            (k.BASE_PAPER_SIDE * k.room_for_legend))
         return paper_width, paper_height, bottom_legend
 
 
@@ -533,7 +563,7 @@ if __name__ == "__main__":
             column_name=k.mapping_data["admin_divisions"]["column"],
             selected_subregions=",".join(k.mapping_data["admin_divisions"]
                                                        ["division_names"]
-                                                       [0:10])
+                                                       [:10])
             )
         set_crop_area(k.mapping_data["digital_elevation"],
                       900,
