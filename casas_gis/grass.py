@@ -165,13 +165,15 @@ def set_output_image(fig_resolution,
     number_of_rows = grass_region['rows']
     if smart_legend_position and (number_of_cols >= number_of_rows):
         # Make room on the right
-        fig_width = (number_of_cols + (number_of_cols * k.room_for_legend))
+        fig_width = (number_of_cols + (number_of_cols *
+                     k.legend_settings["room_for_bottom_legend"]))
         fig_width *= fig_resolution
         fig_height = number_of_rows * fig_resolution
     else:
         # Make room on the botton
         fig_width = number_of_cols * fig_resolution
-        fig_height = (number_of_rows + (number_of_rows * k.room_for_legend))
+        fig_height = (number_of_rows + (number_of_rows *
+                      k.legend_settings["room_for_bottom_legend"]))
         fig_height *= fig_resolution
 
     return fig_width, fig_height, number_of_cols, number_of_rows
@@ -530,14 +532,16 @@ def map_legend(extension: str,
         if smart_legend_position and (n_of_cols >= n_of_rows):
             # make room for legend on the right
             paper_width = ((k.BASE_PAPER_SIDE * (fig_width / fig_height)) +
-                           (k.BASE_PAPER_SIDE * k.room_for_legend))
+                           (k.BASE_PAPER_SIDE *
+                            k.legend_settings["room_for_bottom_legend"]))
             paper_height = k.BASE_PAPER_SIDE
             bottom_legend = False
         else:
             # make room for legend below map
             paper_width = k.BASE_PAPER_SIDE
             paper_height = ((k.BASE_PAPER_SIDE * (fig_height / fig_width)) +
-                            (k.BASE_PAPER_SIDE * k.room_for_legend))
+                            (k.BASE_PAPER_SIDE *
+                             k.legend_settings["room_for_bottom_legend"]))
         return paper_width, paper_height, bottom_legend
 
 
