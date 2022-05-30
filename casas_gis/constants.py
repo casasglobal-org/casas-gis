@@ -5,7 +5,7 @@ import locations as loc
 latlong_session = loc.colombia["latlong_session"]
 mapping_session = loc.colombia["mapping_session"]
 mapping_data = loc.colombia["mapping_data"]
-room_for_legend = loc.colombia["room_for_bottom_legend"]
+legend_settings = loc.colombia["legend_settings"]
 region = loc.colombia["region_settings"]
 
 
