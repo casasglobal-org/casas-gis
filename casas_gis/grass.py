@@ -466,6 +466,7 @@ def loop_and_map_png(extension: str,
                           icon="basic/point",
                           size=15,
                           width=2)
+        draw_map_box()
         map_legend(extension=extension,
                    map_name=idw_raster,
                    fig_width=fig_width,
@@ -543,6 +544,17 @@ def map_legend(extension: str,
                             (k.BASE_PAPER_SIDE *
                              k.legend_settings["room_for_bottom_legend"]))
         return paper_width, paper_height, bottom_legend
+
+
+def draw_map_box(width: Optional[int] = 2,
+                 bordercolor: Optional[str] = "black"):
+    grass.run_command("d.grid",
+                      flags="wn",
+                      size="5:0:0",
+                      color="black",
+                      width=width,
+                      bordercolor=bordercolor
+                      )
 
 
 if __name__ == "__main__":
