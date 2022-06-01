@@ -15,6 +15,7 @@ import pathlib
 import constants as k
 import cleanup
 import interpolation as surf
+import color as clr
 
 from dotenv import load_dotenv
 from typing import Optional
@@ -399,6 +400,10 @@ def make_ps_maps(extension: str,
                  fig_height: float):
     """ Cycle through interpolated surfaces and generate maps. """
     mapping_mapset = k.mapping_session["mapset"]
+    sel_vector_list = get_map_list_from_pattern(
+        map_type="vector",
+        pattern="sel_*",
+        mapping_mapset=mapping_mapset)
     idw_rasters_list = get_map_list_from_pattern(
         map_type="raster",
         pattern="idw_*",
@@ -406,10 +411,6 @@ def make_ps_maps(extension: str,
     bspline_rasters_list = get_map_list_from_pattern(
         map_type="raster",
         pattern="bspline_*",
-        mapping_mapset=mapping_mapset)
-    sel_vector_list = get_map_list_from_pattern(
-        map_type="vector",
-        pattern="sel_*",
         mapping_mapset=mapping_mapset)
     for surf_raster_list in (idw_rasters_list, bspline_rasters_list):
         loop_and_map_ps(extension=extension,
@@ -440,6 +441,9 @@ def loop_and_map_png(extension: str,
     # fig_width,fig_height or maybe number_of_cols,number_of_rows (rescale)
     for idw_raster, sel_vector in zip(surf_raster_list, sel_vector_list):
         outfile = k.PNG_DIR / f"{idw_raster}.{extension}"
+        clr.set_color_rule(raster_map=idw_raster,
+                           color_rule="panoply.txt")
+
         grass.run_command("d.mon", overwrite=True,
                           start=extension,
                           width=fig_width,
@@ -588,9 +592,10 @@ if __name__ == "__main__":
         surf.select_interpolation_points(k.mapping_data["digital_elevation"],
                                          altitude_cap=2000,
                                          lower_bound=0)
-        surf.interpolate_points_idw(vector_layer=1,
-                                    number_of_points=3,
-                                    power=2.0)
+        (abs_max_idw, abs_min_idw) = surf.interpolate_points_idw(
+            vector_layer=1,
+            number_of_points=3,
+            power=2.0)
         # surf.interpolate_points_bspline(vector_layer=1,
         #                                 method="bicubic")
         (fig_width, fig_height,

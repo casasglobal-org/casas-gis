@@ -1,19 +1,12 @@
 """ Library of funcitonality reeated to interpolation. """
 
-import os
 import pandas as pd
 
-from dotenv import load_dotenv
 from typing import Optional
 from io import StringIO
 import constants as k
 
-load_dotenv()  # needed for grass_session
-
-from grass_session import Session  # noqa E402
 import grass.script as grass  # noqa E402
-
-grassbin = os.getenv("GRASSBIN")
 
 
 def select_interpolation_points(digital_elevation_map,
