@@ -8,6 +8,8 @@ mapping_data = loc.colombia["mapping_data"]
 legend_settings = loc.colombia["legend_settings"]
 region = loc.colombia["region_settings"]
 
+# Contents of the following dirs should be copied to a results directory
+# and cleaned up for the next run?
 
 # Temporary directory for text files
 TMP_DIR = pathlib.Path(__file__).parent / "tmp"
@@ -29,6 +31,9 @@ pathlib.Path(PS_DIR).mkdir(parents=True, exist_ok=True)
 REPORT_DIR = OUT_DIR / "reports"
 pathlib.Path(REPORT_DIR).mkdir(parents=True, exist_ok=True)
 
+# Directory for color rule files
+COLOR_DIR = pathlib.Path(__file__).parent / "color_rules"
+# pathlib.Path(REPORT_DIR).mkdir(parents=True, exist_ok=True)
 
 # Output file extensions
 # See 162. Enumerations in Pybites book
