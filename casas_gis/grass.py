@@ -557,8 +557,7 @@ def draw_map_box(width: Optional[int] = 2,
                       size="5:0:0",
                       color="black",
                       width=width,
-                      bordercolor=bordercolor
-                      )
+                      bordercolor=bordercolor)
 
 
 if __name__ == "__main__":
