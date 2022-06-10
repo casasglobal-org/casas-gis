@@ -14,6 +14,6 @@ import grass.script as grass  # noqa E402
 def set_color_rule(raster_map: str,
                    color_rule: str):
     grass.run_command("r.colors",
-                      # flags="st",
+                      # flags="ge",
                       map=raster_map,
                       rules=k.COLOR_DIR / color_rule)
