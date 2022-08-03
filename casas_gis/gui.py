@@ -217,19 +217,16 @@
 
 # %flag
 # % key: r
-# % answer: 1
 # % description: Write a report with raster statistics
 # %end
 
 # %flag
 # % key: p
-# % answer: 1
 # % description: Produce bar chart plots summarizing raster statistics
 # %end
 
 
 import os
-import sys
 import pathlib
 import constants as k
 
@@ -240,7 +237,7 @@ load_dotenv()  # needed for grass_session
 from grass_session import Session  # noqa E402
 import grass.script as grass  # noqa E402
 
-grassbin = os.getenv("GRASSBIN")
+# grassbin = os.getenv("GRASSBIN")
 
 current_dir = pathlib.Path(__file__).parent
 print(current_dir)
@@ -248,44 +245,11 @@ os.environ["GRASS_ADDON_PATH"] = str(current_dir)
 
 
 def main():
-    LON = options["longitude"]
-
-    LAT = options["latitude"]
-
-    YEAR = options["year"]
-
-    PAR = options["parameter"]
-
-    SURF = options["interpolation"]
-
-    PNTS = options["numpoints"]
-
-    LEG1 = options["legend1"]
-
-    RULE_DIV = options["colorruledivergent"]
-
-    RULE_REG = options["colorruleregular"]
-
-    LOWBARCOL = options["lowbarcol"]
-
-    UPBARCOL = options["upbarcol"]
-
-    CUT = options["lowercut"]
-
-    HICUT = options["uppercut"]
-
-    DEPARTMENTS = options["departments"]
-
-    CROP = options["crop"]
-
-    CROP_THRESHOLD = options["cropthreshold"]
-
-    ALT = options["alt"]
-
-    FIGRES = options["resolution"]
+    print(options["savedir"])
+    return 0
 
 
 if __name__ == "__main__":
     with Session(**k.latlong_session):
         options, flags = grass.parser()
-        sys.exit(main())
+        main()
