@@ -1,3 +1,32 @@
+#######
+# casas-gis - an open source software based on GRASS GIS, for importing
+# ASCII output files from CASAS Global (http://www.casasglobal.org/)
+# physiologically based demographic models (PBDMs) to a GRASS monitor after
+# interpolation, saving the resulting map to an image file (currently png
+# and ps), and further processing and analysis. This a Python rewrite of
+# a set of bash shell scripts originally developed by Luigi Ponti starting
+# in 2005 at University of California, Berkeley.
+#
+# Copyright (c) 2005-2022 Luigi Ponti and CASAS Global
+# (Center for the Analysis of Sustainable Agricultural Systems Global
+# http://www.casasglobal.org/).
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+#######
+
+
 """ Geospatial functionality accessed through GRASSS GIS
     https://grasswiki.osgeo.org/wiki/Category:Python
     https://grass.osgeo.org/grass79/manuals/libpython/index.html
