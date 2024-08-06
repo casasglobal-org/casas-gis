@@ -1,0 +1,32 @@
+projection: 99 (Lambert Conformal Conic)
+zone:       0
+datum:      eur50
+ellipsoid:  a=6378388 es=0.00672267
+north:      1742768.14185553
+south:      700480.82572016
+west:       -1561745.08605046
+east:       -490459.83165463
+nsres:      1000.27573525
+ewres:      1000.26634397
+rows:       1042
+cols:       1071
+cells:      1115982
+
+
+projection: 99 (Lambert Conformal Conic)
+zone:       0
+datum:      eur50
+ellipsoid:  a=6378388 es=0.00672267
+north:      1750000
+south:      841000
+west:       -2207000
+east:       -483000
+nsres:      1000
+ewres:      1000
+rows:       909
+cols:       1724
+cells:      1567116
+(Sat Jul 04 19:31:27 2009) Command finished (0 sec)            
+
+g.region -a n=1750000 s=841000 e=-483000 w=-2207000 res=1000
+

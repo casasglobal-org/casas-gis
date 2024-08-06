@@ -1,0 +1,1292 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Document><Folder><name>OK_TexasMexico_stations_92</name>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>85</i><br />
+      <b>ID:</b> <i>99ALI</i><br />
+      <b>LAT:</b> <i>27.730000000000000</i><br />
+      <b>LONG:</b> <i>-98.030000000000001</i><br />
+      <b>START:</b> <i>05/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11308</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-98.03,27.73</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>250</i><br />
+      <b>ID:</b> <i>99CLL</i><br />
+      <b>LAT:</b> <i>30.579999999999998</i><br />
+      <b>LONG:</b> <i>-96.370000000000005</i><br />
+      <b>START:</b> <i>05/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11338</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-96.370000000000005,30.579999999999998</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>316</i><br />
+      <b>ID:</b> <i>99DLF</i><br />
+      <b>LAT:</b> <i>29.370000000000001</i><br />
+      <b>LONG:</b> <i>-100.780000000000001</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10808</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-100.78,29.369999999999997</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>348</i><br />
+      <b>ID:</b> <i>99DYS</i><br />
+      <b>LAT:</b> <i>32.430000000000000</i><br />
+      <b>LONG:</b> <i>-99.849999999999994</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10947</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-99.849999999999994,32.43</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>454</i><br />
+      <b>ID:</b> <i>99FTW</i><br />
+      <b>LAT:</b> <i>32.820000000000000</i><br />
+      <b>LONG:</b> <i>-97.349999999999994</i><br />
+      <b>START:</b> <i>01/06/1981</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10434</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-97.349999999999994,32.82</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>499</i><br />
+      <b>ID:</b> <i>99GRK</i><br />
+      <b>LAT:</b> <i>31.070000000000000</i><br />
+      <b>LONG:</b> <i>-97.829999999999998</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11315</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-97.829999999999998,31.07</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>553</i><br />
+      <b>ID:</b> <i>99HOU</i><br />
+      <b>LAT:</b> <i>29.649999999999999</i><br />
+      <b>LONG:</b> <i>-95.280000000000001</i><br />
+      <b>START:</b> <i>01/06/1981</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10435</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-95.28,29.650000000000002</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>600</i><br />
+      <b>ID:</b> <i>99INK</i><br />
+      <b>LAT:</b> <i>31.780000000000001</i><br />
+      <b>LONG:</b> <i>-103.200000000000003</i><br />
+      <b>START:</b> <i>05/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11290</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-103.200000000000003,31.78</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>662</i><br />
+      <b>ID:</b> <i>99LFK</i><br />
+      <b>LAT:</b> <i>31.230000000000000</i><br />
+      <b>LONG:</b> <i>-94.750000000000000</i><br />
+      <b>START:</b> <i>03/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11309</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-94.75,31.229999999999997</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>736</i><br />
+      <b>ID:</b> <i>99MFE</i><br />
+      <b>LAT:</b> <i>26.180000000000000</i><br />
+      <b>LONG:</b> <i>-98.230000000000004</i><br />
+      <b>START:</b> <i>02/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11291</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-98.230000000000004,26.18</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>855</i><br />
+      <b>ID:</b> <i>99NQI</i><br />
+      <b>LAT:</b> <i>27.500000000000000</i><br />
+      <b>LONG:</b> <i>-97.819999999999993</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10899</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-97.819999999999993,27.5</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>1048</i><br />
+      <b>ID:</b> <i>99RND</i><br />
+      <b>LAT:</b> <i>29.530000000000001</i><br />
+      <b>LONG:</b> <i>-98.280000000000001</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11240</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-98.28,29.53</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>1124</i><br />
+      <b>ID:</b> <i>99SKF</i><br />
+      <b>LAT:</b> <i>29.379999999999999</i><br />
+      <b>LONG:</b> <i>-98.579999999999998</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11272</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-98.579999999999998,29.379999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>11701</i><br />
+      <b>ID:</b> <i>72243</i><br />
+      <b>LAT:</b> <i>29.969999999999999</i><br />
+      <b>LONG:</b> <i>-95.349999999999994</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11880</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-95.349999999999994,29.969999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>11705</i><br />
+      <b>ID:</b> <i>72251</i><br />
+      <b>LAT:</b> <i>27.770000000000000</i><br />
+      <b>LONG:</b> <i>-97.500000000000000</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11884</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-97.5,27.77</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>11707</i><br />
+      <b>ID:</b> <i>72253</i><br />
+      <b>LAT:</b> <i>29.530000000000001</i><br />
+      <b>LONG:</b> <i>-98.469999999999999</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11884</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-98.469999999999999,29.53</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>11708</i><br />
+      <b>ID:</b> <i>72254</i><br />
+      <b>LAT:</b> <i>30.300000000000001</i><br />
+      <b>LONG:</b> <i>-97.700000000000003</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11884</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-97.700000000000003,30.299999999999997</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>11709</i><br />
+      <b>ID:</b> <i>72255</i><br />
+      <b>LAT:</b> <i>28.850000000000001</i><br />
+      <b>LONG:</b> <i>-96.920000000000002</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11878</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-96.920000000000002,28.849999999999998</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>11713</i><br />
+      <b>ID:</b> <i>72259</i><br />
+      <b>LAT:</b> <i>32.899999999999999</i><br />
+      <b>LONG:</b> <i>-97.030000000000001</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11884</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-97.03,32.899999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>11716</i><br />
+      <b>ID:</b> <i>72262</i><br />
+      <b>LAT:</b> <i>31.829999999999998</i><br />
+      <b>LONG:</b> <i>-104.799999999999997</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11643</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-104.799999999999997,31.829999999999998</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>11717</i><br />
+      <b>ID:</b> <i>72263</i><br />
+      <b>LAT:</b> <i>31.370000000000001</i><br />
+      <b>LONG:</b> <i>-100.500000000000000</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11884</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-100.5,31.37</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>11718</i><br />
+      <b>ID:</b> <i>72264</i><br />
+      <b>LAT:</b> <i>30.370000000000001</i><br />
+      <b>LONG:</b> <i>-104.019999999999996</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11488</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-104.019999999999996,30.37</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>11719</i><br />
+      <b>ID:</b> <i>72265</i><br />
+      <b>LAT:</b> <i>31.949999999999999</i><br />
+      <b>LONG:</b> <i>-102.180000000000007</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11884</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-102.180000000000007,31.949999999999996</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>11720</i><br />
+      <b>ID:</b> <i>72266</i><br />
+      <b>LAT:</b> <i>32.420000000000002</i><br />
+      <b>LONG:</b> <i>-99.680000000000007</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11884</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-99.680000000000007,32.420000000000002</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>11721</i><br />
+      <b>ID:</b> <i>72267</i><br />
+      <b>LAT:</b> <i>33.649999999999999</i><br />
+      <b>LONG:</b> <i>-101.819999999999993</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11884</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-101.819999999999993,33.649999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>11724</i><br />
+      <b>ID:</b> <i>72270</i><br />
+      <b>LAT:</b> <i>31.800000000000001</i><br />
+      <b>LONG:</b> <i>-106.400000000000006</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11884</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-106.400000000000006,31.8</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>11777</i><br />
+      <b>ID:</b> <i>72363</i><br />
+      <b>LAT:</b> <i>35.229999999999997</i><br />
+      <b>LONG:</b> <i>-101.700000000000003</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11887</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-101.700000000000003,35.229999999999997</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12058</i><br />
+      <b>ID:</b> <i>76055</i><br />
+      <b>LAT:</b> <i>31.030000000000001</i><br />
+      <b>LONG:</b> <i>-114.849999999999994</i><br />
+      <b>START:</b> <i>11/06/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>9145</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-114.850000000000009,31.030000000000005</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12068</i><br />
+      <b>ID:</b> <i>76243</i><br />
+      <b>LAT:</b> <i>28.699999999999999</i><br />
+      <b>LONG:</b> <i>-100.519999999999996</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11553</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-100.519999999999996,28.700000000000003</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12073</i><br />
+      <b>ID:</b> <i>76305</i><br />
+      <b>LAT:</b> <i>26.020000000000000</i><br />
+      <b>LONG:</b> <i>-111.349999999999994</i><br />
+      <b>START:</b> <i>18/10/1980</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>9040</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-111.349999999999994,26.02</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12078</i><br />
+      <b>ID:</b> <i>76373</i><br />
+      <b>LAT:</b> <i>25.350000000000001</i><br />
+      <b>LONG:</b> <i>-105.780000000000001</i><br />
+      <b>START:</b> <i>17/05/1983</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>8765</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-105.78,25.35</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12079</i><br />
+      <b>ID:</b> <i>76382</i><br />
+      <b>LAT:</b> <i>25.530000000000001</i><br />
+      <b>LONG:</b> <i>-103.450000000000003</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11620</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-103.450000000000003,25.53</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12084</i><br />
+      <b>ID:</b> <i>76402</i><br />
+      <b>LAT:</b> <i>25.000000000000000</i><br />
+      <b>LONG:</b> <i>-111.670000000000002</i><br />
+      <b>START:</b> <i>10/10/1980</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10547</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-111.670000000000002,25.0</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12087</i><br />
+      <b>ID:</b> <i>76423</i><br />
+      <b>LAT:</b> <i>24.030000000000001</i><br />
+      <b>LONG:</b> <i>-104.670000000000002</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11526</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-104.670000000000002,24.03</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12092</i><br />
+      <b>ID:</b> <i>76499</i><br />
+      <b>LAT:</b> <i>23.770000000000000</i><br />
+      <b>LONG:</b> <i>-98.200000000000003</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10599</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-98.200000000000003,23.77</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12098</i><br />
+      <b>ID:</b> <i>76548</i><br />
+      <b>LAT:</b> <i>22.219999999999999</i><br />
+      <b>LONG:</b> <i>-97.849999999999994</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11506</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-97.849999999999994,22.219999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12100</i><br />
+      <b>ID:</b> <i>76556</i><br />
+      <b>LAT:</b> <i>21.520000000000000</i><br />
+      <b>LONG:</b> <i>-104.900000000000006</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11505</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-104.900000000000006,21.52</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12102</i><br />
+      <b>ID:</b> <i>76571</i><br />
+      <b>LAT:</b> <i>21.879999999999999</i><br />
+      <b>LONG:</b> <i>-102.299999999999997</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11111</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-102.299999999999997,21.879999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12109</i><br />
+      <b>ID:</b> <i>76585</i><br />
+      <b>LAT:</b> <i>21.329999999999998</i><br />
+      <b>LONG:</b> <i>-98.670000000000002</i><br />
+      <b>START:</b> <i>13/06/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10694</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-98.670000000000002,21.329999999999998</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12117</i><br />
+      <b>ID:</b> <i>76634</i><br />
+      <b>LAT:</b> <i>20.079999999999998</i><br />
+      <b>LONG:</b> <i>-98.370000000000005</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10805</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-98.370000000000005,20.079999999999998</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12125</i><br />
+      <b>ID:</b> <i>76656</i><br />
+      <b>LAT:</b> <i>19.699999999999999</i><br />
+      <b>LONG:</b> <i>-103.469999999999999</i><br />
+      <b>START:</b> <i>14/02/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10733</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-103.469999999999999,19.699999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12127</i><br />
+      <b>ID:</b> <i>76662</i><br />
+      <b>LAT:</b> <i>19.980000000000000</i><br />
+      <b>LONG:</b> <i>-102.299999999999997</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11257</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-102.299999999999997,19.98</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12140</i><br />
+      <b>ID:</b> <i>76698</i><br />
+      <b>LAT:</b> <i>19.579999999999998</i><br />
+      <b>LONG:</b> <i>-88.030000000000001</i><br />
+      <b>START:</b> <i>09/12/1980</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>9504</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-88.03,19.579999999999998</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12142</i><br />
+      <b>ID:</b> <i>76726</i><br />
+      <b>LAT:</b> <i>18.920000000000002</i><br />
+      <b>LONG:</b> <i>-99.250000000000000</i><br />
+      <b>START:</b> <i>19/03/1980</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10765</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-99.25,18.920000000000002</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12143</i><br />
+      <b>ID:</b> <i>76737</i><br />
+      <b>LAT:</b> <i>18.850000000000001</i><br />
+      <b>LONG:</b> <i>-97.099999999999994</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10282</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-97.099999999999994,18.85</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12147</i><br />
+      <b>ID:</b> <i>76750</i><br />
+      <b>LAT:</b> <i>18.500000000000000</i><br />
+      <b>LONG:</b> <i>-88.299999999999997</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11523</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-88.299999999999997,18.5</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12148</i><br />
+      <b>ID:</b> <i>76762</i><br />
+      <b>LAT:</b> <i>17.550000000000001</i><br />
+      <b>LONG:</b> <i>-99.500000000000000</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11505</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-99.5,17.55</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12159</i><br />
+      <b>ID:</b> <i>76848</i><br />
+      <b>LAT:</b> <i>16.250000000000000</i><br />
+      <b>LONG:</b> <i>-92.129999999999995</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11398</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-92.129999999999995,16.25</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>313</i><br />
+      <b>ID:</b> <i>99DHT</i><br />
+      <b>LAT:</b> <i>36.020000000000003</i><br />
+      <b>LONG:</b> <i>-102.549999999999997</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11317</i><br />
+      <b>TEXMEX:</b> <i>0</i><br />
+]]></description>
+      <Point><coordinates>-102.549999999999997,36.020000000000003</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>842</i><br />
+      <b>ID:</b> <i>99NGP</i><br />
+      <b>LAT:</b> <i>27.680000000000000</i><br />
+      <b>LONG:</b> <i>-97.280000000000001</i><br />
+      <b>START:</b> <i>01/06/1981</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10391</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-97.28,27.68</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>1004</i><br />
+      <b>ID:</b> <i>99PSX</i><br />
+      <b>LAT:</b> <i>28.719999999999999</i><br />
+      <b>LONG:</b> <i>-96.250000000000000</i><br />
+      <b>START:</b> <i>03/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11284</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-96.25,28.720000000000002</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>11700</i><br />
+      <b>ID:</b> <i>72242</i><br />
+      <b>LAT:</b> <i>29.270000000000000</i><br />
+      <b>LONG:</b> <i>-95.329999999999998</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11873</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-95.329999999999998,29.27</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>11710</i><br />
+      <b>ID:</b> <i>72256</i><br />
+      <b>LAT:</b> <i>31.620000000000001</i><br />
+      <b>LONG:</b> <i>-97.230000000000004</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11882</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-97.230000000000004,31.619999999999997</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>11715</i><br />
+      <b>ID:</b> <i>72261</i><br />
+      <b>LAT:</b> <i>29.370000000000001</i><br />
+      <b>LONG:</b> <i>-104.799999999999997</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11876</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-104.799999999999997,29.369999999999997</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12048</i><br />
+      <b>ID:</b> <i>74740</i><br />
+      <b>LAT:</b> <i>30.500000000000000</i><br />
+      <b>LONG:</b> <i>-99.769999999999996</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11624</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-99.769999999999996,30.5</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12060</i><br />
+      <b>ID:</b> <i>76113</i><br />
+      <b>LAT:</b> <i>30.699999999999999</i><br />
+      <b>LONG:</b> <i>-111.920000000000002</i><br />
+      <b>START:</b> <i>14/02/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>9593</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-111.920000000000002,30.699999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12062</i><br />
+      <b>ID:</b> <i>76122</i><br />
+      <b>LAT:</b> <i>30.420000000000002</i><br />
+      <b>LONG:</b> <i>-107.920000000000002</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11391</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-107.920000000000002,30.420000000000002</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12064</i><br />
+      <b>ID:</b> <i>76160</i><br />
+      <b>LAT:</b> <i>29.070000000000000</i><br />
+      <b>LONG:</b> <i>-110.969999999999999</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>30/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>9380</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-110.969999999999999,29.069999999999997</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12066</i><br />
+      <b>ID:</b> <i>76220</i><br />
+      <b>LAT:</b> <i>28.949999999999999</i><br />
+      <b>LONG:</b> <i>-107.829999999999998</i><br />
+      <b>START:</b> <i>02/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11275</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-107.829999999999998,28.949999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12067</i><br />
+      <b>ID:</b> <i>76225</i><br />
+      <b>LAT:</b> <i>28.629999999999999</i><br />
+      <b>LONG:</b> <i>-106.079999999999998</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11439</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-106.079999999999998,28.629999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12071</i><br />
+      <b>ID:</b> <i>76256</i><br />
+      <b>LAT:</b> <i>27.920000000000002</i><br />
+      <b>LONG:</b> <i>-110.900000000000006</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11360</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-110.900000000000006,27.920000000000002</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12075</i><br />
+      <b>ID:</b> <i>76323</i><br />
+      <b>LAT:</b> <i>26.930000000000000</i><br />
+      <b>LONG:</b> <i>-105.670000000000002</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11232</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-105.670000000000002,26.93</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12076</i><br />
+      <b>ID:</b> <i>76342</i><br />
+      <b>LAT:</b> <i>26.879999999999999</i><br />
+      <b>LONG:</b> <i>-101.420000000000002</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11186</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-101.420000000000002,26.879999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12080</i><br />
+      <b>ID:</b> <i>76390</i><br />
+      <b>LAT:</b> <i>25.430000000000000</i><br />
+      <b>LONG:</b> <i>-100.980000000000004</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11092</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-100.980000000000004,25.43</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12081</i><br />
+      <b>ID:</b> <i>76393</i><br />
+      <b>LAT:</b> <i>25.670000000000002</i><br />
+      <b>LONG:</b> <i>-100.299999999999997</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11493</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-100.299999999999997,25.670000000000002</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12085</i><br />
+      <b>ID:</b> <i>76405</i><br />
+      <b>LAT:</b> <i>24.170000000000002</i><br />
+      <b>LONG:</b> <i>-110.420000000000002</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11271</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-110.420000000000002,24.170000000000002</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12089</i><br />
+      <b>ID:</b> <i>76471</i><br />
+      <b>LAT:</b> <i>23.629999999999999</i><br />
+      <b>LONG:</b> <i>-103.650000000000006</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11495</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-103.650000000000006,23.629999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12091</i><br />
+      <b>ID:</b> <i>76491</i><br />
+      <b>LAT:</b> <i>23.730000000000000</i><br />
+      <b>LONG:</b> <i>-99.129999999999995</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11480</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-99.129999999999995,23.73</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12095</i><br />
+      <b>ID:</b> <i>76525</i><br />
+      <b>LAT:</b> <i>22.780000000000001</i><br />
+      <b>LONG:</b> <i>-102.579999999999998</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11290</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-102.579999999999998,22.78</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12096</i><br />
+      <b>ID:</b> <i>76539</i><br />
+      <b>LAT:</b> <i>22.149999999999999</i><br />
+      <b>LONG:</b> <i>-100.980000000000004</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11620</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-100.980000000000004,22.149999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12105</i><br />
+      <b>ID:</b> <i>76577</i><br />
+      <b>LAT:</b> <i>21.020000000000000</i><br />
+      <b>LONG:</b> <i>-101.250000000000000</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11380</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-101.25,21.02</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12107</i><br />
+      <b>ID:</b> <i>76581</i><br />
+      <b>LAT:</b> <i>21.850000000000001</i><br />
+      <b>LONG:</b> <i>-100.000000000000000</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11437</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-100.0,21.85</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12111</i><br />
+      <b>ID:</b> <i>76593</i><br />
+      <b>LAT:</b> <i>21.300000000000001</i><br />
+      <b>LONG:</b> <i>-89.670000000000002</i><br />
+      <b>START:</b> <i>01/05/1983</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>8298</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-89.670000000000002,21.3</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12113</i><br />
+      <b>ID:</b> <i>76612</i><br />
+      <b>LAT:</b> <i>20.670000000000002</i><br />
+      <b>LONG:</b> <i>-103.379999999999995</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>30/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11294</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-103.379999999999995,20.670000000000002</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12116</i><br />
+      <b>ID:</b> <i>76632</i><br />
+      <b>LAT:</b> <i>20.129999999999999</i><br />
+      <b>LONG:</b> <i>-98.730000000000004</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>30/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>9997</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-98.730000000000004,20.129999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12121</i><br />
+      <b>ID:</b> <i>76644</i><br />
+      <b>LAT:</b> <i>20.949999999999999</i><br />
+      <b>LONG:</b> <i>-89.670000000000002</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11645</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-89.670000000000002,20.949999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12122</i><br />
+      <b>ID:</b> <i>76647</i><br />
+      <b>LAT:</b> <i>20.680000000000000</i><br />
+      <b>LONG:</b> <i>-88.219999999999999</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10614</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-88.219999999999999,20.68</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12128</i><br />
+      <b>ID:</b> <i>76665</i><br />
+      <b>LAT:</b> <i>19.699999999999999</i><br />
+      <b>LONG:</b> <i>-101.180000000000007</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11550</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-101.180000000000007,19.699999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12129</i><br />
+      <b>ID:</b> <i>76675</i><br />
+      <b>LAT:</b> <i>19.300000000000001</i><br />
+      <b>LONG:</b> <i>-99.670000000000002</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11233</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-99.670000000000002,19.3</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12131</i><br />
+      <b>ID:</b> <i>76680</i><br />
+      <b>LAT:</b> <i>19.399999999999999</i><br />
+      <b>LONG:</b> <i>-99.200000000000003</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>30/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10670</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-99.200000000000003,19.399999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12132</i><br />
+      <b>ID:</b> <i>76683</i><br />
+      <b>LAT:</b> <i>19.320000000000000</i><br />
+      <b>LONG:</b> <i>-98.230000000000004</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11658</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-98.230000000000004,19.32</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12133</i><br />
+      <b>ID:</b> <i>76685</i><br />
+      <b>LAT:</b> <i>19.030000000000001</i><br />
+      <b>LONG:</b> <i>-98.200000000000003</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11059</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-98.200000000000003,19.03</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12134</i><br />
+      <b>ID:</b> <i>76687</i><br />
+      <b>LAT:</b> <i>19.530000000000001</i><br />
+      <b>LONG:</b> <i>-96.920000000000002</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11608</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-96.920000000000002,19.53</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12138</i><br />
+      <b>ID:</b> <i>76692</i><br />
+      <b>LAT:</b> <i>19.149999999999999</i><br />
+      <b>LONG:</b> <i>-96.120000000000005</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11668</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-96.120000000000005,19.149999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12139</i><br />
+      <b>ID:</b> <i>76695</i><br />
+      <b>LAT:</b> <i>19.850000000000001</i><br />
+      <b>LONG:</b> <i>-90.549999999999997</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10510</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-90.549999999999997,19.85</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12144</i><br />
+      <b>ID:</b> <i>76741</i><br />
+      <b>LAT:</b> <i>18.149999999999999</i><br />
+      <b>LONG:</b> <i>-94.420000000000002</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11246</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-94.420000000000002,18.149999999999999</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12150</i><br />
+      <b>ID:</b> <i>76775</i><br />
+      <b>LAT:</b> <i>17.070000000000000</i><br />
+      <b>LONG:</b> <i>-96.719999999999999</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10717</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-96.719999999999999,17.07</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12156</i><br />
+      <b>ID:</b> <i>76840</i><br />
+      <b>LAT:</b> <i>16.230000000000000</i><br />
+      <b>LONG:</b> <i>-93.900000000000006</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>15/02/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10843</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-93.900000000000006,16.23</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12157</i><br />
+      <b>ID:</b> <i>76843</i><br />
+      <b>LAT:</b> <i>16.730000000000000</i><br />
+      <b>LONG:</b> <i>-93.180000000000007</i><br />
+      <b>START:</b> <i>12/11/1981</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>10582</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-93.180000000000007,16.73</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12158</i><br />
+      <b>ID:</b> <i>76845</i><br />
+      <b>LAT:</b> <i>16.730000000000000</i><br />
+      <b>LONG:</b> <i>-92.629999999999995</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>9322</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-92.629999999999995,16.73</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12160</i><br />
+      <b>ID:</b> <i>76855</i><br />
+      <b>LAT:</b> <i>15.650000000000000</i><br />
+      <b>LONG:</b> <i>-96.500000000000000</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>9687</i><br />
+      <b>TEXMEX:</b> <i>0</i><br />
+]]></description>
+      <Point><coordinates>-96.5,15.65</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+  <Placemark>
+      <description>
+<![CDATA[
+      <b>CAT:</b> <i>12162</i><br />
+      <b>ID:</b> <i>76903</i><br />
+      <b>LAT:</b> <i>14.920000000000000</i><br />
+      <b>LONG:</b> <i>-92.269999999999996</i><br />
+      <b>START:</b> <i>01/01/1979</i><br />
+      <b>END:</b> <i>31/05/2008</i><br />
+      <b>OBSERVATIO:</b> <i>11475</i><br />
+      <b>TEXMEX:</b> <i>1</i><br />
+]]></description>
+      <Point><coordinates>-92.269999999999996,14.92</coordinates></Point><Style><IconStyle><color>ff00c800</color><Icon><href>http://maps.google.com/mapfiles/kml/pal3/icon55.png</href></Icon></IconStyle></Style>
+  </Placemark>
+</Folder></Document></kml>

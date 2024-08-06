@@ -1,0 +1,72 @@
+Raster statistics by state/country:
+
++-----------------------------------------------------------------------------+
+|                         RASTER MAP CATEGORY REPORT                          |
+|LOCATION: africa_aea                                 Fri Jul 26 19:21:44 2024|
+|-----------------------------------------------------------------------------|
+|          north:  4197000    east:  2853000                                  |
+|REGION    south: -4053000    west: -4554000                                  |
+|          res:       3000    res:      3000                                  |
+|-----------------------------------------------------------------------------|
+|MASK: none                                                                   |
+|-----------------------------------------------------------------------------|
+|MAP: (untitled) (MskdModPOSCmmothPup_Plants_14Jan23_Avg in luigi)            |
+|-----------------------------------------------------------------------------|
+|               Category Information                 |  square  |  cell|   %  |
+|                     #|description                                    |kilometers| count| cover|
+|-----------------------------------------------------------------------------|
+|     0.0144-260.692899|from  to . . . . . . . . . . | 2,473,551|274839| 27.98|
+| 260.692899-521.371397|from  to . . . . . . . . . . |   890,649| 98961| 10.07|
+| 521.371397-782.049895|from  to . . . . . . . . . . | 3,654,684|406076| 41.34|
+|782.049895-1042.728393|from  to . . . . . . . . . . | 1,822,599|202511| 20.61|
+|-----------------------------------------------------------------------------|
+|TOTAL                                               | 8,841,483|982387|100.00|
++-----------------------------------------------------------------------------+
+
+-------------------------------------------
+
+Raster univariate statistics:
+
+total null and non-null cells: 6789750
+total null cells: 5807363
+
+Of the non-null cells:
+----------------------
+n: 982387
+minimum: 0.0144004
+maximum: 1042.73
+range: 1042.71
+mean: 513.275
+mean of absolute values: 513.275
+standard deviation: 322.39
+variance: 103936
+variation coefficient: 62.8105 %
+sum: 504234400.545964
+
+-------------------------------------------
+
+Vector univariate statistics:
+
+number of features with non NULL attribute: 40656
+number of missing attributes: 0
+number of NULL attributes: 0
+minimum: 0.0001
+maximum: 1042.73
+range: 1042.73
+sum: 1.27158e+007
+mean: 312.766
+mean of absolute values: 312.766
+population standard deviation: 334.235
+population variance: 111713
+population coefficient of variation: 1.06864
+sample standard deviation: 334.239
+sample variance: 111716
+kurtosis: -1.45325
+skewness: 0.440425
+1st quartile: 2.1522
+median (even number of cells): 151.456
+3rd quartile: 664.046
+90th percentile: 786.274
+
+-------------------------------------------
+

@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>GRASS GIS manual: usa</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="grassdocs.css" type="text/css">
+</head>
+<body bgcolor="white">
+
+<img src="grass_logo.png" alt="GRASS logo"><hr align=center size=6 noshade>
+
+<h2>NAME</h2>
+<em><b>usa</b></em>  - Map the output of CASAS models for the conterminous United States
+<h2>SYNOPSIS</h2>
+<b>usa</b><br>
+<b>usa help</b><br>
+<b>usa</b> [-<b>xlduscgrp</b>] <b>states</b>=<em>string</em>[,<i>string</i>,...] <b>SaveDir</b>=<em>string</em> <b>longitude</b>=<em>integer</em> <b>latitude</b>=<em>integer</em> <b>year</b>=<em>integer</em> <b>parameter</b>=<em>integer</em> <b>lowercut</b>=<em>float</em> <b>uppercut</b>=<em>float</em> <b>legend1</b>=<em>string</em> <b>ecoregions</b>=<em>string</em>[,<i>string</i>,...] <b>alt</b>=<em>float</em> <b>resolution</b>=<em>string</em>  [<b>colorRuleDivergent</b>=<em>string</em>]   [<b>colorRuleRegular</b>=<em>string</em>]   [--<b>verbose</b>]  [--<b>quiet</b>] 
+
+<h3>Flags:</h3>
+<DL>
+<DT><b>-x</b></DT>
+<DD>Use an overall (compound) range for all maps (absolute max and min)</DD>
+
+<DT><b>-l</b></DT>
+<DD>Use also same legend bar for all maps (i.e. bar will extend to overall max and min)</DD>
+
+<DT><b>-d</b></DT>
+<DD>Use divergent, zero-centered color pattern (requires positive max and negative min)</DD>
+
+<DT><b>-u</b></DT>
+<DD>Use cutting point to mask high values</DD>
+
+<DT><b>-s</b></DT>
+<DD>Use different symbols for stations above/below high/low cutting points</DD>
+
+<DT><b>-c</b></DT>
+<DD>Do not interpolate stations above clipping altitude</DD>
+
+<DT><b>-g</b></DT>
+<DD>Black and white output instead of color</DD>
+
+<DT><b>-r</b></DT>
+<DD>Write a report with raster statistics</DD>
+
+<DT><b>-p</b></DT>
+<DD>Produce barchart plots summarizing raster statistics</DD>
+
+<DT><b>--verbose</b></DT>
+<DD>Verbose module output</DD>
+<DT><b>--quiet</b></DT>
+<DD>Quiet module output</DD>
+</DL>
+
+<h3>Parameters:</h3>
+<DL>
+<DT><b>states</b>=<em>string[,<i>string</i>,...]</em></DT>
+<DD>Specify multiple States using FIPS codes (separated by space). Use MX for Mexico. Shortcuts: US_conterminous, US_conterm_Mex</DD>
+<DD>Default: <em>MX</em></DD>
+
+<DT><b>SaveDir</b>=<em>string</em></DT>
+<DD>Name for directory where to store output maps</DD>
+
+<DT><b>longitude</b>=<em>integer</em></DT>
+<DD>Longitude (X) column number</DD>
+<DD>Default: <em>5</em></DD>
+
+<DT><b>latitude</b>=<em>integer</em></DT>
+<DD>Latitude (Y) column number</DD>
+<DD>Default: <em>6</em></DD>
+
+<DT><b>year</b>=<em>integer</em></DT>
+<DD>Year column number</DD>
+<DD>Default: <em>11</em></DD>
+
+<DT><b>parameter</b>=<em>integer</em></DT>
+<DD>Parameter to map</DD>
+
+<DT><b>lowercut</b>=<em>float</em></DT>
+<DD>Cutting point to mask low values</DD>
+<DD>Default: <em>0</em></DD>
+
+<DT><b>uppercut</b>=<em>float</em></DT>
+<DD>Cutting point to mask high values (please, also check option below)</DD>
+<DD>Default: <em>0</em></DD>
+
+<DT><b>legend1</b>=<em>string</em></DT>
+<DD>Text for legend - first line (file name of HTML summary)</DD>
+
+<DT><b>ecoregions</b>=<em>string[,<i>string</i>,...]</em></DT>
+<DD>Codes defining Level 3 Ecological Regions of the US (separated by space)</DD>
+<DD>Default: <em>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84</em></DD>
+
+<DT><b>alt</b>=<em>float</em></DT>
+<DD>Altitude (meters) above which to clip</DD>
+<DD>Default: <em>700</em></DD>
+
+<DT><b>resolution</b>=<em>string</em></DT>
+<DD>Resolution of output figure (single=1, double=2, quad=4)</DD>
+<DD>Opzioni: <em>1,2,4</em></DD>
+<DD>Default: <em>1</em></DD>
+
+<DT><b>colorRuleDivergent</b>=<em>string</em></DT>
+<DD>Select or input a DIVERGENT color pattern (hyphen-separated) using standard GRASS colors (see r.colors manual page for color names) or R:G:B triplets</DD>
+<DD>Default: <em>32:96:255-32:159:255-32:191:255-0:207:255-42:255:255-85:255:255-127:255:255-170:255:255-255:255:84-255:240:0-255:191:0-255:168:0-255:138:0-255:112:0-255:77:0-255:0:0</em></DD>
+
+<DT><b>colorRuleRegular</b>=<em>string</em></DT>
+<DD>Select or input a REGULAR color pattern (hyphen-separated) using standard GRASS colors (see r.colors manual page for color names) or R:G:B triplets</DD>
+<DD>Default: <em>0:0:255-0:64:255-0:128:255-0:191:255-0:255:255-0:255:255-0:255:223-0:255:159-0:255:74-0:255:0-74:255:0-159:255:0-223:255:0-255:255:0-255:255:0-255:191:0-255:128:0-255:64:0-255:0:0</em></DD>
+
+</DL>
+</body>
+</html>

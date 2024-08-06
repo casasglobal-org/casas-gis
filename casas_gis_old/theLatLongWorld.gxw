@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gxw SYSTEM "grass-gxw.dtd">
+<gxw>
+    <layer_manager dim="75,669,550,400">
+    </layer_manager>
+    <display render="0" mode="0" showCompExtent="0" constrainRes="0" dim="510,166,786,608" extent="-155.594652,-90.000000,185.300414,90.000000">
+        <layer type="vector" name="admin_0_countries_110m@luigi" checked="1" opacity="1.000000">
+            <selected />
+            <task name="d.vect">
+                <parameter name="map">
+                    <value>admin_0_countries_110m@luigi</value>
+                </parameter>
+                <parameter name="type">
+                    <value>point,area,face,centroid,line,boundary</value>
+                </parameter>
+            </task>
+        </layer>
+    </display>
+</gxw>

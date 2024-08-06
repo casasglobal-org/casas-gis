@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gxw SYSTEM "grass-gxw.dtd">
+<gxw>
+    <layer_manager dim="1260,539,500,400">
+    </layer_manager>
+    <display render="1" mode="0" showCompExtent="0" constrainRes="0" dim="49,49,942,585" extent="-2207000.000000,841000.000000,-483000.000000,1750000.000000">
+        <layer type="vector" name="iberia@luigi" checked="0" opacity="1.000000">
+            <task name="d.vect">
+                <parameter name="map">
+                    <value>iberia@luigi</value>
+                </parameter>
+                <parameter name="type">
+                    <value>point,area,face,centroid,line,boundary</value>
+                </parameter>
+                <parameter name="fcolor">
+                    <value>none</value>
+                </parameter>
+            </task>
+        </layer>
+        <layer type="raster" name="iberia_dem@luigi" checked="1" opacity="1.000000">
+            <selected />
+            <task name="d.rast">
+                <flag name="o" />
+                <parameter name="map">
+                    <value>iberia_dem@luigi</value>
+                </parameter>
+            </task>
+        </layer>
+        <layer type="raster" name="iberia_demSmoothShaded@luigi" checked="1" opacity="1.000000">
+            <task name="d.rast">
+                <flag name="o" />
+                <parameter name="map">
+                    <value>iberia_demSmoothShaded@luigi</value>
+                </parameter>
+            </task>
+        </layer>
+    </display>
+</gxw>
