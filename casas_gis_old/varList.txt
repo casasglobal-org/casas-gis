@@ -1,0 +1,38 @@
+
+The following column names were found:
+
+1. Model
+2. Date
+3. Time
+4. WxFile
+5. Long
+6. Lat
+7. JdStart
+8. JdEnd
+9. Month
+10. Day
+11. Year
+12. rain
+13. CutDD
+14. Yeardd
+15. Root
+16. Stem/Yr
+17. LeafYr
+18. StLfYr
+19. TonsAcreYr
+20. NrCuts
+21. TempIncr
+22. MothE
+23. MothL
+24. MothP
+25. MothA
+26. CmmothEgg
+27. CmmothLar
+28. CmmothPup
+29. CmmothAdl
+30. TDDAMoth
+31. TDDBMoth
+32. SumLowMu
+33. SumHighMu
+
+Number of rows is 40657.

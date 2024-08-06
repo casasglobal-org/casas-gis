@@ -1,0 +1,13 @@
+# Dark Red to Blue, 12 steps, based on ColorBrewer RdYlBu_11
+# http://geography.uoregon.edu/datagraphics/color_scales.htm
+0 41:10:216
+1 38:77:255
+2 63:160:255
+3 114:217:255
+4 170:247:255
+5 255:224:153
+6 255:173:114
+7 247:109:94
+8 216:38:50
+9 165:0:33
+end

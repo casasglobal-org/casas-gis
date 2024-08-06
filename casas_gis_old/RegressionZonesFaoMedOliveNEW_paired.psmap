@@ -1,0 +1,80 @@
+# Regression zones for the Mediterranean Basin
+# Author: Luigi Ponti quartese at gmail.com
+# 19 Jamuary 2011
+
+# Launch with:
+# ps.map -r input="c:\cygwin\home\andy\RegressionZonesFaoMedOliveNEW_paired.psmap" output="c:\cygwin\home\andy\regressionZonesFaoMedOliveNEW_paired.ps"
+
+border y
+    color black
+    width 1
+    end
+    
+raster era40_67_270_10
+
+# Regression zone 1
+vareas admin0_10m_naturalEarth_MED
+    layer 1
+    where (COUNTRY = 'Spain') or (COUNTRY = 'Portugal')
+    fcolor 166:206:227
+    width 1
+    label  Zone 1
+    lpos 8
+    end
+
+# Regression zone 2
+vareas admin0_10m_naturalEarth_MED
+    layer 1
+    where (COUNTRY = 'Italy') or (COUNTRY = 'France')
+    fcolor 31:120:180
+    width 1
+    label  Zone 2
+    lpos 2
+    end
+    
+# Regression zone 3
+vareas admin0_10m_naturalEarth_MED
+    layer 1
+    where (COUNTRY = 'Greece') or (COUNTRY = 'Turkey') or (COUNTRY = 'Cyprus') or (COUNTRY = 'Turkish Republic of Northern Cyprus') or (COUNTRY = 'Croatia') or (COUNTRY = 'Montenegro') or (COUNTRY = 'Albania')
+    fcolor 178:223:138
+    width 1
+    label  Zone 3
+    lpos 3
+    end
+
+# Regression zone 4
+vareas admin0_10m_naturalEarth_MED
+    layer 1
+    where (COUNTRY = 'Syria') or (COUNTRY = 'Lebanon') or (COUNTRY = 'Israel') or (COUNTRY = 'Palestine') or (COUNTRY = 'Jordan') or (COUNTRY = 'Egypt')
+    fcolor 51:160:44
+    width 1
+    label  Zone 4
+    lpos 4
+    end
+
+# Regression zone 5
+vareas admin0_10m_naturalEarth_MED
+    layer 1
+    where (COUNTRY = 'Libya') or (COUNTRY = 'Tunisia') or (COUNTRY = 'Algeria') or (COUNTRY = 'Morocco')
+    fcolor 251:154:153
+    width 1
+    label  Zone 5
+    lpos 5
+    end
+
+vlines coastline_naturalEarth_10m
+    type line
+    color grey
+    width 1
+    lpos 0
+    end    
+
+vlegend
+    where 0.5 5.8
+    border black
+    font Helvetica
+    fontsize 15
+    cols 1
+    border none
+    end
+end

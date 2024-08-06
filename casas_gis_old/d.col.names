@@ -1,0 +1,36 @@
+#!/bin/bash
+############################################################################
+#
+# MODULE:       d.col.names
+#
+# AUTHOR(S):    Luigi Ponti
+#
+# PURPOSE:      Read column names from CASAS models output files.
+#
+# NOTE:           This version uses outfiles with names of
+#                       type "Olive_02Mar06_00003.txt".
+#                       It requires outfiles in "Olive_02Mar06_00002.txt" style.
+#
+# COPYRIGHT:    (c) 2006 Luigi Ponti lponti@nature.berkeley.edu
+#
+#		This program is free software under the GNU General Public
+#		License (>=v2). Read the file COPYING that comes with GRASS
+#		for details.
+#
+#
+#############################################################################
+
+echo  
+echo "Please move CASAS model output files into the \"outfiles\" folder,"
+echo
+echo "then press [ENTER]..."
+echo
+read franco
+perl ~/PerlScripts/printCols.pl "$HOME"
+echo
+echo "Please press [ENTER] to quit."
+echo
+read franco
+exit
+
+
