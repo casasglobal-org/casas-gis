@@ -1,0 +1,6 @@
+
+---------- MEDPRESENTCLIMATE vector
+admin0_10m_naturalEarth_MED
+
+---------- MEDPRESENTCLIMATE
+MedOliveDEM_resamp era40_67_270_10_grow natural_earth_color.composite

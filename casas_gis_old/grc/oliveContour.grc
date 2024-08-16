@@ -1,0 +1,131 @@
+Vector olive_sardinia_points
+  _check 1
+  vect olive_sardinia_points
+  opacity 1.00
+  display_shape 1
+  display_cat 0
+  display_topo 0
+  display_dir 0
+  display_attr 0
+  type_point 1
+  type_line 0
+  type_boundary 0
+  type_centroid 0
+  type_area 0
+  type_face 0
+  color #009900
+  _use_color 1
+  fcolor #AAAAAA
+  _use_fcolor 1
+  lcolor #000000
+  rdmcolor 0
+  sqlcolor 0
+  icon basic/point
+  size 1
+  lwidth 1
+  layer 1
+  lfield 1
+  attribute 
+  xref left
+  yref center
+  lsize 8
+  cat 
+  where 
+  _use_where 1
+  qmap 
+  qsave 0
+  qoverwrite 0
+  minreg 
+  maxreg 
+End
+Vector olive_area_NoIslands@luigi
+  _check 1
+  vect olive_area_NoIslands@luigi
+  opacity 1.00
+  display_shape 1
+  display_cat 0
+  display_topo 0
+  display_dir 0
+  display_attr 0
+  type_point 1
+  type_line 1
+  type_boundary 1
+  type_centroid 0
+  type_area 1
+  type_face 0
+  color #ff0000
+  _use_color 1
+  fcolor #cccccc
+  _use_fcolor 1
+  lcolor #000000
+  rdmcolor 0
+  sqlcolor 0
+  icon basic/circle
+  size 5
+  lwidth 1
+  layer 1
+  lfield 1
+  attribute 
+  xref left
+  yref center
+  lsize 8
+  cat 
+  where 
+  _use_where 1
+  qmap 
+  qsave 0
+  qoverwrite 0
+  minreg 
+  maxreg 
+End
+Vector sardegna
+  _check 1
+  vect sardegna
+  opacity 1.00
+  display_shape 1
+  display_cat 0
+  display_topo 0
+  display_dir 0
+  display_attr 0
+  type_point 1
+  type_line 1
+  type_boundary 1
+  type_centroid 1
+  type_area 1
+  type_face 0
+  color #000000
+  _use_color 1
+  fcolor #AAAAAA
+  _use_fcolor 1
+  lcolor #000000
+  rdmcolor 0
+  sqlcolor 0
+  icon basic/circle
+  size 5
+  lwidth 1
+  layer 1
+  lfield 1
+  attribute 
+  xref left
+  yref center
+  lsize 8
+  cat 
+  where 
+  _use_where 1
+  qmap 
+  qsave 0
+  qoverwrite 0
+  minreg 
+  maxreg 
+End
+Raster olive_sar_kernel
+  _check 0
+  opacity 1.00
+  map olive_sar_kernel
+  drapemap 
+  querytype cat
+  rastquery 
+  rasttype 
+  bkcolor 
+  overlay 1
+End
