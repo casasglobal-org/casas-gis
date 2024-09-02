@@ -26,7 +26,7 @@ echo
 echo "then press [ENTER]..."
 echo
 read franco
-perl ~/PerlScripts/printCols.pl "$HOME"
+perl ../PerlScripts/printCols.pl "$HOME"
 echo
 echo "Please press [ENTER] to quit."
 echo
