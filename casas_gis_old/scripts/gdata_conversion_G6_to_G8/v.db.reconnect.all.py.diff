@@ -1,0 +1,40 @@
+diff --git a/scripts/v.db.reconnect.all/v.db.reconnect.all.py b/scripts/v.db.reconnect.all/v.db.reconnect.all.py
+index b42b800667..1defe7d02f 100755
+--- a/scripts/v.db.reconnect.all/v.db.reconnect.all.py
++++ b/scripts/v.db.reconnect.all/v.db.reconnect.all.py
+@@ -19,6 +19,8 @@
+ # % keyword: vector
+ # % keyword: attribute table
+ # % keyword: database
++# % keyword: SQLite
++# % keyword: DBF
+ # %end
+ # %flag
+ # % key: c
+@@ -106,7 +108,7 @@ def create_db(driver, database):
+     try:
+         gs.run_command("db.createdb", driver=driver, database=subst_database)
+     except CalledModuleError:
+-        gs.fatal(
++        gs.warning(
+             _("Unable to create database <%s> by driver <%s>")
+             % (subst_database, driver)
+         )
+@@ -142,7 +144,7 @@ def copy_tab(from_driver, from_database, from_table, to_driver, to_database, to_
+             to_table=to_table,
+         )
+     except CalledModuleError:
+-        gs.fatal(_("Unable to copy table <%s>") % from_table)
++        gs.warning(_("Unable to copy table <%s>") % from_table)
+ 
+     return True
+ 
+@@ -171,7 +173,7 @@ def drop_tab(vector, layer, table, driver, database):
+             table=table,
+         )
+     except CalledModuleError:
+-        gs.fatal(_("Unable to drop table <%s>") % table)
++        gs.warning(_("Unable to drop table <%s>") % table)
+ 
+ 
+ # create index on key column
