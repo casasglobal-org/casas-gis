@@ -38,7 +38,7 @@ g.mapset mapset=$mapsetname location=$locationname
 # Stats for boxplot from raster data.
 echo "# Raster statistics for raster $RasterMapName #" | tee ~/${RasterMapName}"_stats.txt"
 echo "" | tee -a ~/${RasterMapName}"_stats.txt"
-r.univar -e map=$RasterMapName >> ~/${RasterMapName}"_stats.txt"
+r.univar -e map=$RasterMapName output=~/${RasterMapName}"_stats.txt"
 echo "" | tee -a  ~/${RasterMapName}"_stats.txt"
 
 # Get univariate statistics from rater map
@@ -84,6 +84,6 @@ echo "" | tee -a ~/${RasterMapName}"_stats.txt"
 
 # Write GRASS GIS color rule based on box plot stats
 # using external Perl script
-perl ~/getBoxplotColorRule.pl "$whisker_low" "$whisker_high" "$abs_min" "$abs_max" "$divrule" "$percent" "$RasterMapName" >& test.log
+perl ../PerlScripts/getBoxplotColorRule.pl "$whisker_low" "$whisker_high" "$abs_min" "$abs_max" "$divrule" "$percent" "$RasterMapName" >& test.log
 
 exit 0

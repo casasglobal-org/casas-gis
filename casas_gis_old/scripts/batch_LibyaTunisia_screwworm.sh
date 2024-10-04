@@ -106,7 +106,7 @@ do
             #~ lowercut=0 uppercut=0 legend1="$legend"\
             #~ alt=900 resolution=1
         #~ wait
-        #~ g.copy rast=MskdModPOSrain_Alfalfa_15Jun1Avg,sw_rain_avg
+        #~ g.copy raster=MskdModPOSrain_Alfalfa_15Jun1Avg,sw_rain_avg
         #~ r.contour input=sw_rain_avg output=sw_rain_iso450 levels=450.0
     #~ fi    
 
@@ -123,7 +123,7 @@ do
             #~ lowercut=0 uppercut=0 legend1="$legend"\
             #~ alt=900 resolution=1
         #~ wait
-        #~ g.copy rast=MskdModPOSFallWinMort_Alfalfa_15Jun1Avg,sw_FallWinMort_avg
+        #~ g.copy raster=MskdModPOSFallWinMort_Alfalfa_15Jun1Avg,sw_FallWinMort_avg
         #~ r.contour input=sw_FallWinMort_avg output=sw_FallWinMort_iso10 levels=10.0
     #~ fi
 
