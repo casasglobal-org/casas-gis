@@ -1,10 +1,10 @@
 #!/usr/bin/perl -w
-# Script that plots raster statistics by ecozones 
+# Script that plots raster statistics by ecozones
 # using gnuplot and puts .png outputs in a HTML page
 # Author: Luigi Ponti
 # Date: 19 September 2006
 
-# Read Directory where maps are saved and 
+# Read Directory where maps are saved and
 # other parameters from script arguments.
 my $SaveDir=$ARGV[0];
 my $LegendString=$ARGV[1];

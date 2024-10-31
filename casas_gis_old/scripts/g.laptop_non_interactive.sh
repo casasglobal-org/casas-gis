@@ -24,49 +24,49 @@
 #############################################################################
 
 #%module
-#%  description: Makes a copy of the current location
+# %  description: Makes a copy of the current location
 #%end
 
 #%option
-#% guisection: Main
-#% key: newLocation
-#% type: string
-#% description: New (target) location name
-#% required : yes
+# % guisection: Main
+# % key: newLocation
+# % type: string
+# % description: New (target) location name
+# % required : yes
 #%end
 
 #%option
-#% key: rasterList
-#% type: string
-#% answer: all
-#% description: List of raster maps to copy (separated by space)
+# % key: rasterList
+# % type: string
+# % answer: all
+# % description: List of raster maps to copy (separated by space)
 #%end
 
 #%option
-#% key: vectorList
-#% type: string
-#% description: List of vector maps to copy (separated by space)
+# % key: vectorList
+# % type: string
+# % description: List of vector maps to copy (separated by space)
 #%end
 
 #%flag
-#% key: r
-#% answer: 1
-#% description: Export raster maps at original instead of current resolution 
+# % key: r
+# % answer: 1
+# % description: Export raster maps at original instead of current resolution 
 #%end
 
 #%flag
-#% key: v
-#% description: Clip vector maps to current region extent 
+# % key: v
+# % description: Clip vector maps to current region extent 
 #%end
 
 #%flag
-#% key: t
-#% description: Put new location in a compressed *.tar.gz archive
+# % key: t
+# % description: Put new location in a compressed *.tar.gz archive
 #%end
 
 #%flag
-#% key: d
-#% description: Delete uncompressed location after *.tar.gz archive creation
+# % key: d
+# % description: Delete uncompressed location after *.tar.gz archive creation
 #%end
 
 if [ -z "$GISBASE" ] ; then

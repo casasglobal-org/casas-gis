@@ -13,7 +13,7 @@
 # NOTE:           This version supports outfiles with names of
 #                       type "Olive_02Mar06_00003.txt".
 #                       Voronoi part was reimplemented as in Mediterraneo
-#                       and flag -s removed because no longer used.                       
+#                       and flag -s removed because no longer used.          
 #
 # COPYRIGHT:    (c) 2005-2012 CASAS (Center for the Analysis
 #                       of Sustainable Agricultural Systems).
@@ -24,210 +24,210 @@
 #
 #############################################################################
 
-#%Module
-#%  description: Map output of CASAS PBDMs for Mediterranean Basin
-#%  keywords: models
-#%End
+# %Module
+# %  description: Map output of CASAS PBDMs for Mediterranean Basin
+# %  keywords: models
+# %End
 
-#%option
-#% guisection: Main
-#% key: SaveDir
-#% type: string
-#% description: Name for directory where to store output maps
-#% required : yes
-#%end
+# %option
+# % guisection: Main
+# % key: save_directory
+# % type: string
+# % description: Name for directory where to store output maps
+# % required : yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: longitude
-#% type: integer
-#% answer: 5
-#% description: Longitude (X) column number
-#% required : yes
-#%end
+# %option
+# % guisection: Main
+# % key: longitude
+# % type: integer
+# % answer: 5
+# % description: Longitude (X) column number
+# % required : yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: latitude
-#% type: integer
-#% answer: 6
-#% description: Latitude (Y) column number
-#% required : yes
-#%end
+# %option
+# % guisection: Main
+# % key: latitude
+# % type: integer
+# % answer: 6
+# % description: Latitude (Y) column number
+# % required : yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: year
-#% type: integer
-#% answer: 11
-#% description: Year column number 
-#% required : yes
-#%end
+# %option
+# % guisection: Main
+# % key: year
+# % type: integer
+# % answer: 11
+# % description: Year column number
+# % required : yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: parameter
-#% type: integer
-#% description: Parameter to map
-#% required : yes
-#%end
+# %option
+# % guisection: Main
+# % key: parameter
+# % type: integer
+# % description: Parameter to map
+# % required : yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: interpolation
-#% type: string
-#% options: idw,bspline
-#% answer: idw
-#% description: Interpolation method
-#% required : yes
-#%end
+# %option
+# % guisection: Main
+# % key: interpolation
+# % type: string
+# % options: idw,bspline
+# % answer: idw
+# % description: Interpolation method
+# % required : yes
+# %end
 
-#%option
-#% key: lowercut
-#% type: double
-#% answer: 0
-#% description: Cutting point to mask low values
-#% required : yes
-#%end
+# %option
+# % key: lowercut
+# % type: double
+# % answer: 0
+# % description: Cutting point to mask low values
+# % required : yes
+# %end
 
-#%option
-#% key: uppercut
-#% type: double
-#% answer: 0
-#% description: Cutting point to mask high values (please, also check option below)
-#% required : yes
-#%end
+# %option
+# % key: uppercut
+# % type: double
+# % answer: 0
+# % description: Cutting point to mask high values (please, also check option below)
+# % required : yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: legend1
-#% type: string
-#% description: Text for legend - first line (file name of HTML summary)
-#% required : yes
-#%end
+# %option
+# % guisection: Main
+# % key: legend1
+# % type: string
+# % description: Text for legend - first line (file name of HTML summary)
+# % required : yes
+# %end
 
-#%option
-#% key: region
-#% type: string
-#% answer: 21 22 23 25 31 32 33 35
-#% description: FAO ecological regions (separated by space). Use -1 to map whole region
-#% multiple: yes
-#% required : yes
-#%end
+# %option
+# % key: region
+# % type: string
+# % answer: 21 22 23 25 31 32 33 35
+# % description: FAO ecological regions (separated by space). Use -1 to map whole region
+# % multiple: yes
+# % required : yes
+# %end
 
-#%option
-#% key: alt
-#% type: double
-#% answer: 900
-#% description: Altitude (meters) above which to clip
-#% required : yes
-#%end
+# %option
+# % key: alt
+# % type: double
+# % answer: 900
+# % description: Altitude (meters) above which to clip
+# % required : yes
+# %end
 
-#%option
-#% key: resolution
-#% type: integer
-#% options: 1,2,4
-#% answer: 1
-#% description: Resolution of output figure (single=1, double=2, quad=4) relative to computational region
-#% required : yes
-#%end
+# %option
+# % key: resolution
+# % type: integer
+# % options: 1,2,4
+# % answer: 1
+# % description: Resolution of output figure (single=1, double=2, quad=4) relative to computational region
+# % required : yes
+# %end
 
-#%option
-#% guisection: Color_Rule
-#% key: colorRuleDivergent
-#% type: string
-#% answer: 32:96:255-32:159:255-32:191:255-0:207:255-42:255:255-85:255:255-127:255:255-170:255:255-255:255:84-255:240:0-255:191:0-255:168:0-255:138:0-255:112:0-255:77:0-255:0:0
-#% description: Select or input a DIVERGENT color pattern (hyphen-separated) using standard GRASS colors (see r.colors manual page for color names) or R:G:B triplets
-#%end
+# %option
+# % guisection: Color_Rule
+# % key: color_rule_divergent
+# % type: string
+# % answer: 32:96:255-32:159:255-32:191:255-0:207:255-42:255:255-85:255:255-127:255:255-170:255:255-255:255:84-255:240:0-255:191:0-255:168:0-255:138:0-255:112:0-255:77:0-255:0:0
+# % description: Select or input a DIVERGENT color pattern (hyphen-separated) using standard GRASS colors (see r.colors manual page for color names) or R:G:B triplets
+# %end
 
-#%option
-#% guisection: Color_Rule
-#% key: colorRuleRegular
-#% type: string
-#% answer: 0:0:255-0:64:255-0:128:255-0:191:255-0:255:255-0:255:255-0:255:223-0:255:159-0:255:74-0:255:0-74:255:0-159:255:0-223:255:0-255:255:0-255:255:0-255:191:0-255:128:0-255:64:0-255:0:0
-#% description: Select or input a REGULAR color pattern (hyphen-separated) using standard GRASS colors (see r.colors manual page for color names) or R:G:B triplets
-#%end
+# %option
+# % guisection: Color_Rule
+# % key: color_rule_regular
+# % type: string
+# % answer: 0:0:255-0:64:255-0:128:255-0:191:255-0:255:255-0:255:255-0:255:223-0:255:159-0:255:74-0:255:0-74:255:0-159:255:0-223:255:0-255:255:0-255:255:0-255:191:0-255:128:0-255:64:0-255:0:0
+# % description: Select or input a REGULAR color pattern (hyphen-separated) using standard GRASS colors (see r.colors manual page for color names) or R:G:B triplets
+# %end
 
-#%option
-#% guisection: Color_Rule
-#% key: lowBarCol
-#% type: double
-#% description: Lower limit for legend color bar when -w option is enabled
-#%end
+# %option
+# % guisection: Color_Rule
+# % key: low_bar_col
+# % type: double
+# % description: Lower limit for legend color bar when -w option is enabled
+# %end
 
-#%option
-#% guisection: Color_Rule
-#% key: upBarCol
-#% type: double
-#% description: Upper limit for legend color bar when -w option is enabled
-#%end
+# %option
+# % guisection: Color_Rule
+# % key: up_bar_col
+# % type: double
+# % description: Upper limit for legend color bar when -w option is enabled
+# %end
 
-#%flag
-#% guisection: Color_Rule
-#% key: w
-#% description: Modify extent of legend color bar (using low and high input values)
-#%end
+# %flag
+# % guisection: Color_Rule
+# % key: w
+# % description: Modify extent of legend color bar (using low and high input values)
+# %end
 
-#%flag
-#% guisection: Color_Rule
-#% key: g
-#% description: Black and white output instead of color
-#%end
+# %flag
+# % guisection: Color_Rule
+# % key: g
+# % description: Black and white output instead of color
+# %end
 
-#%flag
-#% guisection: Color_Rule
-#% key: e
-#% description: Use histogram equalized color rule
-#%end
+# %flag
+# % guisection: Color_Rule
+# % key: e
+# % description: Use histogram equalized color rule
+# %end
 
-#%flag
-#% guisection: Color_Rule
-#% key: l
-#% description: Logarithmic scaling
-#%end
+# %flag
+# % guisection: Color_Rule
+# % key: l
+# % description: Logarithmic scaling
+# %end
 
-#%flag
-#% guisection: Color_Rule
-#% key: x
-#% description: Use an overall (compound) range for all maps (absolute max and min)
-#%end
+# %flag
+# % guisection: Color_Rule
+# % key: x
+# % description: Use an overall (compound) range for all maps (absolute max and min)
+# %end
 
-#%flag
-#% guisection: Color_Rule
-#% key: a
-#% description: Use also same legend bar for all maps (i.e. bar will extend to overall max and min)
-#%end
+# %flag
+# % guisection: Color_Rule
+# % key: a
+# % description: Use also same legend bar for all maps (i.e. bar will extend to overall max and min)
+# %end
 
-#%flag
-#% guisection: Color_Rule
-#% key: d
-#% description: Use divergent, zero-centered color pattern (requires positive max and negative min)
-#%end
+# %flag
+# % guisection: Color_Rule
+# % key: d
+# % description: Use divergent, zero-centered color pattern (requires positive max and negative min)
+# %end
 
-#%flag
-#% key: u
-#% description: Use cutting point to mask high values
-#%end
+# %flag
+# % key: u
+# % description: Use cutting point to mask high values
+# %end
 
-#%flag
-#% key: c
-#% description: Do not interpolate stations above clipping altitude
-#%end
+# %flag
+# % key: c
+# % description: Do not interpolate stations above clipping altitude
+# %end
 
-#%flag
-#% key: r
-#% description: Write a report with raster statistics
-#%end
+# %flag
+# % key: r
+# % description: Write a report with raster statistics
+# %end
 
-#%flag
-#% key: p
-#% description: Produce barchart plots summarizing raster statistics
-#%end
+# %flag
+# % key: p
+# % description: Produce barchart plots summarizing raster statistics
+# %end
 
-#%flag
-#% key: m
-#% description: Map only inside olive growing area
-#%end
+# %flag
+# % key: m
+# % description: Map only inside olive growing area
+# %end
 
 # Directory with temporary files (see convert.pl script).
 DIRTMP="$HOME/models_temp"
@@ -430,7 +430,7 @@ g.mapset mapset=luigi location=AEA_Med
 # Define the extent of the map and its grid resolution (currently 3 km).
 g.region -a n=900000 s=-930000 e=2050000 w=-2343000 res=3000
 #~ Old region g.region -a n=1100000 s=-950000 e=2300000 w=-2343000 res=3000
-    
+
 # Build a mask to select the region of interst to the study
 # based on FAO ecological regions. If -1 value is given, whole
 # region is used.
@@ -440,7 +440,7 @@ if [ "$GIS_FLAG_M" -eq 1 ] ; then
     # Get mask to clip sites with elevation over $ALT
     # and outside selected ecological regions.
     r.mapcalc ElevMask = 'if (olive_groves_new_raster_masked_below900, era40dem_resamp, null())'
-    r.mapcalc ElevAltMask = "if (ElevMask < $ALT, ElevMask, null())" 
+    r.mapcalc ElevAltMask = "if (ElevMask < $ALT, ElevMask, null())"
     # Previous olive growing area: olive_density_contour_area_masked
 else
     if [ "$REG" == "-1" ] ; then
@@ -457,8 +457,8 @@ else
         # Get mask to clip sites with elevation over $ALT
         # and outside selected ecological regions.
         r.mapcalc ElevMask = 'if (EtoSelectMask, era40dem_resamp, null())'
-        r.mapcalc ElevAltMask = "if (ElevMask < $ALT, ElevMask, null())" 
-    fi        
+        r.mapcalc ElevAltMask = "if (ElevMask < $ALT, ElevMask, null())"
+    fi
 fi
 
 # Write header in the log file.
@@ -466,7 +466,7 @@ echo "This log reports names of input files used for analysis:" | tee -a "$SaveD
 
 # Retrieve range min and max values for possible use in legend drawing.
 min=`cat ~/min.txt`;
-max=`cat ~/max.txt`; 
+max=`cat ~/max.txt`;
 
 # Start interpolation process.
 cd $DIRTMP;
@@ -494,7 +494,7 @@ do
 	wait;
     v.what.rast vector=map$i raster=era40dem_resamp column="elevation"
     wait;
-    
+
     # Extract vector points greater than cutting point, since
     # some values (e.g., bloom day <= 0) may be of little or no meaning.
 	if [ "$GIS_FLAG_C" -eq 1 ] ; then
@@ -519,11 +519,11 @@ do
 		fi
 	fi
 	wait;
-    # Extract points lower than cutting point to map them with a different symbol. 
+    # Extract points lower than cutting point to map them with a different symbol.
     v.extract input=map$i output=mapZero$i \
         where="($varType < $CUT)";
 	wait;
-    # Extract points higher than upper cutting point to map them with a different symbol. 
+    # Extract points higher than upper cutting point to map them with a different symbol.
     v.extract input=map$i output=mapHigh$i \
         where="($varType > $HICUT)";
 	wait;
@@ -543,8 +543,8 @@ do
         file=~/voronoi.txt
 		
 	# Transform selected Voronoi polygons to raster for masking.
-	v.to.rast input=voronoiSel output=MskdBuffer$i use=val value=1 
-    
+	v.to.rast input=voronoiSel output=MskdBuffer$i use=val value=1
+
     # Set map for interpolation.
     g.copy rast=ElevAltMask,MASK
 	
@@ -558,7 +558,7 @@ do
         v.surf.bspline input=mapPos$i raster=interpolNoMask$i sie=69780 sin=69780 method=bicubic lambda_i=0.05 layer=1 column=$varType
         r.mapcalc interpol$i = "if(ElevAltMask, interpolNoMask$i, null())"
     fi
-    
+
 	# Remove MASK that would otherwise prevent full map display.
 	g.remove rast=MASK
 	wait;
@@ -569,7 +569,7 @@ do
     else
     	g.copy rast=interpol$i,MskdModPOS$i
     fi
-    
+
     # Set png file for output.
     GRASS_PNGFILE="$SaveDir"/"$i".png
     export GRASS_PNGFILE
@@ -579,7 +579,7 @@ do
 	\rm -f ~/voronoi*.txt;
 	g.mremove -f vect=voronoi*;
 
-    # If flag -g is checked, output is a greyscale figure 
+    # If flag -g is checked, output is a greyscale figure
 	if [ "$GIS_FLAG_G" -eq 1 ] ; then
 		# Set color table for interpolated raster
 		# Do we want to use the same legend range for all maps?
@@ -613,13 +613,13 @@ do
                     cat ~/greyColorRule | r.colors map=MskdModPOS$i color=rules
                 fi
             fi
-		fi        
+		fi
 		#~ d.rast map=era40_67_270_10_grow
 		d.rast -o map=MskdModPOS$i
 		d.vect map=admin0_10m_naturalEarth_MED type=boundary width=4
-        d.grid -wn size=5:0:0 color=black bordercolor=black    
+        d.grid -wn size=5:0:0 color=black bordercolor=black
     else
-		# If flag -g is not checked, output is a color figure 
+		# If flag -g is not checked, output is a color figure
 		# Set color table for interpolated raster
 		if [ "$GIS_FLAG_X" -eq 1 ] || [ "$GIS_FLAG_D" -eq 1 ] ; then
             if [ "$GIS_FLAG_E" -eq 1 ] ; then
@@ -653,11 +653,11 @@ do
 		# Overalay model raster to a shaded relief and add state
 		# boundaries, weather stations, etc.
         # r.neighbors 21x21 window with circular neighborood (i.e. -c flag) on the original DEM.
-        # Then the output DEM was cropped via r.mapcalc 
+        # Then the output DEM was cropped via r.mapcalc
         # newShade = "if(OriginalDem, OldShade, null())". The shaded relief
         # r.shaded.releif 67/270/10 - done following an idea
-        # from http://www.pdcarto.com/mtncarto02/GRASS.htm 
-        
+        # from http://www.pdcarto.com/mtncarto02/GRASS.htm
+
         # Drape model raster over a shaded relief and add state
 		# boundaries, lakes, weather stations, etc.
         d.his i=era40_67_270_10_grow h=MskdModPOS$i
@@ -667,7 +667,7 @@ do
         d.grid -wn size=5:0:0 color=black bordercolor=black
 	fi
 
-	# Display a legend for model raster with screen 
+	# Display a legend for model raster with screen
     # coordinates as % of screen (bottom,top,left,right).
 	if [ "$GIS_FLAG_A" -eq 1 ] && [ "$GIS_FLAG_X" -eq 1 ] ; then		
 		d.legend -s map=MskdModPOS$i color=black lines=0\
@@ -680,7 +680,7 @@ do
 		d.legend -s map=MskdModPOS$i color=black lines=0\
 			thin=1000 labelnum=5 at=6,11,20,80 # range=34.02170,2717.63107 # exclude outliers.
             # legend range relative to current map. Old horizontal legend location 10,13.5,10,90
-            
+
             # To excluede outliers from legend, the range=min,max option in d.legend
             # needs to be enabled in the GIS script MedPresentClimate using
             # the two whiskers of the R box plot (see boxplot.stats() in R).
@@ -691,7 +691,7 @@ do
 
     # Display true type font text in the legend (at x-y, coordinates).
     echo "$LEG1" > ~/legend1.txt
-    
+
     Legend1="`cat ~/legend1.txt`"
     Year="`cat ~/year$n.txt`"
     echo $Legend1 $Year > ~/legend1$n.txt
@@ -704,12 +704,12 @@ do
 	d.mon stop=PNG
 	# Write a log with names of input files.
 	echo "$i" | tee -a "$SaveDir"/"$LEG1".log
-    
-    
+
+
     ###############
     # Raster statistics here  #    # Maybe do a test mapping cycle beforehand.
     ##############
-    
+
     # Raster statistics based on vector areas; histrogram by vector areas; what else?
 	
 	# If flag -r is checked, then write raster statistics.
@@ -747,7 +747,7 @@ do
 		d.histogram map="MskdModPOS$i"
         d.mon stop=PNG
 		# d.out.file output="$SaveDir"/"$i"-HIST res=$FIGRES format=png
-        #~ d.out.file output="$SaveDir"/"$i"-HIST res=$FIGRES format=eps        
+        #~ d.out.file output="$SaveDir"/"$i"-HIST res=$FIGRES format=eps
 	fi
 	
     # Remove temporary ascii files produced by PERL script "convert.pl".
@@ -775,12 +775,12 @@ if [ "$GIS_FLAG_G" -eq 1 ] ; then
 	#~ Weather="Weather stations";
 	#~ echo $Weather>~/weather.txt;
 	#~ d.text size=5 color=black at=3,90 <~/weather.txt;
-    
+
     d.grid -w size=5:0:0 origin=0,0 color=gray bordercolor=black textcolor=black fontsize=25
 	# d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=png
     #~ d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=eps
 	# d.mon stop=x0
-    d.barscale -s at=50,7    
+    d.barscale -s at=50,7
     d.mon stop=PNG
 else
 	# If flag -g is not checked, output is a color figure (with lakes)
@@ -799,12 +799,12 @@ else
 	#~ Weather="Weather stations";
 	#~ echo $Weather>~/weather.txt;
 	#~ d.text size=5 color=black at=3,90 <~/weather.txt;
-    
-    d.grid -w size=5:0:0 origin=0,0 color=grey bordercolor=black textcolor=black fontsize=25    
+
+    d.grid -w size=5:0:0 origin=0,0 color=grey bordercolor=black textcolor=black fontsize=25
 	# d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=png
     #~ d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=eps
 	# d.mon stop=x0
-    d.barscale -s at=50,7    
+    d.barscale -s at=50,7
     d.mon stop=PNG
 fi
 

@@ -75,7 +75,7 @@ while (my $file = readdir(DIR))
 		if ($i == 1)
 		{
 			my @tempLine = split(/\t/, $table[0]);
-			$parName = "$tempLine[$par]";                            
+			$parName = "$tempLine[$par]";                
 		}
 		$table[$i] = join("\t", $tempLine[$lon], $tempLine[$lat], "$tempLine[$par]\n");
 	}

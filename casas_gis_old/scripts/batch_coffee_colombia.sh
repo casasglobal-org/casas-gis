@@ -51,7 +51,7 @@ do
 			colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0"\
 			lowercut=0 uppercut=0\
 			departments=all crop=coffee cropthreshold=0.01 alt=10000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 	
@@ -71,7 +71,7 @@ do
 			colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0"\
 			lowercut=0 uppercut=0\
 			departments=all crop=coffee cropthreshold=0.01 alt=10000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 	
@@ -91,7 +91,7 @@ do
 			colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0"\
 			lowercut=0 uppercut=0\
 			departments=all crop=coffee cropthreshold=0.01 alt=10000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 	
@@ -111,7 +111,7 @@ do
 			colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0"\
 			lowercut=0 uppercut=0\
 			departments=all crop=coffee cropthreshold=0.01 alt=10000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 	
@@ -131,7 +131,7 @@ do
 			colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0"\
 			lowercut=0 uppercut=0\
 			departments=all crop=coffee cropthreshold=0.01 alt=10000\
-			resolution=1 
+			resolution=1
 		wait
 	fi	
 done
@@ -178,7 +178,7 @@ do
 			colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0"\
 			lowercut=0 uppercut=0\
 			departments=all crop=none cropthreshold=0.01 alt=10000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 	
@@ -198,7 +198,7 @@ do
 			colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0"\
 			lowercut=0 uppercut=0\
 			departments=all crop=none cropthreshold=0.01 alt=10000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 	
@@ -218,7 +218,7 @@ do
 			colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0"\
 			lowercut=0 uppercut=0\
 			departments=all crop=none cropthreshold=0.01 alt=10000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 	
@@ -238,7 +238,7 @@ do
 			colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0"\
 			lowercut=0 uppercut=0\
 			departments=all crop=none cropthreshold=0.01 alt=10000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 	
@@ -258,7 +258,7 @@ do
 			colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0"\
 			lowercut=0 uppercut=0\
 			departments=all crop=none cropthreshold=0.01 alt=10000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 done

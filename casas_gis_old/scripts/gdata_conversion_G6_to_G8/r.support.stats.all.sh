@@ -15,9 +15,9 @@
 #############################################################################
 
 #%Module
-#%  description: Update statistics of all raster maps in current mapset.
-#%  keyword: raster
-#%  keyword: statistics
+# % description: Update statistics of all raster maps in current mapset.
+# % keyword: raster
+# % keyword: statistics
 #%end
 
 if  [ -z "$GISBASE" ] ; then

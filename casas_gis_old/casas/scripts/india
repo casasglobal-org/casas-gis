@@ -12,7 +12,7 @@
 #
 # NOTE:           This version supports outfiles with names of
 #                       type "Cotton_02Mar06_00003.txt".
-#                       
+#          
 #
 # COPYRIGHT:    (c) 2005-2013 CASAS (Center for the Analysis
 #                       of Sustainable Agricultural Systems).
@@ -24,262 +24,261 @@
 #
 #############################################################################
 
-#%Module
-#%  description: Map the output of CASAS models for India
-#%  keywords: models
-#%End 
+# %Module
+# %  description: Map the output of CASAS models for India
+# %  keywords: models
+# %End
 
-#%option
-#% guisection: Main
-#% key: states
-#% type: string
-#% answer: India
-#% description: Specify multiple states using their postal code (separated by space). To map the whole country, use India (Andaman and Nicobar islands excluded)
-#% multiple: yes
-#% required: yes
-#%end
+# %option
+# % guisection: Main
+# % key: states
+# % type: string
+# % answer: India
+# % description: Specify multiple states using their postal code (separated by space). To map the whole country, use India (Andaman and Nicobar islands excluded)
+# % multiple: yes
+# % required: yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: clip
-#% type: string
-#% options: cotton_full,cotton_irrig,cotton_rainfed,no_clip
-#% answer: cotton_full
-#% description: Specify area to which model output will be clipped (eirther no clip or cotton crop area -- total, irrigated, or rainfed)
-#% multiple: no
-#% required: yes
-#%end
+# %option
+# % guisection: Main
+# % key: clip
+# % type: string
+# % options: cotton_full,cotton_irrig,cotton_rainfed,no_clip
+# % answer: cotton_full
+# % description: Specify area to which model output will be clipped (eirther no clip or cotton crop area -- total, irrigated, or rainfed)
+# % multiple: no
+# % required: yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: SaveDir
-#% type: string
-#% description: Name for directory where to store output maps
-#% required: yes
-#%end
+# %option
+# % guisection: Main
+# % key: save_directory
+# % type: string
+# % description: Name for directory where to store output maps
+# % required: yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: longitude
-#% type: integer
-#% answer: 5
-#% description: Longitude (X) column number
-#% required: yes
-#%end
+# %option
+# % guisection: Main
+# % key: longitude
+# % type: integer
+# % answer: 5
+# % description: Longitude (X) column number
+# % required: yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: latitude
-#% type: integer
-#% answer: 6
-#% description: Latitude (Y) column number
-#% required: yes
-#%end
+# %option
+# % guisection: Main
+# % key: latitude
+# % type: integer
+# % answer: 6
+# % description: Latitude (Y) column number
+# % required: yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: year
-#% type: integer
-#% answer: 11
-#% description: Year column number 
-#% required: yes
-#%end
+# %option
+# % guisection: Main
+# % key: year
+# % type: integer
+# % answer: 11
+# % description: Year column number
+# % required: yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: parameter
-#% type: integer
-#% description: Parameter to map
-#% required : yes
-#%end
+# %option
+# % guisection: Main
+# % key: parameter
+# % type: integer
+# % description: Parameter to map
+# % required : yes
+# %end
 
-#%option
-#% guisection: Interpolation
-#% key: interpolation
-#% type: string
-#% options: idw,bspline
-#% answer: bspline
-#% description: Interpolation method
-#% required : yes
-#%end
+# %option
+# % guisection: Interpolation
+# % key: interpolation
+# % type: string
+# % options: idw,bspline
+# % answer: bspline
+# % description: Interpolation method
+# % required : yes
+# %end
 
-#%option
-#% guisection: Interpolation
-#% key: numpoints
-#% type: integer
-#% answer: 3
-#% description: Number of interpolation points
-#% required : yes
-#%end
+# %option
+# % guisection: Interpolation
+# % key: numpoints
+# % type: integer
+# % answer: 3
+# % description: Number of interpolation points
+# % required : yes
+# %end
 
-#%option
-#% guisection: Interpolation
-#% key: pow
-#% type: double
-#% answer: 2.0
-#% description: Power parameter for idw interpolation
-#% required : yes
-#%end
+# %option
+# % guisection: Interpolation
+# % key: pow
+# % type: double
+# % answer: 2.0
+# % description: Power parameter for idw interpolation
+# % required : yes
+# %end
 
-#%option
-#% guisection: Interpolation
-#% key: spline_step_east
-#% type: double
-#% answer: 57000
-#% description: Length of East-West spline step for bspline method
-#% required : yes
-#%end
+# %option
+# % guisection: Interpolation
+# % key: spline_step_east
+# % type: double
+# % answer: 57000
+# % description: Length of East-West spline step for bspline method
+# % required : yes
+# %end
 
-#%option
-#% guisection: Interpolation
-#% key: spline_step_north
-#% type: double
-#% answer: 57000
-#% description: Length of North-South spline step for bspline method
-#% required : yes
-#%end
+# %option
+# % guisection: Interpolation
+# % key: spline_step_north
+# % type: double
+# % answer: 57000
+# % description: Length of North-South spline step for bspline method
+# % required : yes
+# %end
 
-#%option
-#% guisection: Interpolation
-#% key: tykhonov_reg 
-#% type: double
-#% answer: 0.05
-#% description: Tykhonov regularization parameter for bspline method
-#% required : yes
-#%end
+# %option
+# % guisection: Interpolation
+# % key: tykhonov_reg
+# % type: double
+# % answer: 0.05
+# % description: Tykhonov regularization parameter for bspline method
+# % required : yes
+# %end
 
-#%option
-#% key: lowercut
-#% type: double
-#% answer: 0
-#% description: Cutting point to mask low values
-#% required: yes
-#%end
+# %option
+# % key: lowercut
+# % type: double
+# % answer: 0
+# % description: Cutting point to mask low values
+# % required: yes
+# %end
 
-#%option
-#% key: uppercut
-#% type: double
-#% answer: 0
-#% description: Cutting point to mask high values (please, also check option below)
-#% required: yes
-#%end
+# %option
+# % key: uppercut
+# % type: double
+# % answer: 0
+# % description: Cutting point to mask high values (please, also check option below)
+# % required: yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: legend1
-#% type: string
-#% description: Text for legend - first line (file name of HTML summary)
-#% required: yes
-#%end
+# %option
+# % guisection: Main
+# % key: legend1
+# % type: string
+# % description: Text for legend - first line (file name of HTML summary)
+# % required: yes
+# %end
 
-#%option
-#% key: alt
-#% type: double
-#% answer: 2000
-#% description: Altitude (meters) above which to clip
-#% required: yes
-#%end
+# %option
+# % key: alt
+# % type: double
+# % answer: 2000
+# % description: Altitude (meters) above which to clip
+# % required: yes
+# %end
 
-#%option
-#% key: resolution
-#% type: string
-#% options: 1,2,4
-#% answer: 1
-#% description: Resolution of output figure (single=1, double=2, quad=4)
-#% required: yes
-#%end
+# %option
+# % key: resolution
+# % type: string
+# % options: 1,2,4
+# % answer: 1
+# % description: Resolution of output figure (single=1, double=2, quad=4)
+# % required: yes
+# %end
 
-#%option
-#% guisection: Color rules
-#% key: colorRuleDivergent
-#% type: string
-#% description: Input a divergent color pattern (hyphen-separated) using standard GRASS colors (see r.colors manual page for color names) or R:G:B triplets (input used only -x and -d flags)
-#%end
+# %option
+# % guisection: Color rules
+# % key: color_rule_divergent
+# % type: string
+# % description: Input a divergent color pattern (hyphen-separated) using standard GRASS colors (see r.colors manual page for color names) or R:G:B triplets (input used only -x and -d flags)
+# %end
 
-#%option
-#% guisection: Color rules
-#% key: colorRuleRegular
-#% type: string
-#% description: Input a regular color pattern (hyphen-separated) using standard GRASS colors (see r.colors manual page for color names) or R:G:B triplets (input used with -x flag)
-#%end
+# %option
+# % guisection: Color rules
+# % key: color_rule_regular
+# % type: string
+# % description: Input a regular color pattern (hyphen-separated) using standard GRASS colors (see r.colors manual page for color names) or R:G:B triplets (input used with -x flag)
+# %end
 
-#%option
-#% guisection: Color rules
-#% key: lowBarCol
-#% type: double
-#% description: Lower limit for legend color bar when -w option is enabled
-#%end
+# %option
+# % guisection: Color rules
+# % key: low_bar_col
+# % type: double
+# % description: Lower limit for legend color bar when -w option is enabled
+# %end
 
-#%option
-#% guisection: Color rules
-#% key: upBarCol
-#% type: double
-#% description: Upper limit for legend color bar when -w option is enabled
-#%end
+# %option
+# % guisection: Color rules
+# % key: up_bar_col
+# % type: double
+# % description: Upper limit for legend color bar when -w option is enabled
+# %end
 
-#%flag
-#% guisection: Color rules
-#% key: w
-#% description: Modify extent of legend color bar (using low and high input values)
-#%end
+# %flag
+# % guisection: Color rules
+# % key: w
+# % description: Modify extent of legend color bar (using low and high input values)
+# %end
 
-#%flag
-#% guisection: Color rules
-#% key: g
-#% description: Black and white output instead of color
-#%end
+# %flag
+# % guisection: Color rules
+# % key: g
+# % description: Black and white output instead of color
+# %end
 
-#%flag
-#% guisection: Color rules
-#% key: e
-#% description: Use histogram-equalized color rule
-#%end
+# %flag
+# % guisection: Color rules
+# % key: e
+# % description: Use histogram-equalized color rule
+# %end
 
-#%flag
-#% guisection: Color rules
-#% key: l
-#% description: Logarithmic scaling
-#%end
+# %flag
+# % guisection: Color rules
+# % key: l
+# % description: Logarithmic scaling
+# %end
 
-#%flag
-#% guisection: Color rules
-#% key: x
-#% description: Use an overall (compound) range for all maps (absolute max and min)
-#%end
+# %flag
+# % guisection: Color rules
+# % key: x
+# % description: Use an overall (compound) range for all maps (absolute max and min)
+# %end
 
-#%flag
-#% guisection: Color rules
-#% key: a
-#% description: Use also same legend bar for all maps (i.e. bar will extend to overall max and min)
-#%end
+# %flag
+# % guisection: Color rules
+# % key: a
+# % description: Use also same legend bar for all maps (i.e. bar will extend to overall max and min)
+# %end
 
-#%flag
-#% guisection: Color rules
-#% key: d
-#% description: Use divergent, zero-centered color pattern (requires positive max and negative min)
-#%end
+# %flag
+# % guisection: Color rules
+# % key: d
+# % description: Use divergent, zero-centered color pattern (requires positive max and negative min)
+# %end
 
-#%flag
-#% key: u
-#% description: Use cutting point to mask high values
-#%end
+# %flag
+# % key: u
+# % description: Use cutting point to mask high values
+# %end
 
-#%flag
-#% guisection: Interpolation
-#% key: c
-#% description: Do not interpolate stations above clipping altitude
-#%end
+# %flag
+# % guisection: Interpolation
+# % key: c
+# % description: Do not interpolate stations above clipping altitude
+# %end
 
-#%flag
-#% key: r
-#% answer: 1
-#% description: Write a report with raster statistics
-#%end
+# %flag
+# % key: r
+# % description: Write a report with raster statistics
+# %end
 
-#%flag
-#% key: p
-#% description: Produce barchart plots summarizing raster statistics
-#%end
+# %flag
+# % key: p
+# % description: Produce barchart plots summarizing raster statistics
+# %end
 
 # Directory with temporary files (see convert.pl script).
 DIRTMP="$HOME/models_temp"
@@ -315,7 +314,7 @@ cleanup()
 	g.mremove -f rast=model*
 	g.mremove -f rast=Mskd*
 	g.mremove -f rast=interpol*
-    g.mremove -f rast=selectedStatesRaster    
+    g.mremove -f rast=selectedStatesRaster
 	# Remove old masks.
 	g.mremove -f rast=Elev* vect=Eto*
 	g.mremove -f rast=Eto*
@@ -490,7 +489,7 @@ g.mapset mapset=luigi location=latlong
 cd $DIRTMP;
 for i in `ls`; do
 	echo "importing $i ...";
-    v.in.ascii input=$i output=map$i fs='\t' x=1 y=2 z=0    
+    v.in.ascii input=$i output=map$i fs='\t' x=1 y=2 z=0
 
     # Check for column type of parameter to map.
     if [ -n "`v.info -c map=map$i | grep dbl_3`" ] ; then
@@ -511,21 +510,21 @@ if [ "$STATES" = 'India' ] ; then
     echo $STATES>~/states.txt
     perl ~/PerlScripts/cliparse_US.pl "$HOME" "POSTAL" "states.txt" "formulaStates.txt"
     v.extract input=india_states output=selectedStates\
-        where="`cat ~/formulaStates.txt`"    
+        where="`cat ~/formulaStates.txt`"
     # Define the extent of the map and its grid resolution (currently 1 km).
-    g.region vect=selectedStates 
+    g.region vect=selectedStates
     # Make some room on the margins.
     g.region n=n+50000 s=s-50000 e=e+50000 w=w-50000
     g.region res=3000 -a
     # Make raster mask
     v.to.rast input=selectedStates output=selectedStatesRaster use=val value=1
-else 
+else
     # Set region to an arbitrary subset of India states
     FIGRES=2
     echo $STATES>~/states.txt
     perl ~/PerlScripts/cliparse_US.pl "$HOME" "POSTAL" "states.txt" "formulaStates.txt"
     v.extract input=india_states output=selectedStates\
-        where="`cat ~/formulaStates.txt`"    
+        where="`cat ~/formulaStates.txt`"
     # Define the extent of the map and its grid resolution (currently 1 km).
     g.region vect=selectedStates
     # Make some room on the margins.
@@ -557,7 +556,7 @@ r.mapcalc ElevAltMask = "if (ElevMask < $ALT, ElevMask, null())"
 
 # Write header in the log file.
 echo "This log reports names of input files and full command used for analysis.
-    
+
 Input file names:" | tee -a "$SaveDir"/"${LEG1}".log
 
 # Retrieve range min and max values for possible use in legend drawing. Maybe check if the files exists...
@@ -581,11 +580,11 @@ for i in `ls`; do
     echo "reprojecting map$i ..."
     v.proj input=map$i location=latlong mapset=luigi\
 		output=map$i;
-        
+
     # Add a column to vector containing altitudes uploaded from raster DEM.
     v.db.addcol map=map$i columns="elevation INT"
-    v.what.rast vector=map$i raster=india_dem column="elevation"    
-    
+    v.what.rast vector=map$i raster=india_dem column="elevation"
+
     # Extract vector points greater than cutting point, since
     # some values (e.g., bloom day <= 0) may be of little or no meaning.
 	if [ "$GIS_FLAG_C" -eq 1 ] ; then
@@ -610,11 +609,11 @@ for i in `ls`; do
 		fi
 	fi
 
-    # Extract points lower than cutting point to map them with a different symbol. 
+    # Extract points lower than cutting point to map them with a different symbol.
     v.extract input=map$i output=mapZero$i \
         where="($varType < $CUT)"
 	
-    # Extract points higher than upper cutting point to map them with a different symbol. 
+    # Extract points higher than upper cutting point to map them with a different symbol.
     v.extract input=map$i output=mapHigh$i \
         where="($varType > $HICUT)"
 	
@@ -634,8 +633,8 @@ for i in `ls`; do
         file=~/voronoi.txt
 		
 	# Transform selected Voronoi polygons to raster for masking.
-	v.to.rast input=voronoiSel output=MskdBuffer$i use=val value=1 
-    
+	v.to.rast input=voronoiSel output=MskdBuffer$i use=val value=1
+
     # Set mask for interpolation.
     g.copy rast=ElevAltMask,MASK
 	
@@ -652,7 +651,7 @@ for i in `ls`; do
         lambda_i=$TYKHONOV layer=1 column=$varType
         r.mapcalc interpol$i = "if(ElevAltMask, interpolNoMask$i, null())"
     fi
-    
+
 	# Remove MASK that would otherwise prevent full map display.
 	g.remove rast=MASK
 
@@ -663,7 +662,7 @@ for i in `ls`; do
     else
     	g.copy rast=interpol$i,MskdModPOS$i
     fi
-    
+
     # Set png file for output.
     GRASS_PNGFILE="$SaveDir"/"$i".png
     export GRASS_PNGFILE
@@ -673,7 +672,7 @@ for i in `ls`; do
 	\rm -f ~/voronoi*.txt
 	g.mremove -f vect=voronoi*
 
-	# If flag -g is checked, output is a greyscale figure 
+	# If flag -g is checked, output is a greyscale figure
 	if [ "$GIS_FLAG_G" -eq 1 ] ; then
 		# Set color table for interpolated raster
 		# Do we want to use the same legend range for all maps?
@@ -713,10 +712,10 @@ for i in `ls`; do
         d.vect map=india_region_world_bounds type=boundary color=150:150:150 width=4
 		d.vect map=india_states type=boundary width=3
         #~ d.vect map=india_lakes type=boundary,area \
-			#~ color=150:150:150 fcolor=255:255:255 width=3 # was color=132:193:255 fcolor=215:240:255   
+			#~ color=150:150:150 fcolor=255:255:255 width=3 # was color=132:193:255 fcolor=215:240:255
         d.grid -wn size=5:0:0 color=black bordercolor=black # This drows a black border
 	else
-		# If flag -g is not checked, output is a color figure 
+		# If flag -g is not checked, output is a color figure
 		# Set color table for interpolated raster
 		if [ "$GIS_FLAG_X" -eq 1 ] || [ "$GIS_FLAG_D" -eq 1 ] ; then
             if [ "$GIS_FLAG_E" -eq 1 ] ; then
@@ -754,19 +753,19 @@ for i in `ls`; do
         # [ 3) r.mapcalc "india_dem_resolution_bumped = (india_dem * 0.1) + (india_dem_7x7_smooth * 0.9)" ]
         # (this is supposed to make the shaded relief a bit less fuzzy -- step 3 NOT implemented here)
         # r.shaded.releif 60/315/10 - done following an idea
-        # from http://www.pdcarto.com/mtncarto02/GRASS.htm 
-        
+        # from http://www.pdcarto.com/mtncarto02/GRASS.htm
+
 		# Drape model raster over a shaded relief and add state
 		# boundaries, lakes, weather stations, etc.
-        d.his i=india_shaded_60_315_10 h=MskdModPOS$i;        
-        d.vect map=india_region_world_bounds type=boundary color=150:150:150 width=2            
+        d.his i=india_shaded_60_315_10 h=MskdModPOS$i;
+        d.vect map=india_region_world_bounds type=boundary color=150:150:150 width=2
 		d.vect map=india_states type=boundary width=3
         #~ d.vect map=india_lakes type=boundary,area \
-			#~ color=150:150:150 fcolor=215:240:255 width=1 # was color=132:193:255 fcolor=215:240:255   
+			#~ color=150:150:150 fcolor=215:240:255 width=1 # was color=132:193:255 fcolor=215:240:255
         d.grid -wn size=5:0:0 color=black bordercolor=black # This drows a black border
 	fi
 
-	# Display a legend for model raster with screen 
+	# Display a legend for model raster with screen
     # coordinates as % of screen (bottom,top,left,right).
 	if [ "$GIS_FLAG_A" -eq 1 ] && [ "$GIS_FLAG_X" -eq 1 ] ; then
 		d.legend -s map=MskdModPOS$i color=black lines=0\
@@ -785,7 +784,7 @@ for i in `ls`; do
 	fi
     # It is possible to implement user-defined categories
     # by adding: "use=1000,100,10,0,-10,-100,-1000".
-  
+
     # Display scale bar.
     # d.barscale -l at=50,7
 
@@ -794,7 +793,7 @@ for i in `ls`; do
     Legend1="`cat ~/legend1.txt`";
     Year="`cat ~/year$n.txt`";
     echo $Legend1 $Year > ~/legend1$n.txt
-    
+
     # Text for legend (at= percentage, [0,0] is lower left).
 	d.text size=3 color=black at=5,94 < ~/legend1$n.txt
 
@@ -803,12 +802,12 @@ for i in `ls`; do
 	
 	# Write a log with names of input files.
 	echo "$i" | tee -a "$SaveDir"/"$LEG1".log
-    
-    
+
+
     ###############
     # Raster statistics here  #    # Maybe do a test mapping cycle beforehand.
     ##############
-    
+
     # Raster statistics based on vector areas; histrogram by vector areas; what else?
 	
 	# If flag -r is checked, then write raster statistics.
@@ -829,42 +828,42 @@ for i in `ls`; do
         echo "######################################################" | tee -a "$SaveDir"/$i.txt
         echo "# Vector statistics for points within output raster. #" | tee -a "$SaveDir"/$i.txt
         echo "######################################################" | tee -a "$SaveDir"/$i.txt
-        echo "" | tee -a "$SaveDir"/$i.txt        
-        v.univar -e map=mapPosClip$i type=point column="$varType" >> "$SaveDir"/$i.txt        
+        echo "" | tee -a "$SaveDir"/$i.txt
+        v.univar -e map=mapPosClip$i type=point column="$varType" >> "$SaveDir"/$i.txt
         echo "" | tee -a "$SaveDir"/$i.txt
         # Stats for boxplot from vector data.
         echo "# Whiskers for a boxplot based on vector data as above:" | tee -a "$SaveDir"/$i.txt
-        eval `v.univar -g -e map="mapPosClip$i" type=point column="$varType"`        
+        eval `v.univar -g -e map="mapPosClip$i" type=point column="$varType"`
         iqr_low=`perl -E "say "$first_quartile" - (("$third_quartile" - "$first_quartile") * 1.5)"`
-        iqr_high=`perl -E "say "$third_quartile" + (("$third_quartile" - "$first_quartile") * 1.5)"`        
+        iqr_high=`perl -E "say "$third_quartile" + (("$third_quartile" - "$first_quartile") * 1.5)"`
         v.extract input=mapPosClip$i output=mapPosIQR$i \
 				where="($varType > $iqr_low) AND ($varType < $iqr_high)"
         eval `v.univar -g -e map="mapPosIQR$i"  type=point column="$varType"`
         whisker1=$min
-        whisker2=$max        
+        whisker2=$max
         echo "Ends of whiskers (vector) are $whisker1 and $whisker2" | tee -a "$SaveDir"/$i.txt
          # Univariate raster statistics.
-        echo "" | tee -a "$SaveDir"/$i.txt        
+        echo "" | tee -a "$SaveDir"/$i.txt
         echo "########################################" | tee -a "$SaveDir"/$i.txt
         echo "# Raster statistics for output raster. #" | tee -a "$SaveDir"/$i.txt
         echo "########################################" | tee -a "$SaveDir"/$i.txt
-        echo "" | tee -a "$SaveDir"/$i.txt       
-        r.univar -e map=MskdModPOS$i >> "$SaveDir"/$i.txt        
+        echo "" | tee -a "$SaveDir"/$i.txt
+        r.univar -e map=MskdModPOS$i >> "$SaveDir"/$i.txt
         echo "" | tee -a "$SaveDir"/$i.txt
         # Stats for boxplot from raster data.
         echo "# Whiskers for a boxplot based on output raster:" | tee -a "$SaveDir"/$i.txt
         eval `r.univar -g -e map="MskdModPOS$i"`	
         iqr_low=`perl -E "say "$first_quartile" - (("$third_quartile" - "$first_quartile") * 1.5)"`
         iqr_high=`perl -E "say "$third_quartile" + (("$third_quartile" - "$first_quartile") * 1.5)"`
-        r.mapcalc MskdIQR$i = "if((MskdModPOS$i > $iqr_low && MskdModPOS$i < $iqr_high), MskdModPOS$i, null())"       
+        r.mapcalc MskdIQR$i = "if((MskdModPOS$i > $iqr_low && MskdModPOS$i < $iqr_high), MskdModPOS$i, null())"
         eval `r.univar -g -e map="MskdIQR$i"`
         whisker1=$min
-        whisker2=$max        
+        whisker2=$max
         echo "Ends of whiskers (raster) are $whisker1 and $whisker2" | tee -a "$SaveDir"/$i.txt
         # Get catergories of CFSR grids included in output raster
         v.select ainput=india_CFSR_grid binput=EtoSelectMask output=mapCFSR$i
         v.out.ascii input=mapCFSR$i fs=tab dp=3 | cut -f 3 | tr '\n' '|' > "$SaveDir"/CSFR_$i.txt
-        
+
 	else
 		if [ $n -eq 1 ] ; then
 			echo 'There is no stat report for weather stations!' > "$SaveDir"/WeatherStations.txt
@@ -888,7 +887,7 @@ for i in `ls`; do
 		d.histogram map="MskdModPOS$i"
         d.mon stop=PNG
 		# d.out.file output="$SaveDir"/"$i"-HIST res=$FIGRES format=png
-        #~ d.out.file output="$SaveDir"/"$i"-HIST res=$FIGRES format=eps        
+        #~ d.out.file output="$SaveDir"/"$i"-HIST res=$FIGRES format=eps
 	fi
 	
     # Remove temporary ascii files produced by PERL script "convert.pl".
@@ -903,10 +902,10 @@ done
 #
 
 cat >> "$SaveDir"/"${LEG1}".log <<EOF
-    
+
 GIS script sintax used:
-    
-    india 
+
+    india
     w=$GIS_FLAG_W g=$GIS_FLAG_G e=$GIS_FLAG_E l=$GIS_FLAG_L x=$GIS_FLAG_X a=$GIS_FLAG_A d=$GIS_FLAG_D u=$GIS_FLAG_U c=$GIS_FLAG_C r=$GIS_FLAG_R p=$GIS_FLAG_P
     states=$STATES
     SaveDir=$SaveDir
@@ -924,12 +923,12 @@ GIS script sintax used:
     uppercut=$HICUT
     legend1=$LEG1
     alt=$ALT
-    resolution=$FIGRES 
+    resolution=$FIGRES
     colorRuleDivergent=$RULE_DIV
     colorRuleRegular=$RULE_REG
     lowBarCol=$LOWBARCOL
     upBarCol=$UPBARCOL
-    
+
 EOF
 
 
@@ -942,21 +941,21 @@ if [ "$GIS_FLAG_G" -eq 1 ] ; then
     # Set png file for output.
     GRASS_PNGFILE="$SaveDir"/WeatherStations.png
     export GRASS_PNGFILE
-    d.erase color=white    
+    d.erase color=white
     d.rast map=india_shaded_60_315_10
     d.vect map=india_region_world_bounds type=boundary color=150:150:150 width=2
 	d.vect map=india_states type=boundary width=4
     d.grid -w size=5:0:0 origin=0,0 color=grey bordercolor=black textcolor=black fontsize=15
 	#~ d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=png
     #~ d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=eps
-    d.barscale -s at=50,7    
+    d.barscale -s at=50,7
     d.mon stop=PNG
 else
 	# If flag -g is not checked, output is a color figure (with lakes)
     # Set png file for output.
     GRASS_PNGFILE="$SaveDir"/WeatherStations.png
     export GRASS_PNGFILE
-    d.erase color=white    
+    d.erase color=white
     r.mapcalc selectedStates.composite = 'if(selectedStatesRaster, natural_earth_color.composite, null())'
     r.colors map=selectedStates.composite raster=natural_earth_color.composite
     d.his i=india_shaded_60_315_10 h=selectedStates.composite
@@ -964,13 +963,13 @@ else
 	d.vect map=india_states type=boundary width=3
     d.vect map=india_lakes type=boundary,area \
         color=150:150:150 fcolor=215:240:255 width=1
-    d.grid -w size=5:0:0 origin=0,0 color=grey bordercolor=black textcolor=black fontsize=15    
+    d.grid -w size=5:0:0 origin=0,0 color=grey bordercolor=black textcolor=black fontsize=15
 	#~ d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=png
     #~ d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=eps
-    
+
     # Display scale bar.
-    # d.barscale -l at=50,7    
-    
+    # d.barscale -l at=50,7
+
     d.mon stop=PNG
 fi
 

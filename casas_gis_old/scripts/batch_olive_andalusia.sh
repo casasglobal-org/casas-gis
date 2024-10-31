@@ -67,7 +67,7 @@ do
 			colorRuleRegular=$color_rule\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -86,7 +86,7 @@ do
 			legend1="$legend"\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -105,7 +105,7 @@ do
 			legend1="$legend"\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -124,7 +124,7 @@ do
 			legend1="$legend"\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -143,7 +143,7 @@ do
 			legend1="$legend"\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -162,7 +162,7 @@ do
 			legend1="$legend"\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -181,7 +181,7 @@ do
 			legend1="$legend"\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -200,7 +200,7 @@ do
 			legend1="$legend"\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -219,7 +219,7 @@ do
 			legend1="$legend"\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 done
@@ -280,7 +280,7 @@ do
 			colorRuleRegular=$color_rule\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -299,7 +299,7 @@ do
 			legend1="$legend"\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -318,7 +318,7 @@ do
 			legend1="$legend"\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -337,7 +337,7 @@ do
 			legend1="$legend"\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -358,7 +358,7 @@ do
 			legend1="$legend"\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -377,7 +377,7 @@ do
 			legend1="$legend"\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -396,7 +396,7 @@ do
 			legend1="$legend"\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -415,7 +415,7 @@ do
 			legend1="$legend"\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -434,7 +434,7 @@ do
 			legend1="$legend"\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 done
@@ -502,7 +502,7 @@ do
 			colorRuleRegular=$color_rule\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -522,7 +522,7 @@ do
 			colorRuleRegular=$color_rule\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -542,7 +542,7 @@ do
 			colorRuleRegular=$color_rule\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 done
@@ -612,7 +612,7 @@ do
 			colorRuleRegular=$color_rule\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -632,7 +632,7 @@ do
 			colorRuleRegular=$color_rule\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 
@@ -652,7 +652,7 @@ do
 			colorRuleRegular=$color_rule\
 			lowercut=0 uppercut=0\
 			provinces=all crop=sigpac_buffered_3km cropthreshold=0.20 alt=1000\
-			resolution=1 
+			resolution=1
 		wait
 	fi
 done

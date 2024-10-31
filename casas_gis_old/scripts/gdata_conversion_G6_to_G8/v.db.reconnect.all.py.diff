@@ -26,15 +26,15 @@ index b42b800667..1defe7d02f 100755
      except CalledModuleError:
 -        gs.fatal(_("Unable to copy table <%s>") % from_table)
 +        gs.warning(_("Unable to copy table <%s>") % from_table)
- 
+
      return True
- 
+
 @@ -171,7 +173,7 @@ def drop_tab(vector, layer, table, driver, database):
              table=table,
          )
      except CalledModuleError:
 -        gs.fatal(_("Unable to drop table <%s>") % table)
 +        gs.warning(_("Unable to drop table <%s>") % table)
- 
- 
+
+
  # create index on key column

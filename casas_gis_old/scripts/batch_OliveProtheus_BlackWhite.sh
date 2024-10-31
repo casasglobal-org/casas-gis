@@ -32,7 +32,7 @@ do
             #~ parameter="$parameter" interpolation="idw" lowercut=0 uppercut=50000\
             #~ region=-1 alt=900 resolution=2 legend1="$legend" lowBarCol=0.001666667 upBarCol=8315.186
         #~ wait
-    #~ fi    
+    #~ fi
     # Change in olive fly pupae POS
     #~ if [ $i -eq 28 ] ; then
         #~ # Set run
@@ -44,7 +44,7 @@ do
             #~ parameter="$parameter" interpolation="idw" lowercut=0 uppercut=50000\
             #~ region=-1 alt=900 resolution=2 legend1="$legend" lowBarCol=37.645 upBarCol=5147.558
         #~ wait
-    #~ fi    
+    #~ fi
     # Change in olive fly pupae NEG
     #~ if [ $i -eq 28 ] ; then
         #~ # Set run
@@ -56,13 +56,13 @@ do
             #~ parameter="$parameter" interpolation="idw" lowercut=-5000 uppercut=0\
             #~ region=-1 alt=900 resolution=2 legend1="$legend" lowBarCol=-3115.578 upBarCol=-6.420238
         #~ wait
-    #~ fi    
+    #~ fi
     # Change in % fruit attacked POS
     #~ if [ $i -eq 30 ] ; then
         #~ # Set run
         #~ directory="03_DeltaInfestPOS_BW_outliers"
         #~ parameter="$i"
-        #~ legend="Delta infestation POS"   
+        #~ legend="Delta infestation POS"
         #~ # Run GIS routine
         #~ medPresentClimate -w -g -p -m SaveDir="$directory" longitude=5 latitude=6 year=11\
             #~ parameter="$parameter" interpolation="idw" lowercut=0 uppercut=50000\
@@ -74,7 +74,7 @@ do
         #~ # Set run
         #~ directory="03_DeltaInfestNEG_BW_outliers"
         #~ parameter="$i"
-        #~ legend="Delta infestation NEG"   
+        #~ legend="Delta infestation NEG"
         #~ # Run GIS routine
         #~ medPresentClimate -u -g -p -m SaveDir="$directory" longitude=5 latitude=6 year=11\
             #~ parameter="$parameter" interpolation="idw" lowercut=-5000 uppercut=0\
@@ -98,7 +98,7 @@ do
         # Set run
         directory="04_DeltaProfitNEG_BW_fisher"
         parameter="$i"
-        legend="Delta profit NEG"   
+        legend="Delta profit NEG"
         # Run GIS routine
         medPresentClimate -u -g -p -m SaveDir="$directory" longitude=5 latitude=6 year=11\
             parameter="$parameter" interpolation="idw" lowercut=-5000 uppercut=0\

@@ -50,7 +50,7 @@ do
         # Set run
         directory="swd_eu_outliers_spline_005"
         parameter="$i"
-        legend="pupae per year"       
+        legend="pupae per year" 
         # Run GIS routine
 		EurMedGrape -w -r -p \
             SaveDir="$directory" \
@@ -74,7 +74,7 @@ COMMENT
         directory="swd_eu_outliers_spline_Stdv_Coef"
         parameter="$i"
         parameter="$i"
-        legend="pupae per year"       
+        legend="pupae per year" 
         # Run GIS routine
 		EurMedGrape -r -p \
             SaveDir="$directory" \
@@ -84,8 +84,8 @@ COMMENT
 			region=-1 \
             alt=2000 resolution=1
         wait
-    fi      
-    
+    fi
+
 # COMMENT
 	
 done

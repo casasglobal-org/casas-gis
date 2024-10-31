@@ -53,37 +53,37 @@ do
             parameter="$parameter" interpolation="idw" lowercut=-10 uppercut=50000 region=-1 alt=900 resolution=1\
             legend1="$legend"
         wait
-    fi    
+    fi
     # Delta yield
     if [ $i -eq 13 ] ; then
         # Set run
         directory="DeltaYield_M3crops_995"
         parameter="$i"
-        legend="Delta yield (tons per ha) EH5OM"       
+        legend="Delta yield (tons per ha) EH5OM" 
         # Run GIS routine
         medPresentClimate -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=7\
             parameter="$parameter" interpolation="idw" lowercut=-10 uppercut=50000 region=-1 alt=900 resolution=1\
             legend1="$legend"
         wait
-    fi    
+    fi
     # Delta infestation
     if [ $i -eq 16 ] ; then
         # Set run
         directory="DeltaInfestation_M3crops"
         parameter="$i"
-        legend="Delta infestation (%) EH5OM"   
+        legend="Delta infestation (%) EH5OM"
         # Run GIS routine
         medPresentClimate -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=7\
             parameter="$parameter" interpolation="idw" lowercut=-10000 uppercut=50000 region=-1 alt=900 resolution=1\
             legend1="$legend"
         wait
-    fi    
+    fi
     # Delta profit with EU aid
     if [ $i -eq 23 ] ; then
         # Set run
         directory="DeltaProfit_M3crops"
         parameter="$i"
-        legend="Delta profit (USD per ha)"       
+        legend="Delta profit (USD per ha)" 
         # Run GIS routine
         medPresentClimate -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=7\
             parameter="$parameter" interpolation="idw" lowercut=-5000000 uppercut=35000000 region=-1 alt=900 resolution=1\

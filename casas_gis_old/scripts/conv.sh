@@ -1,6 +1,6 @@
 #!/bin/bash
 cd ~/outfiles/;
-echo  
+echo
 echo "Please move files you want to convert into the \"outfiles\" folder,"
 echo
 echo "then press [ENTER]..."

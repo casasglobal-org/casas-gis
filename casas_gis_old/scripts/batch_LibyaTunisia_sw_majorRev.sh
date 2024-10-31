@@ -44,9 +44,9 @@
 
 for i in 12 22 23 24 25 26 27 28
 do
-    
+
     ############ Yearly output ############
-    
+
     #~ # Rain
     #~ if [ $i -eq 12 ] ; then
         #~ # Set run
@@ -61,7 +61,7 @@ do
             #~ alt=900 resolution=1 lowBarCol=0.00 upBarCol=1280
         #~ wait
     #~ fi
-    
+
     #~ # Mort Summer
     #~ if [ $i -eq 22 ] ; then
         #~ # Set run
@@ -106,7 +106,7 @@ do
             #~ alt=900 resolution=1 lowBarCol=13.786 upBarCol=467.974
         #~ wait
     #~ fi
-    
+
     #~ # LarvaePerYr
     #~ if [ $i -eq 25 ] ; then
         #~ # Set run
@@ -168,9 +168,9 @@ do
     #~ fi
 
 
-    
+
     ############ Avg, Std, CV ############
-    
+
     #~ # Rain
     #~ if [ $i -eq 12 ] ; then
         #~ # Set run
@@ -185,7 +185,7 @@ do
             #~ alt=900 resolution=1 lowBarCol=0.00 upBarCol=1280
         #~ wait
     #~ fi
-    
+
     #~ # Mort Summer
     #~ if [ $i -eq 22 ] ; then
         #~ # Set run
@@ -230,7 +230,7 @@ do
             #~ alt=900 resolution=1 lowBarCol=13.786 upBarCol=467.974
         #~ wait
     #~ fi
-    
+
     # LarvaePerYr
     if [ $i -eq 25 ] ; then
         # Set run
@@ -290,7 +290,7 @@ do
             alt=900 resolution=1 lowBarCol=0.02 upBarCol=158.419
         wait
     fi
-    
+
 done
 exit 0
 

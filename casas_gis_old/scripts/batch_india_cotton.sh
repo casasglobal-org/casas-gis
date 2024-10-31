@@ -43,7 +43,7 @@ do
         #~ # Set run
         #~ directory="india_test_cotton_yield_full_area"
         #~ parameter="$i"
-        #~ legend="kg per ha (full cotton area)"       
+        #~ legend="kg per ha (full cotton area)" 
         #~ # Run GIS routine
         #~ india -c -r \
         #~ states=India \
@@ -55,15 +55,15 @@ do
         #~ numpoints=3 pow=2.0 spline_step_east=57000 spline_step_north=57000 tykhonov_reg=0.05 \
         #~ lowercut=0 uppercut=0 \
         #~ legend1="$legend" \
-        #~ alt=2000 resolution=1 
+        #~ alt=2000 resolution=1
         #~ wait
     #~ fi
-    
+
     if [ $i -eq 17 ] ; then
         # Set run
         directory="india_test_cotton_yield_irrigated_area"
         parameter="$i"
-        legend="kg per ha (irrigated cotton area)"       
+        legend="kg per ha (irrigated cotton area)" 
         # Run GIS routine
         india -c -r \
         states=India \
@@ -75,15 +75,15 @@ do
         numpoints=3 pow=2.0 spline_step_east=57000 spline_step_north=57000 tykhonov_reg=0.05 \
         lowercut=0 uppercut=0 \
         legend1="$legend" \
-        alt=2000 resolution=1 
+        alt=2000 resolution=1
         wait
     fi
-    
+
     #~ if [ $i -eq 17 ] ; then
         #~ # Set run
         #~ directory="india_test_cotton_yield_rainfed_area"
         #~ parameter="$i"
-        #~ legend="kg per ha (rainfed cotton area)"       
+        #~ legend="kg per ha (rainfed cotton area)" 
         #~ # Run GIS routine
         #~ india -c -r \
         #~ states=India \
@@ -95,7 +95,7 @@ do
         #~ numpoints=3 pow=2.0 spline_step_east=57000 spline_step_north=57000 tykhonov_reg=0.05 \
         #~ lowercut=0 uppercut=0 \
         #~ legend1="$legend" \
-        #~ alt=2000 resolution=1 
+        #~ alt=2000 resolution=1
         #~ wait
     #~ fi
 

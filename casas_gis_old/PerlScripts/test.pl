@@ -4,32 +4,32 @@ use strict;
 # g.parser demo script
 
 #%Module
-#%  description: g.parser test script (perl) 
-#%  keywords: keyword1, keyword2
+# % description: g.parser test script (perl)
+# % keywords: keyword1, keyword2
 #%End
 #%flag
-#%  key: f
-#%  description: A flag
+# % key: f
+# % description: A flag
 #%END
 #%option
-#% key: raster
-#% type: string
-#% gisprompt: old,cell,raster
-#% description: Raster input map
-#% required : yes
+# % key: raster
+# % type: string
+# % gisprompt: old,cell,raster
+# % description: Raster input map
+# % required : yes
 #%end
 #%option
-#% key: vector
-#% type: string
-#% gisprompt: old,vector,vector
-#% description: Vector input map
-#% required : yes
+# % key: vector
+# % type: string
+# % gisprompt: old,vector,vector
+# % description: Vector input map
+# % required : yes
 #%end
 #%option
-#% key: option1
-#% type: string
-#% description: An option
-#% required : no
+# % key: option1
+# % type: string
+# % description: An option
+# % required : no
 #%end
 
 if ( !$ENV{'GISBASE'} ) {
@@ -37,7 +37,7 @@ if ( !$ENV{'GISBASE'} ) {
     exit 1;
 }
 
- 
+
 if( $ARGV[0] ne '@ARGS_PARSED@' ){
     my $arg = "";
     for (my $i=0; $i < @ARGV;$i++) {
