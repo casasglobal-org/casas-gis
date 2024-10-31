@@ -6,14 +6,14 @@
 #
 # To run it from 64-SVN DOS text, please (currently does not work)
 # "%GRASS_SH%" get_boxplot_stats.sh RasterName LocationName MapsetName DivergentRule IsPercentScale
-# 
+#
 # First do:
 # cd C:/cygwin/home/andy/
 #
 # Then launch e.g.:
 # "C:/cygwin/home/andy/get_boxplot_stats.sh" tomato_YieldPerHectare_175_above_0 AEA_Med luigi divNo 0
 #
-# It expects (and colls) Perl script getBoxplotColorRule.pl 
+# It expects (and colls) Perl script getBoxplotColorRule.pl
 # to be in the same directory
 #
 # Luigi Ponti, 11 October 2013
@@ -53,11 +53,11 @@ eval `r.univar -g -e map="$RasterMapName"`
 # R boxplot
 # https://www.r-bloggers.com/whisker-of-boxplot/
 
-# Tentative position of lower whisker 
+# Tentative position of lower whisker
 # lower whisker = max(min(x), Q_1 – 1.5 * IQR)
 iqr_low=`perl -E "say "$first_quartile" - (1.5 * ("$third_quartile" - "$first_quartile"))"`
 
-# Tentative position of higher whisker 
+# Tentative position of higher whisker
 # upper whisker = min(max(x), Q_3 + 1.5 * IQR)
 iqr_high=`perl -E "say "$third_quartile" + (1.5 * ("$third_quartile" - "$first_quartile"))"`
 

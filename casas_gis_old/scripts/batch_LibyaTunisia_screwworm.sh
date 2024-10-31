@@ -81,7 +81,7 @@ do
         #~ # Set run
         #~ directory="screwworm_RIxPup_1989-2005"
         #~ parameter="$i"
-        #~ legend="RIxPup" 
+        #~ legend="RIxPup"
         #~ # Run GIS routine
         #~ LibyaTunisia -w -g SaveDir="$directory"\
             #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
@@ -132,7 +132,7 @@ do
         # Set run
         directory="screwworm_RIxPup_summary"
         parameter="$i"
-        legend="RIxPup" 
+        legend="RIxPup"
         # Run GIS routine
         LibyaTunisia -g SaveDir="$directory"\
             longitude=5 latitude=6 year=11 parameter="$parameter"\

@@ -30,19 +30,19 @@ do
         #~ # Set run
         #~ directory="DayDegrees"
         #~ parameter="$i"
-        #~ legend="Day degrees"  
+        #~ legend="Day degrees"
         #~ # Run GIS routine
         #~ mediterraneo -c SaveDir="$directory" longitude=5 latitude=6 year=11\
             #~ parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2\
             #~ legend1="$legend"
-        #~ wait        
+        #~ wait
     #~ fi
     #~ # Fruit weight
     #~ if [ $i -eq 14 ] ; then
         #~ # Set run
         #~ directory="FruitWeight"
         #~ parameter="$i"
-        #~ legend="Fruit weight"       
+        #~ legend="Fruit weight"
         #~ # Run GIS routine
         #~ mediterraneo -c SaveDir="$directory" longitude=5 latitude=6 year=11\
             #~ parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2\
@@ -54,24 +54,24 @@ do
         #~ # Set run
         #~ directory="BloomDate"
         #~ parameter="$i"
-        #~ legend="Bloom date"        
+        #~ legend="Bloom date"
         #~ # Run GIS routine
         #~ mediterraneo -c SaveDir="$directory" longitude=5 latitude=6 year=11\
             #~ parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2\
             #~ legend1="$legend"
-        #~ wait 
+        #~ wait
     #~ fi
     #~ # Years of blooming
     #~ if [ $i -eq 17 ] ; then
         #~ # Set run
         #~ directory="BloomYears"
         #~ parameter="$i"
-        #~ legend="Years with bloom"   
+        #~ legend="Years with bloom"
         #~ # Run GIS routine
         #~ mediterraneoBloomYears -c SaveDir="$directory" longitude=5 latitude=6 year=11\
             #~ parameter="$parameter" lowercut=0 uppercut=0 region=NA alt=700 resolution=2\
             #~ legend1="$legend"
-        #~ wait            
+        #~ wait
     #~ fi
     # OF egg days
     #~ if [ $i -eq 22 ] ; then
@@ -82,68 +82,68 @@ do
         #~ # Run GIS routine
         #~ mediterraneo -c SaveDir="$directory" longitude=5 latitude=6 year=11\
             #~ parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2\
-            #~ legend1="$legend"   
-    #~ wait             
+            #~ legend1="$legend"
+    #~ wait
     #~ fi
     #~ # OF larvae days
     #~ if [ $i -eq 23 ] ; then
         #~ # Set run
         #~ directory="OFlarvaeDays"
         #~ parameter="$i"
-        #~ legend="OF larvae days"  
+        #~ legend="OF larvae days"
         #~ # Run GIS routine
         #~ mediterraneo -c SaveDir="$directory" longitude=5 latitude=6 year=11\
             #~ parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2\
-            #~ legend1="$legend"  
-    #~ wait              
-    #~ fi	
+            #~ legend1="$legend"
+    #~ wait
+    #~ fi
     #~ # OF pupae days
     #~ if [ $i -eq 24 ] ; then
         #~ # Set run
         #~ directory="OFpupaeDays"
         #~ parameter="$i"
-        #~ legend="OF pupae days"        
+        #~ legend="OF pupae days"
         #~ # Run GIS routine
         #~ mediterraneo -c SaveDir="$directory" longitude=5 latitude=6 year=11\
             #~ parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2\
-            #~ legend1="$legend"      
-    #~ wait        
-    #~ fi		
+            #~ legend1="$legend"
+    #~ wait
+    #~ fi
     #~ # OF adult days
     #~ if [ $i -eq 25 ] ; then
         #~ # Set run
         #~ directory="OFadultDays"
         #~ parameter="$i"
-        #~ legend="OF adult days"       
+        #~ legend="OF adult days"
         #~ # Run GIS routine
         #~ mediterraneo -c SaveDir="$directory" longitude=5 latitude=6 year=11\
             #~ parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2\
-            #~ legend1="$legend"       
-    #~ wait         
-    #~ fi		
+            #~ legend1="$legend"
+    #~ wait
+    #~ fi
     # OF pupae CumSum
     #~ if [ $i -eq 26 ] ; then
         #~ # Set run
         #~ directory="OFpupaeCumSum_AvgOnly"
         #~ parameter="$i"
-        #~ legend="OF pupae CumSum"       
+        #~ legend="OF pupae CumSum"
         #~ # Run GIS routine
         #~ mediterraneo -c SaveDir="$directory" longitude=5 latitude=6 year=11\
             #~ parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2\
-            #~ legend1="$legend"   
-    #~ wait             
-    #~ fi		
+            #~ legend1="$legend"
+    #~ wait
+    #~ fi
     # Percent fruit attacked
     if [ $i -eq 28 ] ; then
         # Set run
         directory="PercentFruitAttacked_AvgOnly"
         parameter="$i"
-        legend="Percent fruit attacked"    
+        legend="Percent fruit attacked"
         # Run GIS routine
         mediterraneo -c SaveDir="$directory" longitude=5 latitude=6 year=11\
             parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2\
-            legend1="$legend"        
-    wait        
+            legend1="$legend"
+    wait
     fi
 done
 exit 0

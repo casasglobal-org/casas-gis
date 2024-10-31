@@ -11,14 +11,14 @@
 # PURPOSE:      Script to extract raster and vector data from current
 #               location into a new one. Data can be copied or extracted
 #		        in current or original resolution and region extent.
-# 
+#
 # COPYRIGHT:    (C) 2002-2012 by the GRASS Development Team
 #
 #               This program is free software under the GNU General Public
 #               License (>=v2). Read the file COPYING that comes with GRASS
 #               for details.
 #
-# COMMENTS:     Sometimes extracting vector maps at current region extent 
+# COMMENTS:     Sometimes extracting vector maps at current region extent
 #               with v.extract doesn't work properly - use copy instead!!
 #
 #############################################################################
@@ -51,12 +51,12 @@
 #%flag
 # % key: r
 # % answer: 1
-# % description: Export raster maps at original instead of current resolution 
+# % description: Export raster maps at original instead of current resolution
 #%end
 
 #%flag
 # % key: v
-# % description: Clip vector maps to current region extent 
+# % description: Clip vector maps to current region extent
 #%end
 
 #%flag
@@ -82,7 +82,7 @@ fi
 
 eval `g.gisenv`
 : ${GISBASE?} ${GISDBASE?} ${LOCATION_NAME?} ${MAPSET?}
-LOCATION=$GISDBASE/$LOCATION_NAME/$MAPSET  
+LOCATION=$GISDBASE/$LOCATION_NAME/$MAPSET
 
 ### cleanup in case of ERROR
 cleanup()
@@ -138,7 +138,7 @@ if test -d "$GISDBASE/$LOCNAME" ; then
 	echo ""
 	echo "choose another name"
 	exit 1
-else  
+else
 	mkdir -p $GISDBASE/$LOCNAME/PERMANENT/
 fi
 
@@ -148,7 +148,7 @@ CURRWD=$HOME
 VECTLOC=$GISDBASE/$LOCNAME/PERMANENT
 cd $GISDBASE/$LOCATION_NAME/PERMANENT
 cp -f PROJ_INFO PROJ_UNITS DEFAULT_WIND $VECTLOC
-	
+
 cd $LOCATION
 cp -f WIND $VECTLOC
 
@@ -156,7 +156,7 @@ cp -f WIND $VECTLOC
 #cp WIND $VECTLOC/DEFAULT_WIND
 cd $CURRWD
 
-### Copy rasters 
+### Copy rasters
 
 mkdir -p $CURRWD/tmp/$LOCNAME/rast/
 mkdir $VECTLOC/colr
@@ -170,22 +170,22 @@ CNSRES=`g.region -p | awk '/nsres:/ {printf "%i\n",$2}'`
 
 if [ "$LISTR" = "all" ] ; then
     for i in `ls $VECTLOC/cell/`
-    do    
+    do
         echo "COPY $i DATA TO $LOCNAME"
         ### Find mapset data and copy to new location
         g.findfile el=colr file=$i > $CURRWD/tmp/$LOCNAME/rast/$i.col
         RASTCOL=`cat $CURRWD/tmp/$LOCNAME/rast/$i.col | grep "file" | cut -b 7- | sed -e "s/'//g"`
         if [ "$RASTCOL" = "" ] ; then
             echo "map $i has no colortable file"
-        else	   
-            if [ -d $VECTLOC/colr ] ; then    
+        else
+            if [ -d $VECTLOC/colr ] ; then
                 cp $RASTCOL $VECTLOC/colr/
                 echo "copy colr/$i"
             fi
         fi
-        
+
         g.findfile el=cell file=$i > $CURRWD/tmp/$LOCNAME/rast/$i.cell
-        RASTCELL=`cat $CURRWD/tmp/$LOCNAME/rast/$i.cell | grep "file" | cut -b 7- | sed -e "s/'//g"`                        
+        RASTCELL=`cat $CURRWD/tmp/$LOCNAME/rast/$i.cell | grep "file" | cut -b 7- | sed -e "s/'//g"`
         if [ "$RASTCELL" = "" ] ; then
             echo "cell/$i doesn't exist"
         else
@@ -198,9 +198,9 @@ if [ "$LISTR" = "all" ] ; then
                 echo "copy cell/$i"
             fi
         fi
-        
+
         g.findfile el=cellhd file=$i > $CURRWD/tmp/$LOCNAME/rast/$i.cellhd
-        RASTCHD=`cat $CURRWD/tmp/$LOCNAME/rast/$i.cellhd | grep "file" | cut -b 7- | sed -e "s/'//g"`            
+        RASTCHD=`cat $CURRWD/tmp/$LOCNAME/rast/$i.cellhd | grep "file" | cut -b 7- | sed -e "s/'//g"`
         if [ "$RASTCHD" = "" ] ; then
             echo "cellhd/$i doesn't exist"
         else
@@ -212,10 +212,10 @@ if [ "$LISTR" = "all" ] ; then
                 cp $RASTCHD $VECTLOC/cellhd/
 				echo "copy cellhd/$i"
             fi
-        fi    
-        
+        fi
+
         g.findfile el=cell_misc file=$i > $CURRWD/tmp/$LOCNAME/rast/$i.cell_misc
-        RASTCMISC=`cat $CURRWD/tmp/$LOCNAME/rast/$i.cell_misc | grep "file" | cut -b 7- | sed -e "s/'//g"`            
+        RASTCMISC=`cat $CURRWD/tmp/$LOCNAME/rast/$i.cell_misc | grep "file" | cut -b 7- | sed -e "s/'//g"`
         if [ "$RASTCMISC" = "" ] ; then
             echo "/cell_misc/$i doesn't exist"
          else
@@ -228,9 +228,9 @@ if [ "$LISTR" = "all" ] ; then
                 echo "copy cell_misc/$i"
             fi
         fi
-        
+
         g.findfile el=fcell file=$i > $CURRWD/tmp/$LOCNAME/rast/$i.fcell
-        RASTFCELL=`cat $CURRWD/tmp/$LOCNAME/rast/$i.fcell | grep "file" | cut -b 7- | sed -e "s/'//g"`            
+        RASTFCELL=`cat $CURRWD/tmp/$LOCNAME/rast/$i.fcell | grep "file" | cut -b 7- | sed -e "s/'//g"`
         if [ "$RASTFCELL" = "" ] ; then
             echo "fcell/$i doesn't exist"
             else
@@ -243,9 +243,9 @@ if [ "$LISTR" = "all" ] ; then
 					echo "copy fcell/$i"
                 fi
             fi
-            
+
         g.findfile el=dcell file=$i > $CURRWD/tmp/$LOCNAME/rast/$i.dcell
-        RASTDCELL=`cat $CURRWD/tmp/$LOCNAME/rast/$i.dcell | grep "file" | cut -b 7- | sed -e "s/'//g"` 
+        RASTDCELL=`cat $CURRWD/tmp/$LOCNAME/rast/$i.dcell | grep "file" | cut -b 7- | sed -e "s/'//g"`
         if [ "$RASTDCELL" = "" ] ; then
 				echo "dcell/$i doesn't exist"
         else
@@ -255,12 +255,12 @@ if [ "$LISTR" = "all" ] ; then
             else
                 mkdir $VECTLOC/dcell
                 cp $RASTDCELL $VECTLOC/dcell/
-                echo "copy dcell/$i"  
+                echo "copy dcell/$i"
             fi
         fi
-        
+
         g.findfile el=g3dcell file=$i > $CURRWD/tmp/$LOCNAME/rast/$i.g3dcell
-        RASTGD=`cat $CURRWD/tmp/$LOCNAME/rast/$i.g3dcell | grep "file" | cut -b 7- | sed -e "s/'//g"`                                
+        RASTGD=`cat $CURRWD/tmp/$LOCNAME/rast/$i.g3dcell | grep "file" | cut -b 7- | sed -e "s/'//g"`
         if [ "$RASTGD" = "" ] ; then
             echo "g3dcell/$i doesn't exist"
             echo ""
@@ -270,7 +270,7 @@ if [ "$LISTR" = "all" ] ; then
                 echo "copy g3dcell/$i"
                 echo ""
             else
-                mkdir $VECTLOC/g3dcell  
+                mkdir $VECTLOC/g3dcell
                 cp $RASTGD $VECTLOC/g3dcell/
                 echo "copy g3dcell/$i"
                 echo ""
@@ -279,8 +279,8 @@ if [ "$LISTR" = "all" ] ; then
     done
 else
     for i in $LISTR
-    do	
-        ### Find mapset data and copy to new location						
+    do
+        ### Find mapset data and copy to new location
         g.findfile el=colr file=$i > $CURRWD/tmp/$LOCNAME/rast/$i.col
         RASTCOL=`cat $CURRWD/tmp/$LOCNAME/rast/$i.col | grep "file" | cut -b 7- | sed -e "s/$i'//g"`
         if [ -f $RASTCOL$i ] ; then
@@ -298,12 +298,12 @@ else
 #			ONSRES=`cat $RASTHD | awk '/n-s resol:/ {printf "%.2f\n",$3}'`
             g.region ewres=$OEWRES nsres=$ONSRES -a
             ### Export map
-            echo "export raster map $i for later import"   
+            echo "export raster map $i for later import"
             r.out.ascii in=$i out=$CURRWD/tmp/$LOCNAME/rast/$i.asc
             echo ""
         else
             ### Export map
-            echo "export raster map $i for later import"   
+            echo "export raster map $i for later import"
             r.out.ascii in=$i out=$CURRWD/tmp/$LOCNAME/rast/$i.asc
             echo ""
         fi
@@ -314,7 +314,7 @@ fi
 
 mkdir -p $CURRWD/tmp/$LOCNAME/vector
 
-# Get current region extent as area map	
+# Get current region extent as area map
 if [ "$GIS_FLAG_V" -eq 1 ] ; then
     v.in.region output=mxy999 type=area
 fi
@@ -327,15 +327,15 @@ fi
 
 for i in $LISTV
 do
-    if [ "$GIS_FLAG_V" -eq 1 ] ; then	
-        echo "extract vector map $i from current region extent"		
+    if [ "$GIS_FLAG_V" -eq 1 ] ; then
+        echo "extract vector map $i from current region extent"
         g.findfile el=vector file=$i > $CURRWD/tmp/$LOCNAME/vector/$i
         VECTMAP=`cat $CURRWD/tmp/$LOCNAME/vector/$i | grep "file" | cut -b 7- | sed -e "s/$i'//g"`
         if [ -d $VECTLOC/vector/ ] ; then
             v.select ainput=$i binput=mxy999 output=mxyarea999
             cp -r $VECTMAP../vector/mxyarea999 $VECTLOC/vector/$i
         else
-            mkdir -p $VECTLOC/vector/   
+            mkdir -p $VECTLOC/vector/
             v.select ainput=$i binput=mxy999 output=mxyarea999
             cp -r $VECTMAP../vector/mxyarea999 $VECTLOC/vector/$i
         fi
@@ -351,7 +351,7 @@ do
         g.remove -f vect=mxy999
     else
         ### copy vector data into new location
-        echo "copy vector map $i"			
+        echo "copy vector map $i"
         g.findfile el=vector file=$i > $CURRWD/tmp/$LOCNAME/vector/$i
         VECTMAP=`cat $CURRWD/tmp/$LOCNAME/vector/$i | grep "file" | cut -b 7- | sed -e "s/$i'//g"`
         if [ -d $VECTLOC/vector/ ] ; then
@@ -372,9 +372,9 @@ do
 done
 
 ### In case no files were chosen for export at all
-if [ "$LISTR" = "" -a "$LISTV" = "" ] ; then	
+if [ "$LISTR" = "" -a "$LISTV" = "" ] ; then
 	echo "No files chosen - sorry!"
-	echo "...removing already created location $LOCNAME" 
+	echo "...removing already created location $LOCNAME"
 	rm -ir $GISDBASE/$LOCNAME
     cleanup
 	exit 1
@@ -403,7 +403,7 @@ else
 	if test -e $HOME/.grassrc6 ; then
    		mv $HOME/.grassrc6 $CURRWD/tmp/$LOCNAME/$LOCNAME.grassrc6
 	fi
-    
+
     ### change to new location for import of raster data
     LOCATION_NAME=$LOCNAME
     GISDBASE=$CGISDBASE
@@ -448,24 +448,24 @@ else
     echo ""
     echo "!! changed back into current location !!"
 
-    #cleanup 
+    #cleanup
     g.region nsres=$CNSRES ewres=$CEWRES -a
 
-    ### Tar the new location if requested 
+    ### Tar the new location if requested
     if [ "$GIS_FLAG_T" -eq 1 ] ; then
 		cd $GISDBASE
 		tar czvf ~/$LOCNAME.tar.gz $LOCNAME/*
 		echo ""
 		echo "$LOCNAME.tar.gz written to $HOME"
-		echo ""		
+		echo ""
         if [ "$GIS_FLAG_D" -eq 1 ] ; then
             rm -rf $GISDBASE/$LOCNAME/
         else
-            echo ""         
+            echo ""
             echo "Location $LOCNAME kept in $GISDBASE"
         fi
 	else
-		echo ""		
+		echo ""
 		echo "Location $LOCNAME created in $GISDBASE"
 		echo ""
 		echo "bye..."

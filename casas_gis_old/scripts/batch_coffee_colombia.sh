@@ -54,7 +54,7 @@ do
 			resolution=1
 		wait
 	fi
-	
+
 	# 7. meanripemass
 	if [ $i -eq 7 ] ; then
 		# Set run
@@ -74,7 +74,7 @@ do
 			resolution=1
 		wait
 	fi
-	
+
 	# 8. meanTdda
 	if [ $i -eq 8 ] ; then
 		# Set run
@@ -94,7 +94,7 @@ do
 			resolution=1
 		wait
 	fi
-	
+
 	# 9. meanRain
 	if [ $i -eq 9 ] ; then
 		# Set run
@@ -114,7 +114,7 @@ do
 			resolution=1
 		wait
 	fi
-	
+
 	# 10. meanLangl
 	if [ $i -eq 10 ] ; then
 		# Set run
@@ -133,7 +133,7 @@ do
 			departments=all crop=coffee cropthreshold=0.01 alt=10000\
 			resolution=1
 		wait
-	fi	
+	fi
 done
 }
 
@@ -181,7 +181,7 @@ do
 			resolution=1
 		wait
 	fi
-	
+
 	# 7. meanripemass
     if [ $i -eq 7 ] ; then
         # Set run
@@ -201,7 +201,7 @@ do
 			resolution=1
 		wait
 	fi
-	
+
 	# 8. meanTdda
     if [ $i -eq 8 ] ; then
         # Set run
@@ -221,7 +221,7 @@ do
 			resolution=1
 		wait
 	fi
-	
+
 	# 9. meanRain
     if [ $i -eq 9 ] ; then
         # Set run
@@ -241,7 +241,7 @@ do
 			resolution=1
 		wait
 	fi
-	
+
 	# 10. meanLangl
     if [ $i -eq 10 ] ; then
         # Set run

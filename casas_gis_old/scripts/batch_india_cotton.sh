@@ -43,7 +43,7 @@ do
         #~ # Set run
         #~ directory="india_test_cotton_yield_full_area"
         #~ parameter="$i"
-        #~ legend="kg per ha (full cotton area)" 
+        #~ legend="kg per ha (full cotton area)"
         #~ # Run GIS routine
         #~ india -c -r \
         #~ states=India \
@@ -63,7 +63,7 @@ do
         # Set run
         directory="india_test_cotton_yield_irrigated_area"
         parameter="$i"
-        legend="kg per ha (irrigated cotton area)" 
+        legend="kg per ha (irrigated cotton area)"
         # Run GIS routine
         india -c -r \
         states=India \
@@ -83,7 +83,7 @@ do
         #~ # Set run
         #~ directory="india_test_cotton_yield_rainfed_area"
         #~ parameter="$i"
-        #~ legend="kg per ha (rainfed cotton area)" 
+        #~ legend="kg per ha (rainfed cotton area)"
         #~ # Run GIS routine
         #~ india -c -r \
         #~ states=India \

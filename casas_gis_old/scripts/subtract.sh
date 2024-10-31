@@ -9,8 +9,8 @@
 # PURPOSE:      Makes a CASAS-mappable file subracting two model
 #                      output files one from the other.
 #
-# NOTE:           
-#                       
+# NOTE:
+#
 #
 # COPYRIGHT:    (c) 2008 Luigi Ponti, quartese at gmail.com
 #
