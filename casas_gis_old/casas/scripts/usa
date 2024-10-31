@@ -37,27 +37,27 @@
 #
 ############################################################################
 
-# %Module
-# %  description: Map the output of CASAS models for the conterminous United States, Mexico, and Central America
-# %  keywords: models
-# %End 
+#%Module
+#%  description: Map the output of CASAS models for the conterminous United States, Mexico, and Central America
+#%  keywords: models
+#%End
 
-# %option
-# % guisection: Main
-# % key: SaveDir
-# % type: string
-# % description: Name for directory where to store output maps
-# % required: yes
-# %end
+#%option
+#% guisection: Main
+#% key: SaveDir
+#% type: string
+#% description: Name for directory where to store output maps
+#% required: yes
+#%end
 
-# %option
-# % guisection: Main
-# % key: longitude
-# % type: integer
-# % answer: 5
-# % description: Longitude (X) column number
-# % required: yes
-# %end
+#%option
+#% guisection: Main
+#% key: longitude
+#% type: integer
+#% answer: 5
+#% description: Longitude (X) column number
+#% required: yes
+#%end
 
 #%option
 #% guisection: Main
@@ -334,7 +334,7 @@ exitprocedure()
 trap 'exitprocedure' 1 2 3 9 15 SIGINT SIGABRT SIGILL SIGTERM
 
 # Print column names of model output files.
-perl ~/software/casas-gis/casas_gis_old/PerlScripts/printCols.pl "$HOME" > ~/varList.txt
+perl ~/PerlScripts/printCols.pl "$HOME" > ~/varList.txt
 
 if [ "$1" != "@ARGS_PARSED@" ] ; then
 	exec g.parser "$0" "$@"
