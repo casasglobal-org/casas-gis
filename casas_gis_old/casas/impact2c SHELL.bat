@@ -60,7 +60,7 @@ set PATH=%GRASSDIR%\scripts;%GRASSDIR%\etc;%PATH%
 set PATH=%GRASSDIR%\sqlite\lib;%GRASSDIR%\sqlite\bin;%PATH%
 
 rem CASAS stuff
-set PATH=%HOME%\casas\bin;%HOME%\casas\scripts;%PATH%
+set PATH=%HOME%\casas\bin;%HOME%\casas\grass_scripts;%PATH%
 set GRASS_ADDON_PATH=%HOME%\casas\bin
 set GRASS_ADDON_ETC=C:\cygwin\home\andy\casas\etc
 
