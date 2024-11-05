@@ -1,1 +1,1 @@
-@"%GRASS_SH%" -c '"%HOME%/casas/scripts/africa" %*'
+@"%GRASS_SH%" -c '"%HOME%/casas/grass_scripts/africa" %*'

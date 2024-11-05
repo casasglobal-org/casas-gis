@@ -1,2 +1,2 @@
 @set PATH=%GISBASE%\scripts\;C:\Program Files\Mozilla Firefox\;%PATH%
-@"%GRASS_SH%" -c '"%HOME%/casas/scripts/map.pbdm.colombia" %*'
+@"%GRASS_SH%" -c '"%HOME%/casas/grass_scripts/map.pbdm.colombia" %*'
