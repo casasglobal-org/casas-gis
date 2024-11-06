@@ -14,11 +14,11 @@
 #
 #############################################################################
 
-#%Module
+# %Module
 # % description: Update statistics of all raster maps in current mapset.
 # % keyword: raster
 # % keyword: statistics
-#%end
+# %end
 
 if  [ -z "$GISBASE" ] ; then
  echo "You must be in GRASS GIS to run this program." >&2

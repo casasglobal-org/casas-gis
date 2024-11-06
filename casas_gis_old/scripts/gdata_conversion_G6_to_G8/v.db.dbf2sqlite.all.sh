@@ -19,12 +19,12 @@
 #
 #############################################################################
 
-#%Module
+# %Module
 # % description: Converts all old DBF-based GRASS GIS vector maps to SQLite DB in current mapset.
 # % keyword: vector
 # % keyword: DBF
 # % keyword: SQLite
-#%end
+# %end
 
 if  [ -z "$GISBASE" ] ; then
  echo "You must be in GRASS GIS to run this program." >&2

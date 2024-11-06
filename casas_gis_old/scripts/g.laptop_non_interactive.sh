@@ -23,51 +23,51 @@
 #
 #############################################################################
 
-#%module
+# %module
 # %  description: Makes a copy of the current location
-#%end
+# %end
 
-#%option
+# %option
 # % guisection: Main
 # % key: newLocation
 # % type: string
 # % description: New (target) location name
 # % required : yes
-#%end
+# %end
 
-#%option
+# %option
 # % key: rasterList
 # % type: string
 # % answer: all
 # % description: List of raster maps to copy (separated by space)
-#%end
+# %end
 
-#%option
+# %option
 # % key: vectorList
 # % type: string
 # % description: List of vector maps to copy (separated by space)
-#%end
+# %end
 
-#%flag
+# %flag
 # % key: r
 # % answer: 1
 # % description: Export raster maps at original instead of current resolution
-#%end
+# %end
 
-#%flag
+# %flag
 # % key: v
 # % description: Clip vector maps to current region extent
-#%end
+# %end
 
-#%flag
+# %flag
 # % key: t
 # % description: Put new location in a compressed *.tar.gz archive
-#%end
+# %end
 
-#%flag
+# %flag
 # % key: d
 # % description: Delete uncompressed location after *.tar.gz archive creation
-#%end
+# %end
 
 if [ -z "$GISBASE" ] ; then
     echo "You must be in GRASS GIS to run this program." 1>&2

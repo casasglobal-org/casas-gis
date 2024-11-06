@@ -3,34 +3,34 @@ use strict;
 
 # g.parser demo script
 
-#%Module
+# %Module
 # % description: g.parser test script (perl)
 # % keywords: keyword1, keyword2
-#%End
-#%flag
+# %End
+# %flag
 # % key: f
 # % description: A flag
-#%END
-#%option
+# %END
+# %option
 # % key: raster
 # % type: string
 # % gisprompt: old,cell,raster
 # % description: Raster input map
 # % required : yes
-#%end
-#%option
+# %end
+# %option
 # % key: vector
 # % type: string
 # % gisprompt: old,vector,vector
 # % description: Vector input map
 # % required : yes
-#%end
-#%option
+# %end
+# %option
 # % key: option1
 # % type: string
 # % description: An option
 # % required : no
-#%end
+# %end
 
 if ( !$ENV{'GISBASE'} ) {
     printf(STDERR  "You must be in GRASS GIS to run this program.\n");

@@ -21,42 +21,42 @@ use strict;
 #
 #############################################################################
 
-#%Module
+# %Module
 # % description: Makes a CASAS-mappable file subracting two model output files
-#%End
+# %End
 
-#%option
+# %option
 # % key: working_directory
 # % type: string
 # % answer: /home/andy/outfiles/
 # % gisprompt: old_file,file,input
 # % description: Directory where input files are
 # % required : yes
-#%end
+# %end
 
-#%option
+# %option
 # % key: warmest_file
 # % type: string
 # % gisprompt: old_file,file,input
 # % description: Warmed weather file
 # % required : yes
-#%end
+# %end
 
-#%option
+# %option
 # % key: observed_file
 # % type: string
 # % gisprompt: old_file,file,input
 # % description: Observed weather file
 # % required : yes
-#%end
+# %end
 
-#%option
+# %option
 # % key: diff_file
 # % type: string
 # % gisprompt: new_file,file,output
 # % description: New output file
 # % required : yes
-#%end
+# %end
 
 if (!$ENV{'GISBASE'})
 {
