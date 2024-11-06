@@ -9,8 +9,8 @@ use strict;
 # PURPOSE:      Makes a CASAS-mappable file by subracting two model
 #                      output files one from the other.
 #
-# NOTE:           
-#                       
+# NOTE:
+#           
 #
 # COPYRIGHT:    (c) 2008 Luigi Ponti, quartese at gmail.com
 #
@@ -21,53 +21,53 @@ use strict;
 #
 #############################################################################
 
-#%Module
-#%  description: Makes a CASAS-mappable file subracting two model output files
-#%End
+# %Module
+# % description: Makes a CASAS-mappable file subracting two model output files
+# %End
 
-#%option
-#% key: workDir
-#% type: string
-#% answer: /home/andy/outfiles/
-#% gisprompt: old_file,file,input
-#% description: Directory where input files are
-#% required : yes
-#%end
+# %option
+# % key: working_directory
+# % type: string
+# % answer: /home/andy/outfiles/
+# % gisprompt: old_file,file,input
+# % description: Directory where input files are
+# % required: yes
+# %end
 
-#%option
-#% key: warmFile
-#% type: string
-#% gisprompt: old_file,file,input
-#% description: Warmed weather file
-#% required : yes
-#%end
+# %option
+# % key: warmest_file
+# % type: string
+# % gisprompt: old_file,file,input
+# % description: Warmed weather file
+# % required: yes
+# %end
 
-#%option
-#% key: obsFile
-#% type: string
-#% gisprompt: old_file,file,input
-#% description: Observed weahter file
-#% required : yes
-#%end
+# %option
+# % key: observed_file
+# % type: string
+# % gisprompt: old_file,file,input
+# % description: Observed weather file
+# % required: yes
+# %end
 
-#%option
-#% key: diffFile
-#% type: string
-#% gisprompt: new_file,file,output
-#% description: New output file
-#% required : yes
-#%end
+# %option
+# % key: diff_file
+# % type: string
+# % gisprompt: new_file,file,output
+# % description: New output file
+# % required: yes
+# %end
 
-if (!$ENV{'GISBASE'}) 
+if (!$ENV{'GISBASE'})
 {
     printf(STDERR  "You must be in GRASS GIS to run this program.\n");
     exit 1;
 }
- 
+
 if ($ARGV[0] ne '@ARGS_PARSED@')
 {
     my $arg = "";
-    for (my $i=0; $i < @ARGV; $i++) 
+    for (my $i=0; $i < @ARGV; $i++)
 	{
         $arg .= " $ARGV[$i] ";
     }
@@ -110,7 +110,7 @@ my @obsTableRow;
 my @diffTableRow;
 
 # Read warmer weather file.
-chdir ("$workDir"); 
+chdir ("$workDir");
 open (WARM, "<$warmFile") or die "Can't open $warmFile for reading: $!";
 while (my $line = <WARM>)
 {
@@ -175,6 +175,6 @@ for (my $row = 1; $row < $numRows; $row++)
 }
 # Save new file which contains differences.
 open (OUTFILE, ">$diffFile") or die "Can't open $diffFile for writing: $!";
-print OUTFILE join ("\r\n", @diffTable); 
+print OUTFILE join ("\r\n", @diffTable);
 print OUTFILE "\r\n";
 close OUTFILE;

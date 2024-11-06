@@ -43,9 +43,9 @@
 
 for i in 12 23 28
 do
-    
+
     ############ Yearly output ############
-    
+
     #~ # Rain.
     #~ if [ $i -eq 12 ] ; then
         #~ # Set run
@@ -81,7 +81,7 @@ do
         #~ # Set run
         #~ directory="screwworm_RIxPup_1989-2005"
         #~ parameter="$i"
-        #~ legend="RIxPup"       
+        #~ legend="RIxPup"
         #~ # Run GIS routine
         #~ LibyaTunisia -w -g SaveDir="$directory"\
             #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
@@ -90,9 +90,9 @@ do
             #~ alt=900 resolution=1 lowBarCol=0.01 upBarCol=111.39
         #~ wait
     #~ fi
-    
+
     ############ Avg, Std, CV ############
-    
+
     #~ # Rain.
     #~ if [ $i -eq 12 ] ; then
         #~ # Set run
@@ -108,7 +108,7 @@ do
         #~ wait
         #~ g.copy raster=MskdModPOSrain_Alfalfa_15Jun1Avg,sw_rain_avg
         #~ r.contour input=sw_rain_avg output=sw_rain_iso450 levels=450.0
-    #~ fi    
+    #~ fi
 
     # Fall winter mortality.
     #~ if [ $i -eq 23 ] ; then
@@ -132,7 +132,7 @@ do
         # Set run
         directory="screwworm_RIxPup_summary"
         parameter="$i"
-        legend="RIxPup"       
+        legend="RIxPup"
         # Run GIS routine
         LibyaTunisia -g SaveDir="$directory"\
             longitude=5 latitude=6 year=11 parameter="$parameter"\
@@ -140,8 +140,8 @@ do
             lowercut=0 uppercut=0 legend1="$legend"\
             alt=900 resolution=1
         wait
-    fi      
-    
+    fi
+
 done
 exit 0
 

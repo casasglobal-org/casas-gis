@@ -50,7 +50,7 @@ do
         #~ # Set run
         #~ directory="sworm_AnnualRain"
         #~ parameter="$i"
-        #~ legend="rain (mm/year)"       
+        #~ legend="rain (mm/year)"
         #~ # Run GIS routine
         #~ usa states='AL AZ CA FL GA LA MS MX NC NM SC TX'\
             #~ SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=10000\
@@ -64,7 +64,7 @@ do
         #~ # Set run
         #~ directory="sworm_FallWinterMortality"
         #~ parameter="$i"
-        #~ legend="screwworm fall winter mortality"       
+        #~ legend="screwworm fall winter mortality"
         #~ # Run GIS routine
         #~ usa states='AL AZ CA FL GA LA MS MX NC NM SC TX'\
             #~ SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=10000\
@@ -78,7 +78,7 @@ do
         #~ # Set run
         #~ directory="sworm_CumPupae"
         #~ parameter="$i"
-        #~ legend="screwworm cumulative pupae"       
+        #~ legend="screwworm cumulative pupae"
         #~ # Run GIS routine
         #~ usa states='AL AZ CA FL GA LA MS MX NC NM SC TX'\
             #~ SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=10000\
@@ -86,7 +86,7 @@ do
             #~ alt=10000 resolution=1
         #~ wait
     #~ fi
- 
+
     # Cumulative pupae Texas.
     if [ $i -eq 12 ] ; then
         # Set run
@@ -107,7 +107,7 @@ do
         #~ # Set run
         #~ directory="sworm_rainIndex"
         #~ parameter="$i"
-        #~ legend="screwworm rain index"       
+        #~ legend="screwworm rain index"
         #~ # Run GIS routine
         #~ usa states='AL AZ CA FL GA LA MS MX NC NM SC TX'\
             #~ SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=10000\
@@ -121,7 +121,7 @@ do
         #~ # Set run
         #~ directory="sworm_pupaeRainIndex"
         #~ parameter="$i"
-        #~ legend="screwworm favorability"       
+        #~ legend="screwworm favorability"
         #~ # Run GIS routine
         #~ usa states='AL AZ CA FL GA LA MS MX NC NM SC TX'\
             #~ SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=10000\
@@ -135,7 +135,7 @@ do
         #~ # Set run
         #~ directory="sworm_survivalIndex"
         #~ parameter="$i"
-        #~ legend="screwworm survival index"       
+        #~ legend="screwworm survival index"
         #~ # Run GIS routine
         #~ usa states='AL AZ CA FL GA LA MS MX NC NM SC TX'\
             #~ SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=10000\
@@ -149,7 +149,7 @@ do
         #~ # Set run
         #~ directory="sworm_rainColdIndex"
         #~ parameter="$i"
-        #~ legend="screwworm rain cold index"       
+        #~ legend="screwworm rain cold index"
         #~ # Run GIS routine
         #~ usa states='AL AZ CA FL GA LA MS MX NC NM SC TX'\
             #~ SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=0\
@@ -157,13 +157,13 @@ do
             #~ alt=10000 resolution=1
         #~ wait
     #~ fi
-    
+
     #~ # Surviving pupae based on rain limits only.
     #~ if [ $i -eq 33 ] ; then
         #~ # Set run
         #~ directory="sworm_survPupae_rainOnly"
         #~ parameter="$i"
-        #~ legend="Surviving pupae (limiting rain only)" 
+        #~ legend="Surviving pupae (limiting rain only)"
         #~ # Run GIS routine
         #~ usa states='AL AZ CA FL GA LA MS MX NC NM SC TX'\
             #~ SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=0\
@@ -171,13 +171,13 @@ do
             #~ alt=10000 resolution=1
         #~ wait
     #~ fi
-    
+
     #~ # Surviving pupae based on rain and cold limits.
     #~ if [ $i -eq 33 ] ; then
         #~ # Set run
         #~ directory="sworm_survivingPupae"
         #~ parameter="$i"
-        #~ legend="Surviving pupae"       
+        #~ legend="Surviving pupae"
         #~ # Run GIS routine
         #~ usa states='AL AZ CA FL GA LA MS MX NC NM SC TX'\
             #~ SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=0\
@@ -185,7 +185,7 @@ do
             #~ alt=10000 resolution=1
         #~ wait
     #~ fi
-    
+
 done
 exit 0
 

@@ -44,13 +44,13 @@ for i in 27
 do
 
 : <<'COMMENT'
-	
+
 	# Pupae per year
     if [ $i -eq 27 ] ; then
         # Set run
         directory="swd_eu_outliers_spline_005"
         parameter="$i"
-        legend="pupae per year"       
+        legend="pupae per year"
         # Run GIS routine
 		EurMedGrape -w -r -p \
             SaveDir="$directory" \
@@ -63,18 +63,18 @@ do
 			upBarCol=1295.219
         wait
     fi
-	
+
 COMMENT
 
 # : <<'COMMENT'
-	
+
 	# Pupae per year Stdv Coef
     if [ $i -eq 27 ] ; then
         # Set run
         directory="swd_eu_outliers_spline_Stdv_Coef"
         parameter="$i"
         parameter="$i"
-        legend="pupae per year"       
+        legend="pupae per year"
         # Run GIS routine
 		EurMedGrape -r -p \
             SaveDir="$directory" \
@@ -84,10 +84,10 @@ COMMENT
 			region=-1 \
             alt=2000 resolution=1
         wait
-    fi      
-    
+    fi
+
 # COMMENT
-	
+
 done
 exit 0
 

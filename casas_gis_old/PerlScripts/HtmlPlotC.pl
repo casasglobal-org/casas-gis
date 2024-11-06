@@ -1,10 +1,10 @@
 #!/usr/bin/perl -w
-# Script that plots histograms produced by  
+# Script that plots histograms produced by
 # d.histogram and puts .png outputs in a HTML page
 # Author: Luigi Ponti
 # Date: 16 January 2008
 
-# Read Directory where maps are saved and 
+# Read Directory where maps are saved and
 # other parameters from script arguments.
 my $SaveDir=$ARGV[0];
 my $LegendString=$ARGV[1];

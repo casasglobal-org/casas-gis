@@ -12,7 +12,7 @@
 #
 # NOTE:           This version supports outfiles with names of
 #                       type "Olive_02Mar06_00003.txt".
-#                       
+#          
 #
 # COPYRIGHT:    (c) 2005-2012 CASAS (Center for the Analysis
 #                       of Sustainable Agricultural Systems).
@@ -24,221 +24,219 @@
 #
 #############################################################################
 
-#%Module
-#%  description: Import and map the output of CASAS models for Italy
-#%  keywords: models
-#%End
+# %Module
+# %  description: Import and map the output of CASAS models for Italy
+# %  keywords: models
+# %End
 
-#%option
-#% guisection: Main
-#% key: SaveDir
-#% type: string
-#% description: Name for directory where to store output maps
-#% required : yes
-#%end
+# %option
+# % guisection: Main
+# % key: save_directory
+# % type: string
+# % description: Name for directory where to store output maps
+# % required: yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: longitude
-#% type: integer
-#% answer: 5
-#% description: Longitude (X) column number
-#% required : yes
-#%end
+# %option
+# % guisection: Main
+# % key: longitude
+# % type: integer
+# % answer: 5
+# % description: Longitude (X) column number
+# % required: yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: latitude
-#% type: integer
-#% answer: 6
-#% description: Latitude (Y) column number
-#% required : yes
-#%end
+# %option
+# % guisection: Main
+# % key: latitude
+# % type: integer
+# % answer: 6
+# % description: Latitude (Y) column number
+# % required: yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: year
-#% type: integer
-#% answer: 11
-#% description: Year column number 
-#% required : yes
-#%end
+# %option
+# % guisection: Main
+# % key: year
+# % type: integer
+# % answer: 11
+# % description: Year column number
+# % required: yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: parameter
-#% type: integer
-#% description: Parameter to map
-#% required : yes
-#%end
+# %option
+# % guisection: Main
+# % key: parameter
+# % type: integer
+# % description: Parameter to map
+# % required: yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: interpolation
-#% type: string
-#% options: idw,bspline
-#% answer: idw
-#% description: Interpolation method
-#% required : yes
-#%end
+# %option
+# % guisection: Main
+# % key: interpolation
+# % type: string
+# % options: idw,bspline
+# % answer: idw
+# % description: Interpolation method
+# % required: yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: numpoints
-#% type: integer
-#% answer: 3
-#% description: Number of interpolation points
-#% required : yes
-#%end
+# %option
+# % guisection: Main
+# % key: numpoints
+# % type: integer
+# % answer: 3
+# % description: Number of interpolation points
+# % required: yes
+# %end
 
-#%option
-#% key: lowercut
-#% type: double
-#% answer: 0
-#% description: Cutting point to mask low values
-#% required : yes
-#%end
+# %option
+# % key: lowercut
+# % type: double
+# % answer: 0
+# % description: Cutting point to mask low values
+# % required: yes
+# %end
 
-#%option
-#% key: uppercut
-#% type: double
-#% answer: 0
-#% description: Cutting point to mask high values (please, also check option below)
-#% required : yes
-#%end
+# %option
+# % key: uppercut
+# % type: double
+# % answer: 0
+# % description: Cutting point to mask high values (please, also check option below)
+# % required: yes
+# %end
 
-#%option
-#% guisection: Main
-#% key: legend
-#% type: string
-#% description: Text for legend (file name of HTML summary)
-#% required : yes
-#%end
+# %option
+# % guisection: Main
+# % key: legend
+# % type: string
+# % description: Text for legend (file name of HTML summary)
+# % required: yes
+# %end
 
-#%option
-#% key: region
-#% type: string
-#% answer: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
-#% description: ISTAT codes defining administrative regions (separated by space)
-#% multiple: yes
-#% required : yes
-#%end
+# %option
+# % key: region
+# % type: string
+# % answer: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+# % description: ISTAT codes defining administrative regions (separated by space)
+# % multiple: yes
+# % required: yes
+# %end
 
-#%option
-#% key: alt
-#% type: double
-#% answer: 700
-#% description: Altitude (meters) above which to clip
-#% required : yes
-#%end
+# %option
+# % key: alt
+# % type: double
+# % answer: 700
+# % description: Altitude (meters) above which to clip
+# % required: yes
+# %end
 
-#%option
-#% key: resolution
-#% type: string
-#% options: 1,2,4
-#% answer: 2
-#% description: Resolution of output figure (single=1, double=2, quad=4)
-#% required : yes
-#%end
+# %option
+# % key: resolution
+# % type: string
+# % options: 1,2,4
+# % answer: 2
+# % description: Resolution of output figure (single=1, double=2, quad=4)
+# % required: yes
+# %end
 
-#%option
-#% guisection: Color rules
-#% key: colorRuleDivergent
-#% type: string
-#% answer: 32:96:255-32:159:255-32:191:255-0:207:255-42:255:255-85:255:255-127:255:255-170:255:255-255:255:84-255:240:0-255:191:0-255:168:0-255:138:0-255:112:0-255:77:0-255:0:0
-#% description: Select or input a DIVERGENT color pattern (hyphen-separated) using standard GRASS colors (see r.colors manual page for color names) or R:G:B triplets
-#%end
+# %option
+# % guisection: Color rules
+# % key: color_rule_divergent
+# % type: string
+# % answer: 32:96:255-32:159:255-32:191:255-0:207:255-42:255:255-85:255:255-127:255:255-170:255:255-255:255:84-255:240:0-255:191:0-255:168:0-255:138:0-255:112:0-255:77:0-255:0:0
+# % description: Select or input a DIVERGENT color pattern (hyphen-separated) using standard GRASS colors (see r.colors manual page for color names) or R:G:B triplets
+# %end
 
-#%option
-#% guisection: Color rules
-#% key: colorRuleRegular
-#% type: string
-#% answer: 0:0:255-0:64:255-0:128:255-0:191:255-0:255:255-0:255:255-0:255:223-0:255:159-0:255:74-0:255:0-74:255:0-159:255:0-223:255:0-255:255:0-255:255:0-255:191:0-255:128:0-255:64:0-255:0:0
-#% description: Select or input a REGULAR color pattern (hyphen-separated) using standard GRASS colors (see r.colors manual page for color names) or R:G:B triplets
-#%end
+# %option
+# % guisection: Color rules
+# % key: color_rule_regular
+# % type: string
+# % answer: 0:0:255-0:64:255-0:128:255-0:191:255-0:255:255-0:255:255-0:255:223-0:255:159-0:255:74-0:255:0-74:255:0-159:255:0-223:255:0-255:255:0-255:255:0-255:191:0-255:128:0-255:64:0-255:0:0
+# % description: Select or input a REGULAR color pattern (hyphen-separated) using standard GRASS colors (see r.colors manual page for color names) or R:G:B triplets
+# %end
 
-#%option
-#% guisection: Color rules
-#% key: lowBarCol
-#% type: double
-#% description: Lower limit for legend color bar when -w option is enabled
-#%end
+# %option
+# % guisection: Color rules
+# % key: low_bar_col
+# % type: double
+# % description: Lower limit for legend color bar when -w option is enabled
+# %end
 
-#%option
-#% guisection: Color rules
-#% key: upBarCol
-#% type: double
-#% description: Upper limit for legend color bar when -w option is enabled
-#%end
+# %option
+# % guisection: Color rules
+# % key: up_bar_col
+# % type: double
+# % description: Upper limit for legend color bar when -w option is enabled
+# %end
 
-#%flag
-#% guisection: Color rules
-#% key: w
-#% description: Modify extent of legend color bar (using low and high input values)
-#%end
+# %flag
+# % guisection: Color rules
+# % key: w
+# % description: Modify extent of legend color bar (using low and high input values)
+# %end
 
-#%flag
-#% guisection: Color rules
-#% key: g
-#% description: Black and white output instead of color
-#%end
+# %flag
+# % guisection: Color rules
+# % key: g
+# % description: Black and white output instead of color
+# %end
 
-#%flag
-#% guisection: Color rules
-#% key: e
-#% description: Use histogram-equalized color rule
-#%end
+# %flag
+# % guisection: Color rules
+# % key: e
+# % description: Use histogram-equalized color rule
+# %end
 
-#%flag
-#% guisection: Color rules
-#% key: l
-#% description: Logarithmic scaling
-#%end
+# %flag
+# % guisection: Color rules
+# % key: l
+# % description: Logarithmic scaling
+# %end
 
-#%flag
-#% guisection: Color rules
-#% key: x
-#% description: Use an overall (compound) range for all maps (absolute max and min)
-#%end
+# %flag
+# % guisection: Color rules
+# % key: x
+# % description: Use an overall (compound) range for all maps (absolute max and min)
+# %end
 
-#%flag
-#% guisection: Color rules
-#% key: a
-#% description: Use also same legend bar for all maps (i.e. bar will extend to overall max and min)
-#%end
+# %flag
+# % guisection: Color rules
+# % key: a
+# % description: Use also same legend bar for all maps (i.e. bar will extend to overall max and min)
+# %end
 
-#%flag
-#% guisection: Color rules
-#% key: d
-#% description: Use divergent, zero-centered color pattern (requires positive max and negative min)
-#%end
+# %flag
+# % guisection: Color rules
+# % key: d
+# % description: Use divergent, zero-centered color pattern (requires positive max and negative min)
+# %end
 
-#%flag
-#% key: u
-#% description: Use cutting point to mask high values
-#%end
+# %flag
+# % key: u
+# % description: Use cutting point to mask high values
+# %end
 
-#%flag
-#% key: c
-#% description: Do not interpolate stations above clipping altitude
-#%end
+# %flag
+# % key: c
+# % description: Do not interpolate stations above clipping altitude
+# %end
 
-#%flag
-#% key: r
-#% description: Write a report with raster statistics
-#%end
+# %flag
+# % key: r
+# % description: Write a report with raster statistics
+# %end
 
-#%flag
-#% key: p
-#% answer: 1
-#% description: Produce barchart plots summarizing raster statistics
-#%end
+# %flag
+# % key: p
+# % description: Produce barchart plots summarizing raster statistics
+# %end
 
-#%flag
-#% key: m
-#% answer: 0
-#% description: Map only inside grape growing area
-#%end
+# %flag
+# % key: m
+# % description: Map only inside grape growing area
+# %end
 
 # Directory with temporary files (see convert.pl script).
 DIRTMP="$HOME/models_temp/"
@@ -442,7 +440,7 @@ g.mapset mapset=luigi location=EurLCC
 
 # Define the extent of the map and its grid resolution (currently 1 km).
 g.region res=1000
-    
+
 # Build a mask to select the region of interst to the study
 # based on Italian admnistrative regions (ISTAT codes).
 cd $GISDBASE;
@@ -523,11 +521,11 @@ do
 		fi
 	fi
 
-    # Extract points lower than cutting point to map them with a different symbol. 
+    # Extract points lower than cutting point to map them with a different symbol.
     v.extract input=map$i output=mapZero$i \
         where="($varType < $CUT)";
 	wait;
-    # Extract points higher than upper cutting point to map them with a different symbol. 
+    # Extract points higher than upper cutting point to map them with a different symbol.
     v.extract input=map$i output=mapHigh$i \
         where="($varType > $HICUT)";
 	wait;
@@ -557,7 +555,7 @@ do
     else
         # http://osgeo-org.1803224.n2.nabble.com/Raster-surface-from-regularly-spaced-points-tp4597143p4597375.html
         v.surf.bspline input=mapPos$i raster=interpolRaw$i sie=46000 sin=46000 method=bicubic lambda_i=0.01 layer=1 column=$varType
-        
+
 		# Constrain interpolated raster within max-min from vector input
 		# and make values >max or <min equal to max or min.
 		eval `v.univar -g -e map=mapPos$i type=point column=$varType`
@@ -581,13 +579,13 @@ do
     # Remove voronoi-related stuff.
 	\rm -f ~/voronoi*.txt;
 	g.mremove -f vect=voronoi*;
-    
+
     # Set png file for output.
     GRASS_PNGFILE="$SaveDir"/"$i".png
     export GRASS_PNGFILE
-    d.erase color=white    
+    d.erase color=white
 
-	# If flag -g is checked, output is a greyscale figure 
+	# If flag -g is checked, output is a greyscale figure
 	if [ "$GIS_FLAG_g" -eq 1 ] ; then
 		# Set color table for interpolated raster
 		# Do we want to use the same legend range for all maps?
@@ -621,7 +619,7 @@ do
                     cat ~/greyColorRule | r.colors map=MskdModPOS$i color=rules
                 fi
             fi
-		fi        
+		fi
 		# Overalay model raster to a shaded relief and add state
 		# boundaries, weather stations, etc.
 		d.rast map=30_310_30;
@@ -631,7 +629,7 @@ do
 		d.vect map=trentino_alto_adige fcolor=none color=white width=20;
         d.grid -wn size=5:0:0 color=black bordercolor=black # This drows a black border
 	else
-		# If flag -g is not checked, output is a color figure 
+		# If flag -g is not checked, output is a color figure
 		# Set color table for interpolated raster
 		if [ "$GIS_FLAG_X" -eq 1 ] || [ "$GIS_FLAG_D" -eq 1 ] ; then
             if [ "$GIS_FLAG_E" -eq 1 ] ; then
@@ -674,7 +672,7 @@ do
         d.grid -wn size=5:0:0 color=black bordercolor=black # This drows a black border
 	fi
 	
-	# Display a legend for model raster with screen 
+	# Display a legend for model raster with screen
     # coordinates as % of screen (bottom,top,left,right).
 	if [ "$GIS_FLAG_A" -eq 1 ] && [ "$GIS_FLAG_X" -eq 1 ] ; then
 		d.legend -s map=MskdModPOS$i color=black lines=0\
@@ -696,7 +694,7 @@ do
 	
     # Display true type font text in the legend (at x-y, lower-left coordinates).
     echo $LEG > ~/legend.txt;
-    
+
 	Legend="`cat ~/legend.txt`";
     Year="`cat ~/year$mapcycle.txt`";
     echo $Legend $Year>~/legend$mapcycle.txt;
@@ -760,7 +758,7 @@ do
 		d.histogram map="MskdModPOS$i"
         d.mon stop=PNG
 		# d.out.file output="$SaveDir"/"$i"-HIST res=$FIGRES format=png
-        #~ d.out.file output="$SaveDir"/"$i"-HIST res=$FIGRES format=eps        
+        #~ d.out.file output="$SaveDir"/"$i"-HIST res=$FIGRES format=eps
 	fi
 	
     # Remove temporary ascii files produced by PERL script "convert.pl".
@@ -771,10 +769,10 @@ done
 
 # Write full command line to log.
 cat >> "$SaveDir"/"${LEG}".log <<EOF
-    
+
 GIS script sintax used:
-    
-    EurMedGrape 
+
+    EurMedGrape
     w=$GIS_FLAG_W g=$GIS_FLAG_G e=$GIS_FLAG_E l=$GIS_FLAG_L
     x=$GIS_FLAG_X a=$GIS_FLAG_A d=$GIS_FLAG_D u=$GIS_FLAG_U
     c=$GIS_FLAG_C r=$GIS_FLAG_R p=$GIS_FLAG_P m=$GIS_FLAG_M
@@ -782,7 +780,7 @@ GIS script sintax used:
     parameter=$PAR interpolation=$SURF umpoints=$PNTS
     lowercut=$CUT uppercut=$HICUT legend1=$LEG1 region=$REG alt=$ALT
     resolution=$FIGRES lowBarCol=$LOWBARCOL upBarCol=$UPBARCOL
-    
+
 EOF
 
 # Write date in the log file.
@@ -795,7 +793,7 @@ if [ "$GIS_FLAG_G" -eq 1 ] ; then
     GRASS_PNGFILE="$SaveDir"/WeatherStations.png
     export GRASS_PNGFILE
     d.erase color=white
-    
+
 	d.rast map=60_310_4;
 	d.vect map=italia width=2;
 	# d.vect map=map$i display=shape icon=basic/point size=21 layer=1 \
@@ -811,7 +809,7 @@ else
 	# If flag -g is not checked, output is a color figure (with lakes)
     GRASS_PNGFILE="$SaveDir"/WeatherStations.png
     export GRASS_PNGFILE
-    d.erase color=white    
+    d.erase color=white
 	d.rast map=60_310_4;
 	# r.colors map=laghi rules=aqua;
 	d.rast -o map=laghi;
@@ -819,12 +817,12 @@ else
 	d.vect map=italia width=2;
 	# d.vect map=map$i display=shape icon=basic/point size=21 layer=1 \
 		# color=255:255:255 fcolor=0:0:0;
-    
-	d.grid -w size=5:0:0 origin=0,0 color=grey bordercolor=black textcolor=black fontsize=25    
+
+	d.grid -w size=5:0:0 origin=0,0 color=grey bordercolor=black textcolor=black fontsize=25
 	# d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=png
     #~ d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=eps
 	# d.mon stop=x0
-    d.barscale -s at=2,90 fontsize=25     
+    d.barscale -s at=2,90 fontsize=25
 		
     d.mon stop=PNG
 fi

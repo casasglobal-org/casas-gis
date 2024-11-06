@@ -19,12 +19,12 @@
 #
 #############################################################################
 
-#%Module
-#%  description: Converts all old DBF-based GRASS GIS vector maps to SQLite DB in current mapset.
-#%  keyword: vector
-#%  keyword: DBF
-#%  keyword: SQLite
-#%end
+# %Module
+# % description: Converts all old DBF-based GRASS GIS vector maps to SQLite DB in current mapset.
+# % keyword: vector
+# % keyword: DBF
+# % keyword: SQLite
+# %end
 
 if  [ -z "$GISBASE" ] ; then
  echo "You must be in GRASS GIS to run this program." >&2
@@ -69,7 +69,7 @@ else
     g.message message="Transfer all attribute tables from DBF to SQLite and clean old DBF tables in current mapset ... (3/3)"
     # transfer all attribute tables from DBF to SQLite and clean old DBF tables
     v.db.reconnect.all -cd
-    
+
     # rm dbf/ dir, but only when empty (GRASS GIS vars from g.gisenv above)
     [ "$(ls -A ${GISDBASE}/${LOCATION_NAME}/${MAPSET}/dbf 2>&1 /dev/null)" ] || rmdir ${GISDBASE}/${LOCATION_NAME}/${MAPSET}/dbf
 fi

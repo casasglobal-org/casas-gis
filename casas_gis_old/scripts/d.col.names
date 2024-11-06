@@ -20,7 +20,7 @@
 #
 #############################################################################
 
-echo  
+echo
 echo "Please move CASAS model output files into the \"outfiles\" folder,"
 echo
 echo "then press [ENTER]..."
