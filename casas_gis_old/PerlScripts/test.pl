@@ -16,20 +16,20 @@ use strict;
 # % type: string
 # % gisprompt: old,cell,raster
 # % description: Raster input map
-# % required : yes
+# % required: yes
 # %end
 # %option
 # % key: vector
 # % type: string
 # % gisprompt: old,vector,vector
 # % description: Vector input map
-# % required : yes
+# % required: yes
 # %end
 # %option
 # % key: option1
 # % type: string
 # % description: An option
-# % required : no
+# % required: no
 # %end
 
 if ( !$ENV{'GISBASE'} ) {

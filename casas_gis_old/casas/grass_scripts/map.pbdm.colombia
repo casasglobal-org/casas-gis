@@ -82,7 +82,7 @@
 # % key: parameter
 # % type: integer
 # % description: Parameter to map
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -92,7 +92,7 @@
 # % options: idw,bspline
 # % answer: bspline
 # % description: Interpolation method
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -101,7 +101,7 @@
 # % type: integer
 # % answer: 3
 # % description: Number of interpolation points (only used with interpolation method IDW)
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -216,7 +216,7 @@
 # % options: coffee,none
 # % answer: coffee
 # % description: Constrain output map to crop growing area. If coffee is used, it is possible to select a threshold for crop harvested area fraction above which mapping will occur.
-# % required : yes
+# % required: yes
 # %end
 
 # %option

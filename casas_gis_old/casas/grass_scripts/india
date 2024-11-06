@@ -90,7 +90,7 @@
 # % key: parameter
 # % type: integer
 # % description: Parameter to map
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -100,7 +100,7 @@
 # % options: idw,bspline
 # % answer: bspline
 # % description: Interpolation method
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -109,7 +109,7 @@
 # % type: integer
 # % answer: 3
 # % description: Number of interpolation points
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -118,7 +118,7 @@
 # % type: double
 # % answer: 2.0
 # % description: Power parameter for idw interpolation
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -127,7 +127,7 @@
 # % type: double
 # % answer: 57000
 # % description: Length of East-West spline step for bspline method
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -136,7 +136,7 @@
 # % type: double
 # % answer: 57000
 # % description: Length of North-South spline step for bspline method
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -145,7 +145,7 @@
 # % type: double
 # % answer: 0.05
 # % description: Tykhonov regularization parameter for bspline method
-# % required : yes
+# % required: yes
 # %end
 
 # %option

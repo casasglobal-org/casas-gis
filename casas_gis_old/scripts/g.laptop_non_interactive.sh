@@ -32,7 +32,7 @@
 # % key: newLocation
 # % type: string
 # % description: New (target) location name
-# % required : yes
+# % required: yes
 # %end
 
 # %option

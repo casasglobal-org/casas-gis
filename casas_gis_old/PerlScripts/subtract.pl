@@ -31,7 +31,7 @@ use strict;
 # % answer: /home/andy/outfiles/
 # % gisprompt: old_file,file,input
 # % description: Directory where input files are
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -39,7 +39,7 @@ use strict;
 # % type: string
 # % gisprompt: old_file,file,input
 # % description: Warmed weather file
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -47,7 +47,7 @@ use strict;
 # % type: string
 # % gisprompt: old_file,file,input
 # % description: Observed weather file
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -55,7 +55,7 @@ use strict;
 # % type: string
 # % gisprompt: new_file,file,output
 # % description: New output file
-# % required : yes
+# % required: yes
 # %end
 
 if (!$ENV{'GISBASE'})

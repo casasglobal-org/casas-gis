@@ -82,7 +82,7 @@
 # % key: parameter
 # % type: integer
 # % description: Parameter to map
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -92,7 +92,7 @@
 # % options: idw,bspline
 # % answer: idw
 # % description: Interpolation method
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -101,7 +101,7 @@
 # % type: integer
 # % answer: 3
 # % description: Number of interpolation points
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -215,7 +215,7 @@
 # % options: tomato_harvested,tomato_h_temperate,tomato_h_tropical,tomato_h_combined,none
 # % answer: tomato_h_combined
 # % description: Constrain output map to crop growing area (tomato_harvested = observed from www.earthstat.org, tomato_h_temperate = harvested and temperature-constrained temperate cultivars from www.fao.org/nr/gaez, tomato_h_tropical = harvested and temperature-constrained tropical cultivars, tomato_h_combined = the previous two combined, none = no crop constraint)
-# % required : yes
+# % required: yes
 # %end
 
 # %option

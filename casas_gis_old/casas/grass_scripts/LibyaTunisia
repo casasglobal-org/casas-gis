@@ -32,7 +32,7 @@
 # % key: save_directory
 # % type: string
 # % description: Name for directory where to store output maps
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -41,7 +41,7 @@
 # % type: integer
 # % answer: 5
 # % description: Longitude (X) column number
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -50,7 +50,7 @@
 # % type: integer
 # % answer: 6
 # % description: Latitude (Y) column number
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -59,7 +59,7 @@
 # % type: integer
 # % answer: 11
 # % description: Year column number
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -67,7 +67,7 @@
 # % key: parameter
 # % type: integer
 # % description: Parameter to map
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -77,7 +77,7 @@
 # % options: idw,bspline
 # % answer: idw
 # % description: Interpolation method
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -86,7 +86,7 @@
 # % type: integer
 # % answer: 3
 # % description: Number of interpolation points
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -94,7 +94,7 @@
 # % type: double
 # % answer: 0
 # % description: Cutting point to mask low values
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -102,7 +102,7 @@
 # % type: double
 # % answer: 0
 # % description: Cutting point to mask high values (please, also check option below)
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -110,7 +110,7 @@
 # % key: legend1
 # % type: string
 # % description: Text for legend - first line (file name of HTML summary)
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -118,7 +118,7 @@
 # % type: double
 # % answer: 900
 # % description: Altitude (meters) above which to clip
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -127,7 +127,7 @@
 # % options: 1,2,4
 # % answer: 1
 # % description: Resolution of output figure (single=1, double=2, quad=4) relative to computational region
-# % required : yes
+# % required: yes
 # %end
 
 # %option

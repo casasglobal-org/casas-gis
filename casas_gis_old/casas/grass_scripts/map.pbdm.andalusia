@@ -87,7 +87,7 @@
 # % key: parameter
 # % type: integer
 # % description: Parameter to map
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -97,7 +97,7 @@
 # % options: idw,bspline
 # % answer: idw
 # % description: Interpolation method
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -106,7 +106,7 @@
 # % type: integer
 # % answer: 3
 # % description: Number of interpolation points (only used with interpolation method IDW)
-# % required : yes
+# % required: yes
 # %end
 
 # %option
@@ -221,7 +221,7 @@
 # % options: sigpac_buffered_3km,sigpac_buffered_5km,sigpac,olive,none
 # % answer: sigpac_buffered_3km
 # % description: Constrain output map to crop growing area. If olive is used, it is possible to select a threshold for crop harvested area fraction above which mapping will occur.
-# % required : yes
+# % required: yes
 # %end
 
 # %option
