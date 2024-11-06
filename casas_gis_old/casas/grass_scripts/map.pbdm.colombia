@@ -264,8 +264,11 @@
 # % description: Produce barchart plots summarizing raster statistics
 # %end
 
-# Config to set environmental variables
-source "config.cfg"
+# Set some environmental variables
+PERLSCRIPTS="${HOME}/PerlScripts"
+OUTFILES="${HOME}/outfiles"
+PALETTES="${HOME}/software/casas-gis/casas_gis_old/palettes"
+FONTDIR='C:\Windows\Fonts\'
 
 # Directory with temporary files (see convert.pl script).
 
