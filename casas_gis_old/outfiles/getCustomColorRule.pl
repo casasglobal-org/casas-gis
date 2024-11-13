@@ -60,7 +60,7 @@ if ($lowCut ne "na")
 
 # Initialize color rule file.
 chdir ("$HomeDir");
-my $output = "customColorRule";
+my $output = "../palettes/customColorRule";
 
 # Put colors into an array.
 my @colors = split(/-/, $rule);
