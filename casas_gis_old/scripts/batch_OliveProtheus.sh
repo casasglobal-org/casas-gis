@@ -129,7 +129,7 @@ do
         #~ wait
     #~ fi
 
-    #~ # ddBelow -10 °C only with a recent run of olive plant.
+    #~ # ddBelow -10 Â°C only with a recent run of olive plant.
     #~ if [ $i -eq 22 ] ; then
         #~ # Set run
         #~ directory="ddbMinus10"
@@ -142,7 +142,7 @@ do
     #~ wait
     #~ fi
 
-    #~ # ddBelow -8.3 °C only with a recent run of olive plant.
+    #~ # ddBelow -8.3 Â°C only with a recent run of olive plant.
     #~ if [ $i -eq 23 ] ; then
         #~ # Set run
         #~ directory="ddbMinus83_h5jetModified2"
