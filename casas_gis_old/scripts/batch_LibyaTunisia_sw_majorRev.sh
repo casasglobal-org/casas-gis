@@ -41,256 +41,247 @@
 
 #~ Number of rows is 38.
 
-
-for i in 12 22 23 24 25 26 27 28
-do
+for i in 12 22 23 24 25 26 27 28; do
 
     ############ Yearly output ############
 
     #~ # Rain
     #~ if [ $i -eq 12 ] ; then
-        #~ # Set run
-        #~ directory="sw_majorRev_rain_1989-2009"
-        #~ parameter="$i"
-        #~ legend="rain"
-        #~ # Run GIS routine
-        #~ LibyaTunisia -w -g SaveDir="$directory"\
-            #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
-            #~ interpolation=idw numpoints=7\
-            #~ lowercut=0 uppercut=0 legend1="$legend"\
-            #~ alt=900 resolution=1 lowBarCol=0.00 upBarCol=1280
-        #~ wait
+    #~ # Set run
+    #~ directory="sw_majorRev_rain_1989-2009"
+    #~ parameter="$i"
+    #~ legend="rain"
+    #~ # Run GIS routine
+    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
+    #~ interpolation=idw numpoints=7\
+    #~ lowercut=0 uppercut=0 legend1="$legend"\
+    #~ alt=900 resolution=1 lowBarCol=0.00 upBarCol=1280
+    #~ wait
     #~ fi
 
     #~ # Mort Summer
     #~ if [ $i -eq 22 ] ; then
-        #~ # Set run
-        #~ directory="sw_majorRev_MortSummer_1989-2009"
-        #~ parameter="$i"
-        #~ legend="MortSummer"
-        #~ # Run GIS routine
-        #~ LibyaTunisia -w -g SaveDir="$directory"\
-            #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
-            #~ interpolation=idw numpoints=7\
-            #~ lowercut=0 uppercut=0 legend1="$legend"\
-            #~ alt=900 resolution=1 lowBarCol=0.011 upBarCol=3.334
-        #~ wait
+    #~ # Set run
+    #~ directory="sw_majorRev_MortSummer_1989-2009"
+    #~ parameter="$i"
+    #~ legend="MortSummer"
+    #~ # Run GIS routine
+    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
+    #~ interpolation=idw numpoints=7\
+    #~ lowercut=0 uppercut=0 legend1="$legend"\
+    #~ alt=900 resolution=1 lowBarCol=0.011 upBarCol=3.334
+    #~ wait
     #~ fi
 
     #~ # tcold
     #~ if [ $i -eq 23 ] ; then
-        #~ # Set run
-        #~ directory="sw_majorRev_tcold_1989-2009"
-        #~ parameter="$i"
-        #~ legend="tcold"
-        #~ # Run GIS routine
-        #~ LibyaTunisia -w -g SaveDir="$directory"\
-            #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
-            #~ interpolation=idw numpoints=7\
-            #~ lowercut=0 uppercut=0 legend1="$legend"\
-            #~ alt=900 resolution=1 lowBarCol=6.384 upBarCol=32.441
-        #~ wait
+    #~ # Set run
+    #~ directory="sw_majorRev_tcold_1989-2009"
+    #~ parameter="$i"
+    #~ legend="tcold"
+    #~ # Run GIS routine
+    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
+    #~ interpolation=idw numpoints=7\
+    #~ lowercut=0 uppercut=0 legend1="$legend"\
+    #~ alt=900 resolution=1 lowBarCol=6.384 upBarCol=32.441
+    #~ wait
     #~ fi
 
     #~ # EggPerYr
     #~ if [ $i -eq 24 ] ; then
-        #~ # Set run
-        #~ directory="sw_majorRev_EggPerYr_1989-2009"
-        #~ parameter="$i"
-        #~ legend="EggPerYr"
-        #~ # Run GIS routine
-        #~ LibyaTunisia -w -g SaveDir="$directory"\
-            #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
-            #~ interpolation=idw numpoints=7\
-            #~ lowercut=0 uppercut=0 legend1="$legend"\
-            #~ alt=900 resolution=1 lowBarCol=13.786 upBarCol=467.974
-        #~ wait
+    #~ # Set run
+    #~ directory="sw_majorRev_EggPerYr_1989-2009"
+    #~ parameter="$i"
+    #~ legend="EggPerYr"
+    #~ # Run GIS routine
+    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
+    #~ interpolation=idw numpoints=7\
+    #~ lowercut=0 uppercut=0 legend1="$legend"\
+    #~ alt=900 resolution=1 lowBarCol=13.786 upBarCol=467.974
+    #~ wait
     #~ fi
 
     #~ # LarvaePerYr
     #~ if [ $i -eq 25 ] ; then
-        #~ # Set run
-        #~ directory="sw_majorRev_LarvaePerYr_1989-2009"
-        #~ parameter="$i"
-        #~ legend="LarvaePerYr"
-        #~ # Run GIS routine
-        #~ LibyaTunisia -w -g SaveDir="$directory"\
-            #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
-            #~ interpolation=idw numpoints=7\
-            #~ lowercut=0 uppercut=0 legend1="$legend"\
-            #~ alt=900 resolution=1 lowBarCol=6.183 upBarCol=339.366
-        #~ wait
+    #~ # Set run
+    #~ directory="sw_majorRev_LarvaePerYr_1989-2009"
+    #~ parameter="$i"
+    #~ legend="LarvaePerYr"
+    #~ # Run GIS routine
+    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
+    #~ interpolation=idw numpoints=7\
+    #~ lowercut=0 uppercut=0 legend1="$legend"\
+    #~ alt=900 resolution=1 lowBarCol=6.183 upBarCol=339.366
+    #~ wait
     #~ fi
 
     #~ # PuapePerYr
     #~ if [ $i -eq 26 ] ; then
-        #~ # Set run
-        #~ directory="sw_majorRev_PuapePerYr_1989-2009"
-        #~ parameter="$i"
-        #~ legend="PuapePerYr"
-        #~ # Run GIS routine
-        #~ LibyaTunisia -w -g SaveDir="$directory"\
-            #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
-            #~ interpolation=idw numpoints=7\
-            #~ lowercut=0 uppercut=0 legend1="$legend"\
-            #~ alt=900 resolution=1 lowBarCol=4.551 upBarCol=249.767
-        #~ wait
+    #~ # Set run
+    #~ directory="sw_majorRev_PuapePerYr_1989-2009"
+    #~ parameter="$i"
+    #~ legend="PuapePerYr"
+    #~ # Run GIS routine
+    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
+    #~ interpolation=idw numpoints=7\
+    #~ lowercut=0 uppercut=0 legend1="$legend"\
+    #~ alt=900 resolution=1 lowBarCol=4.551 upBarCol=249.767
+    #~ wait
     #~ fi
 
     #~ # AdultsPerYr
     #~ if [ $i -eq 27 ] ; then
-        #~ # Set run
-        #~ directory="sw_majorRev_AdultsPerYr_1989-2009"
-        #~ parameter="$i"
-        #~ legend="AdultsPerYr"
-        #~ # Run GIS routine
-        #~ LibyaTunisia -w -g SaveDir="$directory"\
-            #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
-            #~ interpolation=idw numpoints=7\
-            #~ lowercut=0 uppercut=0 legend1="$legend"\
-            #~ alt=900 resolution=1 lowBarCol=2.721 upBarCol=227.218
-        #~ wait
+    #~ # Set run
+    #~ directory="sw_majorRev_AdultsPerYr_1989-2009"
+    #~ parameter="$i"
+    #~ legend="AdultsPerYr"
+    #~ # Run GIS routine
+    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
+    #~ interpolation=idw numpoints=7\
+    #~ lowercut=0 uppercut=0 legend1="$legend"\
+    #~ alt=900 resolution=1 lowBarCol=2.721 upBarCol=227.218
+    #~ wait
     #~ fi
 
     #~ # RIxPupae
     #~ if [ $i -eq 28 ] ; then
-        #~ # Set run
-        #~ directory="sw_majorRev_RIxPupae_1989-2009"
-        #~ parameter="$i"
-        #~ legend="RIxPupae"
-        #~ # Run GIS routine
-        #~ LibyaTunisia -w -g SaveDir="$directory"\
-            #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
-            #~ interpolation=idw numpoints=7\
-            #~ lowercut=0 uppercut=0 legend1="$legend"\
-            #~ alt=900 resolution=1 lowBarCol=0.02 upBarCol=158.419
-        #~ wait
+    #~ # Set run
+    #~ directory="sw_majorRev_RIxPupae_1989-2009"
+    #~ parameter="$i"
+    #~ legend="RIxPupae"
+    #~ # Run GIS routine
+    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
+    #~ interpolation=idw numpoints=7\
+    #~ lowercut=0 uppercut=0 legend1="$legend"\
+    #~ alt=900 resolution=1 lowBarCol=0.02 upBarCol=158.419
+    #~ wait
     #~ fi
-
-
 
     ############ Avg, Std, CV ############
 
     #~ # Rain
     #~ if [ $i -eq 12 ] ; then
-        #~ # Set run
-        #~ directory="sw_majorRev_rain_AvgStdCV"
-        #~ parameter="$i"
-        #~ legend="rain"
-        #~ # Run GIS routine
-        #~ LibyaTunisia -g SaveDir="$directory"\
-            #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
-            #~ interpolation=idw numpoints=7\
-            #~ lowercut=0 uppercut=0 legend1="$legend"\
-            #~ alt=900 resolution=1 lowBarCol=0.00 upBarCol=1280
-        #~ wait
+    #~ # Set run
+    #~ directory="sw_majorRev_rain_AvgStdCV"
+    #~ parameter="$i"
+    #~ legend="rain"
+    #~ # Run GIS routine
+    #~ LibyaTunisia -g SaveDir="$directory"\
+    #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
+    #~ interpolation=idw numpoints=7\
+    #~ lowercut=0 uppercut=0 legend1="$legend"\
+    #~ alt=900 resolution=1 lowBarCol=0.00 upBarCol=1280
+    #~ wait
     #~ fi
 
     #~ # Mort Summer
     #~ if [ $i -eq 22 ] ; then
-        #~ # Set run
-        #~ directory="sw_majorRev_MortSummer_AvgStdCV"
-        #~ parameter="$i"
-        #~ legend="MortSummer"
-        #~ # Run GIS routine
-        #~ LibyaTunisia -g SaveDir="$directory"\
-            #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
-            #~ interpolation=idw numpoints=7\
-            #~ lowercut=0 uppercut=0 legend1="$legend"\
-            #~ alt=900 resolution=1 lowBarCol=0.011 upBarCol=3.334
-        #~ wait
+    #~ # Set run
+    #~ directory="sw_majorRev_MortSummer_AvgStdCV"
+    #~ parameter="$i"
+    #~ legend="MortSummer"
+    #~ # Run GIS routine
+    #~ LibyaTunisia -g SaveDir="$directory"\
+    #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
+    #~ interpolation=idw numpoints=7\
+    #~ lowercut=0 uppercut=0 legend1="$legend"\
+    #~ alt=900 resolution=1 lowBarCol=0.011 upBarCol=3.334
+    #~ wait
     #~ fi
 
     #~ # tcold
     #~ if [ $i -eq 23 ] ; then
-        #~ # Set run
-        #~ directory="sw_majorRev_tcold_AvgStdCV"
-        #~ parameter="$i"
-        #~ legend="tcold"
-        #~ # Run GIS routine
-        #~ LibyaTunisia -g SaveDir="$directory"\
-            #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
-            #~ interpolation=idw numpoints=7\
-            #~ lowercut=0 uppercut=0 legend1="$legend"\
-            #~ alt=900 resolution=1 lowBarCol=6.384 upBarCol=32.441
-        #~ wait
+    #~ # Set run
+    #~ directory="sw_majorRev_tcold_AvgStdCV"
+    #~ parameter="$i"
+    #~ legend="tcold"
+    #~ # Run GIS routine
+    #~ LibyaTunisia -g SaveDir="$directory"\
+    #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
+    #~ interpolation=idw numpoints=7\
+    #~ lowercut=0 uppercut=0 legend1="$legend"\
+    #~ alt=900 resolution=1 lowBarCol=6.384 upBarCol=32.441
+    #~ wait
     #~ fi
 
     #~ # EggPerYr
     #~ if [ $i -eq 24 ] ; then
-        #~ # Set run
-        #~ directory="sw_majorRev_EggPerYr_AvgStdCV"
-        #~ parameter="$i"
-        #~ legend="EggPerYr"
-        #~ # Run GIS routine
-        #~ LibyaTunisia -g SaveDir="$directory"\
-            #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
-            #~ interpolation=idw numpoints=7\
-            #~ lowercut=0 uppercut=0 legend1="$legend"\
-            #~ alt=900 resolution=1 lowBarCol=13.786 upBarCol=467.974
-        #~ wait
+    #~ # Set run
+    #~ directory="sw_majorRev_EggPerYr_AvgStdCV"
+    #~ parameter="$i"
+    #~ legend="EggPerYr"
+    #~ # Run GIS routine
+    #~ LibyaTunisia -g SaveDir="$directory"\
+    #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
+    #~ interpolation=idw numpoints=7\
+    #~ lowercut=0 uppercut=0 legend1="$legend"\
+    #~ alt=900 resolution=1 lowBarCol=13.786 upBarCol=467.974
+    #~ wait
     #~ fi
 
     # LarvaePerYr
-    if [ $i -eq 25 ] ; then
+    if [ $i -eq 25 ]; then
         # Set run
         directory="sw_majorRev_LarvaePerYr_AvgStdCV"
         parameter="$i"
         legend="LarvaePerYr"
         # Run GIS routine
-        LibyaTunisia -g SaveDir="$directory"\
-            longitude=5 latitude=6 year=11 parameter="$parameter"\
-            interpolation=idw numpoints=7\
-            lowercut=0 uppercut=0 legend1="$legend"\
+        LibyaTunisia -g SaveDir="$directory" \
+            longitude=5 latitude=6 year=11 parameter="$parameter" \
+            interpolation=idw numpoints=7 lowercut=0 uppercut=0 legend1="$legend" \
             alt=900 resolution=1 lowBarCol=6.183 upBarCol=339.366
         wait
     fi
 
     # PuapePerYr
-    if [ $i -eq 26 ] ; then
+    if [ $i -eq 26 ]; then
         # Set run
         directory="sw_majorRev_PuapePerYr_AvgStdCV"
         parameter="$i"
         legend="PuapePerYr"
         # Run GIS routine
-        LibyaTunisia -g SaveDir="$directory"\
-            longitude=5 latitude=6 year=11 parameter="$parameter"\
-            interpolation=idw numpoints=7\
-            lowercut=0 uppercut=0 legend1="$legend"\
+        LibyaTunisia -g SaveDir="$directory" \
+            longitude=5 latitude=6 year=11 parameter="$parameter" \
+            interpolation=idw numpoints=7 lowercut=0 uppercut=0 legend1="$legend" \
             alt=900 resolution=1 lowBarCol=4.551 upBarCol=249.767
         wait
     fi
 
     # AdultsPerYr
-    if [ $i -eq 27 ] ; then
+    if [ $i -eq 27 ]; then
         # Set run
         directory="sw_majorRev_AdultsPerYr_AvgStdCV"
         parameter="$i"
         legend="AdultsPerYr"
         # Run GIS routine
-        LibyaTunisia -g SaveDir="$directory"\
-            longitude=5 latitude=6 year=11 parameter="$parameter"\
-            interpolation=idw numpoints=7\
-            lowercut=0 uppercut=0 legend1="$legend"\
+        LibyaTunisia -g SaveDir="$directory" \
+            longitude=5 latitude=6 year=11 parameter="$parameter" \
+            interpolation=idw numpoints=7 lowercut=0 uppercut=0 legend1="$legend" \
             alt=900 resolution=1 lowBarCol=2.721 upBarCol=227.218
         wait
     fi
 
     # RIxPupae
-    if [ $i -eq 28 ] ; then
+    if [ $i -eq 28 ]; then
         # Set run
         directory="sw_majorRev_RIxPupae_AvgStdCV"
         parameter="$i"
         legend="RIxPupae"
         # Run GIS routine
-        LibyaTunisia -g SaveDir="$directory"\
-            longitude=5 latitude=6 year=11 parameter="$parameter"\
-            interpolation=idw numpoints=7\
-            lowercut=0 uppercut=0 legend1="$legend"\
+        LibyaTunisia -g SaveDir="$directory" \
+            longitude=5 latitude=6 year=11 parameter="$parameter" \
+            interpolation=idw numpoints=7 lowercut=0 uppercut=0 legend1="$legend" \
             alt=900 resolution=1 lowBarCol=0.02 upBarCol=158.419
         wait
     fi
 
 done
 exit 0
-

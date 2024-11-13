@@ -29,7 +29,7 @@ echo "Start: $(date)" > conversion_vector.log
 
 cd ~/grass6data_casas/
 
-for LOC_MAPSET in $(find . -name WIND | sed 's+/WIND++g') ; do
+for LOC_MAPSET in $(find . -name WIND | sed 's+/WIND++g'); do
     echo "########### START Processing <$LOC_MAPSET>"
     grass8.dev "$LOC_MAPSET" --exec v.db.dbf2sqlite.all.sh
     echo "########### END Processing <$LOC_MAPSET>"

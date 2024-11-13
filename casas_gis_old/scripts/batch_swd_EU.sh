@@ -40,10 +40,9 @@
 
 # Number of rows is 15844.
 
-for i in 27
-do
+for i in 27; do
 
-: <<'COMMENT'
+    : << 'COMMENT'
 
 	# Pupae per year
     if [ $i -eq 27 ] ; then
@@ -66,29 +65,27 @@ do
 
 COMMENT
 
-# : <<'COMMENT'
+    # : <<'COMMENT'
 
-	# Pupae per year Stdv Coef
-    if [ $i -eq 27 ] ; then
+    # Pupae per year Stdv Coef
+    if [ $i -eq 27 ]; then
         # Set run
         directory="swd_eu_outliers_spline_Stdv_Coef"
         parameter="$i"
         parameter="$i"
         legend="pupae per year"
         # Run GIS routine
-		EurMedGrape -r -p \
+        EurMedGrape -r -p \
             SaveDir="$directory" \
-			longitude=5 latitude=6 year=11 parameter="$parameter" \
-			interpolation=bspline lowercut=0 uppercut=0 \
+            longitude=5 latitude=6 year=11 parameter="$parameter" \
+            interpolation=bspline lowercut=0 uppercut=0 \
             legend1="$legend" \
-			region=-1 \
+            region=-1 \
             alt=2000 resolution=1
         wait
     fi
 
-# COMMENT
+    # COMMENT
 
 done
 exit 0
-
-

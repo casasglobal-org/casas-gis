@@ -89,44 +89,40 @@
 
 #~ Number of rows is 996.
 
-for i in 24
-do
+for i in 24; do
     #~ # Yield
     #~ if [ $i -eq 14 ] ; then
-        #~ # Set run
-        #~ directory="olive_yield_delta_CV"
-        #~ parameter="$i"
-        #~ legend="olive yield delta CV"
-        #~ # Run GIS routine
-        #~ medPresentClimate -p -m -w SaveDir="$directory" longitude=5 latitude=6 year=11\
-            #~ parameter="$parameter" interpolation="idw" lowercut=-10000 region=-1 alt=900 resolution=1\
-            #~ legend1="$legend" lowBarCol=-34.8554307206397 upBarCol=22.9235309499502
-        #~ wait
+    #~ # Set run
+    #~ directory="olive_yield_delta_CV"
+    #~ parameter="$i"
+    #~ legend="olive yield delta CV"
+    #~ # Run GIS routine
+    #~ medPresentClimate -p -m -w SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ parameter="$parameter" interpolation="idw" lowercut=-10000 region=-1 alt=900 resolution=1\
+    #~ legend1="$legend" lowBarCol=-34.8554307206397 upBarCol=22.9235309499502
+    #~ wait
     #~ fi
     #~ # Infestation
     #~ if [ $i -eq 30 ] ; then
-        #~ # Set run
-        #~ directory="olive_infestation_delta_IQR"
-        #~ parameter="$i"
-        #~ legend="olive infestation delta IQR"
-        #~ # Run GIS routine
-        #~ medPresentClimate -p -m -w SaveDir="$directory" longitude=5 latitude=6 year=11\
-            #~ parameter="$parameter" interpolation="idw" lowercut=-10000 region=-1 alt=900 resolution=1\
-            #~ legend1="$legend" lowBarCol=-24.4430010546617 upBarCol=21.1323842803864
-        #~ wait
+    #~ # Set run
+    #~ directory="olive_infestation_delta_IQR"
+    #~ parameter="$i"
+    #~ legend="olive infestation delta IQR"
+    #~ # Run GIS routine
+    #~ medPresentClimate -p -m -w SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ parameter="$parameter" interpolation="idw" lowercut=-10000 region=-1 alt=900 resolution=1\
+    #~ legend1="$legend" lowBarCol=-24.4430010546617 upBarCol=21.1323842803864
+    #~ wait
     #~ fi
     # Profit
-    if [ $i -eq 24 ] ; then
+    if [ $i -eq 24 ]; then
         # Set run
         directory="olive_profit_delta_for_Agnoletti"
         parameter="$i"
         legend="olive profit delta"
         # Run GIS routine
-        medPresentClimate -p -m -w SaveDir="$directory" longitude=5 latitude=6 year=11\
-            parameter="$parameter" interpolation="idw" lowercut=-10000 region=-1 alt=900 resolution=1\
-            legend1="$legend" lowBarCol=-256.458 upBarCol=430.768
+        medPresentClimate -p -m -w SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" interpolation="idw" lowercut=-10000 region=-1 alt=900 resolution=1 legend1="$legend" lowBarCol=-256.458 upBarCol=430.768
         wait
     fi
 done
 exit 0
-

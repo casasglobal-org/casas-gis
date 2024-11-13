@@ -28,7 +28,7 @@ echo "Start: $(date)" > conversion_raster.log
 
 cd ~/grass6data_casas/
 
-for LOC_MAPSET in $(find . -name WIND | sed 's+/WIND++g') ; do
+for LOC_MAPSET in $(find . -name WIND | sed 's+/WIND++g'); do
     echo "########### START Processing <$LOC_MAPSET>"
     grass8.dev "$LOC_MAPSET" --exec r.support.stats.all.sh
     echo "########### END Processing <$LOC_MAPSET>"

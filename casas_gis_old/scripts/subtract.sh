@@ -57,30 +57,29 @@
 # % required: yes
 # %End
 
-
-if  [ -z "$GISBASE" ] ; then
+if [ -z "$GISBASE" ]; then
     echo "You must be in GRASS GIS to run this program." 1>&2
     exit 1
 fi
 
-if [ "$1" != "@ARGS_PARSED@" ] ; then
+if [ "$1" != "@ARGS_PARSED@" ]; then
     exec g.parser "$0" "$@"
 fi
 
-if [ -n "$GIS_OPT_workDir" ] ; then
-	workDir=$GIS_OPT_workDir
+if [ -n "$GIS_OPT_workDir" ]; then
+    workDir=$GIS_OPT_workDir
 fi
 
-if [ -n "$GIS_OPT_warmFile" ] ; then
-	warmFile=$GIS_OPT_warmFile
+if [ -n "$GIS_OPT_warmFile" ]; then
+    warmFile=$GIS_OPT_warmFile
 fi
 
-if [ -n "$GIS_OPT_obsFile" ] ; then
-	obsFile=$GIS_OPT_obsFile
+if [ -n "$GIS_OPT_obsFile" ]; then
+    obsFile=$GIS_OPT_obsFile
 fi
 
-if [ -n "$GIS_OPT_diffFile" ] ; then
-	diffFile=$GIS_OPT_diffFile
+if [ -n "$GIS_OPT_diffFile" ]; then
+    diffFile=$GIS_OPT_diffFile
 fi
 
 perl ../PerlScripts/SubtractOutputGui.pl "$workDir" "$warmfile" "$obsFile" "$diffFile"

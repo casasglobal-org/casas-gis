@@ -40,68 +40,56 @@
 # needs to be enabled in the GIS script MedPresentClimate using
 # the two whiskers of the R box plot (see boxplot.stats() in R).
 
-for i in 24
-do
+for i in 24; do
     # Observed M3Crops yield
-    if [ $i -eq 8 ] ; then
+    if [ $i -eq 8 ]; then
         # Set run
         directory="ObservedYield_M3crops_995"
         parameter="$i"
         legend="Yield (tons per ha)"
         # Run GIS routine
-        medPresentClimate -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=7\
-            parameter="$parameter" interpolation="idw" lowercut=-10 uppercut=50000 region=-1 alt=900 resolution=1\
-            legend1="$legend"
+        medPresentClimate -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=7 parameter="$parameter" interpolation="idw" lowercut=-10 uppercut=50000 region=-1 alt=900 resolution=1 legend1="$legend"
         wait
     fi
     # Delta yield
-    if [ $i -eq 13 ] ; then
+    if [ $i -eq 13 ]; then
         # Set run
         directory="DeltaYield_M3crops_995"
         parameter="$i"
         legend="Delta yield (tons per ha) EH5OM"
         # Run GIS routine
-        medPresentClimate -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=7\
-            parameter="$parameter" interpolation="idw" lowercut=-10 uppercut=50000 region=-1 alt=900 resolution=1\
-            legend1="$legend"
+        medPresentClimate -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=7 parameter="$parameter" interpolation="idw" lowercut=-10 uppercut=50000 region=-1 alt=900 resolution=1 legend1="$legend"
         wait
     fi
     # Delta infestation
-    if [ $i -eq 16 ] ; then
+    if [ $i -eq 16 ]; then
         # Set run
         directory="DeltaInfestation_M3crops"
         parameter="$i"
         legend="Delta infestation (%) EH5OM"
         # Run GIS routine
-        medPresentClimate -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=7\
-            parameter="$parameter" interpolation="idw" lowercut=-10000 uppercut=50000 region=-1 alt=900 resolution=1\
-            legend1="$legend"
+        medPresentClimate -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=7 parameter="$parameter" interpolation="idw" lowercut=-10000 uppercut=50000 region=-1 alt=900 resolution=1 legend1="$legend"
         wait
     fi
     # Delta profit with EU aid
-    if [ $i -eq 23 ] ; then
+    if [ $i -eq 23 ]; then
         # Set run
         directory="DeltaProfit_M3crops"
         parameter="$i"
         legend="Delta profit (USD per ha)"
         # Run GIS routine
-        medPresentClimate -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=7\
-            parameter="$parameter" interpolation="idw" lowercut=-5000000 uppercut=35000000 region=-1 alt=900 resolution=1\
-            legend1="$legend"
+        medPresentClimate -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=7 parameter="$parameter" interpolation="idw" lowercut=-5000000 uppercut=35000000 region=-1 alt=900 resolution=1 legend1="$legend"
         wait
     fi
     # Delta profit without EU aid
-    if [ $i -eq 24 ] ; then
+    if [ $i -eq 24 ]; then
         # Set run
         directory="DeltaProfitNoAid_M3crops_995"
         parameter="$i"
         legend="Delta profit no aid (USD per ha) EH5OM"
         # Run GIS routine
-        medPresentClimate -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=7\
-            parameter="$parameter" interpolation="idw" lowercut=-5000000 uppercut=35000000 region=-1 alt=900 resolution=1\
-            legend1="$legend"
+        medPresentClimate -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=7 parameter="$parameter" interpolation="idw" lowercut=-5000000 uppercut=35000000 region=-1 alt=900 resolution=1 legend1="$legend"
         wait
     fi
 done
 exit 0
-
