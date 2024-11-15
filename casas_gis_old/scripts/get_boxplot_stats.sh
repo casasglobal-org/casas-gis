@@ -39,38 +39,38 @@ g.mapset mapset=$mapsetname location=$locationname
 echo "# Raster statistics for raster $RasterMapName #" | tee ~/${RasterMapName}"_stats.txt"
 echo "" | tee -a ~/${RasterMapName}"_stats.txt"
 r.univar -e map=$RasterMapName output=~/${RasterMapName}"_stats.txt"
-echo "" | tee -a  ~/${RasterMapName}"_stats.txt"
+echo "" | tee -a ~/${RasterMapName}"_stats.txt"
 
 # Get univariate statistics from rater map
-eval `r.univar -g -e map="$RasterMapName"`
+eval $(r.univar -g -e map="$RasterMapName")
 abs_min=$min
 abs_max=$max
 
 # Write header of boxplot stats file
 echo "# Whiskers for a boxplot based on raster $RasterMapName #" | tee -a ~/${RasterMapName}"_stats.txt"
-eval `r.univar -g -e map="$RasterMapName"`
+eval $(r.univar -g -e map="$RasterMapName")
 
 # R boxplot
 # https://www.r-bloggers.com/whisker-of-boxplot/
 
 # Tentative position of lower whisker
 # lower whisker = max(min(x), Q_1 – 1.5 * IQR)
-iqr_low=`perl -E "say "$first_quartile" - (1.5 * ("$third_quartile" - "$first_quartile"))"`
+iqr_low=$(perl -E "say "$first_quartile" - (1.5 * ("$third_quartile" - "$first_quartile"))")
 
 # Tentative position of higher whisker
 # upper whisker = min(max(x), Q_3 + 1.5 * IQR)
-iqr_high=`perl -E "say "$third_quartile" + (1.5 * ("$third_quartile" - "$first_quartile"))"`
+iqr_high=$(perl -E "say "$third_quartile" + (1.5 * ("$third_quartile" - "$first_quartile"))")
 
 # If there is no outliers (data beyond iqr_low)
 # lower whisker is absolute minimum
 # lower whisker = max(min(x), Q_1 – 1.5 * IQR)
-whisker_low=`perl -E "use List::Util qw( min max ); my @numbers = ($abs_min, $iqr_low); say max(@numbers)"`
+whisker_low=$(perl -E "use List::Util qw( min max ); my @numbers = ($abs_min, $iqr_low); say max(@numbers)")
 echo $whisker_low
 
 # If there is no outliers (data beyond iqr_high)
 # higher whisker is absolute maximum
 # upper whisker = min(max(x), Q_3 + 1.5 * IQR)
-whisker_high=`perl -E "use List::Util qw( min max ); my @numbers = ($abs_max, $iqr_high); say min(@numbers)"`
+whisker_high=$(perl -E "use List::Util qw( min max ); my @numbers = ($abs_max, $iqr_high); say min(@numbers)")
 echo $whisker_high
 
 # Write more stuff on boxplot stats file
@@ -84,6 +84,6 @@ echo "" | tee -a ~/${RasterMapName}"_stats.txt"
 
 # Write GRASS GIS color rule based on box plot stats
 # using external Perl script
-perl ../PerlScripts/getBoxplotColorRule.pl "$whisker_low" "$whisker_high" "$abs_min" "$abs_max" "$divrule" "$percent" "$RasterMapName" >& test.log
+perl ../PerlScripts/getBoxplotColorRule.pl "$whisker_low" "$whisker_high" "$abs_min" "$abs_max" "$divrule" "$percent" "$RasterMapName" >&test.log
 
 exit 0

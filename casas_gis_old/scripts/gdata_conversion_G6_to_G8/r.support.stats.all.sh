@@ -20,9 +20,9 @@
 # % keyword: statistics
 # %end
 
-if  [ -z "$GISBASE" ] ; then
- echo "You must be in GRASS GIS to run this program." >&2
- exit 1
+if [ -z "$GISBASE" ]; then
+    echo "You must be in GRASS GIS to run this program." >&2
+    exit 1
 fi
 
 # fail early
@@ -39,7 +39,7 @@ NUM=$(g.list type=raster mapset=. | wc -l)
 g.message message="Recomputing raster statistics for $NUM raster maps..."
 
 RASTMAPLIST=$(g.list type=raster mapset=.)
-for RASTMAP in $RASTMAPLIST ; do
-    g.region raster=$RASTMAP@$MAPSET  # needed for r.support -s?
+for RASTMAP in $RASTMAPLIST; do
+    g.region raster=$RASTMAP@$MAPSET # needed for r.support -s?
     r.support -s $RASTMAP@$MAPSET
 done

@@ -12,7 +12,7 @@
 #
 # NOTE:         This version supports outfiles with names of
 #                       type "Olive_02Mar06_00003.txt".
-#          
+#
 #				Updates:
 #				2017-05-22 Added ability to zoom to a subset of countries
 #                       (or e.g., provinces), either with or without clipping
@@ -285,49 +285,47 @@ FONTDIR='C:\Windows\Fonts\'
 # export GRASS_VERBOSE=1
 
 # Cleanup routine.
-cleanup()
-{
-	# Remove temp directory.
-	\rm -rf $DIRTMP
+cleanup() {
+    # Remove temp directory.
+    \rm -rf $DIRTMP
     # Remove temp text files.
-	\rm -f ${OUTFILES}/clipRegion.txt
-	\rm -f ${OUTFILES}/formula*.txt
-	\rm -f ${OUTFILES}/voronoi.txt
-	\rm -f ${OUTFILES}/legend*.txt;
-	\rm -f ${OUTFILES}/year*.txt;
-	\rm -f ${OUTFILES}/inputPar.txt;
-	\rm -f ${OUTFILES}/weather.txt;
-	\rm -f ${PALETTES}/customColorRule.txt;
-	\rm -f ${OUTFILES}/min.txt;
-	\rm -f ${OUTFILES}/max.txt;
+    \rm -f ${OUTFILES}/clipRegion.txt
+    \rm -f ${OUTFILES}/formula*.txt
+    \rm -f ${OUTFILES}/voronoi.txt
+    \rm -f ${OUTFILES}/legend*.txt
+    \rm -f ${OUTFILES}/year*.txt
+    \rm -f ${OUTFILES}/inputPar.txt
+    \rm -f ${OUTFILES}/weather.txt
+    \rm -f ${PALETTES}/customColorRule.txt
+    \rm -f ${OUTFILES}/min.txt
+    \rm -f ${OUTFILES}/max.txt
     \rm -f ${OUTFILES}/states.txt
-	# Remove gis temp files in latlong location
-	g.mapset mapset=medgold location=latlong_medgold
-	g.remove -f type=vector pattern="map*"
-	# Remove gis temp files in mapping location
-	g.mapset mapset=medgold location=laea_andalusia
-	g.remove -f type=vector pattern="voronoi*"
-	g.remove -f type=vector pattern="selectedStates"
-	g.remove -f type=raster,vector pattern="map*"
-	g.remove -f type=raster pattern="model*"
-	g.remove -f type=raster pattern="Mskd*"
-	g.remove -f type=raster pattern="interpol*"
-	g.remove -f type=raster pattern="selectedStatesRaster"
-	# Remove old masks.
-	g.remove -f type=vector pattern="Eto*"
-	g.remove -f type=raster pattern="Elev*"
-	g.remove -f type=raster pattern="Eto*"
-	g.remove -f type=raster pattern="MASK*"
+    # Remove gis temp files in latlong location
+    g.mapset mapset=medgold location=latlong_medgold
+    g.remove -f type=vector pattern="map*"
+    # Remove gis temp files in mapping location
+    g.mapset mapset=medgold location=laea_andalusia
+    g.remove -f type=vector pattern="voronoi*"
+    g.remove -f type=vector pattern="selectedStates"
+    g.remove -f type=raster,vector pattern="map*"
+    g.remove -f type=raster pattern="model*"
+    g.remove -f type=raster pattern="Mskd*"
+    g.remove -f type=raster pattern="interpol*"
+    g.remove -f type=raster pattern="selectedStatesRaster"
+    # Remove old masks.
+    g.remove -f type=vector pattern="Eto*"
+    g.remove -f type=raster pattern="Elev*"
+    g.remove -f type=raster pattern="Eto*"
+    g.remove -f type=raster pattern="MASK*"
 }
 
 # In case of user break:
-exitprocedure()
-{
-	echo 'User break!'>&2
-	cleanup
-	echo 'Cleaning up temporary files...'>&2
-	d.mon stop=PNG
-	exit 1
+exitprocedure() {
+    echo 'User break!' >&2
+    cleanup
+    echo 'Cleaning up temporary files...' >&2
+    d.mon stop=PNG
+    exit 1
 }
 
 # Check for user break (signal list: trap -l)
@@ -336,13 +334,13 @@ trap 'exitprocedure' 1 2 3 9 15 SIGINT SIGABRT SIGILL SIGTERM
 # Print column names of model output files.
 perl ${PERLSCRIPTS}/printCols.pl "$HOME" > ${OUTFILES}/varList.txt
 
-if [ "$1" != "@ARGS_PARSED@" ] ; then
+if [ "$1" != "@ARGS_PARSED@" ]; then
     exec g.parser "$0" "$@"
 fi
 
 if test "$GISBASE" = ""; then
-	echo 'You must be in GRASS GIS to run this program.' >&2
-	exit 1
+    echo 'You must be in GRASS GIS to run this program.' >&2
+    exit 1
 fi
 
 # Perform initial cleanup.
@@ -350,89 +348,89 @@ cleanup
 
 # Set user-defined directory where to save
 # output maps.
-if [ -n "$GIS_OPT_SAVEDIR" ] ; then
-    if [ -d "${OUTFILES}/$GIS_OPT_SAVEDIR" ] ; then
-		echo ""
-		echo "The directory \"$GIS_OPT_SAVEDIR\" already exists."
-		echo "Please, choose a different name."
-		echo ""
-		exit 1
-	else
-		SaveDir="${OUTFILES}/$GIS_OPT_SAVEDIR"
-		mkdir -p "$SaveDir";
-	fi
+if [ -n "$GIS_OPT_SAVEDIR" ]; then
+    if [ -d "${OUTFILES}/$GIS_OPT_SAVEDIR" ]; then
+        echo ""
+        echo "The directory \"$GIS_OPT_SAVEDIR\" already exists."
+        echo "Please, choose a different name."
+        echo ""
+        exit 1
+    else
+        SaveDir="${OUTFILES}/$GIS_OPT_SAVEDIR"
+        mkdir -p "$SaveDir"
+    fi
 fi
 
 # Set user-defined X, Y, mapping parameter, etc.
-if [ -n "$GIS_OPT_LONGITUDE" ] ; then
-	LON="$GIS_OPT_LONGITUDE"
+if [ -n "$GIS_OPT_LONGITUDE" ]; then
+    LON="$GIS_OPT_LONGITUDE"
 fi
 
-if [ -n "$GIS_OPT_LATITUDE" ] ; then
+if [ -n "$GIS_OPT_LATITUDE" ]; then
     LAT="$GIS_OPT_LATITUDE"
 fi
 
-if [ -n "$GIS_OPT_YEAR" ] ; then
+if [ -n "$GIS_OPT_YEAR" ]; then
     YEAR="$GIS_OPT_YEAR"
 fi
 
-if [ -n "$GIS_OPT_PARAMETER" ] ; then
+if [ -n "$GIS_OPT_PARAMETER" ]; then
     PAR="$GIS_OPT_PARAMETER"
 fi
 
-if [ -n "$GIS_OPT_INTERPOLATION" ] ; then
+if [ -n "$GIS_OPT_INTERPOLATION" ]; then
     SURF="$GIS_OPT_INTERPOLATION"
 fi
 
-if [ -n "$GIS_OPT_NUMPOINTS" ] ; then
+if [ -n "$GIS_OPT_NUMPOINTS" ]; then
     PNTS="$GIS_OPT_NUMPOINTS"
 fi
 
-if [ -n "$GIS_OPT_LEGEND1" ] ; then
+if [ -n "$GIS_OPT_LEGEND1" ]; then
     LEG1="$GIS_OPT_LEGEND1"
 fi
 
-if [ -n "$GIS_OPT_COLORRULEDIVERGENT" ] ; then
+if [ -n "$GIS_OPT_COLORRULEDIVERGENT" ]; then
     RULE_DIV="$GIS_OPT_COLORRULEDIVERGENT"
 fi
 
-if [ -n "$GIS_OPT_COLORRULEREGULAR" ] ; then
+if [ -n "$GIS_OPT_COLORRULEREGULAR" ]; then
     RULE_REG="$GIS_OPT_COLORRULEREGULAR"
 fi
 
-if [ -n "$GIS_OPT_LOWBARCOL" ] ; then
+if [ -n "$GIS_OPT_LOWBARCOL" ]; then
     LOWBARCOL="$GIS_OPT_LOWBARCOL"
 fi
 
-if [ -n "$GIS_OPT_UPBARCOL" ] ; then
+if [ -n "$GIS_OPT_UPBARCOL" ]; then
     UPBARCOL="$GIS_OPT_UPBARCOL"
 fi
 
-if [ -n "$GIS_OPT_LOWERCUT" ] ; then
-	CUT="$GIS_OPT_LOWERCUT"
+if [ -n "$GIS_OPT_LOWERCUT" ]; then
+    CUT="$GIS_OPT_LOWERCUT"
 fi
 
-if [ -n "$GIS_OPT_UPPERCUT" ] ; then
-	HICUT="$GIS_OPT_UPPERCUT"
+if [ -n "$GIS_OPT_UPPERCUT" ]; then
+    HICUT="$GIS_OPT_UPPERCUT"
 fi
 
-if [ -n "$GIS_OPT_PROVINCES" ] ; then
+if [ -n "$GIS_OPT_PROVINCES" ]; then
     PROVINCES="$GIS_OPT_PROVINCES"
 fi
 
-if [ -n "$GIS_OPT_CROP" ] ; then
+if [ -n "$GIS_OPT_CROP" ]; then
     CROP="$GIS_OPT_CROP"
 fi
 
-if [ -n "$GIS_OPT_CROPTHRESHOLD" ] ; then
+if [ -n "$GIS_OPT_CROPTHRESHOLD" ]; then
     CROP_THRESHOLD="$GIS_OPT_CROPTHRESHOLD"
 fi
 
-if [ -n "$GIS_OPT_ALT" ] ; then
+if [ -n "$GIS_OPT_ALT" ]; then
     ALT="$GIS_OPT_ALT"
 fi
 
-if [ -n "$GIS_OPT_RESOLUTION" ] ; then
+if [ -n "$GIS_OPT_RESOLUTION" ]; then
     FIGRES="$GIS_OPT_RESOLUTION"
 fi
 
@@ -440,98 +438,97 @@ fi
 echo "$LON $LAT $PAR $YEAR" > ${OUTFILES}/inputPar.txt
 
 # Print years to text files for use in legend.
-perl ${PERLSCRIPTS}/printYear.pl  "$HOME"
+perl ${PERLSCRIPTS}/printYear.pl "$HOME"
 
 # Run a perl script that gets rid of column names
 perl ${PERLSCRIPTS}/convertITA.pl "$HOME"
 
 # Do we want to use the same legend range for all maps?
-if [ "$GIS_FLAG_X" -eq 1 ] ; then
-	# In case we want to use divergent color scheme.
-	if [ "$GIS_FLAG_D" -eq 1 ] ; then
-		# Check if there is an upper cutting point set.
-		if [ "$GIS_FLAG_U" -eq 1 ] ; then
-			perl ${PERLSCRIPTS}/multiColorRule.pl "$HOME" "$RULE_DIV" "$CUT" "$HICUT" "divYes"
-		# Otherwise just use the lower cutting point.
-		elif [ "$GIS_FLAG_U" -eq 0 ] ; then
-			perl ${PERLSCRIPTS}/multiColorRule.pl "$HOME" "$RULE_DIV" "$CUT" "na" "divYes"
-		fi
-	# Same range for all maps with regular color scheme.
-	elif [ "$GIS_FLAG_D" -eq 0 ] ; then
-		# Check if there is an upper cutting point set.
-		if [ "$GIS_FLAG_U" -eq 1 ] ; then
-			perl ${PERLSCRIPTS}/multiColorRule.pl "$HOME" "$RULE_REG" "$CUT" "$HICUT" "divNo"
-		# Otherwise just use the lower cutting point.
-		elif [ "$GIS_FLAG_U" -eq 0 ] ; then
-			perl ${PERLSCRIPTS}/multiColorRule.pl "$HOME" "$RULE_REG" "$CUT" "na" "divNo"
-		fi
-	fi
+if [ "$GIS_FLAG_X" -eq 1 ]; then
+    # In case we want to use divergent color scheme.
+    if [ "$GIS_FLAG_D" -eq 1 ]; then
+        # Check if there is an upper cutting point set.
+        if [ "$GIS_FLAG_U" -eq 1 ]; then
+            perl ${PERLSCRIPTS}/multiColorRule.pl "$HOME" "$RULE_DIV" "$CUT" "$HICUT" "divYes"
+        # Otherwise just use the lower cutting point.
+        elif [ "$GIS_FLAG_U" -eq 0 ]; then
+            perl ${PERLSCRIPTS}/multiColorRule.pl "$HOME" "$RULE_DIV" "$CUT" "na" "divYes"
+        fi
+    # Same range for all maps with regular color scheme.
+    elif [ "$GIS_FLAG_D" -eq 0 ]; then
+        # Check if there is an upper cutting point set.
+        if [ "$GIS_FLAG_U" -eq 1 ]; then
+            perl ${PERLSCRIPTS}/multiColorRule.pl "$HOME" "$RULE_REG" "$CUT" "$HICUT" "divNo"
+        # Otherwise just use the lower cutting point.
+        elif [ "$GIS_FLAG_U" -eq 0 ]; then
+            perl ${PERLSCRIPTS}/multiColorRule.pl "$HOME" "$RULE_REG" "$CUT" "na" "divNo"
+        fi
+    fi
 fi
 
 # Set environmental variables to import location.
 g.mapset mapset=medgold location=latlong_medgold
 
 # Import model output table into a GRASS vector.
-cd $DIRTMP;
-for i in `ls`; do
-	echo "importing $i ...";
+cd $DIRTMP
+for i in $(ls); do
+    echo "importing $i ..."
     v.in.ascii input=$i output=map$i fs='\t' x=1 y=2 z=0
 
     # Check for column type of parameter to map.
-    if [ -n "`v.info -c map=map$i | grep dbl_3`" ] ; then
+    if [ -n "$(v.info -c map=map$i | grep dbl_3)" ]; then
         varType=dbl_3
     else
         varType=int_1
-    fi	
+    fi
 done
 
 # Change to GRASS location where projected maps are.
 g.mapset mapset=medgold location=laea_andalusia
 
 # Selection of based on vector areas.
-if [ "$PROVINCES" = 'all' ] ; then
-	# Full region for the Andalusia mapping routine
-	g.region vector=andalusia_provinces
-	v.to.rast input=andalusia_provinces output=EtoSelectMask use=val value=1
-	# Make some room on the margins
-	g.region n=n+7000 s=s-7000 e=e+7000 w=w-7000
-	# Align with resolution
-	g.region -a res=1000
+if [ "$PROVINCES" = 'all' ]; then
+    # Full region for the Andalusia mapping routine
+    g.region vector=andalusia_provinces
+    v.to.rast input=andalusia_provinces output=EtoSelectMask use=val value=1
+    # Make some room on the margins
+    g.region n=n+7000 s=s-7000 e=e+7000 w=w-7000
+    # Align with resolution
+    g.region -a res=1000
 else
     # Set region to an arbitrary subset of provinces
     echo $PROVINCES > ${OUTFILES}/states.txt
     perl ${PERLSCRIPTS}/cliparse_TC.pl "$HOME" 'iso_3166_2' 'string' "states.txt" "formulaStates.txt"
-    v.extract input=andalusia_provinces output=selectedStates\
-        where="`cat ${OUTFILES}/formulaStates.txt`"
+    v.extract input=andalusia_provinces output=selectedStates where="$(cat ${OUTFILES}/formulaStates.txt)"
     # Define the extent of the map and its grid resolution (currently 1 km).
     g.region -a vect=selectedStates
     v.to.rast input=selectedStates output=EtoSelectMask use=val value=1
     # Make some room on the margins.
-	g.region n=n+7000 s=s-7000 e=e+7000 w=w-7000
-	# Align with resolution
-	g.region -a res=1000
+    g.region n=n+7000 s=s-7000 e=e+7000 w=w-7000
+    # Align with resolution
+    g.region -a res=1000
 fi
 
 # Use various olive growing areas for masking model output
 if [ "$CROP" == "olive" ]; then
-	r.mapcalc "ElevMask = if ((EtoSelectMask && olive_HarvestedAreaFraction_andalusia > $CROP_THRESHOLD), elevation_1KMmd_GMTEDmd_andalusia, null())"
-	r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
+    r.mapcalc "ElevMask = if ((EtoSelectMask && olive_HarvestedAreaFraction_andalusia > $CROP_THRESHOLD), elevation_1KMmd_GMTEDmd_andalusia, null())"
+    r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 # Use SIGPAC olive monocolture data (resampled at 3 km)
-elif [ "$CROP" == "sigpac" ]; then	
-	r.mapcalc "ElevMask = if ((EtoSelectMask && olive_monoculture_sigpac_2018_3km == 1), elevation_1KMmd_GMTEDmd_andalusia, null())"
-	r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
+elif [ "$CROP" == "sigpac" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && olive_monoculture_sigpac_2018_3km == 1), elevation_1KMmd_GMTEDmd_andalusia, null())"
+    r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 # Use SIGPAC olive monocolture data (r.grow with 5km buffer radius)
-elif [ "$CROP" == "sigpac_buffered_5km" ]; then	
-	r.mapcalc "ElevMask = if ((EtoSelectMask && olive_monoculture_sigpac_2018_grow_5000 == 1), elevation_1KMmd_GMTEDmd_andalusia, null())"
-	r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
+elif [ "$CROP" == "sigpac_buffered_5km" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && olive_monoculture_sigpac_2018_grow_5000 == 1), elevation_1KMmd_GMTEDmd_andalusia, null())"
+    r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 # Use SIGPAC olive monocolture data (r.grow with 3km buffer radius)
-elif [ "$CROP" == "sigpac_buffered_3km" ]; then	
-	r.mapcalc "ElevMask = if ((EtoSelectMask && olive_monoculture_sigpac_2018_grow_3000 == 1), elevation_1KMmd_GMTEDmd_andalusia, null())"
-	r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
+elif [ "$CROP" == "sigpac_buffered_3km" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && olive_monoculture_sigpac_2018_grow_3000 == 1), elevation_1KMmd_GMTEDmd_andalusia, null())"
+    r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 # Use no mask for model output
 elif [ "$CROP" == "none" ]; then
-	r.mapcalc 'ElevMask = if (EtoSelectMask, elevation_1KMmd_GMTEDmd_andalusias, null())'
-	r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"	
+    r.mapcalc 'ElevMask = if (EtoSelectMask, elevation_1KMmd_GMTEDmd_andalusias, null())'
+    r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 fi
 
 # Write header in the log file.
@@ -539,14 +536,14 @@ echo "This log reports names of input files used for analysis:" | tee -a "$SaveD
 
 # Retrieve range min and max values for possible use in legend drawing.
 # Maybe check if the files exists...
-abs_min=`cat ${OUTFILES}/min.txt`
-abs_max=`cat ${OUTFILES}/max.txt`
+abs_min=$(cat ${OUTFILES}/min.txt)
+abs_max=$(cat ${OUTFILES}/max.txt)
 
 # Set size of output image.
 cd $DIRTMP
-eval `g.region -g`
-export GRASS_WIDTH=$(( $cols * FIGRES ))
-export GRASS_HEIGHT=$(( ( $rows * 137 * FIGRES ) / 100 ))
+eval $(g.region -g)
+export GRASS_WIDTH=$((cols * FIGRES))
+export GRASS_HEIGHT=$(((rows * 137 * FIGRES) / 100))
 export GRASS_PNG_READ=TRUE
 export GRASS_RENDER_IMMEDIATE=TRUE
 export GRASS_TRUECOLOR=TRUE
@@ -554,11 +551,10 @@ export GRASS_TRUECOLOR=TRUE
 export GRASS_FONT='arial'
 mapcycle=1 # this is just a counter
 # Start interpolation process.
-for i in `ls`; do
-	# Reproject imported model vectors to current location.
+for i in $(ls); do
+    # Reproject imported model vectors to current location.
     echo "reprojecting map$i ..."
-    v.proj input=map$i location=latlong_medgold mapset=medgold\
-		output=map$i
+    v.proj input=map$i location=latlong_medgold mapset=medgold output=map$i
 
     # Add a column to vector containing altitudes uploaded from raster DEM.
     v.db.addcol map=map$i columns="elevation INT"
@@ -566,27 +562,27 @@ for i in `ls`; do
 
     # Extract vector points greater than cutting point, since
     # some values (e.g., bloom day <= 0) may be of little or no meaning.
-	if [ "$GIS_FLAG_C" -eq 1 ] ; then
-		if [ "$GIS_FLAG_U" -eq 1 ] ; then
-			# Do not use points > altitude and >= upper cutting point for interpolation.
-			v.extract input=map$i output=mapPos$i \
-				where="($varType >= $CUT) AND ($varType <= $HICUT) AND (elevation < $ALT)"
-		else
-			# Exclude from interpolation only points > altitude cutting point.
-			v.extract input=map$i output=mapPos$i \
-				where="($varType >= $CUT) AND (elevation < $ALT)"
-		fi
-	elif [ "$GIS_FLAG_C" -eq 0 ] ; then
-		if [ "$GIS_FLAG_U" -eq 1 ] ; then
-			# Use only upper and lower cutting points - no exclusion based on altitude.
-			v.extract input=map$i output=mapPos$i \
-				where="($varType >= $CUT) AND ($varType <= $HICUT)"
-		else
-			# Use only lower cutting point - no exclusion based on altitude.
-			v.extract input=map$i output=mapPos$i \
-				where="($varType >= $CUT)"
-		fi
-	fi
+    if [ "$GIS_FLAG_C" -eq 1 ]; then
+        if [ "$GIS_FLAG_U" -eq 1 ]; then
+            # Do not use points > altitude and >= upper cutting point for interpolation.
+            v.extract input=map$i output=mapPos$i \
+                where="($varType >= $CUT) AND ($varType <= $HICUT) AND (elevation < $ALT)"
+        else
+            # Exclude from interpolation only points > altitude cutting point.
+            v.extract input=map$i output=mapPos$i \
+                where="($varType >= $CUT) AND (elevation < $ALT)"
+        fi
+    elif [ "$GIS_FLAG_C" -eq 0 ]; then
+        if [ "$GIS_FLAG_U" -eq 1 ]; then
+            # Use only upper and lower cutting points - no exclusion based on altitude.
+            v.extract input=map$i output=mapPos$i \
+                where="($varType >= $CUT) AND ($varType <= $HICUT)"
+        else
+            # Use only lower cutting point - no exclusion based on altitude.
+            v.extract input=map$i output=mapPos$i \
+                where="($varType >= $CUT)"
+        fi
+    fi
 
     # Extract points lower than cutting point to map them with a different symbol.
     v.extract input=map$i output=mapZero$i \
@@ -596,28 +592,27 @@ for i in `ls`; do
     v.extract input=map$i output=mapHigh$i \
         where="($varType > $HICUT)"
 
-	# Obtain Voronoi polygons from points to mask values
-	#  above/below cutting points and select the right polygons.
-	v.voronoi input=map$i output=voronoi
-	v.category option=print input=mapZero$i > ${OUTFILES}/voronoi.txt
-	# Check if high values are to be masked.
-	if [ "$GIS_FLAG_U" -eq 1 ] ; then
-		v.category option=print input=mapHigh$i >> ${OUTFILES}/voronoi.txt
-	fi
-	perl ${PERLSCRIPTS}/voroparse.pl "$HOME"
-	#~ v.extract input=voronoi output=voronoiSel\
-        #~ where="`cat ${OUTFILES}/voronoiFormula.txt`"
+    # Obtain Voronoi polygons from points to mask values
+    #  above/below cutting points and select the right polygons.
+    v.voronoi input=map$i output=voronoi
+    v.category option=print input=mapZero$i > ${OUTFILES}/voronoi.txt
+    # Check if high values are to be masked.
+    if [ "$GIS_FLAG_U" -eq 1 ]; then
+        v.category option=print input=mapHigh$i >> ${OUTFILES}/voronoi.txt
+    fi
+    perl ${PERLSCRIPTS}/voroparse.pl "$HOME"
+    #~ v.extract input=voronoi output=voronoiSel\
+    #~ where="`cat ${OUTFILES}/voronoiFormula.txt`"
     # Version without DB query.
-	v.extract input=voronoi output=voronoiSel\
-        file=${OUTFILES}/voronoi.txt
-		
-	# Transform selected Voronoi polygons to raster for masking.
-	v.to.rast input=voronoiSel output=MskdBuffer$i use=val value=1
+    v.extract input=voronoi output=voronoiSel file=${OUTFILES}/voronoi.txt
+
+    # Transform selected Voronoi polygons to raster for masking.
+    v.to.rast input=voronoiSel output=MskdBuffer$i use=val value=1
 
     # Set mask for interpolation.
     g.copy raster=ElevAltMask,MASK
-	
-	if [ $SURF == "idw" ] ; then
+
+    if [ $SURF == "idw" ]; then
         # Interpolate the reprojected vector after proper masking by
         # elevation and administrative regions.
         # v.to.rast may be appropriate with PROTHEUS data.
@@ -626,25 +621,25 @@ for i in `ls`; do
         # https://lists.osgeo.org/pipermail/grass-user/2010-February/054868.html
         v.surf.bspline input=mapPos$i raster=interpolRaw$i sie=15000 sin=15000 method=bicubic lambda_i=0.01 layer=1 column=$varType
 
-		# Constrain interpolated raster within max-min from vector input
-		# and make values >max or <min equal to max or min.
-		eval `v.univar -g -e map=mapPos$i type=point column=$varType`
-		r.mapcalc "interpolMin$i = if(interpolRaw$i >= $min, interpolRaw$i, $min)"
-		r.mapcalc "interpolMinMax$i = if(interpolMin$i <= $max, interpolMin$i, $max)"
-		
-		# Clip for altitude
-		r.mapcalc "interpol$i = if(ElevAltMask, interpolMinMax$i, null())"
+        # Constrain interpolated raster within max-min from vector input
+        # and make values >max or <min equal to max or min.
+        eval $(v.univar -g -e map=mapPos$i type=point column=$varType)
+        r.mapcalc "interpolMin$i = if(interpolRaw$i >= $min, interpolRaw$i, $min)"
+        r.mapcalc "interpolMinMax$i = if(interpolMin$i <= $max, interpolMin$i, $max)"
+
+        # Clip for altitude
+        r.mapcalc "interpol$i = if(ElevAltMask, interpolMinMax$i, null())"
     fi
 
-	# Remove MASK that would otherwise prevent full map display.
-	g.remove -f type=raster name=MASK
+    # Remove MASK that would otherwise prevent full map display.
+    g.remove -f type=raster name=MASK
 
     # Remove stuff outside cutting points from interpolated raster.
-    if [ -n "`cat ${OUTFILES}/voronoi.txt`" ]; then
-		r.mapcalc "MskdBufRev$i = if(isnull(MskdBuffer$i), 1, null())"
-		r.mapcalc "MskdModPOS$i = if(MskdBufRev$i, interpol$i, null())"
+    if [ -n "$(cat ${OUTFILES}/voronoi.txt)" ]; then
+        r.mapcalc "MskdBufRev$i = if(isnull(MskdBuffer$i), 1, null())"
+        r.mapcalc "MskdModPOS$i = if(MskdBufRev$i, interpol$i, null())"
     else
-    	g.copy raster=interpol$i,MskdModPOS$i
+        g.copy raster=interpol$i,MskdModPOS$i
     fi
 
     # Set png file for output.
@@ -653,113 +648,110 @@ for i in `ls`; do
     d.erase color=white
 
     # Remove voronoi-related stuff.
-	\rm -f ${OUTFILES}/voronoi*.txt
-	g.remove -f type=vector pattern="voronoi*"
+    \rm -f ${OUTFILES}/voronoi*.txt
+    g.remove -f type=vector pattern="voronoi*"
 
-	# If flag -g is checked, output is a greyscale figure
-	if [ "$GIS_FLAG_G" -eq 1 ] ; then
-		# Set color table for interpolated raster
-		# Do we want to use the same legend range for all maps?
-		# No way to find a suitable divergent grayscale palette...
-		# ...using color palettes (just a stub).
-		if [ "$GIS_FLAG_X" -eq 1 ] ; then
-            if [ "$GIS_FLAG_E" -eq 1 ] ; then
-                if  [ "$GIS_FLAG_L" -eq 1 ] ; then
+    # If flag -g is checked, output is a greyscale figure
+    if [ "$GIS_FLAG_G" -eq 1 ]; then
+        # Set color table for interpolated raster
+        # Do we want to use the same legend range for all maps?
+        # No way to find a suitable divergent grayscale palette...
+        # ...using color palettes (just a stub).
+        if [ "$GIS_FLAG_X" -eq 1 ]; then
+            if [ "$GIS_FLAG_E" -eq 1 ]; then
+                if [ "$GIS_FLAG_L" -eq 1 ]; then
                     cat ${PALETTES}/customColorRule.txt | r.colors -e -g map=MskdModPOS$i color=rules
                 else
                     cat ${PALETTES}/customColorRule.txt | r.colors -e map=MskdModPOS$i color=rules
                 fi
             else
-                if  [ "$GIS_FLAG_L" -eq 1 ] ; then
+                if [ "$GIS_FLAG_L" -eq 1 ]; then
                     cat ${PALETTES}/customColorRule.txt | r.colors -g map=MskdModPOS$i color=rules
                 else
                     cat ${PALETTES}/customColorRule.txt | r.colors map=MskdModPOS$i color=rules
                 fi
             fi
-		else
-            if [ "$GIS_FLAG_E" -eq 1 ] ; then
-                if  [ "$GIS_FLAG_L" -eq 1 ] ; then
+        else
+            if [ "$GIS_FLAG_E" -eq 1 ]; then
+                if [ "$GIS_FLAG_L" -eq 1 ]; then
                     cat ${PALETTES}/greyColorRule | r.colors -e -g map=MskdModPOS$i color=rules
                 else
                     cat ${PALETTES}/greyColorRule | r.colors -e map=MskdModPOS$i color=rules
                 fi
             else
-                if  [ "$GIS_FLAG_L" -eq 1 ] ; then
+                if [ "$GIS_FLAG_L" -eq 1 ]; then
                     cat ${PALETTES}/greyColorRule | r.colors -g map=MskdModPOS$i color=rules
                 else
                     cat ${PALETTES}/greyColorRule | r.colors map=MskdModPOS$i color=rules
                 fi
             fi
-		fi
-		d.rast -o map=MskdModPOS$i;
+        fi
+        d.rast -o map=MskdModPOS$i
         d.vect map=ne_10m_coastline_andalusia type=boundary color=150:150:150 width=3
-		d.vect map=ne_10m_admin_0_countries_lakes_andalusia type=boundary color=128:128:128 width=3
-		d.vect map=andalusia_provinces type=boundary color=white width=6
-		d.vect map=andalusia_provinces type=boundary color=black width=2
-		d.vect map=andalusia type=boundary width=3
+        d.vect map=ne_10m_admin_0_countries_lakes_andalusia type=boundary color=128:128:128 width=3
+        d.vect map=andalusia_provinces type=boundary color=white width=6
+        d.vect map=andalusia_provinces type=boundary color=black width=2
+        d.vect map=andalusia type=boundary width=3
         d.grid -wn size=1:0:0 color=black bordercolor=black # This draws a black border
-	else
-		# If flag -g is not checked, output is a color figure
-		# Set color table for interpolated raster
-		if [ "$GIS_FLAG_X" -eq 1 ] || [ "$GIS_FLAG_D" -eq 1 ] ; then
-            if [ "$GIS_FLAG_E" -eq 1 ] ; then
-                if  [ "$GIS_FLAG_L" -eq 1 ] ; then
+    else
+        # If flag -g is not checked, output is a color figure
+        # Set color table for interpolated raster
+        if [ "$GIS_FLAG_X" -eq 1 ] || [ "$GIS_FLAG_D" -eq 1 ]; then
+            if [ "$GIS_FLAG_E" -eq 1 ]; then
+                if [ "$GIS_FLAG_L" -eq 1 ]; then
                     cat ${PALETTES}/customColorRule.txt | r.colors -e -g map=MskdModPOS$i color=rules
                 else
                     cat ${PALETTES}/customColorRule.txt | r.colors -e map=MskdModPOS$i color=rules
                 fi
             else
-                if  [ "$GIS_FLAG_L" -eq 1 ] ; then
+                if [ "$GIS_FLAG_L" -eq 1 ]; then
                     cat ${PALETTES}/customColorRule.txt | r.colors -g map=MskdModPOS$i color=rules
                 else
                     cat ${PALETTES}/customColorRule.txt | r.colors map=MskdModPOS$i color=rules
                 fi
             fi
-		else
-            if [ "$GIS_FLAG_E" -eq 1 ] ; then
-                if  [ "$GIS_FLAG_L" -eq 1 ] ; then
+        else
+            if [ "$GIS_FLAG_E" -eq 1 ]; then
+                if [ "$GIS_FLAG_L" -eq 1 ]; then
                     cat ${PALETTES}/defaultColorRule | r.colors -e -g map=MskdModPOS$i color=rules
                 else
                     cat ${PALETTES}/defaultColorRule | r.colors -e map=MskdModPOS$i color=rules
                 fi
             else
-                if  [ "$GIS_FLAG_L" -eq 1 ] ; then
+                if [ "$GIS_FLAG_L" -eq 1 ]; then
                     cat ${PALETTES}/defaultColorRule | r.colors -g map=MskdModPOS$i color=rules
                 else
                     cat ${PALETTES}/defaultColorRule | r.colors map=MskdModPOS$i color=rules
                 fi
             fi
-		fi		
-		# Overlay model raster to a shaded relief and add state
-		# boundaries, weather stations, etc.
-		# Drape model raster over a shaded relief and add state
-		# boundaries, lakes, weather stations, etc.
-        d.his i=SR_HR_andalusia_clip_250m h=MskdModPOS$i;
+        fi
+        # Overlay model raster to a shaded relief and add state
+        # boundaries, weather stations, etc.
+        # Drape model raster over a shaded relief and add state
+        # boundaries, lakes, weather stations, etc.
+        d.his i=SR_HR_andalusia_clip_250m h=MskdModPOS$i
         d.vect map=ne_10m_coastline_andalusia type=boundary color=150:150:150 width=3
-		d.vect map=ne_10m_admin_0_countries_lakes_andalusia type=boundary color=128:128:128 width=3
-		d.vect map=andalusia_provinces type=boundary color=white width=6
-		d.vect map=andalusia_provinces type=boundary color=black width=2
-		d.vect map=andalusia type=boundary width=3
+        d.vect map=ne_10m_admin_0_countries_lakes_andalusia type=boundary color=128:128:128 width=3
+        d.vect map=andalusia_provinces type=boundary color=white width=6
+        d.vect map=andalusia_provinces type=boundary color=black width=2
+        d.vect map=andalusia type=boundary width=3
         d.grid -wn size=1:0:0 color=black bordercolor=black # This draws a black border
-	fi
+    fi
 
-	# Display a legend for model raster with screen
+    # Display a legend for model raster with screen
     # coordinates as % of screen (bottom,top,left,right).
-	if [ "$GIS_FLAG_A" -eq 1 ] && [ "$GIS_FLAG_X" -eq 1 ] ; then
-		d.legend -s map=MskdModPOS$i color=black lines=0\
-			thin=1000 labelnum=5 at=6,10,20,80 range="$abs_min","$abs_max"; # absolute range.
-    # Restrict width of color legend bar.
-	elif [ "$GIS_FLAG_W" -eq 1 ] ; then		
-		d.legend -s map=MskdModPOS$i color=black lines=0\
-			thin=1000 labelnum=5 at=6,11,20,80 range="$LOWBARCOL","$UPBARCOL" # modified range.
-	else		
-		d.legend -s map=MskdModPOS$i color=black lines=0\
-			thin=1000 labelnum=5 at=6,10,20,80
-            # legend range relative to current map. Old horizontal legend location 10,13.5,10,90
-            # To exclude outliers from legend, the range=min,max option in d.legend
-            # needs to be enabled in the GIS script MedPresentClimate using
-            # the two whiskers of the R box plot (see boxplot.stats() in R).
-	fi
+    if [ "$GIS_FLAG_A" -eq 1 ] && [ "$GIS_FLAG_X" -eq 1 ]; then
+        d.legend -s map=MskdModPOS$i color=black lines=0 thin=1000 labelnum=5 at=6,10,20,80 range="$abs_min","$abs_max" # absolute range.
+        # Restrict width of color legend bar.
+    elif [ "$GIS_FLAG_W" -eq 1 ]; then
+        d.legend -s map=MskdModPOS$i color=black lines=0 thin=1000 labelnum=5 at=6,11,20,80 range="$LOWBARCOL","$UPBARCOL" # modified range.
+    else
+        d.legend -s map=MskdModPOS$i color=black lines=0 thin=1000 labelnum=5 at=6,10,20,80
+        # legend range relative to current map. Old horizontal legend location 10,13.5,10,90
+        # To exclude outliers from legend, the range=min,max option in d.legend
+        # needs to be enabled in the GIS script MedPresentClimate using
+        # the two whiskers of the R box plot (see boxplot.stats() in R).
+    fi
     # It is possible to implement user-defined categories
     # by adding: "use=1000,100,10,0,-10,-100,-1000".
 
@@ -767,83 +759,83 @@ for i in `ls`; do
     # d.barscale -l at=50,7
 
     # Display true type font text in the legend (at x-y, lower-left coordinates).
-    echo "$LEG1" > ${OUTFILES}/legend1.txt;
-    Legend1="`cat ${OUTFILES}/legend1.txt`";
-    Year="`cat ${OUTFILES}/year$mapcycle.txt`";
+    echo "$LEG1" > ${OUTFILES}/legend1.txt
+    Legend1="$(cat ${OUTFILES}/legend1.txt)"
+    Year="$(cat ${OUTFILES}/year$mapcycle.txt)"
     echo $Legend1 $Year "($CROP)" > ${OUTFILES}/legend1$mapcycle.txt
 
     # Text for legend (at= percentage, [0,0] is lower left).
-	d.text size=3 color=black at=5,94 input=${OUTFILES}/legend1$mapcycle.txt
+    d.text size=3 color=black at=5,94 input=${OUTFILES}/legend1$mapcycle.txt
 
     # Save display to .png file.
-	d.mon stop=PNG
-	
-	# Write a log with names of input files.
-	echo "$i" | tee -a "$SaveDir"/"$LEG1".log
+    d.mon stop=PNG
 
-    # Raster statistics based on vector areas (tuned to labeled raster areas)	
-	# If flag -r is checked, then write raster statistics.
-	if [ "$GIS_FLAG_R" -eq 1 ] ; then
-		r.mapcalc MskdModPOS_sigpac$i = "if (olive_monoculture_sigpac_2018 == 1, MskdModPOS$i, null())"
-		echo "Raster statistics by province:" | tee -a "$SaveDir"/$i.txt
-		echo "" | tee -a "$SaveDir"/$i.txt
-		# need to implement this by developing a raster with state categories
-		# currently only works on output raster using 4 steps
-		r.report -en map=andalusia_provinces,MskdModPOS_sigpac$i units=k,c,p nsteps=4 | tee -a "$SaveDir"/$i.txt
-		echo "" | tee -a "$SaveDir"/$i.txt
-		echo "-------------------------------------------" | tee -a "$SaveDir"/$i.txt
-		echo "" | tee -a "$SaveDir"/$i.txt
-		echo "Raster univariate statistics:" | tee -a "$SaveDir"/$i.txt
-		echo "" | tee -a "$SaveDir"/$i.txt
-		r.univar map=MskdModPOS$i | tee -a "$SaveDir"/$i.txt
-		echo "" | tee -a "$SaveDir"/$i.txt
-		echo "-------------------------------------------" | tee -a "$SaveDir"/$i.txt
-		echo "" | tee -a "$SaveDir"/$i.txt
-		echo "Vector univariate statistics:" | tee -a "$SaveDir"/$i.txt
-		echo "" | tee -a "$SaveDir"/$i.txt
-		v.univar -e map=mapPos$i type=point column=$varType | tee -a "$SaveDir"/$i.txt
-		echo "" | tee -a "$SaveDir"/$i.txt
-		echo "-------------------------------------------" | tee -a "$SaveDir"/$i.txt
-		echo "" | tee -a "$SaveDir"/$i.txt
-		wait
-		if [ "$mapcycle" -eq 1 ] ; then
-			echo 'There is no stat report for weather stations!' > "$SaveDir"/WeatherStations.txt
-			if [ "$GIS_FLAG_P" -eq 1 ] ; then
-				Plots=1
-			else
-				Plots=0
-			fi
-		fi
-	else
-		if [ "$mapcycle" -eq 1 ] ; then
-			echo 'There is no stat report for weather stations!' > "$SaveDir"/WeatherStations.txt
-			if [ "$GIS_FLAG_P" -eq 1 ] ; then
-				Plots=1
-			else
-				Plots=0
-			fi
-		fi
-		echo 'Sorry, no stat report was requested for this analysis.' > "$SaveDir"/$i.txt	
-	fi
-	
-	# If flag -p is checked, then write .rep report files to be plotted.
-	if [ "$GIS_FLAG_P" -eq 1 ] ; then
-		# Not working for now since r.stats is buggy -- TO BE IMPLEMENTED IN R
-		#~ r.stats -anr input=MskdModPOS$i fs=tab nsteps=4 > "$SaveDir"/$i.tot
-		#~ r.stats -anr input=regioni_istat,MskdModPOS$i fs=tab nsteps=4 > "$SaveDir"/$i.rep
+    # Write a log with names of input files.
+    echo "$i" | tee -a "$SaveDir"/"$LEG1".log
+
+    # Raster statistics based on vector areas (tuned to labeled raster areas)
+    # If flag -r is checked, then write raster statistics.
+    if [ "$GIS_FLAG_R" -eq 1 ]; then
+        r.mapcalc MskdModPOS_sigpac$i = "if (olive_monoculture_sigpac_2018 == 1, MskdModPOS$i, null())"
+        echo "Raster statistics by province:" | tee -a "$SaveDir"/$i.txt
+        echo "" | tee -a "$SaveDir"/$i.txt
+        # need to implement this by developing a raster with state categories
+        # currently only works on output raster using 4 steps
+        r.report -en map=andalusia_provinces,MskdModPOS_sigpac$i units=k,c,p nsteps=4 | tee -a "$SaveDir"/$i.txt
+        echo "" | tee -a "$SaveDir"/$i.txt
+        echo "-------------------------------------------" | tee -a "$SaveDir"/$i.txt
+        echo "" | tee -a "$SaveDir"/$i.txt
+        echo "Raster univariate statistics:" | tee -a "$SaveDir"/$i.txt
+        echo "" | tee -a "$SaveDir"/$i.txt
+        r.univar map=MskdModPOS$i | tee -a "$SaveDir"/$i.txt
+        echo "" | tee -a "$SaveDir"/$i.txt
+        echo "-------------------------------------------" | tee -a "$SaveDir"/$i.txt
+        echo "" | tee -a "$SaveDir"/$i.txt
+        echo "Vector univariate statistics:" | tee -a "$SaveDir"/$i.txt
+        echo "" | tee -a "$SaveDir"/$i.txt
+        v.univar -e map=mapPos$i type=point column=$varType | tee -a "$SaveDir"/$i.txt
+        echo "" | tee -a "$SaveDir"/$i.txt
+        echo "-------------------------------------------" | tee -a "$SaveDir"/$i.txt
+        echo "" | tee -a "$SaveDir"/$i.txt
+        wait
+        if [ "$mapcycle" -eq 1 ]; then
+            echo 'There is no stat report for weather stations!' > "$SaveDir"/WeatherStations.txt
+            if [ "$GIS_FLAG_P" -eq 1 ]; then
+                Plots=1
+            else
+                Plots=0
+            fi
+        fi
+    else
+        if [ "$mapcycle" -eq 1 ]; then
+            echo 'There is no stat report for weather stations!' > "$SaveDir"/WeatherStations.txt
+            if [ "$GIS_FLAG_P" -eq 1 ]; then
+                Plots=1
+            else
+                Plots=0
+            fi
+        fi
+        echo 'Sorry, no stat report was requested for this analysis.' > "$SaveDir"/$i.txt
+    fi
+
+    # If flag -p is checked, then write .rep report files to be plotted.
+    if [ "$GIS_FLAG_P" -eq 1 ]; then
+        # Not working for now since r.stats is buggy -- TO BE IMPLEMENTED IN R
+        #~ r.stats -anr input=MskdModPOS$i fs=tab nsteps=4 > "$SaveDir"/$i.tot
+        #~ r.stats -anr input=regioni_istat,MskdModPOS$i fs=tab nsteps=4 > "$SaveDir"/$i.rep
         GRASS_PNGFILE="$SaveDir"/"$i"-HIST.png
         export GRASS_PNGFILE
         d.erase color=white
-		d.histogram map="MskdModPOS$i"
+        d.histogram map="MskdModPOS$i"
         d.mon stop=PNG
-		# d.out.file output="$SaveDir"/"$i"-HIST res=$FIGRES format=png
+        # d.out.file output="$SaveDir"/"$i"-HIST res=$FIGRES format=png
         #~ d.out.file output="$SaveDir"/"$i"-HIST res=$FIGRES format=eps
-	fi
-	
+    fi
+
     # Remove temporary ascii files produced by PERL script "convert.pl".
     rm $i
 
-    let mapcycle++;
+    let mapcycle++
 done
 
 # Write full command line to log.
@@ -860,29 +852,29 @@ echo "GIS script syntax used:
 	crop=$CROP crop_threshold=$CROP_THRESHOLD" | tee -a "$SaveDir"/"${LEG1}".log
 
 # Write date in the log file.
-echo "(`date -R | tr -s ' ' ' '`)" | tee -a "$SaveDir"/"${LEG1}".log
+echo "($(date -R | tr -s ' ' ' '))" | tee -a "$SaveDir"/"${LEG1}".log
 
 # Display & save a map with weather stations used for analysis
 # or simply a map with major geographic features of the area.
 # If flag -g is checked, output is a greyscale figure (no lakes)
-if [ "$GIS_FLAG_G" -eq 1 ] ; then
+if [ "$GIS_FLAG_G" -eq 1 ]; then
     # Set png file for output.
     GRASS_PNGFILE="$SaveDir"/WeatherStations.png
     export GRASS_PNGFILE
     d.erase color=white
     d.rast map=GRAY_HR_SR_OB_DR_andalusia_250m
     d.vect map=ne_10m_coastline_andalusia type=boundary color=150:150:150 width=3
-	d.vect map=ne_10m_admin_0_countries_lakes_andalusia type=boundary color=128:128:128 width=3
-	d.vect map=andalusia_provinces type=boundary color=white width=6
-	d.vect map=andalusia_provinces type=boundary color=black width=2
-	d.vect map=andalusia type=boundary width=3
+    d.vect map=ne_10m_admin_0_countries_lakes_andalusia type=boundary color=128:128:128 width=3
+    d.vect map=andalusia_provinces type=boundary color=white width=6
+    d.vect map=andalusia_provinces type=boundary color=black width=2
+    d.vect map=andalusia type=boundary width=3
     d.grid -w size=1:0:0 origin=0,0 color=grey bordercolor=black textcolor=black fontsize=15
-	#~ d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=png
+    #~ d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=png
     #~ d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=eps
     d.barscale -s at=7,7
     d.mon stop=PNG
 else
-	# If flag -g is not checked, output is a color figure (with lakes)
+    # If flag -g is not checked, output is a color figure (with lakes)
     # Set png file for output.
     GRASS_PNGFILE="$SaveDir"/WeatherStations.png
     export GRASS_PNGFILE
@@ -891,12 +883,12 @@ else
     r.colors map=selectedStates.composite raster=NE1_HR_LC_SR_W_DR.composite_andalusia_250m
     d.his i=SR_HR_andalusia_clip_250m h=selectedStates.composite brighten=5
     d.vect map=ne_10m_coastline_andalusia type=boundary color=150:150:150 width=3
-	d.vect map=ne_10m_admin_0_countries_lakes_andalusia type=boundary color=128:128:128 width=3
-	d.vect map=andalusia_provinces type=boundary color=white width=6
-	d.vect map=andalusia_provinces type=boundary color=black width=2
-	d.vect map=andalusia type=boundary width=3
+    d.vect map=ne_10m_admin_0_countries_lakes_andalusia type=boundary color=128:128:128 width=3
+    d.vect map=andalusia_provinces type=boundary color=white width=6
+    d.vect map=andalusia_provinces type=boundary color=black width=2
+    d.vect map=andalusia type=boundary width=3
     d.grid -w size=1:0:0 origin=0,0 color=grey bordercolor=black textcolor=black fontsize=15
-	#~ d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=png
+    #~ d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=png
     #~ d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=eps
 
     # Display scale bar.
@@ -905,37 +897,37 @@ else
 fi
 
 # Set default value with no upper cutting point.
-if [ "$GIS_FLAG_U" -eq 0 ] ; then
-	HICUT='none';
+if [ "$GIS_FLAG_U" -eq 0 ]; then
+    HICUT='none'
 fi
 
 # Let HTML summary know if stations above altitude
 # clip have been used in interpolation or not.
-if [ "$GIS_FLAG_C" -eq 0 ] ; then
-	SurfCut='yes';
+if [ "$GIS_FLAG_C" -eq 0 ]; then
+    SurfCut='yes'
 else
-	SurfCut='no';
+    SurfCut='no'
 fi
 
 # Write html pages.
-perl ${PERLSCRIPTS}/HtmlSum.pl "$SaveDir" "${LEG1}" "$PAR" "$CUT" "$HICUT" "$ALT" "$SurfCut" "$STATES" "$Plots";
+perl ${PERLSCRIPTS}/HtmlSum.pl "$SaveDir" "${LEG1}" "$PAR" "$CUT" "$HICUT" "$ALT" "$SurfCut" "$STATES" "$Plots"
 # If flag -p is checked, then make barchart plots.
-if [ "$GIS_FLAG_P" -eq 1 ] ; then
-	#~ perl ${PERLSCRIPTS}/makePlotData.pl "$SaveDir"
-	#~ perl ${PERLSCRIPTS}/HtmlPlotA_ita.pl "$SaveDir" "$LEG1 $LEG2";
-	#~ perl ${PERLSCRIPTS}/HtmlPlotB.pl "$SaveDir" "$LEG1 $LEG2";
-	perl ${PERLSCRIPTS}/HtmlPlotC.pl "$SaveDir" "${LEG1}";
+if [ "$GIS_FLAG_P" -eq 1 ]; then
+    #~ perl ${PERLSCRIPTS}/makePlotData.pl "$SaveDir"
+    #~ perl ${PERLSCRIPTS}/HtmlPlotA_ita.pl "$SaveDir" "$LEG1 $LEG2";
+    #~ perl ${PERLSCRIPTS}/HtmlPlotB.pl "$SaveDir" "$LEG1 $LEG2";
+    perl ${PERLSCRIPTS}/HtmlPlotC.pl "$SaveDir" "${LEG1}"
 fi
 
 # One may want to save palette used for analysis.
-if [ "$GIS_FLAG_G" -eq 1 ] ; then
-    if [ "$GIS_FLAG_X" -eq 1 ] ; then
+if [ "$GIS_FLAG_G" -eq 1 ]; then
+    if [ "$GIS_FLAG_X" -eq 1 ]; then
         cp ${PALETTES}/customColorRule.txt ${OUTFILES}/$GIS_OPT_SAVEDIR
     else
         cp ${PALETTES}/greyColorRule ${OUTFILES}/$GIS_OPT_SAVEDIR
     fi
 else
-    if [ "$GIS_FLAG_X" -eq 1 ] ; then
+    if [ "$GIS_FLAG_X" -eq 1 ]; then
         cp ${PALETTES}/customColorRule.txt ${OUTFILES}/$GIS_OPT_SAVEDIR
     else
         cp ${PALETTES}/defaultColorRule ${OUTFILES}/$GIS_OPT_SAVEDIR
@@ -946,12 +938,12 @@ fi
 mkdir -p ${OUTFILES}/$GIS_OPT_SAVEDIR/data/
 cp ${OUTFILES}/*.txt ${OUTFILES}/$GIS_OPT_SAVEDIR/data/
 
-
 # Save various raster output files to GeoTIFF
-if [ "$GIS_FLAG_T" -eq 1 ] ; then
-	for raster_outfile in `g.list raster pattern="MskdModPOS*"` ; do
-		r.out.gdal input=$raster_outfile output=${OUTFILES}/$GIS_OPT_SAVEDIR/data/${raster_outfile}.tif format=GTiff createopt=compress=lzw;predictor=3
-	done
+if [ "$GIS_FLAG_T" -eq 1 ]; then
+    for raster_outfile in $(g.list raster pattern="MskdModPOS*"); do
+        r.out.gdal input=$raster_outfile output=${OUTFILES}/$GIS_OPT_SAVEDIR/data/${raster_outfile}.tif format=GTiff createopt=compress=lzw
+        predictor=3
+    done
 fi
 
 # Set default browser for HTML visual summary.

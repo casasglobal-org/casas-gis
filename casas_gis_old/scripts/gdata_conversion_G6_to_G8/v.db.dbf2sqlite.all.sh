@@ -26,9 +26,9 @@
 # % keyword: SQLite
 # %end
 
-if  [ -z "$GISBASE" ] ; then
- echo "You must be in GRASS GIS to run this program." >&2
- exit 1
+if [ -z "$GISBASE" ]; then
+    echo "You must be in GRASS GIS to run this program." >&2
+    exit 1
 fi
 
 # fail early
@@ -42,14 +42,13 @@ eval $(g.gisenv)
 # check if the current mapset is still DBF based
 eval $(db.connect -g)
 # if no longer DBF then quit this conversion script
-if test "$driver" != "dbf"
-then
+if test "$driver" != "dbf"; then
     g.message message="Rebuilding topology for all vector maps in current mapset ... (1/1)"
     # rebuild topology for all vector maps in current mapset
     v.build.all
     # attribute tables: nothing to do as SQLite already active in mapset
     # still rm dbf/ dir, but only when empty (GRASS GIS vars from g.gisenv above)
-    [ "$(ls -A ${GISDBASE}/${LOCATION_NAME}/${MAPSET}/dbf 2>&1 /dev/null)" ] || rmdir ${GISDBASE}/${LOCATION_NAME}/${MAPSET}/dbf
+    [ "$(ls -A ${GISDBASE}/${LOCATION_NAME}/${MAPSET}/dbf /dev/null 2>&1)" ] || rmdir ${GISDBASE}/${LOCATION_NAME}/${MAPSET}/dbf
     g.message message="DBF driver not active in <${LOCATION_NAME}/${MAPSET}> (DB driver <$driver> found)"
     g.message message="Skipping this mapset..."
     exit 0
@@ -71,11 +70,10 @@ else
     v.db.reconnect.all -cd
 
     # rm dbf/ dir, but only when empty (GRASS GIS vars from g.gisenv above)
-    [ "$(ls -A ${GISDBASE}/${LOCATION_NAME}/${MAPSET}/dbf 2>&1 /dev/null)" ] || rmdir ${GISDBASE}/${LOCATION_NAME}/${MAPSET}/dbf
+    [ "$(ls -A ${GISDBASE}/${LOCATION_NAME}/${MAPSET}/dbf /dev/null 2>&1)" ] || rmdir ${GISDBASE}/${LOCATION_NAME}/${MAPSET}/dbf
 fi
 
 exit 0
-
 
 ## test all vector maps in a mapset individually:
 # g.list type=vector mapset=. ; VECTMAPLIST=$(g.list type=vector mapset=.) ; eval $(g.gisenv) ; for VECTMAP in $VECTMAPLIST ; do v.db.connect -g $VECTMAP@$MAPSET  | cut -d'|' -f5 | grep sqlite > /dev/null || echo "$VECTMAP@$MAPSET is not DBF connected" ; done
