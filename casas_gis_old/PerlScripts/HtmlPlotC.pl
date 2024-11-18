@@ -2,7 +2,8 @@
 # Script that plots histograms produced by
 # d.histogram and puts .png outputs in a HTML page
 
-# Author: Luigi Ponti
+# Author: Luigi Ponti quartese gmail.com
+# COPYRIGHT: (c) 2008 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 16 January 2008
 

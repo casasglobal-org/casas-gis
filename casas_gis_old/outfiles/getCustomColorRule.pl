@@ -5,7 +5,8 @@
 # Can use any combination of colors.
 # The central color may be placed at an arbitrary value ($scaleCenter).
 
-# Author: Luigi Ponti
+# Author: Luigi Ponti quartese gmail.com
+# COPYRIGHT: (c) 2010 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 29 June 2010
 

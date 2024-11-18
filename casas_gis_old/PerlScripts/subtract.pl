@@ -13,8 +13,10 @@ use strict;
 #           
 #
 # COPYRIGHT:    (c) 2008 Luigi Ponti, quartese at gmail.com
+#                   CASAS (Center for the Analysis of Sustainable
+#                   Agricultural Systems, https://www.casasglobal.org/)
 #
-#		        SPDX-License-Identifier: GPL-2.0-or-later
+#                   SPDX-License-Identifier: GPL-2.0-or-later
 #
 #############################################################################
 

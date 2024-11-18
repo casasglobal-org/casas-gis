@@ -7,7 +7,8 @@
 # To run it from 64-SVN DOS text, please enter
 # "%GRASS_SH%" batch_oliveProtheusWin.sh
 #
-# Author: Luigi Ponti
+# Author: Luigi Ponti quartese gmail.com
+# COPYRIGHT: (c) 2012 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 10 March 2012
 

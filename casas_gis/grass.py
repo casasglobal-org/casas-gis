@@ -7,7 +7,7 @@
 # a set of bash shell scripts originally developed by Luigi Ponti starting
 # in 2005 at University of California, Berkeley.
 #
-# Copyright (c) 2005-2022 Luigi Ponti and CASAS Global
+# Copyright (c) 2005-2022 Luigi Ponti quartese gmail.com and CASAS Global
 # (Center for the Analysis of Sustainable Agricultural Systems Global
 # http://www.casasglobal.org/).
 #

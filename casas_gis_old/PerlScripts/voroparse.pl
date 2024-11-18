@@ -3,7 +3,8 @@
 # of Voronoi polygons containing zero value points
 # to a formula suitable for use in GRASS v.extract
 
-# Author: Luigi Ponti
+# Author: Luigi Ponti quartese gmail.com
+# COPYRIGHT: (c) 2006 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 4 Aprile 2006
 

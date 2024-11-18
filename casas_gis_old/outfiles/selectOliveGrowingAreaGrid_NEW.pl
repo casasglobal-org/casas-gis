@@ -1,7 +1,8 @@
 #!/usr/bin/perl -w
 # Script that removes lines with a certain regex by writing
 
-# Author: Luigi Ponti
+# Author: Luigi Ponti quartese gmail.com
+# COPYRIGHT: (c) 2010 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 27 November 2010
 

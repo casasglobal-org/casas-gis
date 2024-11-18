@@ -4,7 +4,8 @@
 # The part that prints years for legend has been
 # transferred to a printYear.pl script (NOTE).
 
-# Author: Luigi Ponti
+# Author: Luigi Ponti quartese gmail.com
+# COPYRIGHT: (c) 2006 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 2 March 2006
 

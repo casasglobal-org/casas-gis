@@ -6,7 +6,8 @@
 # The central color may be placed at an arbitrary value ($scaleCenter).
 # getBoxplotColorRule.pl whiskerLow whiskerHigh absMin absMax zeroCentered(divNo|divYes) rasterMapName
 
-# Author: Luigi Ponti
+# Author: Luigi Ponti quartese gmail.com
+# COPYRIGHT: (c) 2013 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 14 October 2013
 
