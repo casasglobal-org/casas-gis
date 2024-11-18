@@ -3,6 +3,9 @@
 # Usage: perl fileNewName.pl perlexpr [files]
 # Example: fileRename2.pl "s/med//" *.txt
 
+# Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
+
 use File::Glob qw(:glob);
 
 ($regexp = shift @ARGV) || die "Usage:  rename perlexpr [filenames]\n";

@@ -3,7 +3,9 @@
 # for proper input selection in the GRASS parser.
 # The part that prints years for legend has been
 # transferred to a printYear.pl script (NOTE).
+
 # Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 2 March 2006
 
 use strict;

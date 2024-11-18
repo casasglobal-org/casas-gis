@@ -1,4 +1,7 @@
 @echo off
+REM Author: Luigi Ponti
+REM SPDX-License-Identifier: GPL-2.0-or-later
+
 REM ~ Glynn Clements's suggestion:
 REM ~ If you start MSys via the msys.bat it will set PATH, but it will also
 REM ~ run in an rxvt Window, which is rather unreliable.

@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Date: 
+
 cd ~/outfiles/
 echo
 echo 'Please move files you want to convert into the "outfiles" folder,'

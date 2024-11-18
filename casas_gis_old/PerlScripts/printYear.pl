@@ -1,7 +1,9 @@
 #!/usr/bin/perl -w
 # Script that prints analysis years to a file according to
 # GRASS parser input for use in legend.
+
 # Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 2 March 2006
 
 use strict;

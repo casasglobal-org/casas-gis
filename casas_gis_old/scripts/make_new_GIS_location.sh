@@ -2,6 +2,9 @@
 
 #~ US-GIS
 
+# Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
+
 #~ Rasters:
 #~ US_dem US_conterm_60_315_10 natural_earth_color.composite
 

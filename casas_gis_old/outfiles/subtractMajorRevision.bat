@@ -1,5 +1,8 @@
+REM Author: Luigi Ponti
+REM SPDX-License-Identifier: GPL-2.0-or-later
+
 REM Make difference files for MedOlive major revision manuscript
-REM 16 December 2011, Luigi Ponti.
+REM Date: 16 December 2011
 
 :: ERA40 no fly
 perl SubtractOutput.pl "" Olive_08dic11_Avg_ERA40_pl2_noFly.txt Olive_08dic11_Avg_ERA40_obs_noFly.txt Olive_08dic11_Avg_ERA40_Delta_noFly.txt

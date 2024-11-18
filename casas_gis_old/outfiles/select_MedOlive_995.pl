@@ -2,6 +2,7 @@
 # Script that removes lines with a certain regex by writing
 
 # Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 14 December 2011
 
 # select_MedOlive_995.pl

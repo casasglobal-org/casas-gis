@@ -16,8 +16,9 @@
 # It expects (and colls) Perl script getBoxplotColorRule.pl
 # to be in the same directory
 #
-# Luigi Ponti, 11 October 2013
-#
+# Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Date: 11 October 2013
 
 #~ cotton_harea_175crops2000_india
 #~ cotton_area_irrig_fraction_M3

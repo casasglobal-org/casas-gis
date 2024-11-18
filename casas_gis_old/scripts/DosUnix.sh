@@ -1,6 +1,10 @@
 #!/bin/bash
 # set -x
 # Convert windows text file to a Unix text file.
+
+# Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
+
 cd ~/outfiles/
 
 echo ""

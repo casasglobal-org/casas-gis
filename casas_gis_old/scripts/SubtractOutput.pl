@@ -5,6 +5,7 @@
 # to use files with the same number of rows & columns.
 
 # Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 22 January 2008
 
 # Syntax:

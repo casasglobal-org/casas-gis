@@ -5,7 +5,9 @@
 # To run it from 64-SVN DOS text, please e
 # "%GRASS_SH%" batch_oliveProtheusWin.sh
 #
-# Luigi Ponti, 17 November 2011
+# Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Date: 17 November 2011
 #
 
 #~ The following column names were found:

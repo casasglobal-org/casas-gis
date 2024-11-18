@@ -2,8 +2,9 @@
 #
 # Batch run medPresentClimate CASAS GIS
 #
-# Luigi Ponti, 17 March 2010
-#
+# Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Date: 17 March 2010
 
 #~ 1. Model
 #~ 2. Date

@@ -1,5 +1,8 @@
 # Code notebook for Naples 2013.
 
+# Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
+
 # Set working directory.
 setwd("H:\\maxtor_mirror\\pending papers\\OliveFly_Desertification\\SPA-IntConference-Naples2013")
 

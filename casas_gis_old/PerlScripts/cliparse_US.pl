@@ -5,6 +5,7 @@
 # column name, and input and output files can be specified.
 
 # Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 26 January 2010
 
 use strict;

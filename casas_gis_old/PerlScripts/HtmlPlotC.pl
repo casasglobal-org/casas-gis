@@ -1,7 +1,9 @@
 #!/usr/bin/perl -w
 # Script that plots histograms produced by
 # d.histogram and puts .png outputs in a HTML page
+
 # Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 16 January 2008
 
 # Read Directory where maps are saved and

@@ -3,6 +3,9 @@ use strict;
 
 # g.parser demo script
 
+# Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
+
 # %Module
 # % description: g.parser test script (perl)
 # % keywords: keyword1, keyword2

@@ -3,10 +3,10 @@
 # of colors and the range of data.
 
 # Can use any combination of colors.
-
 # The central color may be placed at an arbitrary value ($scaleCenter).
 
 # Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 29 June 2010
 
 use strict;

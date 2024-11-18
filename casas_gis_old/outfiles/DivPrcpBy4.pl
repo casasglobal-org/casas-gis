@@ -8,6 +8,7 @@
 # compilation.
 
 # Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 3 June 2010
 
 # Syntax:

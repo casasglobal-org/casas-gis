@@ -1,7 +1,9 @@
 #!/usr/bin/perl -w
 # Script that transform a string containing ET0 regions
 # to a formula suitable for use in GRASS clipping
+
 # Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 10 January 2006
 
 use strict;

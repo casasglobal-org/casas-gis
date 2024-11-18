@@ -7,6 +7,7 @@
 # if quoting is necessary. Number or string.
 
 # Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 26 January 2010
 
 use strict;

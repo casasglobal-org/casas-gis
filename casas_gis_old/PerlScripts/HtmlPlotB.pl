@@ -1,7 +1,9 @@
 #!/usr/bin/perl -w
 # Script that plots overall raster statistics
 # using gnuplot and puts .png outputs in a HTML page
+
 # Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 20 September 2006
 
 # Read Directory where maps are saved and

@@ -6,6 +6,7 @@
 # lineRmove.pl being actrually sea location).
 
 # Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 3 July 2010
 
 use strict;

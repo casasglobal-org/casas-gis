@@ -3,7 +3,9 @@
 # and coefficient of variation. Let us have statistical software
 # compute the statistics.
 
-# Luigi Ponti quartese at gmail.com 7 April 2010
+# Author: Luigi Ponti quartese at gmail.com
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Date: 10 April 2010
 
 # Updated 13 November 2010: fixedPart <- aggregate
 # replace by a simple array selction by rows and cols.

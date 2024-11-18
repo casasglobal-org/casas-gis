@@ -5,6 +5,7 @@
 # This version accept outfiles names such as as "Olive-02Mar06-00003.txt".
 
 # Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 13 April 2006
 
 use strict;

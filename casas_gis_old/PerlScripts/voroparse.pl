@@ -2,7 +2,9 @@
 # Script that transforms a string with categories
 # of Voronoi polygons containing zero value points
 # to a formula suitable for use in GRASS v.extract
+
 # Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 4 Aprile 2006
 
 use strict;

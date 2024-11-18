@@ -3,12 +3,11 @@
 # of colors and the range of data.
 
 # Can use any combination of colors.
-
 # The central color may be placed at an arbitrary value ($scaleCenter).
-
 # getBoxplotColorRule.pl whiskerLow whiskerHigh absMin absMax zeroCentered(divNo|divYes) rasterMapName
 
 # Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 14 October 2013
 
 use strict;

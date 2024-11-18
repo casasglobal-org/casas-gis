@@ -2,7 +2,9 @@
 #
 # Batch run mediterraneo CASAS GIS
 #
-# Luigi Ponti, 10 July 2009
+# Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Date: 10 July 2009
 #
 
 #~ 12. dd

@@ -1,3 +1,17 @@
+#!/usr/bin/env python3
+#
+# AUTHOR(S):    Luigi Ponti quartese gmail com
+#
+# PURPOSE:      
+#
+# NOTE:         
+#
+# COPYRIGHT:    (c) 2021-2024 CASAS (Center for the Analysis
+#                   of Sustainable Agricultural Systems).
+#                   https://www.casasglobal.org/).
+#
+#               SPDX-License-Identifier: GPL-3.0-or-later
+
 # Clenaup routine?
 # See https://grasswiki.osgeo.org/wiki/Converting_Bash_scripts_to_Python
 

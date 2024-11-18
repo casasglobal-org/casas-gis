@@ -5,8 +5,9 @@
 # To run it from 64-SVN DOS text, please e
 # "%GRASS_SH%" batch_india_cotton.sh
 #
-# Luigi Ponti, 7 October 2013
-#
+# Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Date: 7 October 2013
 
 #~ The following column names were found:
 

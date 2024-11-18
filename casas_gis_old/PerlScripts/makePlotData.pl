@@ -3,6 +3,7 @@
 # puts it in a form suitable to produce a plot.
 
 # Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 15 September 2006
 
 use strict;

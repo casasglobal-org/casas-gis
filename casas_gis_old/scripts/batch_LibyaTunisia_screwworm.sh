@@ -5,8 +5,9 @@
 # To run it from 64-SVN DOS text, please e
 # "%GRASS_SH%" batch_LibyaTunisia_screwworm.sh
 #
-# Luigi Ponti, 18 June 2012
-#
+# Author: Luigi Ponti
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Date: 18 June 2012
 
 #~ The following column names were found:
 
