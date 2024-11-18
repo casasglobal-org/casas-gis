@@ -2,7 +2,7 @@
 # Script that removes lines with a certain regex by writing
 
 # Author: Luigi Ponti quartese gmail.com
-# COPYRIGHT: (c) 2011 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
+# Copyright: (c) 2011 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 14 December 2011
 

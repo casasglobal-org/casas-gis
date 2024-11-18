@@ -11,7 +11,7 @@
 #               - removes empty dbf/ directory
 # REQUIREMENTS: patched v.db.reconnect.all.py (fatal -> warning),
 #               see v.db.reconnect.all.py.diff
-# COPYRIGHT:    (C) 2024 by Markus Neteler and the GRASS Development Team
+# Copyright:    (C) 2024 by Markus Neteler and the GRASS Development Team
 #
 #		        SPDX-License-Identifier: GPL-2.0-or-later
 #

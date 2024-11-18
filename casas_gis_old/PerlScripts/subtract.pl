@@ -12,7 +12,7 @@ use strict;
 # NOTE:
 #           
 #
-# COPYRIGHT:    (c) 2008 Luigi Ponti, quartese at gmail.com
+# Copyright:    (c) 2008 Luigi Ponti, quartese at gmail.com
 #                   CASAS (Center for the Analysis of Sustainable
 #                   Agricultural Systems, https://www.casasglobal.org/)
 #

@@ -6,7 +6,7 @@
 #
 # NOTE:         
 #
-# COPYRIGHT:    (c) 2021-2024 CASAS (Center for the Analysis
+# Copyright:    (c) 2021-2024 CASAS (Center for the Analysis
 #                   of Sustainable Agricultural Systems).
 #                   https://www.casasglobal.org/).
 #

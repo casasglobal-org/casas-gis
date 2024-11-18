@@ -7,7 +7,7 @@
 # AUTHOR(S):  Markus Neteler
 # PURPOSE:    converts all mapsets in current directory tree from
 #             old DBF-based GRASS GIS vector maps to SQLite DB
-# COPYRIGHT:  (C) 2024 by Markus Neteler and the GRASS Development Team
+# Copyright:  (C) 2024 by Markus Neteler and the GRASS Development Team
 #
 #		      SPDX-License-Identifier: GPL-2.0-or-later
 #

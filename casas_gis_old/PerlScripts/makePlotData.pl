@@ -3,7 +3,7 @@
 # puts it in a form suitable to produce a plot.
 
 # Author: Luigi Ponti quartese gmail.com
-# COPYRIGHT: (c) 2006 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
+# Copyright: (c) 2006 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 15 September 2006
 

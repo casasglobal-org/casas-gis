@@ -12,7 +12,7 @@
 #               location into a new one. Data can be copied or extracted
 #		        in current or original resolution and region extent.
 #
-# COPYRIGHT:    (C) 2002-2012 by the GRASS Development Team
+# Copyright:    (C) 2002-2012 by the GRASS Development Team
 #
 #               SPDX-License-Identifier: GPL-2.0-or-later
 #

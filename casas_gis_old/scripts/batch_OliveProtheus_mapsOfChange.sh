@@ -3,7 +3,7 @@
 # Batch run medPresentClimate CASAS GIS
 #
 # Author: Luigi Ponti quartese gmail.com
-# COPYRIGHT: (c) 2010 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
+# Copyright: (c) 2010 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 17 March 2010
 

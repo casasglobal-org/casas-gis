@@ -10,7 +10,7 @@
 #               - raster_convert_all_mapsets_G6_G8.sh
 #                  - GRASS GIS and within r.support.stats.all.sh
 # REQUIREMENTS: patched version of v.db.reconnect.all.py (fatal -> warning)
-# COPYRIGHT:    (C) 2024 by Markus Neteler and the GRASS Development Team
+# Copyright:    (C) 2024 by Markus Neteler and the GRASS Development Team
 #
 #		        SPDX-License-Identifier: GPL-2.0-or-later
 #

@@ -5,7 +5,7 @@
 # This version accept outfiles names such as as "Olive_02Mar06_00003.txt".
 
 # Author: Luigi Ponti quartese gmail.com
-# COPYRIGHT: (c) 2006 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
+# Copyright: (c) 2006 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 2 February 2006
 

@@ -6,7 +6,7 @@
 # "C:\Program Files (x86)\GRASS GIS 6.4.4\msys\bin\sh.exe" batch_coffee_colombia.sh
 #
 # Author: Luigi Ponti quartese gmail.com
-# COPYRIGHT: (c) 2019 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
+# Copyright: (c) 2019 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 02 October 2019
 

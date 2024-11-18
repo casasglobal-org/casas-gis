@@ -6,7 +6,7 @@
 #             called by process_grass6data_casas.sh
 # AUTHOR(S):  Markus Neteler
 # PURPOSE:    updates raster statistics
-# COPYRIGHT:  (C) 2024 by Markus Neteler and the GRASS Development Team
+# Copyright:  (C) 2024 by Markus Neteler and the GRASS Development Team
 #
 #		      SPDX-License-Identifier: GPL-2.0-or-later
 #

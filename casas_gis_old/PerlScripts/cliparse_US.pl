@@ -5,7 +5,7 @@
 # column name, and input and output files can be specified.
 
 # Author: Luigi Ponti quartese gmail.com
-# COPYRIGHT: (c) 2010 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
+# Copyright: (c) 2010 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 26 January 2010
 
