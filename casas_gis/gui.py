@@ -1,3 +1,18 @@
+#!/usr/bin/env python3
+#
+# AUTHOR(S):    Luigi Ponti quartese gmail com
+#
+# PURPOSE:      
+#
+# NOTE:         
+#
+# Copyright:    (c) 2021-2024 CASAS (Center for the Analysis
+#                   of Sustainable Agricultural Systems).
+#                   https://www.casasglobal.org/).
+#
+#               SPDX-License-Identifier: GPL-3.0-or-later
+
+
 # %Module
 # %  description: CASAS GIS
 # %End

@@ -3,7 +3,7 @@
 #
 # MODULE:       d.col.names
 #
-# AUTHOR(S):    Luigi Ponti
+# AUTHOR(S):    Luigi Ponti quartese gmail.com
 #
 # PURPOSE:      Read column names from CASAS models output files.
 #
@@ -12,11 +12,10 @@
 #                       It requires outfiles in "Olive_02Mar06_00002.txt" style.
 #
 # COPYRIGHT:    (c) 2006 Luigi Ponti lponti@nature.berkeley.edu
+#                   CASAS (Center for the Analysis of Sustainable Agricultural
+#                   Systems, https://www.casasglobal.org/)
 #
-#		This program is free software under the GNU General Public
-#		License (>=v2). Read the file COPYING that comes with GRASS
-#		for details.
-#
+#                   SPDX-License-Identifier: GPL-2.0-or-later
 #
 #############################################################################
 

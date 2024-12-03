@@ -5,8 +5,10 @@
 # Run from Colombia shell with following command
 # "C:\Program Files (x86)\GRASS GIS 6.4.4\msys\bin\sh.exe" batch_coffee_colombia.sh
 #
-# Luigi Ponti, 02 October 2019
-#
+# Author: Luigi Ponti quartese gmail.com
+# Copyright: (c) 2019 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Date: 02 October 2019
 
 # NASA Panoply
 # "4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0"

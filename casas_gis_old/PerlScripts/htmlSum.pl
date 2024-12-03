@@ -1,6 +1,9 @@
 #!/usr/bin/perl -w
 # Script that writes a HTML visual summary for CASAS models
-# Author: Luigi Ponti
+
+# Author: Luigi Ponti quartese gmail.com
+# Copyright: (c) 2006 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 16 April 2006
 
 use strict;

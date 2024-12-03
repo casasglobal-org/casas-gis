@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# Author: Luigi Ponti quartese gmail.com
+# Copyright: (c) 2010 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
+# SPDX-License-Identifier: GPL-2.0-or-later
+
 cd ~/outfiles/
 echo
 echo 'Please move files you want to convert into the "outfiles" folder,'

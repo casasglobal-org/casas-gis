@@ -2,7 +2,9 @@
 # Script that takes the output of r.stats and
 # puts it in a form suitable to produce a plot.
 
-# Author: Luigi Ponti
+# Author: Luigi Ponti quartese gmail.com
+# Copyright: (c) 2006 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 15 September 2006
 
 use strict;

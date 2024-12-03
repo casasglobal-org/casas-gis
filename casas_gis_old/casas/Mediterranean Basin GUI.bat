@@ -1,4 +1,8 @@
 @echo off
+REM Author: Luigi Ponti quartese gmail.com
+REM Copyright: (c) 2010 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
+REM SPDX-License-Identifier: GPL-2.0-or-later
+
 REM ~ Glynn Clements's suggestion:
 REM ~ If you start MSys via the msys.bat it will set PATH, but it will also
 REM ~ run in an rxvt Window, which is rather unreliable.

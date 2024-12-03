@@ -4,7 +4,9 @@
 # in CASAS model outputs. NOTE: the script is supposed
 # to use files with the same number of rows & columns.
 
-# Author: Luigi Ponti
+# Author: Luigi Ponti quartese gmail.com
+# Copyright: (c) 2008 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 22 January 2008
 
 # Syntax:

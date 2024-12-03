@@ -3,6 +3,10 @@ use strict;
 
 # g.parser demo script
 
+# Author: Luigi Ponti quartese gmail.com
+# Copyright: (c) 2010 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
+# SPDX-License-Identifier: GPL-2.0-or-later
+
 # %Module
 # % description: g.parser test script (perl)
 # % keywords: keyword1, keyword2

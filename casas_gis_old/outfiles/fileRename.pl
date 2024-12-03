@@ -1,6 +1,9 @@
 #!/usr/bin/perl -w
 # http://ekawas.blogspot.com/2008/11/perl-script-to-rename-your-files.html
 
+# Authors: Edward Kawas, Luigi Ponti quartese gmail.com
+# SPDX-License-Identifier: GPL-2.0-or-later
+
 # e.g. 
 # for %v in (*.txt) do perl fileRename.pl -u "s/cln//g" "%v"
 

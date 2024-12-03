@@ -12,12 +12,11 @@ use strict;
 # NOTE:
 #           
 #
-# COPYRIGHT:    (c) 2008 Luigi Ponti, quartese at gmail.com
+# Copyright:    (c) 2008 Luigi Ponti, quartese at gmail.com
+#                   CASAS (Center for the Analysis of Sustainable
+#                   Agricultural Systems, https://www.casasglobal.org/)
 #
-#		This program is free software under the GNU General Public
-#		License (>=v2). Read the file COPYING that comes with GRASS
-#		for details.
-#
+#                   SPDX-License-Identifier: GPL-2.0-or-later
 #
 #############################################################################
 

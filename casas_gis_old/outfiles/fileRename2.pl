@@ -3,6 +3,10 @@
 # Usage: perl fileNewName.pl perlexpr [files]
 # Example: fileRename2.pl "s/med//" *.txt
 
+# Author: Luigi Ponti quartese gmail.com
+# Copyright: (c) 2010 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
+# SPDX-License-Identifier: GPL-2.0-or-later
+
 use File::Glob qw(:glob);
 
 ($regexp = shift @ARGV) || die "Usage:  rename perlexpr [filenames]\n";

@@ -7,7 +7,9 @@
 
 # The central color will get a zero value.
 
-# Author: Luigi Ponti
+# Author: Luigi Ponti quartese gmail.com
+# Copyright: (c) 2008 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 24 April 2008
 
 use strict;

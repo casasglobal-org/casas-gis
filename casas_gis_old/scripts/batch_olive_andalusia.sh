@@ -5,8 +5,10 @@
 # Run from Andalusia shell with following command
 # "C:\Program Files (x86)\GRASS GIS 6.4.4\msys\bin\sh.exe" batch_olive_andalusia.sh
 #
-# Luigi Ponti, 02 October 2019
-#
+# Author: Luigi Ponti quartese gmail.com
+# Copyright: (c) 2019 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Date: 02 October 2019
 
 # -r and -p flags are for raster stat report and histograms
 

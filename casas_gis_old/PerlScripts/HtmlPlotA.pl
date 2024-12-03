@@ -1,7 +1,10 @@
 #!/usr/bin/perl -w
 # Script that plots raster statistics by ecozones
 # using gnuplot and puts .png outputs in a HTML page
-# Author: Luigi Ponti
+
+# Author: Luigi Ponti quartese gmail.com
+# Copyright: (c) 2006 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 19 September 2006
 
 # Read Directory where maps are saved and
