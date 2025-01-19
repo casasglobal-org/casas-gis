@@ -85,7 +85,7 @@ if (@ARGV != 0)
     $max = <STDIN>;
     chomp($max);
 
-    print "Would you like to reverse the color order? (y/n)  ";
+    print "Would you like to reverse the color order? (y/n):  ";
     my $reverse = <STDIN>;
     chomp($reverse);
     if ($reverse eq "y")
@@ -93,10 +93,10 @@ if (@ARGV != 0)
         $reverseColors = "yes";
     }
 
-    print "Would you like to use percent values? (y/n)  ";
-    my $percent = <STDIN>;
-    chomp($percent);  
-    if ($percent eq "y")
+    print "Would you like to use percent values? (y/n):  ";
+    my $percent_y_n = <STDIN>;
+    chomp($percent_y_n);  
+    if ($percent_y_n eq "y")
     {
         $percent = 1
     }
