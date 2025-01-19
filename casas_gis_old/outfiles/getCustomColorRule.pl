@@ -11,7 +11,8 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 29 June 2010
 
-# Updated 2025-01-19: Interactive version that asks for user input.
+# Updated 2025-01-19: Interactive version that asks for user input when 
+# the script is called with any command line argument (e.g., -i).
 
 use strict;
 use Cwd;
