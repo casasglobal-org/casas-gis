@@ -14,20 +14,19 @@
 #                       type "Olive_02Mar06_00003.txt".
 #
 #				Updates:
-#				2020-06-05 Added ability to select countries in Central
-#						America (Belize, Guatemala, Honduras, El Salvador,
-#                       Nicaragua, Costa Rica, Panama) for use in the fruit
-#                       flies study). Uses a new projected location named
-#                       AEA_US_mex_central_america
-#
-#				Updates:
 #				2019-08-30 Added ability to use tomato (various extents)
 #						for clipping model output as a multiple choice
 #						option. Works for entire region or subset of
 #						countries.
+#				2020-06-05 Added ability to select countries in Central
+#						America (Belize, Guatemala, Honduras, El Salvador,
+#                       Nicaragua, Costa Rica, Panama) for use in the fruit
+#                       flies study). Uses a new projected location named
+#                       AEA_US_mex_central_america#
+#				2025-01-21 Added alflafa harvested area to the list of
+#                       crops for clipping model output.
 #
-#
-# Copyright:    (c) 2005-2020 CASAS (Center for the Analysis
+# Copyright:    (c) 2005-2025 CASAS (Center for the Analysis
 #                       of Sustainable Agricultural Systems
 #                       https://www.casasglobal.org/).
 #
@@ -210,8 +209,8 @@
 # %option
 # % key: crop
 # % type: string
-# % options: tomato_harvested,tomato_h_temperate,tomato_h_tropical,tomato_h_combined,none
-# % answer: tomato_h_combined
+# % options: tomato_harvested,tomato_h_temperate,tomato_h_tropical,tomato_h_combined,alfalfa_harvested,none
+# % answer: none
 # % description: Constrain output map to crop growing area (tomato_harvested = observed from www.earthstat.org, tomato_h_temperate = harvested and temperature-constrained temperate cultivars from www.fao.org/nr/gaez, tomato_h_tropical = harvested and temperature-constrained tropical cultivars, tomato_h_combined = the previous two combined, none = no crop constraint)
 # % required: yes
 # %end
@@ -588,7 +587,10 @@ elif [ "$CROP" == "tomato_h_tropical" ]; then
 elif [ "$CROP" == "tomato_h_combined" ]; then
     r.mapcalc 'ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_combined), US_dem, null())'
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
-# Use no mask for model output
+elif [ "$CROP" == "alfalfa_harvested" ]; then
+    r.mapcalc 'ElevMask = if ((EtoSelectMask && alfalfa_harvarea_usa_binary), US_dem, null())'
+    r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
+# No crop constraint
 elif [ "$CROP" == "none" ]; then
     r.mapcalc 'ElevMask = if (EtoSelectMask, US_dem, null())'
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
