@@ -24,8 +24,10 @@
 #						option. Works for entire region or subset of
 #						countries.
 #				2022-11-11 Added ability to save raster output as GeoTIFF.
+#				2025-01-21 Added alflafa harvested area to the list of
+#                       crops for clipping model output.
 #
-# Copyright:    (c) 2005-2019 CASAS (Center for the Analysis
+# Copyright:    (c) 2005-2025 CASAS (Center for the Analysis
 #                       of Sustainable Agricultural Systems
 #                       https://www.casasglobal.org/).
 #
@@ -137,7 +139,7 @@
 # % key: crop
 # % type: string
 # % answer: none
-# % options: grape, tomato_harvested,tomato_h_temperate,tomato_h_tropical,tomato_h_combined,none
+# % options: grape, tomato_harvested,tomato_h_temperate,tomato_h_tropical,tomato_h_combined,alfalfa_harvested,none
 # % description: Constrain output map to crop growing area (grape = grape growing area, tomato_harvested = observed from www.earthstat.org, tomato_h_temperate = harvested and temperature-constrained temperate cultivars from www.fao.org/nr/gaez, tomato_h_tropical = harvested and temperature-constrained tropical cultivars, tomato_h_combined = the previous two combined, none = no crop constraint)
 # % required: yes
 # %end
@@ -510,6 +512,9 @@ elif [ "$CROP" == "tomato_h_tropical" ]; then
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 elif [ "$CROP" == "tomato_h_combined" ]; then
     r.mapcalc 'ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_combined), Med_dem, null())'
+    r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
+elif [ "$CROP" == "alfalfa_harvested" ]; then
+    r.mapcalc 'ElevMask = if ((EtoSelectMask && alfalfa_harvarea_EurMedGrape_binary), US_dem, null())'
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 # No crop constraint
 elif [ "$CROP" == "none" ]; then
