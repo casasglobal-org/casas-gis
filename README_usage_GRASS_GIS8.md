@@ -14,7 +14,7 @@ PBDM scripts perform demographic modeling using GRASS GIS. With the update to GR
 
 GRASS GIS database for CASAS-PBDM (www.casasglobal.org) geospatial mapping and analysis:
 
-- download at <https://doi.org/10.5281/zenodo.14179438>
+- download `casas_gis_grass8data.zip` at <https://doi.org/10.5281/zenodo.14179438>
 
 ### Script Location
 
