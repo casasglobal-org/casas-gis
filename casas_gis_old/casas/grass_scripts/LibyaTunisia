@@ -412,7 +412,7 @@ g.mapset mapset=luigi location=latlong
 cd $DIRTMP
 for i in $(ls); do
     echo "importing $i ..."
-    v.in.ascii input=$i output=map$i fs='\t' x=1 y=2 z=0
+    v.in.ascii input=$i output=map$i separator='\t' x=1 y=2 z=0
     wait
 
     # Check for column type of parameter to map.
