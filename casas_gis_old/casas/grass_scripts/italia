@@ -23,8 +23,8 @@
 #############################################################################
 
 # %Module
-# %  description: Import and map the output of CASAS models for Italy
-# %  keywords: models
+# % description: Import and map the output of CASAS models for Italy
+# % keywords: models
 # %End
 
 # %option

@@ -35,8 +35,8 @@
 #############################################################################
 
 # %Module
-# %  description: Map the output of CASAS models for the conterminous United States, Mexico, and Central America
-# %  keywords: models
+# % description: Map the output of CASAS models for the conterminous United States, Mexico, and Central America
+# % keywords: models
 # %End
 
 # %option
