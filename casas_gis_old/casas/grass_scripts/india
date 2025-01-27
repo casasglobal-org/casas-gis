@@ -23,8 +23,8 @@
 #############################################################################
 
 # %Module
-# %  description: Map the output of CASAS models for India
-# %  keywords: models
+# % description: Map the output of CASAS models for India
+# % keywords: models
 # %End
 
 # %option
@@ -283,6 +283,9 @@ PERLSCRIPTS="${HOME}/PerlScripts"
 OUTFILES="${HOME}/outfiles"
 PALETTES="${HOME}/software/casas-gis/casas_gis_old/palettes"
 FONTDIR='C:\Windows\Fonts\'
+
+# Directory with temporary files (see convert.pl script).
+DIRTMP="$HOME/models_temp/"
 
 # Directory with temporary files (see convert.pl script).
 

@@ -41,8 +41,12 @@
 ############################################################################
 
 # %Module
-# %  description: Map and analyze the output of CASAS Global physiologically based demographic models (CASAS-PBDMs) for Andalusia provinces using GRASS GIS
-# %  keywords: MED-GOLD project, GRASS GIS, physiologically based demographic, models (PBDM), olive, agroecosystem analysis
+# % description: Map and analyze the output of CASAS Global physiologically based demographic models (CASAS-PBDMs) for Andalusia provinces using GRASS GIS
+# % keywords: MED-GOLD project
+# % keywords: GRASS GIS
+# % keywords: physiologically based demographic models (PBDM)
+# % keywords: olive
+# % keywords: agroecosystem analysis
 # %End
 
 # %option
@@ -277,6 +281,9 @@ PERLSCRIPTS="${HOME}/PerlScripts"
 OUTFILES="${HOME}/outfiles"
 PALETTES="${HOME}/software/casas-gis/casas_gis_old/palettes"
 FONTDIR='C:\Windows\Fonts\'
+
+# Directory with temporary files (see convert.pl script).
+DIRTMP="$HOME/models_temp/"
 
 # Directory with temporary files (see convert.pl script).
 
