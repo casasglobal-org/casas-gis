@@ -13,7 +13,7 @@
 #~ US_states_Mex world_bounds US_conterm_lakes_wwf
 
 # Change mapset
-g.mapset mapset=luigi2 location=AEA_US
+g.mapset mapset=luigi2 project=AEA_US
 
 # Copy rasters
 g.copy raster=US_dem@luigi,US_dem

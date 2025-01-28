@@ -35,7 +35,7 @@ divrule="$4" # i.e. divYes or divNo
 percent="$5" # i.e. 0 or 1 (is the var in % scale?)
 
 # Set location and mapset
-g.mapset mapset=$mapsetname location=$locationname
+g.mapset mapset=$mapsetname project=$locationname
 
 # Stats for boxplot from raster data.
 echo "# Raster statistics for raster $RasterMapName #" | tee ~/${RasterMapName}"_stats.txt"
