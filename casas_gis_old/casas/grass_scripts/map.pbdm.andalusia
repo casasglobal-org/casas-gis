@@ -958,7 +958,7 @@ cp ${OUTFILES}/*.txt ${OUTFILES}/$GIS_OPT_SAVEDIR/data/
 # Save various raster output files to GeoTIFF
 if [ "$GIS_FLAG_T" -eq 1 ]; then
     for raster_outfile in $(g.list raster pattern="MskdModPOS*"); do
-        r.out.gdal input=$raster_outfile output=${OUTFILES}/$GIS_OPT_SAVEDIR/data/${raster_outfile}.tif format=GTiff createopt=compress=lzw predictor=3
+        r.out.gdal input=$raster_outfile output=${OUTFILES}/$GIS_OPT_SAVEDIR/data/${raster_outfile}.tif format=GTiff createopt="COMPRESS=LZW,PREDICTOR=3,BIGTIFF=YES"
     done
 fi
 
