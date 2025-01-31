@@ -6,20 +6,20 @@
 #
 # AUTHOR(S):    Luigi Ponti lponti inbox com
 #
-# PURPOSE:      Import ASCII ouput files from CASAS models
-#                      to a GRASS monitor after interpolation and
-#                      save the map to an image file (currently png).
+# PURPOSE:      Import ASCII output files from CASAS models
+#               to a GRASS monitor after interpolation and
+#               save the map to an image file (currently png).
 #
 # NOTE:         This version supports outfiles with names of
-#                       type "Olive_02Mar06_00003.txt".
-#                       Voronoi part was reimplemented as in Mediterraneo
-#                       and flag -s removed because no longer used.
+#               type "Olive_02Mar06_00003.txt".
+#               Voronoi part was reimplemented as in Mediterraneo
+#               and flag -s removed because no longer used.
 #
-# Copyright:    (c) 2005-2012 CASAS (Center for the Analysis
-#                       of Sustainable Agricultural Systems).
-#                       https://www.casasglobal.org/).
+# Copyright:    (c) 2005-2012 CASAS Global (Center for the Analysis
+#               of Sustainable Agricultural Systems)
+#               https://www.casasglobal.org/).
 #
-#		        SPDX-License-Identifier: GPL-2.0-or-later
+#               SPDX-License-Identifier: GPL-2.0-or-later
 #
 ############################################################################
 
@@ -229,10 +229,10 @@
 # %end
 
 # Set some environmental variables
-PERLSCRIPTS="${HOME}/software/casas-gis/casas_gis_old/PerlScripts"
-OUTFILES="${HOME}/software/casas-gis/casas_gis_old/outfiles"
-PALETTES="${HOME}/software/casas-gis/casas_gis_old/palettes"
-FONTDIR='C:\Windows\Fonts\'
+export PERLSCRIPTS="${HOME}/software/casas-gis/casas_gis_old/PerlScripts"
+export OUTFILES="${HOME}/software/casas-gis/casas_gis_old/outfiles"
+export PALETTES="${HOME}/software/casas-gis/casas_gis_old/palettes"
+export FONTDIR='C:\Windows\Fonts\'
 
 # Directory with temporary files (see convert.pl script).
 DIRTMP="$HOME/models_temp/"
@@ -685,7 +685,7 @@ for i in $(ls); do
         d.legend -s map=MskdModPOS$i color=black lines=0 thin=1000 labelnum=5 at=6,11,20,80 # range=34.02170,2717.63107 # exclude outliers.
         # legend range relative to current map. Old horizontal legend location 10,13.5,10,90
 
-        # To excluede outliers from legend, the range=min,max option in d.legend
+        # To exclude outliers from legend, the range=min,max option in d.legend
         # needs to be enabled in the GIS script MedPresentClimate using
         # the two whiskers of the R box plot (see boxplot.stats() in R).
 
@@ -771,7 +771,7 @@ echo "($(date -R | tr -s ' ' ' '))" | tee -a "$SaveDir"/"${LEG1}${LEG2}".log
 # If flag -g is checked, output is a greyscale figure (no lakes)
 if [ "$GIS_FLAG_G" -eq 1 ]; then
     # Set png file for output.
-    GRASS_PNGFILE="$SaveDir"/WeatherStations.png
+    GRASS_PNGFILE="$SaveDir/WeatherStations.png"
     export GRASS_PNGFILE
     d.erase
 
@@ -865,7 +865,7 @@ cp ${OUTFILES}/*.txt ${OUTFILES}/$GIS_OPT_SAVEDIR/data/
 # Set default browser for HTML visual summary.
 GRASS_HTML_BROWSER=firefox.exe
 # Open HTML visual summary.
-firefox.exe "file:///C:/cygwin/home/andy/outfiles/$GIS_OPT_SAVEDIR/${LEG1}.html"
-#firefox "${OUTFILES}/$GIS_OPT_SAVEDIR/${LEG1}.html"
+$GRASS_HTML_BROWSER "file:///C:/cygwin/home/andy/outfiles/$GIS_OPT_SAVEDIR/${LEG1}.html"
+#$GRASS_HTML_BROWSER "${OUTFILES}/$GIS_OPT_SAVEDIR/${LEG1}.html"
 
 exit 0

@@ -975,15 +975,14 @@ cp ${OUTFILES}/*.txt ${OUTFILES}/$GIS_OPT_SAVEDIR/data/
 # Save various raster output files to GeoTIFF
 if [ "$GIS_FLAG_T" -eq 1 ]; then
     for raster_outfile in $(g.list raster pattern="MskdModPOS*"); do
-        r.out.gdal input=$raster_outfile output=${OUTFILES}/$GIS_OPT_SAVEDIR/data/${raster_outfile}.tif format=GTiff createopt=compress=lzw
-        predictor=3
+        r.out.gdal input=$raster_outfile output=${OUTFILES}/$GIS_OPT_SAVEDIR/data/${raster_outfile}.tif format=GTiff createopt=compress=lzw predictor=3
     done
 fi
 
 # Set default browser for HTML visual summary.
 GRASS_HTML_BROWSER=firefox.exe
 # Open HTML visual summary.
-firefox.exe "file:///C:/cygwin/home/andy/outfiles/$GIS_OPT_SAVEDIR/${LEG1}.html"
-#firefox "${OUTFILES}/$GIS_OPT_SAVEDIR/${LEG1}.html"
+$GRASS_HTML_BROWSER "file:///C:/cygwin/home/andy/outfiles/$GIS_OPT_SAVEDIR/${LEG1}.html"
+#$GRASS_HTML_BROWSER "${OUTFILES}/$GIS_OPT_SAVEDIR/${LEG1}.html"
 
 exit 0

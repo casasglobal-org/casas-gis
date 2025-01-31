@@ -7,31 +7,31 @@
 # AUTHOR(S):    Luigi Ponti quartese gmail com
 #
 # PURPOSE:      Import ASCII ouput files from CASAS models
-#                      to a GRASS monitor after interpolation and
-#                      save the map to an image file (currently png).
+#               to a GRASS monitor after interpolation and
+#               save the map to an image file (currently png).
 #
 # NOTE:         This version supports outfiles with names of
-#                       type "Olive_02Mar06_00003.txt".
+#               type "Olive_02Mar06_00003.txt".
 #
-#				Updates:
-#				2017-05-22 Added ability to zoom to a subset of countries
-#                       (or e.g., provinces), either with or without clipping
-#                       to crop growing extent.
-#				2019-08-30 Added ability to use tomato (or other crops)
-#						for clipping model output as a multiple choice
-#						option. Works for entire region or subset of
-#						countries.
-#				2019-09-28 Added ability to modify extent of crop growing
-#						area used for clipping model output based on a
-#						threshold for crop harvested area fraction above
-#                       which mapping will occur. Works for entire region
-#                       or subset of countries.
+#               Updates:
+#               2017-05-22 Added ability to zoom to a subset of countries
+#                          (or e.g., provinces), either with or without clipping
+#                          to crop growing extent.
+#               2019-08-30 Added ability to use tomato (or other crops)
+#                          for clipping model output as a multiple choice
+#                          option. Works for entire region or subset of
+#                          countries.
+#               2019-09-28 Added ability to modify extent of crop growing
+#                          area used for clipping model output based on a
+#                          threshold for crop harvested area fraction above
+#                          which mapping will occur. Works for entire region
+#                          or subset of countries.
 #
 # Copyright:    (c) 2005-2019 CASAS Global (Center for the Analysis
-#                       of Sustainable Agricultural Systems Global
-#                       https://www.casasglobal.org/).
+#               of Sustainable Agricultural Systems)
+#               https://www.casasglobal.org/).
 #
-#		        SPDX-License-Identifier: GPL-2.0-or-later
+#               SPDX-License-Identifier: GPL-2.0-or-later
 #
 ############################################################################
 
@@ -267,10 +267,10 @@
 # %end
 
 # Set some environmental variables
-PERLSCRIPTS="${HOME}/software/casas-gis/casas_gis_old/PerlScripts"
-OUTFILES="${HOME}/software/casas-gis/casas_gis_old/outfiles"
-PALETTES="${HOME}/software/casas-gis/casas_gis_old/palettes"
-FONTDIR='C:\Windows\Fonts\'
+export PERLSCRIPTS="${HOME}/software/casas-gis/casas_gis_old/PerlScripts"
+export OUTFILES="${HOME}/software/casas-gis/casas_gis_old/outfiles"
+export PALETTES="${HOME}/software/casas-gis/casas_gis_old/palettes"
+export FONTDIR='C:\Windows\Fonts\'
 
 # Directory with temporary files (see convert.pl script).
 DIRTMP="$HOME/models_temp/"
@@ -504,7 +504,7 @@ else
     g.region -a res=1000
 fi
 
-# Use various tomato growing areas for masking model output
+# Use various coffee growing areas for masking model output
 if [ "$CROP" == "coffee" ]; then
     r.mapcalc "ElevMask = if ((EtoSelectMask && coffee_HarvestedAreaFraction_colombia > $CROP_THRESHOLD), elevation_1KMmd_GMTEDmd_colombia, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
@@ -771,21 +771,21 @@ for i in $(ls); do
         # need to implement this by developing a raster with state categories
         # currently only works on output raster using 4 steps
         r.report -en map=colombia_departments,MskdModPOS$i units=k,c,p nsteps=4 | tee -a "$SaveDir"/$i.txt
-        echo "" | tee -a "$SaveDir"/$i.txt
-        echo "-------------------------------------------" | tee -a "$SaveDir"/$i.txt
-        echo "" | tee -a "$SaveDir"/$i.txt
-        echo "Raster univariate statistics:" | tee -a "$SaveDir"/$i.txt
-        echo "" | tee -a "$SaveDir"/$i.txt
-        r.univar map=MskdModPOS$i | tee -a "$SaveDir"/$i.txt
-        echo "" | tee -a "$SaveDir"/$i.txt
-        echo "-------------------------------------------" | tee -a "$SaveDir"/$i.txt
-        echo "" | tee -a "$SaveDir"/$i.txt
-        echo "Vector univariate statistics:" | tee -a "$SaveDir"/$i.txt
-        echo "" | tee -a "$SaveDir"/$i.txt
-        v.univar -e map=mapPos$i type=point column=$varType | tee -a "$SaveDir"/$i.txt
-        echo "" | tee -a "$SaveDir"/$i.txt
-        echo "-------------------------------------------" | tee -a "$SaveDir"/$i.txt
-        echo "" | tee -a "$SaveDir"/$i.txt
+        echo "" | tee -a "$SaveDir/$i.txt"
+        echo "-------------------------------------------" | tee -a "$SaveDir/$i.txt"
+        echo "" | tee -a "$SaveDir/$i.txt"
+        echo "Raster univariate statistics:" | tee -a "$SaveDir/$i.txt"
+        echo "" | tee -a "$SaveDir/$i.txt"
+        r.univar map=MskdModPOS$i | tee -a "$SaveDir/$i.txt"
+        echo "" | tee -a "$SaveDir/$i.txt"
+        echo "-------------------------------------------" | tee -a "$SaveDir/$i.txt"
+        echo "" | tee -a "$SaveDir/$i.txt"
+        echo "Vector univariate statistics:" | tee -a "$SaveDir/$i.txt"
+        echo "" | tee -a "$SaveDir/$i.txt"
+        v.univar -e map=mapPos$i type=point column=$varType | tee -a "$SaveDir/$i.txt"
+        echo "" | tee -a "$SaveDir/$i.txt"
+        echo "-------------------------------------------" | tee -a "$SaveDir/$i.txt"
+        echo "" | tee -a "$SaveDir/$i.txt"
         wait
         if [ "$mapcycle" -eq 1 ]; then
             echo 'There is no stat report for weather stations!' > "$SaveDir"/WeatherStations.txt
@@ -804,7 +804,7 @@ for i in $(ls); do
                 Plots=0
             fi
         fi
-        echo 'Sorry, no stat report was requested for this analysis.' > "$SaveDir"/$i.txt
+        echo 'Sorry, no stat report was requested for this analysis.' > "$SaveDir/$i.txt"
     fi
 
     # If flag -p is checked, then write .rep report files to be plotted.
@@ -812,7 +812,7 @@ for i in $(ls); do
         # Not working for now since G6 r.stats is buggy. -- check for G8
         #~ r.stats -anr input=MskdModPOS$i fs=tab nsteps=4 > "$SaveDir"/$i.tot
         #~ r.stats -anr input=regioni_istat,MskdModPOS$i fs=tab nsteps=4 > "$SaveDir"/$i.rep
-        GRASS_PNGFILE="$SaveDir"/"$i"-HIST.png
+        GRASS_PNGFILE="$SaveDir/$i-HIST.png"
         export GRASS_PNGFILE
         d.mon start=png
         d.erase
@@ -931,7 +931,7 @@ cp ${OUTFILES}/*.txt ${OUTFILES}/$GIS_OPT_SAVEDIR/data/
 # Set default browser for HTML visual summary.
 GRASS_HTML_BROWSER=firefox.exe
 # Open HTML visual summary.
-firefox.exe "file:///C:/cygwin/home/andy/outfiles/$GIS_OPT_SAVEDIR/${LEG1}.html"
-#firefox "${OUTFILES}/$GIS_OPT_SAVEDIR/${LEG1}.html"
+$GRASS_HTML_BROWSER "file:///C:/cygwin/home/andy/outfiles/$GIS_OPT_SAVEDIR/${LEG1}.html"
+#$GRASS_HTML_BROWSER "${OUTFILES}/$GIS_OPT_SAVEDIR/${LEG1}.html"
 
 exit 0
