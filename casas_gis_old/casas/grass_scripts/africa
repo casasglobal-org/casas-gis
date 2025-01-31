@@ -6,24 +6,24 @@
 #
 # AUTHOR(S):    Luigi Ponti quartese gmail com
 #
-# PURPOSE:      Import ASCII ouput files from CASAS models
-#                      to a GRASS monitor after interpolation and
-#                      save the map to an image file (currently png).
+# PURPOSE:      Import ASCII output files from CASAS models
+#               to a GRASS monitor after interpolation and
+#               save the map to an image file (currently png).
 #
 # NOTE:         This version supports outfiles with names of
-#                       type "Olive_02Mar06_00003.txt".
-#                       Voronoi part was reimplemented as in Mediterraneo
-#                       and flag -s removed because no longer used.
+#               type "Olive_02Mar06_00003.txt".
+#               Voronoi part was reimplemented as in Mediterraneo
+#               and flag -s removed because no longer used.
 #
-#				Updates:
-#				2022-11-24 (first release)
+#               Updates:
+#               2022-11-24 (first release)
 #               2024-07-26 Ability to clip for cassava crop area
 #
 # Copyright:    (c) 2005-2024 CASAS (Center for the Analysis
-#                       of Sustainable Agricultural Systems).
-#                       https://www.casasglobal.org/).
+#               of Sustainable Agricultural Systems)
+#               https://www.casasglobal.org/).
 #
-#		        SPDX-License-Identifier: GPL-2.0-or-later
+#               SPDX-License-Identifier: GPL-2.0-or-later
 #
 ############################################################################
 
@@ -251,10 +251,10 @@
 # %end
 
 # Set some environmental variables
-PERLSCRIPTS="${HOME}/software/casas-gis/casas_gis_old/PerlScripts"
-OUTFILES="${HOME}/software/casas-gis/casas_gis_old/outfiles"
-PALETTES="${HOME}/software/casas-gis/casas_gis_old/palettes"
-FONTDIR='C:\Windows\Fonts\'
+export PERLSCRIPTS="${HOME}/software/casas-gis/casas_gis_old/PerlScripts"
+export OUTFILES="${HOME}/software/casas-gis/casas_gis_old/outfiles"
+export PALETTES="${HOME}/software/casas-gis/casas_gis_old/palettes"
+export FONTDIR='C:\Windows\Fonts\'
 
 # Directory with temporary files (see convert.pl script).
 DIRTMP="$HOME/models_temp/"
