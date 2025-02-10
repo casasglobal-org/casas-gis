@@ -6,33 +6,33 @@
 #
 # AUTHOR(S):    Luigi Ponti quartese gmail com
 #
-# PURPOSE:      Import ASCII ouput files from CASAS models
-#                      to a GRASS monitor after interpolation and
-#                      save the map to an image file (currently png).
+# PURPOSE:      Import ASCII output files from CASAS models
+#               to a GRASS monitor after interpolation and
+#               save the map to an image file (currently png).
 #
 # NOTE:         This version supports outfiles with names of
-#                       type "Olive_02Mar06_00003.txt".
+#               type "Olive_02Mar06_00003.txt".
 #
-#				Updates:
-#				2019-08-30 Added ability to use tomato (various extents)
-#						for clipping model output as a multiple choice
-#						option. Works for entire region or subset of
-#						countries.
-#				2020-06-05 Added ability to select countries in Central
-#						America (Belize, Guatemala, Honduras, El Salvador,
-#                       Nicaragua, Costa Rica, Panama) for use in the fruit
-#                       flies study). Uses a new projected location named
-#                       AEA_US_mex_central_america#
-#				2025-01-21 Added alflafa harvested area to the list of
-#                       crops for clipping model output.
+#               Updates:
+#               2019-08-30 Added ability to use tomato (various extents)
+#                          for clipping model output as a multiple choice
+#                          option. Works for entire region or subset of
+#                          countries.
+#               2020-06-05 Added ability to select countries in Central
+#                          America (Belize, Guatemala, Honduras, El Salvador,
+#                          Nicaragua, Costa Rica, Panama) for use in the fruit
+#                          flies study). Uses a new projected location named
+#                          AEA_US_mex_central_america#
+#               2025-01-21 Added alflafa harvested area to the list of
+#                          crops for clipping model output.
 #
-# Copyright:    (c) 2005-2025 CASAS (Center for the Analysis
-#                       of Sustainable Agricultural Systems
-#                       https://www.casasglobal.org/).
+# Copyright:    (c) 2005-2025 CASAS Global (Center for the Analysis
+#               of Sustainable Agricultural Systems)
+#               https://www.casasglobal.org/).
 #
-#		        SPDX-License-Identifier: GPL-2.0-or-later
+#               SPDX-License-Identifier: GPL-2.0-or-later
 #
-#############################################################################
+############################################################################
 
 # %Module
 # % description: Map the output of CASAS models for the conterminous United States, Mexico, and Central America
@@ -154,7 +154,7 @@
 # %flag
 # % guisection: Color rules
 # % key: e
-# % description: Use histogram equalized color rule
+# % description: Use histogram-equalized color rule
 # %end
 
 # %flag
@@ -272,12 +272,15 @@
 # %end
 
 # Set some environmental variables
-PERLSCRIPTS="${HOME}/PerlScripts"
-OUTFILES="${HOME}/outfiles"
-PALETTES="${HOME}/software/casas-gis/casas_gis_old/palettes"
-FONTDIR="C:\Windows\Fonts\\"
+export PERLSCRIPTS="${HOME}/software/casas-gis/casas_gis_old/PerlScripts"
+export OUTFILES="${HOME}/software/casas-gis/casas_gis_old/outfiles"
+export PALETTES="${HOME}/software/casas-gis/casas_gis_old/palettes"
+export FONTDIR='C:\Windows\Fonts\'
 
 # Directory with temporary files (see convert.pl script).
+DIRTMP="$HOME/models_temp/"
+
+# export GRASS_OVERWRITE=1
 
 # export GRASS_VERBOSE=1
 
@@ -298,13 +301,13 @@ cleanup() {
     \rm -f ${OUTFILES}/max.txt
     \rm -f ${OUTFILES}/states.txt
     # Remove gis temp files in latlong location
-    g.mapset mapset=luigi location=latlong
+    g.mapset mapset=luigi project=latlong
     g.remove -f type=vector pattern="map*"
     # Remove gis temp files in mapping location
     if [ "$GIS_OPT_STATES" = 'HI' ]; then
-        g.mapset mapset=luigi location=AEA_Hawaii
+        g.mapset mapset=luigi project=AEA_Hawaii
     else
-        g.mapset mapset=luigi location=AEA_US_mex_central_america
+        g.mapset mapset=luigi project=AEA_US_mex_central_america
     fi
     g.remove -f type=vector pattern="voronoi*"
     g.remove -f type=vector pattern="selectedStates"
@@ -325,7 +328,7 @@ exitprocedure() {
     echo 'User break!' >&2
     cleanup
     echo 'Cleaning up temporary files...' >&2
-    d.mon stop=PNG
+    d.mon stop=png
     exit 1
 }
 
@@ -442,7 +445,6 @@ echo "$LON $LAT $PAR $YEAR" > ${OUTFILES}/inputPar.txt
 perl ${PERLSCRIPTS}/printYear.pl "$HOME"
 
 # Run a perl script that gets rid of column names
-#  (not supported in GRASS 6.0)
 perl ${PERLSCRIPTS}/convert.pl "$HOME"
 
 # Do we want to use the same legend range for all maps?
@@ -469,7 +471,7 @@ if [ "$GIS_FLAG_X" -eq 1 ]; then
 fi
 
 # Set environmental variables to import location.
-g.mapset mapset=luigi location=latlong
+g.mapset mapset=luigi project=latlong
 
 # Import model output table into a GRASS vector.
 cd $DIRTMP
@@ -487,9 +489,9 @@ done
 
 # Change to GRASS location where US maps are.
 if [ "$STATES" = 'HI' ]; then
-    g.mapset mapset=luigi location=AEA_Hawaii
+    g.mapset mapset=luigi project=AEA_Hawaii
 else
-    g.mapset mapset=luigi location=AEA_US_mex_central_america
+    g.mapset mapset=luigi project=AEA_US_mex_central_america
 fi
 
 # Transform dummy value for conterminous US.
@@ -599,26 +601,32 @@ fi
 # Write header in the log file.
 echo "This log reports names of input files used for analysis:" | tee -a "$SaveDir"/"${LEG1}".log
 
-# Retrieve range min and max values for possible use in legend drawing. Maybe check if the files exists...
+# Retrieve range min and max values for possible use in legend drawing.
+# Maybe check if the files exists...
 min=$(cat ${OUTFILES}/min.txt)
 max=$(cat ${OUTFILES}/max.txt)
 
 # Set size of output image.
 cd $DIRTMP
 eval $(g.region -g)
-export GRASS_WIDTH=$((cols * FIGRES))
-export GRASS_HEIGHT=$(((rows * 137 * FIGRES) / 100))
-export GRASS_PNG_READ=TRUE
-export GRASS_RENDER_IMMEDIATE=TRUE
-export GRASS_TRUECOLOR=TRUE
+# https://grass.osgeo.org/grass-stable/manuals/variables.html#list-of-selected-grass-environment-variables-for-rendering
+# https://grass.osgeo.org/grass-stable/manuals/pngdriver.html
+export GRASS_RENDER_FILE_READ=TRUE
+export GRASS_RENDER_WIDTH=$((cols * FIGRES))
+# export GRASS_RENDER_HEIGHT=$(( ( rows + 360  ) * FIGRES ))
+export GRASS_RENDER_HEIGHT=$(((rows * 137 * FIGRES) / 100))
+### export GRASS_RENDER_IMMEDIATE=cairo  # or: png, or: d.mon png, used below
+export GRASS_RENDER_TRUECOLOR=TRUE
+
 # Choose a font for figure text.
-export GRASS_FONT='arial'
+export GRASS_FONT='arial'   # the full path to a FreeType font file
+
 mapcycle=1 # this is just a counter
 # Start interpolation process.
 for i in $(ls); do
     # Reproject imported model vectors to current location.
     echo "reprojecting map$i ..."
-    v.proj input=map$i location=latlong mapset=luigi output=map$i
+    v.proj input=map$i project=latlong mapset=luigi output=map$i
 
     # Add a column to vector containing altitudes uploaded from raster DEM.
     v.db.addcol map=map$i columns="elevation INT"
@@ -682,7 +690,7 @@ for i in $(ls); do
         # v.to.rast may be appropriate with PROTHEUS data.
         v.surf.idw -n input=mapPos$i output=interpol$i npoints=$PNTS layer=1 col=$varType # Removed -n flag
     else
-        # http://osgeo-org.1803224.n2.nabble.com/Raster-surface-from-regularly-spaced-points-tp4597143p4597375.html
+        # https://lists.osgeo.org/pipermail/grass-user/2010-February/054868.html
         v.surf.bspline input=mapPos$i raster=interpolRaw$i sie=46000 sin=46000 method=bicubic lambda_i=0.01 layer=1 column=$varType
 
         # Constrain interpolated raster within max-min from vector input
@@ -709,7 +717,8 @@ for i in $(ls); do
     # Set png file for output.
     GRASS_PNGFILE="$SaveDir"/"$i".png
     export GRASS_PNGFILE
-    d.erase color=white
+    d.mon start=png
+    d.erase
 
     # Remove voronoi-related stuff.
     \rm -f ${OUTFILES}/voronoi*.txt
@@ -806,13 +815,13 @@ for i in $(ls); do
                 fi
             fi
         fi
-        # Overalay model raster to a shaded relief and add state
+        # Overlay model raster to a shaded relief and add state
         # boundaries, weather stations, etc.
         # 1) Apply USraster MASK
         # 2) r.neighbors 7x7 window with circular neighborood (i.e. -c flag) on the original DEM
         # [ 3) r.mapcalc "US_dem_resolution_bumped = (US_dem * 0.1) + (US_dem_7x7_smooth * 0.9)" ]
         # (this is supposed to make the shaded relief a bit less fuzzy -- step 3 NOT implemented here)
-        # r.shaded.releif 60/315/10 - done following an idea
+        # r.shaded.relief 60/315/10 - done following an idea
         # from http://www.pdcarto.com/mtncarto02/GRASS.htm
         # https://mountaincartography.icaci.org/mt_hood/pdfs/dunlavey2.pdf
 
@@ -862,7 +871,8 @@ for i in $(ls); do
     else
         d.legend -s map=MskdModPOS$i color=black lines=0 thin=1000 labelnum=5 at=6,10,20,80
         # legend range relative to current map. Old horizontal legend location 10,13.5,10,90
-        # To excluede outliers from legend, the range=min,max option in d.legend
+
+        # To exclude outliers from legend, the range=min,max option in d.legend
         # needs to be enabled in the GIS script MedPresentClimate using
         # the two whiskers of the R box plot (see boxplot.stats() in R).
     fi
@@ -870,7 +880,7 @@ for i in $(ls); do
     # by adding: "use=1000,100,10,0,-10,-100,-1000".
 
     # Display scale bar.
-    # d.barscbarscale -l at=50,7
+    # d.barscale at=50,7
 
     # Display true type font text in the legend (at x-y, lower-left coordinates).
     echo "$LEG1" > ${OUTFILES}/legend1.txt
@@ -882,7 +892,7 @@ for i in $(ls); do
     d.text size=3 color=black at=5,94 input=${OUTFILES}/legend1$mapcycle.txt
 
     # Save display to .png file.
-    d.mon stop=PNG
+    d.mon stop=png
 
     # Write a log with names of input files.
     echo "$i" | tee -a "$SaveDir"/"${LEG1}".log
@@ -901,21 +911,21 @@ for i in $(ls); do
         # e.g. from vector us_conterm_hawaii_mex_centr_am
         # currently only works on output raster using 4 steps
         r.report -en map=MskdModPOS$i units=k,c,p nsteps=4 | tee -a "$SaveDir"/$i.txt
-        echo "" | tee -a "$SaveDir"/$i.txt
-        echo "-------------------------------------------" | tee -a "$SaveDir"/$i.txt
-        echo "" | tee -a "$SaveDir"/$i.txt
-        echo "Raster univariate statistics:" | tee -a "$SaveDir"/$i.txt
-        echo "" | tee -a "$SaveDir"/$i.txt
-        r.univar map=MskdModPOS$i | tee -a "$SaveDir"/$i.txt
-        echo "" | tee -a "$SaveDir"/$i.txt
-        echo "-------------------------------------------" | tee -a "$SaveDir"/$i.txt
-        echo "" | tee -a "$SaveDir"/$i.txt
-        echo "Vector univariate statistics:" | tee -a "$SaveDir"/$i.txt
-        echo "" | tee -a "$SaveDir"/$i.txt
-        v.univar -e map=mapPos$i type=point column=$varType | tee -a "$SaveDir"/$i.txt
-        echo "" | tee -a "$SaveDir"/$i.txt
-        echo "-------------------------------------------" | tee -a "$SaveDir"/$i.txt
-        echo "" | tee -a "$SaveDir"/$i.txt
+        echo "" | tee -a "$SaveDir/$i.txt"
+        echo "-------------------------------------------" | tee -a "$SaveDir/$i.txt"
+        echo "" | tee -a "$SaveDir/$i.txt"
+        echo "Raster univariate statistics:" | tee -a "$SaveDir/$i.txt"
+        echo "" | tee -a "$SaveDir/$i.txt"
+        r.univar map=MskdModPOS$i | tee -a "$SaveDir/$i.txt"
+        echo "" | tee -a "$SaveDir/$i.txt"
+        echo "-------------------------------------------" | tee -a "$SaveDir/$i.txt"
+        echo "" | tee -a "$SaveDir/$i.txt"
+        echo "Vector univariate statistics:" | tee -a "$SaveDir/$i.txt"
+        echo "" | tee -a "$SaveDir/$i.txt"
+        v.univar -e map=mapPos$i type=point column=$varType | tee -a "$SaveDir/$i.txt"
+        echo "" | tee -a "$SaveDir/$i.txt"
+        echo "-------------------------------------------" | tee -a "$SaveDir/$i.txt"
+        echo "" | tee -a "$SaveDir/$i.txt"
         wait
         if [ "$mapcycle" -eq 1 ]; then
             echo 'There is no stat report for weather stations!' > "$SaveDir"/WeatherStations.txt
@@ -934,19 +944,20 @@ for i in $(ls); do
                 Plots=0
             fi
         fi
-        echo 'Sorry, no stat report was requested for this analysis.' > "$SaveDir"/$i.txt
+        echo 'Sorry, no stat report was requested for this analysis.' > "$SaveDir/$i.txt"
     fi
 
     # If flag -p is checked, then write .rep report files to be plotted.
     if [ "$GIS_FLAG_P" -eq 1 ]; then
-        # Not working for now since r.stats is buggy -- TO BE IMPLEMENTED IN R
+        # Not working for now since G6 r.stats is buggy. -- check for G8
         #~ r.stats -anr input=MskdModPOS$i fs=tab nsteps=4 > "$SaveDir"/$i.tot
         #~ r.stats -anr input=regioni_istat,MskdModPOS$i fs=tab nsteps=4 > "$SaveDir"/$i.rep
-        GRASS_PNGFILE="$SaveDir"/"$i"-HIST.png
+        GRASS_PNGFILE="$SaveDir/$i-HIST.png"
         export GRASS_PNGFILE
-        d.erase color=white
+        d.mon start=png
+        d.erase
         d.histogram map="MskdModPOS$i"
-        d.mon stop=PNG
+        d.mon stop=png
         # d.out.file output="$SaveDir"/"$i"-HIST res=$FIGRES format=png
         #~ d.out.file output="$SaveDir"/"$i"-HIST res=$FIGRES format=eps
     fi
@@ -981,7 +992,9 @@ if [ "$GIS_FLAG_G" -eq 1 ]; then
     # Set png file for output.
     GRASS_PNGFILE="$SaveDir"/WeatherStations.png
     export GRASS_PNGFILE
-    d.erase color=white
+    d.mon start=png
+    d.erase
+
     d.rast map=MSR_50M_land
     d.vect map=world_bounds type=boundary color=150:150:150 width=2
     d.vect map=us_conterm_hawaii_mex_centr_am type=boundary width=4
@@ -995,14 +1008,15 @@ if [ "$GIS_FLAG_G" -eq 1 ]; then
     d.grid -w size=5:0:0 origin=0,0 color=grey bordercolor=black textcolor=black fontsize=15
     #~ d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=png
     #~ d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=eps
-    d.barscale -s at=7,7
-    d.mon stop=PNG
+    d.barscale at=7,7
+    d.mon stop=png
 else
     # If flag -g is not checked, output is a color figure (with lakes)
     # Set png file for output.
     GRASS_PNGFILE="$SaveDir"/WeatherStations.png
     export GRASS_PNGFILE
-    d.erase color=white
+    d.mon start=png
+    d.erase
     r.mapcalc 'selectedStates.composite = if(selectedStatesRaster, natural_earth_color.composite, null())'
     r.colors map=selectedStates.composite raster=natural_earth_color.composite
     d.his i=MSR_50M_land h=selectedStates.composite
@@ -1022,9 +1036,9 @@ else
     #~ d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=eps
 
     # Display scale bar.
-    d.barscale -s at=7,7
+    d.barscale at=7,7
 
-    d.mon stop=PNG
+    d.mon stop=png
 fi
 
 # Set default value with no upper cutting point.
@@ -1041,7 +1055,7 @@ else
 fi
 
 # Write html pages.
-perl ${PERLSCRIPTS}/HtmlSum.pl "$SaveDir" "${LEG1}" "$PAR" "$CUT" "$HICUT" "$ALT" "$SurfCut" "$STATES" "$Plots"
+perl ${PERLSCRIPTS}/htmlSum.pl "$SaveDir" "${LEG1}" "$PAR" "$CUT" "$HICUT" "$ALT" "$SurfCut" "$STATES" "$Plots"
 # If flag -p is checked, then make barchart plots.
 if [ "$GIS_FLAG_P" -eq 1 ]; then
     #~ perl ${PERLSCRIPTS}/makePlotData.pl "$SaveDir"
@@ -1069,9 +1083,13 @@ fi
 mkdir -p ${OUTFILES}/$GIS_OPT_SAVEDIR/data/
 cp ${OUTFILES}/*.txt ${OUTFILES}/$GIS_OPT_SAVEDIR/data/
 
+# Perform final cleanup.
+#~ cleanup
+
 # Set default browser for HTML visual summary.
 GRASS_HTML_BROWSER=firefox.exe
 # Open HTML visual summary.
-firefox.exe "file:///C:/cygwin/home/andy/outfiles/$GIS_OPT_SAVEDIR/${LEG1}.html"
+$GRASS_HTML_BROWSER "file:///C:/cygwin/home/andy/outfiles/$GIS_OPT_SAVEDIR/${LEG1}.html"
+#$GRASS_HTML_BROWSER "${OUTFILES}/$GIS_OPT_SAVEDIR/${LEG1}.html"
 
 exit 0
