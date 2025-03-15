@@ -31,7 +31,7 @@ while (my $file = readdir(DIR))
                 close IN;
                 
                 # Print years to a text file.    
-                chdir ("$HomeDir");
+                chdir ("$models_dir");
                 my $file ="inputPar.txt";
                 open (IN, "<$file") or die "Can't open $file for reading: $!";
 
@@ -45,7 +45,7 @@ while (my $file = readdir(DIR))
                 close IN;
                 my $yearColumn = $inputs[3] - 1;
                 
-                chdir ("$HomeDir");                
+                chdir ("$models_dir");
                 my @columns = split(/\t/, $table[1]);
                 $years[$fileNumber-1] = $columns[$yearColumn];
                 my $output = "year$fileNumber.txt";
@@ -66,4 +66,3 @@ closedir DIR;
 #~ print OUTFILE join(" ", @years);
 #~ close OUTFILE;
 
-    

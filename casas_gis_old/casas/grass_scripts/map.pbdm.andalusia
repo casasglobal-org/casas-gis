@@ -277,9 +277,11 @@
 # %end
 
 # Set some environmental variables
-export PERLSCRIPTS="${HOME}/software/casas-gis/casas_gis_old/PerlScripts"
-export OUTFILES="${HOME}/software/casas-gis/casas_gis_old/outfiles"
-export PALETTES="${HOME}/software/casas-gis/casas_gis_old/palettes"
+export casas_soft="$HOME/software/casas-gis"
+export PERLSCRIPTS="${casas_soft}/casas_gis_old/PerlScripts"
+export OUTDIR="casas_gis_old"
+export OUTFILES="${casas_soft}/$OUTDIR/outfiles"
+export PALETTES="${casas_soft}/casas_gis_old/palettes"
 export FONTDIR='C:\Windows\Fonts\'
 
 # Directory with temporary files (see convert.pl script).
@@ -288,6 +290,8 @@ DIRTMP="$HOME/models_temp/"
 # export GRASS_OVERWRITE=1
 
 # export GRASS_VERBOSE=1
+
+cd ${casas_soft}
 
 # Cleanup routine.
 cleanup() {
@@ -337,7 +341,7 @@ exitprocedure() {
 trap 'exitprocedure' 1 2 3 9 15 SIGINT SIGABRT SIGILL SIGTERM
 
 # Print column names of model output files.
-perl ${PERLSCRIPTS}/printCols.pl "$HOME" > ${OUTFILES}/varList.txt
+perl ${PERLSCRIPTS}/printCols.pl "${OUTDIR}" > "${OUTFILES}"/varList.txt
 
 if [ "$1" != "@ARGS_PARSED@" ]; then
     exec g.parser "$0" "$@"
@@ -443,10 +447,10 @@ fi
 echo "$LON $LAT $PAR $YEAR" > ${OUTFILES}/inputPar.txt
 
 # Print years to text files for use in legend.
-perl ${PERLSCRIPTS}/printYear.pl "$HOME"
+perl ${PERLSCRIPTS}/printYear.pl "${OUTDIR}"
 
 # Run a perl script that gets rid of column names
-perl ${PERLSCRIPTS}/convertITA.pl "$HOME"
+perl ${PERLSCRIPTS}/convertITA.pl "${OUTDIR}"
 
 # Do we want to use the same legend range for all maps?
 if [ "$GIS_FLAG_X" -eq 1 ]; then
@@ -454,19 +458,19 @@ if [ "$GIS_FLAG_X" -eq 1 ]; then
     if [ "$GIS_FLAG_D" -eq 1 ]; then
         # Check if there is an upper cutting point set.
         if [ "$GIS_FLAG_U" -eq 1 ]; then
-            perl ${PERLSCRIPTS}/multiColorRule.pl "$HOME" "$RULE_DIV" "$CUT" "$HICUT" "divYes"
+            perl ${PERLSCRIPTS}/multiColorRule.pl "${OUTDIR}" "$RULE_DIV" "$CUT" "$HICUT" "divYes"
         # Otherwise just use the lower cutting point.
         elif [ "$GIS_FLAG_U" -eq 0 ]; then
-            perl ${PERLSCRIPTS}/multiColorRule.pl "$HOME" "$RULE_DIV" "$CUT" "na" "divYes"
+            perl ${PERLSCRIPTS}/multiColorRule.pl "${OUTDIR}" "$RULE_DIV" "$CUT" "na" "divYes"
         fi
     # Same range for all maps with regular color scheme.
     elif [ "$GIS_FLAG_D" -eq 0 ]; then
         # Check if there is an upper cutting point set.
         if [ "$GIS_FLAG_U" -eq 1 ]; then
-            perl ${PERLSCRIPTS}/multiColorRule.pl "$HOME" "$RULE_REG" "$CUT" "$HICUT" "divNo"
+            perl ${PERLSCRIPTS}/multiColorRule.pl "${OUTDIR}" "$RULE_REG" "$CUT" "$HICUT" "divNo"
         # Otherwise just use the lower cutting point.
         elif [ "$GIS_FLAG_U" -eq 0 ]; then
-            perl ${PERLSCRIPTS}/multiColorRule.pl "$HOME" "$RULE_REG" "$CUT" "na" "divNo"
+            perl ${PERLSCRIPTS}/multiColorRule.pl "${OUTDIR}" "$RULE_REG" "$CUT" "na" "divNo"
         fi
     fi
 fi
@@ -503,7 +507,7 @@ if [ "$PROVINCES" = 'all' ]; then
 else
     # Set region to an arbitrary subset of provinces
     echo $PROVINCES > ${OUTFILES}/states.txt
-    perl ${PERLSCRIPTS}/cliparse_TC.pl "$HOME" 'iso_3166_2' 'string' "states.txt" "formulaStates.txt"
+    perl ${PERLSCRIPTS}/cliparse_TC.pl "${OUTDIR}" 'iso_3166_2' 'string' "states.txt" "formulaStates.txt"
     v.extract input=andalusia_provinces output=selectedStates where="$(cat ${OUTFILES}/formulaStates.txt)"
     # Define the extent of the map and its grid resolution (currently 1 km).
     g.region -a vect=selectedStates
@@ -610,7 +614,7 @@ for i in $(ls); do
     if [ "$GIS_FLAG_U" -eq 1 ]; then
         v.category option=print input=mapHigh$i >> ${OUTFILES}/voronoi.txt
     fi
-    perl ${PERLSCRIPTS}/voroparse.pl "$HOME"
+    perl ${PERLSCRIPTS}/voroparse.pl "${OUTDIR}"
     #~ v.extract input=voronoi output=voronoiSel\
     #~ where="`cat ${OUTFILES}/voronoiFormula.txt`"
     # Version without DB query.

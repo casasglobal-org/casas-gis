@@ -17,7 +17,7 @@ mkdir ("$HomeDir/models_temp/", 0777);
 
 # Read string from GRASS parser.
 chdir ("$HomeDir"); 
-my $file ="inputPar.txt";
+my $file ="outfiles/inputPar.txt";
 open (IN, "<$file") or die "Can't open $file for reading: $!";
 
 # Put integers indicating columns into an array.
