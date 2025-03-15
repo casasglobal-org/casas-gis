@@ -14,7 +14,7 @@ PBDM scripts perform demographic modeling using GRASS GIS. With the update to GR
 
 GRASS GIS database for CASAS-PBDM (www.casasglobal.org) geospatial mapping and analysis:
 
-- download `casas_gis_grass8data.zip` at <https://doi.org/10.5281/zenodo.14179438>
+- download `casas_gis_grass8data.zip` at <https://doi.org/10.5281/zenodo.14179438> and unpack into e.g. `grassdata/`
 
 ### Script Location
 
@@ -26,8 +26,8 @@ GRASS GIS database for CASAS-PBDM (www.casasglobal.org) geospatial mapping and a
 
 **1. Integrated Column Display**
 
-- The Perl script `printCols.pl` is integrated directly into the GRASS GIS script.
-- Column information is displayed in the standard output of the GRASS GUI or terminal.
+Note: the Perl script `printCols.pl` is integrated directly into the GRASS GIS script. It prints the column information to standard output in the GRASS GUI or terminal.
+
 
 **2. Unified GUI for CASAS Scripts**
 
