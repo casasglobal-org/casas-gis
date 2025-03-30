@@ -672,29 +672,29 @@ for i in $(ls); do
         if [ "$GIS_FLAG_X" -eq 1 ]; then
             if [ "$GIS_FLAG_E" -eq 1 ]; then
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    r.colors -e -g map=MskdModPOS$i file=${PALETTES}/customColorRule.txt
+                    r.colors -e -g map=MskdModPOS$i rules=${PALETTES}/customColorRule.txt
                 else
-                    r.colors -e map=MskdModPOS$i file=${PALETTES}/customColorRule.txt
+                    r.colors -e map=MskdModPOS$i rules=${PALETTES}/customColorRule.txt
                 fi
             else
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    r.colors -g map=MskdModPOS$i file=${PALETTES}/customColorRule.txt
+                    r.colors -g map=MskdModPOS$i rules=${PALETTES}/customColorRule.txt
                 else
-                    r.colors map=MskdModPOS$i file=${PALETTES}/customColorRule.txt
+                    r.colors map=MskdModPOS$i rules=${PALETTES}/customColorRule.txt
                 fi
             fi
         else
             if [ "$GIS_FLAG_E" -eq 1 ]; then
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    r.colors -e -g map=MskdModPOS$i file=${PALETTES}/greyColorRule
+                    r.colors -e -g map=MskdModPOS$i rules=${PALETTES}/greyColorRule
                 else
-                    r.colors -e map=MskdModPOS$i file=${PALETTES}/greyColorRule
+                    r.colors -e map=MskdModPOS$i rules=${PALETTES}/greyColorRule
                 fi
             else
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    r.colors -g map=MskdModPOS$i file=${PALETTES}/greyColorRule
+                    r.colors -g map=MskdModPOS$i rules=${PALETTES}/greyColorRule
                 else
-                    r.colors map=MskdModPOS$i file=${PALETTES}/greyColorRule
+                    r.colors map=MskdModPOS$i rules=${PALETTES}/greyColorRule
                 fi
             fi
         fi
@@ -711,29 +711,29 @@ for i in $(ls); do
         if [ "$GIS_FLAG_X" -eq 1 ] || [ "$GIS_FLAG_D" -eq 1 ]; then
             if [ "$GIS_FLAG_E" -eq 1 ]; then
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    r.colors -e -g map=MskdModPOS$i file=${PALETTES}/customColorRule.txt
+                    r.colors -e -g map=MskdModPOS$i rules=${PALETTES}/customColorRule.txt
                 else
-                    r.colors -e map=MskdModPOS$i file=${PALETTES}/customColorRule.txt
+                    r.colors -e map=MskdModPOS$i rules=${PALETTES}/customColorRule.txt
                 fi
             else
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    r.colors -g map=MskdModPOS$i file=${PALETTES}/customColorRule.txt
+                    r.colors -g map=MskdModPOS$i rules=${PALETTES}/customColorRule.txt
                 else
-                    r.colors map=MskdModPOS$i file=${PALETTES}/customColorRule.txt
+                    r.colors map=MskdModPOS$i rules=${PALETTES}/customColorRule.txt
                 fi
             fi
         else
             if [ "$GIS_FLAG_E" -eq 1 ]; then
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    r.colors -e -g map=MskdModPOS$i file=${PALETTES}/defaultColorRule
+                    r.colors -e -g map=MskdModPOS$i rules=${PALETTES}/defaultColorRule
                 else
-                    r.colors -e map=MskdModPOS$i file=${PALETTES}/defaultColorRule
+                    r.colors -e map=MskdModPOS$i rules=${PALETTES}/defaultColorRule
                 fi
             else
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    r.colors -g map=MskdModPOS$i file=${PALETTES}/defaultColorRule
+                    r.colors -g map=MskdModPOS$i rules=${PALETTES}/defaultColorRule
                 else
-                    r.colors map=MskdModPOS$i file=${PALETTES}/defaultColorRule
+                    r.colors map=MskdModPOS$i rules=${PALETTES}/defaultColorRule
                 fi
             fi
         fi
