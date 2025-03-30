@@ -46,7 +46,7 @@ export OUTFILES="${CASAS_HOME}/outfiles"
 export PALETTES="${CASAS_HOME}/palettes"
 export FONTDIR='C:\Windows\Fonts\'
 
-# Directory with temporary files (see convert.sh script).
+# Directory with temporary files (see convert.pl script).
 DIRTMP="${CASAS_HOME}/models_temp/"
 
 export GRASS_OVERWRITE=1
@@ -338,7 +338,7 @@ exitprocedure() {
 trap 'exitprocedure' 1 2 3 9 15 SIGINT SIGABRT SIGILL SIGTERM
 
 # Print column names of model output files.
-bash ${PERLSCRIPTS}/printCols.sh "${CASAS_HOME}" > ${OUTFILES}/varList.txt
+perl ${PERLSCRIPTS}/printCols.pl "${CASAS_HOME}" > ${OUTFILES}/varList.txt
 
 if [ "$1" != "@ARGS_PARSED@" ]; then
     exec g.parser "$0" "$@"
@@ -444,10 +444,10 @@ fi
 echo "$LON $LAT $PAR $YEAR" > ${OUTFILES}/inputPar.txt
 
 # Print years to text files for use in legend.
-bash ${PERLSCRIPTS}/printYear.sh "${CASAS_HOME}"
+perl ${PERLSCRIPTS}/printYear.pl "${CASAS_HOME}"
 
 # Run a perl script that gets rid of column names
-bash ${PERLSCRIPTS}/convertITA.sh "${CASAS_HOME}"
+perl ${PERLSCRIPTS}/convertITA.pl "${CASAS_HOME}"
 
 # Do we want to use the same legend range for all maps?
 if [ "$GIS_FLAG_X" -eq 1 ]; then
@@ -455,19 +455,19 @@ if [ "$GIS_FLAG_X" -eq 1 ]; then
     if [ "$GIS_FLAG_D" -eq 1 ]; then
         # Check if there is an upper cutting point set.
         if [ "$GIS_FLAG_U" -eq 1 ]; then
-            bash ${PERLSCRIPTS}/multiColorRule.sh "${CASAS_HOME}" "$RULE_DIV" "$CUT" "$HICUT" "divYes"
+            perl ${PERLSCRIPTS}/multiColorRule.pl "${CASAS_HOME}" "$RULE_DIV" "$CUT" "$HICUT" "divYes"
         # Otherwise just use the lower cutting point.
         elif [ "$GIS_FLAG_U" -eq 0 ]; then
-            bash ${PERLSCRIPTS}/multiColorRule.sh "${CASAS_HOME}" "$RULE_DIV" "$CUT" "na" "divYes"
+            perl ${PERLSCRIPTS}/multiColorRule.pl "${CASAS_HOME}" "$RULE_DIV" "$CUT" "na" "divYes"
         fi
     # Same range for all maps with regular color scheme.
     elif [ "$GIS_FLAG_D" -eq 0 ]; then
         # Check if there is an upper cutting point set.
         if [ "$GIS_FLAG_U" -eq 1 ]; then
-            bash ${PERLSCRIPTS}/multiColorRule.sh "${CASAS_HOME}" "$RULE_REG" "$CUT" "$HICUT" "divNo"
+            perl ${PERLSCRIPTS}/multiColorRule.pl "${CASAS_HOME}" "$RULE_REG" "$CUT" "$HICUT" "divNo"
         # Otherwise just use the lower cutting point.
         elif [ "$GIS_FLAG_U" -eq 0 ]; then
-            bash ${PERLSCRIPTS}/multiColorRule.sh "${CASAS_HOME}" "$RULE_REG" "$CUT" "na" "divNo"
+            perl ${PERLSCRIPTS}/multiColorRule.pl "${CASAS_HOME}" "$RULE_REG" "$CUT" "na" "divNo"
         fi
     fi
 fi
@@ -504,7 +504,7 @@ if [ "$PROVINCES" = 'all' ]; then
 else
     # Set region to an arbitrary subset of provinces
     echo $PROVINCES > ${OUTFILES}/states.txt
-    bash ${PERLSCRIPTS}/cliparse_TC.sh "${CASAS_HOME}" 'iso_3166_2' 'string' "states.txt" "formulaStates.txt"
+    perl ${PERLSCRIPTS}/cliparse_TC.pl "${CASAS_HOME}" 'iso_3166_2' 'string' "states.txt" "formulaStates.txt"
     v.extract input=andalusia_provinces output=selectedStates where="$(cat ${OUTFILES}/formulaStates.txt)"
     # Define the extent of the map and its grid resolution (currently 1 km).
     g.region -a vect=selectedStates
@@ -611,7 +611,7 @@ for i in $(ls); do
     if [ "$GIS_FLAG_U" -eq 1 ]; then
         v.category option=print input=mapHigh$i >> ${OUTFILES}/voronoi.txt
     fi
-    bash ${PERLSCRIPTS}/voroparse.sh "${CASAS_HOME}"
+    perl ${PERLSCRIPTS}/voroparse.pl "${CASAS_HOME}"
     #~ v.extract input=voronoi output=voronoiSel\
     #~ where="`cat ${OUTFILES}/voronoiFormula.txt`"
     # Version without DB query.
@@ -925,13 +925,13 @@ else
 fi
 
 # Write html pages.
-bash ${PERLSCRIPTS}/htmlSum.sh "$SaveDir" "${LEG1}" "$PAR" "$CUT" "$HICUT" "$ALT" "$SurfCut" "$STATES" "$Plots"
+perl ${PERLSCRIPTS}/htmlSum.pl "$SaveDir" "${LEG1}" "$PAR" "$CUT" "$HICUT" "$ALT" "$SurfCut" "$STATES" "$Plots"
 # If flag -p is checked, then make barchart plots.
 if [ "$GIS_FLAG_P" -eq 1 ]; then
-    #~ bash ${PERLSCRIPTS}/makePlotData.sh "$SaveDir"
-    #~ bash ${PERLSCRIPTS}/HtmlPlotA_ita.sh "$SaveDir" "$LEG1 $LEG2";
-    #~ bash ${PERLSCRIPTS}/HtmlPlotB.sh "$SaveDir" "$LEG1 $LEG2";
-    bash ${PERLSCRIPTS}/HtmlPlotC.sh "$SaveDir" "${LEG1}"
+    #~ perl ${PERLSCRIPTS}/makePlotData.pl "$SaveDir"
+    #~ perl ${PERLSCRIPTS}/HtmlPlotA_ita.pl "$SaveDir" "$LEG1 $LEG2";
+    #~ perl ${PERLSCRIPTS}/HtmlPlotB.pl "$SaveDir" "$LEG1 $LEG2";
+    perl ${PERLSCRIPTS}/HtmlPlotC.pl "$SaveDir" "${LEG1}"
 fi
 
 # One may want to save palette used for analysis.
