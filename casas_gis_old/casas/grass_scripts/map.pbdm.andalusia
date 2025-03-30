@@ -672,29 +672,29 @@ for i in $(ls); do
         if [ "$GIS_FLAG_X" -eq 1 ]; then
             if [ "$GIS_FLAG_E" -eq 1 ]; then
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    cat ${PALETTES}/customColorRule.txt | r.colors -e -g map=MskdModPOS$i file=rules
+                    r.colors -e -g map=MskdModPOS$i file=${PALETTES}/customColorRule.txt
                 else
-                    cat ${PALETTES}/customColorRule.txt | r.colors -e map=MskdModPOS$i file=rules
+                    r.colors -e map=MskdModPOS$i file=${PALETTES}/customColorRule.txt
                 fi
             else
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    cat ${PALETTES}/customColorRule.txt | r.colors -g map=MskdModPOS$i file=rules
+                    r.colors -g map=MskdModPOS$i file=${PALETTES}/customColorRule.txt
                 else
-                    cat ${PALETTES}/customColorRule.txt | r.colors map=MskdModPOS$i file=rules
+                    r.colors map=MskdModPOS$i file=${PALETTES}/customColorRule.txt
                 fi
             fi
         else
             if [ "$GIS_FLAG_E" -eq 1 ]; then
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    cat ${PALETTES}/greyColorRule | r.colors -e -g map=MskdModPOS$i file=rules
+                    r.colors -e -g map=MskdModPOS$i file=${PALETTES}/greyColorRule
                 else
-                    cat ${PALETTES}/greyColorRule | r.colors -e map=MskdModPOS$i file=rules
+                    r.colors -e map=MskdModPOS$i file=${PALETTES}/greyColorRule
                 fi
             else
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    cat ${PALETTES}/greyColorRule | r.colors -g map=MskdModPOS$i file=rules
+                    r.colors -g map=MskdModPOS$i file=${PALETTES}/greyColorRule
                 else
-                    cat ${PALETTES}/greyColorRule | r.colors map=MskdModPOS$i file=rules
+                    r.colors map=MskdModPOS$i file=${PALETTES}/greyColorRule
                 fi
             fi
         fi
