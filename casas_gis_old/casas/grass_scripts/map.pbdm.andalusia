@@ -568,8 +568,8 @@ for i in $(ls); do
     v.proj input=map$i project=latlong_medgold mapset=medgold output=map$i
 
     # Add a column to vector containing altitudes uploaded from raster DEM.
-    v.db.addcol map=map$i columns="elevation INT"
-    v.what.rast vector=map$i raster=elevation_1KMmd_GMTEDmd_andalusia column="elevation"
+    v.db.addcolumn map=map$i columns="elevation INT"
+    v.what.rast map=map$i raster=elevation_1KMmd_GMTEDmd_andalusia column="elevation"
 
     # Extract vector points greater than cutting point, since
     # some values (e.g., bloom day <= 0) may be of little or no meaning.
@@ -672,29 +672,29 @@ for i in $(ls); do
         if [ "$GIS_FLAG_X" -eq 1 ]; then
             if [ "$GIS_FLAG_E" -eq 1 ]; then
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    cat ${PALETTES}/customColorRule.txt | r.colors -e -g map=MskdModPOS$i color=rules
+                    cat ${PALETTES}/customColorRule.txt | r.colors -e -g map=MskdModPOS$i file=rules
                 else
-                    cat ${PALETTES}/customColorRule.txt | r.colors -e map=MskdModPOS$i color=rules
+                    cat ${PALETTES}/customColorRule.txt | r.colors -e map=MskdModPOS$i file=rules
                 fi
             else
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    cat ${PALETTES}/customColorRule.txt | r.colors -g map=MskdModPOS$i color=rules
+                    cat ${PALETTES}/customColorRule.txt | r.colors -g map=MskdModPOS$i file=rules
                 else
-                    cat ${PALETTES}/customColorRule.txt | r.colors map=MskdModPOS$i color=rules
+                    cat ${PALETTES}/customColorRule.txt | r.colors map=MskdModPOS$i file=rules
                 fi
             fi
         else
             if [ "$GIS_FLAG_E" -eq 1 ]; then
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    cat ${PALETTES}/greyColorRule | r.colors -e -g map=MskdModPOS$i color=rules
+                    cat ${PALETTES}/greyColorRule | r.colors -e -g map=MskdModPOS$i file=rules
                 else
-                    cat ${PALETTES}/greyColorRule | r.colors -e map=MskdModPOS$i color=rules
+                    cat ${PALETTES}/greyColorRule | r.colors -e map=MskdModPOS$i file=rules
                 fi
             else
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    cat ${PALETTES}/greyColorRule | r.colors -g map=MskdModPOS$i color=rules
+                    cat ${PALETTES}/greyColorRule | r.colors -g map=MskdModPOS$i file=rules
                 else
-                    cat ${PALETTES}/greyColorRule | r.colors map=MskdModPOS$i color=rules
+                    cat ${PALETTES}/greyColorRule | r.colors map=MskdModPOS$i file=rules
                 fi
             fi
         fi
@@ -711,29 +711,29 @@ for i in $(ls); do
         if [ "$GIS_FLAG_X" -eq 1 ] || [ "$GIS_FLAG_D" -eq 1 ]; then
             if [ "$GIS_FLAG_E" -eq 1 ]; then
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    cat ${PALETTES}/customColorRule.txt | r.colors -e -g map=MskdModPOS$i color=rules
+                    r.colors -e -g map=MskdModPOS$i file=${PALETTES}/customColorRule.txt
                 else
-                    cat ${PALETTES}/customColorRule.txt | r.colors -e map=MskdModPOS$i color=rules
+                    r.colors -e map=MskdModPOS$i file=${PALETTES}/customColorRule.txt
                 fi
             else
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    cat ${PALETTES}/customColorRule.txt | r.colors -g map=MskdModPOS$i color=rules
+                    r.colors -g map=MskdModPOS$i file=${PALETTES}/customColorRule.txt
                 else
-                    cat ${PALETTES}/customColorRule.txt | r.colors map=MskdModPOS$i color=rules
+                    r.colors map=MskdModPOS$i file=${PALETTES}/customColorRule.txt
                 fi
             fi
         else
             if [ "$GIS_FLAG_E" -eq 1 ]; then
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    cat ${PALETTES}/defaultColorRule | r.colors -e -g map=MskdModPOS$i color=rules
+                    r.colors -e -g map=MskdModPOS$i file=${PALETTES}/defaultColorRule
                 else
-                    cat ${PALETTES}/defaultColorRule | r.colors -e map=MskdModPOS$i color=rules
+                    r.colors -e map=MskdModPOS$i file=${PALETTES}/defaultColorRule
                 fi
             else
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    cat ${PALETTES}/defaultColorRule | r.colors -g map=MskdModPOS$i color=rules
+                    r.colors -g map=MskdModPOS$i file=${PALETTES}/defaultColorRule
                 else
-                    cat ${PALETTES}/defaultColorRule | r.colors map=MskdModPOS$i color=rules
+                    r.colors map=MskdModPOS$i file=${PALETTES}/defaultColorRule
                 fi
             fi
         fi
@@ -753,12 +753,12 @@ for i in $(ls); do
     # Display a legend for model raster with screen
     # coordinates as % of screen (bottom,top,left,right).
     if [ "$GIS_FLAG_A" -eq 1 ] && [ "$GIS_FLAG_X" -eq 1 ]; then
-        d.legend -s map=MskdModPOS$i color=black lines=0 thin=1000 labelnum=5 at=6,10,20,80 range="$abs_min","$abs_max" # absolute range.
+        d.legend -s raster=MskdModPOS$i color=black lines=0 thin=1000 labelnum=5 at=6,10,20,80 range="$abs_min","$abs_max" # absolute range.
         # Restrict width of color legend bar.
     elif [ "$GIS_FLAG_W" -eq 1 ]; then
-        d.legend -s map=MskdModPOS$i color=black lines=0 thin=1000 labelnum=5 at=6,11,20,80 range="$LOWBARCOL","$UPBARCOL" # modified range.
+        d.legend -s raster=MskdModPOS$i color=black lines=0 thin=1000 labelnum=5 at=6,11,20,80 range="$LOWBARCOL","$UPBARCOL" # modified range.
     else
-        d.legend -s map=MskdModPOS$i color=black lines=0 thin=1000 labelnum=5 at=6,10,20,80
+        d.legend -s raster=MskdModPOS$i color=black lines=0 thin=1000 labelnum=5 at=6,10,20,80
         # legend range relative to current map. Old horizontal legend location 10,13.5,10,90
         # To exclude outliers from legend, the range=min,max option in d.legend
         # needs to be enabled in the GIS script MedPresentClimate using
