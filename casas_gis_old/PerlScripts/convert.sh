@@ -10,13 +10,15 @@
 # Date: 2 February 2006
 
 # Create a temporary folder for tweaked files.
-HomeDir=$1
+HomeDir="$1"
 
 # Permissive chmod
 # https://www.perlmonks.org/?node_id=543062
-umask 0
+# umask 0
 
-mkdir -m 777 "$HomeDir/models_temp/"
+# mkdir -m 777 "$HomeDir/models_temp/"
+mkdir "$HomeDir/models_temp/"
+
 
 # Read string from GRASS parser.
 cd "$HomeDir"

@@ -8,15 +8,15 @@
 
 # Read Directory where maps are saved and
 # other parameters from script arguments.
-SaveDir=$1
-LegendString=$2
-MapPar=$3
-LowerCut=$4
-UpperCut=$5
-AltClip=$6
-SurfCut=$7
-EtoClip=$8
-Plots=$9
+SaveDir="$1"
+LegendString="$2"
+MapPar="$3"
+LowerCut="$4"
+UpperCut="$5"
+AltClip="$6"
+SurfCut="$7"
+EtoClip="$8"
+Plots="$9"
 
 # Check if the directory exists
 if [[ ! -d "$SaveDir" ]]; then
