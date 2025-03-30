@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# Script that tweaks output tables form CASAS systems models
+# Script that tweaks output tables from CASAS systems models
 # for import to GRASS-GIS, interpolation & visualization.
 
 # This version accept outfiles names such as as "Olive-02Mar06-00003.txt".
