@@ -2,6 +2,8 @@
 
 # Script that prints column and row names of model output files
 # for proper input selection in the GRASS parser.
+# The part that prints years for legend has been
+# transferred to a printYear.sh script (NOTE).
 
 # Author: Luigi Ponti quartese gmail.com
 # Copyright: (c) 2006 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
