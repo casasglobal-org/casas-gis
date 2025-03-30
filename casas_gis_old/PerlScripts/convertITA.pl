@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# Script that tweaks output tables form CASAS systems models
+# Script that tweaks output tables from CASAS systems models
 # for import to GRASS-GIS, interpolation & visualization.
 
 # This version accept outfiles names such as as "Olive-02Mar06-00003.txt".
@@ -17,7 +17,7 @@ mkdir ("$HomeDir/models_temp/", 0777);
 
 # Read string from GRASS parser.
 chdir ("$HomeDir"); 
-my $file ="inputPar.txt";
+my $file ="outfiles/inputPar.txt";
 open (IN, "<$file") or die "Can't open $file for reading: $!";
 
 # Put integers indicating columns into an array.

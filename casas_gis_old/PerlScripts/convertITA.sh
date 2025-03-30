@@ -3,17 +3,21 @@
 # Script that tweaks output tables from CASAS systems models
 # for import to GRASS-GIS, interpolation & visualization.
 
+# This version accept outfiles names such as as "Olive-02Mar06-00003.txt".
+
 # Author: Luigi Ponti quartese gmail.com
 # Copyright: (c) 2006 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 13 April 2006
 
 # Create a temporary folder for tweaked files.
-HomeDir=$1
+HomeDir="$1"
 # Import files in models directory for reading.
 models_dir="$HomeDir/outfiles/"
 
 mkdir -p "$HomeDir/models_temp"
+
+echo "Converting ..."
 
 # Read string from GRASS parser.
 inputParFile="$models_dir/inputPar.txt"

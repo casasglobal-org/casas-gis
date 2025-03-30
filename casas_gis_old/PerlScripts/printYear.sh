@@ -9,7 +9,7 @@
 # Date: 2 March 2006
 
 # Import files in models directory for reading.
-HomeDir=$1
+HomeDir="$1"
 models_dir="$HomeDir/outfiles/"
 
 # Check if the directory exists
