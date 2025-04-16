@@ -19,9 +19,10 @@ while (my $file = readdir(DIR))
     {
         if ($file =~ /.\.txt/)
             {
-                chdir ("$HomeDir/outfiles/");
+                print ("Processing <" . $file . ">...\n");
+                chdir ("$models_dir");
                 open (IN, "<$file") or die "Can't open $file for reading: $!";
-
+    
                  # Put rows as elements of the @table array.
                 my @table;
                 while (my $line = <IN>)
@@ -30,8 +31,8 @@ while (my $file = readdir(DIR))
                     }
                 close IN;
                 
-                # Print years to a text file.
-                chdir ("$models_dir");
+                # Print years to a text file.    
+                chdir ("$HomeDir");
                 my $file ="inputPar.txt";
                 open (IN, "<$file") or die "Can't open $file for reading: $!";
 
@@ -45,7 +46,7 @@ while (my $file = readdir(DIR))
                 close IN;
                 my $yearColumn = $inputs[3] - 1;
                 
-                chdir ("$models_dir");
+                chdir ("$HomeDir");                
                 my @columns = split(/\t/, $table[1]);
                 $years[$fileNumber-1] = $columns[$yearColumn];
                 my $output = "year$fileNumber.txt";
@@ -66,3 +67,4 @@ closedir DIR;
 #~ print OUTFILE join(" ", @years);
 #~ close OUTFILE;
 
+    
