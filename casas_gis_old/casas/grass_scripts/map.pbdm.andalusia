@@ -308,21 +308,21 @@ cleanup() {
     \rm -f ${OUTFILES}/states.txt
     # Remove gis temp files in latlong location
     g.mapset mapset=medgold project=latlong_medgold
-    g.remove -f type=vector pattern="map*"
+    g.remove -f --q type=vector pattern="map*"
     # Remove gis temp files in mapping location
     g.mapset mapset=medgold project=laea_andalusia
-    g.remove -f type=vector pattern="voronoi*"
-    g.remove -f type=vector pattern="selectedStates"
-    g.remove -f type=raster,vector pattern="map*"
-    g.remove -f type=raster pattern="model*"
-    g.remove -f type=raster pattern="Mskd*"
-    g.remove -f type=raster pattern="interpol*"
-    g.remove -f type=raster pattern="selectedStatesRaster"
+    g.remove -f --q type=vector pattern="voronoi*"
+    g.remove -f --q type=vector pattern="selectedStates"
+    g.remove -f --q type=raster,vector pattern="map*"
+    g.remove -f --q type=raster pattern="model*"
+    g.remove -f --q type=raster pattern="Mskd*"
+    g.remove -f --q type=raster pattern="interpol*"
+    g.remove -f --q type=raster pattern="selectedStatesRaster"
     # Remove old masks.
-    g.remove -f type=vector pattern="Eto*"
-    g.remove -f type=raster pattern="Elev*"
-    g.remove -f type=raster pattern="Eto*"
-    g.remove -f type=raster pattern="MASK*"
+    g.remove -f --q type=vector pattern="Eto*"
+    g.remove -f --q type=raster pattern="Elev*"
+    g.remove -f --q type=raster pattern="Eto*"
+    g.remove -f --q type=raster pattern="MASK*"
 }
 
 # In case of user break:
@@ -338,7 +338,7 @@ exitprocedure() {
 trap 'exitprocedure' 1 2 3 9 15 SIGINT SIGABRT SIGILL SIGTERM
 
 # Print column names of model output files.
-perl ${PERLSCRIPTS}/printCols.pl "${CASAS_HOME}" > ${OUTFILES}/varList.txt
+perl ${PERLSCRIPTS}/printCols.pl "${CASAS_HOME}" > ${CASAS_HOME}/varList.txt
 
 if [ "$1" != "@ARGS_PARSED@" ]; then
     exec g.parser "$0" "$@"
@@ -441,7 +441,7 @@ if [ -n "$GIS_OPT_RESOLUTION" ]; then
 fi
 
 # Write LON, LAT, and PAR to a text file as input for the perl script
-echo "$LON $LAT $PAR $YEAR" > ${OUTFILES}/inputPar.txt
+echo "$LON $LAT $PAR $YEAR" > ${CASAS_HOME}/inputPar.txt
 
 # Print years to text files for use in legend.
 perl ${PERLSCRIPTS}/printYear.pl "${CASAS_HOME}"
@@ -503,9 +503,9 @@ if [ "$PROVINCES" = 'all' ]; then
     g.region -a res=1000
 else
     # Set region to an arbitrary subset of provinces
-    echo $PROVINCES > ${OUTFILES}/states.txt
+    echo $PROVINCES > ${CASAS_HOME}/states.txt
     perl ${PERLSCRIPTS}/cliparse_TC.pl "${CASAS_HOME}" 'iso_3166_2' 'string' "states.txt" "formulaStates.txt"
-    v.extract input=andalusia_provinces output=selectedStates where="$(cat ${OUTFILES}/formulaStates.txt)"
+    v.extract input=andalusia_provinces output=selectedStates where="$(cat ${CASAS_HOME}/formulaStates.txt)"
     # Define the extent of the map and its grid resolution (currently 1 km).
     g.region -a vect=selectedStates
     v.to.rast input=selectedStates output=EtoSelectMask use=val value=1
@@ -542,8 +542,8 @@ echo "This log reports names of input files used for analysis:" | tee -a "$SaveD
 
 # Retrieve range min and max values for possible use in legend drawing.
 # Maybe check if the files exists...
-abs_min=$(cat ${OUTFILES}/min.txt)
-abs_max=$(cat ${OUTFILES}/max.txt)
+abs_min=$(cat ${CASAS_HOME}/min.txt)
+abs_max=$(cat ${CASAS_HOME}/max.txt)
 
 # Set size of output image.
 cd $DIRTMP
@@ -606,16 +606,16 @@ for i in $(ls); do
     # Obtain Voronoi polygons from points to mask values
     #  above/below cutting points and select the right polygons.
     v.voronoi input=map$i output=voronoi
-    v.category option=print input=mapZero$i > ${OUTFILES}/voronoi.txt
+    v.category option=print input=mapZero$i > ${CASAS_HOME}/voronoi.txt
     # Check if high values are to be masked.
     if [ "$GIS_FLAG_U" -eq 1 ]; then
-        v.category option=print input=mapHigh$i >> ${OUTFILES}/voronoi.txt
+        v.category option=print input=mapHigh$i >> ${CASAS_HOME}/voronoi.txt
     fi
     perl ${PERLSCRIPTS}/voroparse.pl "${CASAS_HOME}"
     #~ v.extract input=voronoi output=voronoiSel\
-    #~ where="`cat ${OUTFILES}/voronoiFormula.txt`"
+    #~ where="`cat ${CASAS_HOME}/voronoiFormula.txt`"
     # Version without DB query.
-    v.extract input=voronoi output=voronoiSel file=${OUTFILES}/voronoi.txt
+    v.extract input=voronoi output=voronoiSel file=${CASAS_HOME}/voronoi.txt
 
     # Transform selected Voronoi polygons to raster for masking.
     v.to.rast input=voronoiSel output=MskdBuffer$i use=val value=1
@@ -646,7 +646,7 @@ for i in $(ls); do
     g.remove -f type=raster name=MASK
 
     # Remove stuff outside cutting points from interpolated raster.
-    if [ -n "$(cat ${OUTFILES}/voronoi.txt)" ]; then
+    if [ -n "$(cat ${CASAS_HOME}/voronoi.txt)" ]; then
         r.mapcalc "MskdBufRev$i = if(isnull(MskdBuffer$i), 1, null())"
         r.mapcalc "MskdModPOS$i = if(MskdBufRev$i, interpol$i, null())"
     else
@@ -660,7 +660,7 @@ for i in $(ls); do
     d.erase
 
     # Remove voronoi-related stuff.
-    \rm -f ${OUTFILES}/voronoi*.txt
+    \rm -f ${CASAS_HOME}/voronoi*.txt
     g.remove -f type=vector pattern="voronoi*"
 
     # If flag -g is checked, output is a greyscale figure
@@ -771,13 +771,13 @@ for i in $(ls); do
     # d.barscale at=50,7
 
     # Display true type font text in the legend (at x-y, lower-left coordinates).
-    echo "$LEG1" > ${OUTFILES}/legend1.txt
-    Legend1="$(cat ${OUTFILES}/legend1.txt)"
-    Year="$(cat ${OUTFILES}/year$mapcycle.txt)"
-    echo $Legend1 $Year "($CROP)" > ${OUTFILES}/legend1$mapcycle.txt
+    echo "$LEG1" > ${CASAS_HOME}/legend1.txt
+    Legend1="$(cat ${CASAS_HOME}/legend1.txt)"
+    Year="$(cat ${CASAS_HOME}/year$mapcycle.txt)"
+    echo $Legend1 $Year "($CROP)" > ${CASAS_HOME}/legend1$mapcycle.txt
 
     # Text for legend (at= percentage, [0,0] is lower left).
-    d.text size=3 color=black at=5,94 input=${OUTFILES}/legend1$mapcycle.txt
+    d.text size=3 color=black at=5,94 input=${CASAS_HOME}/legend1$mapcycle.txt
 
     # Save display to .png file.
     d.mon stop=png
@@ -964,9 +964,10 @@ if [ "$GIS_FLAG_T" -eq 1 ]; then
 fi
 
 # Set default browser for HTML visual summary.
-GRASS_HTML_BROWSER=firefox.exe
+#GRASS_HTML_BROWSER=firefox.exe
+GRASS_HTML_BROWSER=firefox
 # Open HTML visual summary.
-$GRASS_HTML_BROWSER "file:///C:/cygwin/home/andy/outfiles/$GIS_OPT_SAVE_DIRECTORY/${LEG1}.html"
-#$GRASS_HTML_BROWSER "${OUTFILES}/$GIS_OPT_SAVE_DIRECTORY/${LEG1}.html"
+#$GRASS_HTML_BROWSER "file:///C:/cygwin/home/andy/outfiles/$GIS_OPT_SAVE_DIRECTORY/${LEG1}.html"
+$GRASS_HTML_BROWSER "${OUTFILES}/$GIS_OPT_SAVE_DIRECTORY/${LEG1}.html"
 
 exit 0
