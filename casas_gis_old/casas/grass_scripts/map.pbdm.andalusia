@@ -568,7 +568,7 @@ for i in $(ls); do
     v.proj input=map$i project=latlong_medgold mapset=medgold output=map$i
 
     # Add a column to vector containing altitudes uploaded from raster DEM.
-    v.db.addcolumn map=map$i columns="elevation INT"
+    v.db.addcolumn map=map$i columns="elevation REAL"
     v.what.rast map=map$i raster=elevation_1KMmd_GMTEDmd_andalusia column="elevation"
 
     # Extract vector points greater than cutting point, since
