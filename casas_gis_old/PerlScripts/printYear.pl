@@ -19,7 +19,8 @@ while (my $file = readdir(DIR))
     {
         if ($file =~ /.\.txt/)
             {
-                chdir ("$HomeDir/outfiles/");
+                print ("Processing <" . $file . ">...\n");
+                chdir ("$models_dir");
                 open (IN, "<$file") or die "Can't open $file for reading: $!";
     
                  # Put rows as elements of the @table array.
@@ -31,7 +32,7 @@ while (my $file = readdir(DIR))
                 close IN;
                 
                 # Print years to a text file.    
-                chdir ("$models_dir");
+                chdir ("$HomeDir");
                 my $file ="inputPar.txt";
                 open (IN, "<$file") or die "Can't open $file for reading: $!";
 
