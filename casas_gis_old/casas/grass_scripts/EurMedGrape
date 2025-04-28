@@ -314,7 +314,7 @@ exitprocedure() {
 }
 
 # Check for user break (signal list: trap -l)
-trap 'exitprocedure' 1 2 3 9 15 SIGINT SIGABRT SIGILL SIGTERM
+trap 'exitprocedure' 1 2 3 15
 
 # Print column names of model output files.
 perl ${PERLSCRIPTS}/printCols.pl "$HOME" > ${OUTFILES}/varList.txt
