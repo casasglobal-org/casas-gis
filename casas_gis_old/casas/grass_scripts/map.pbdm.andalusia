@@ -39,6 +39,9 @@
 #
 ############################################################################
 
+# fail on error
+set -e
+
 # Set some environmental variables
 export CASAS_HOME="${HOME}/software/casas-gis/casas_gis_old/"
 export PERLSCRIPTS="${CASAS_HOME}/PerlScripts"
@@ -354,7 +357,8 @@ cleanup
 
 # Set user-defined directory "save_directory" where to save
 # output maps.
-SaveDir="${OUTFILES}/$GIS_OPT_SAVE_DIRECTORY"
+#SaveDir="${OUTFILES}/$GIS_OPT_SAVE_DIRECTORY"
+SaveDir="$GIS_OPT_SAVE_DIRECTORY"
 if [ -n "$SaveDir" ]; then
     if [ -d "$SaveDir" ]; then
         echo ""
@@ -656,6 +660,7 @@ for i in $(ls); do
     # Set png file for output.
     GRASS_PNGFILE="$SaveDir"/"$i".png
     export GRASS_PNGFILE
+    d.mon stop=png # in case the previous model run failed
     d.mon start=png
     d.erase
 
@@ -788,7 +793,7 @@ for i in $(ls); do
     # Raster statistics based on vector areas (tuned to labeled raster areas)
     # If flag -r is checked, then write raster statistics.
     if [ "$GIS_FLAG_R" -eq 1 ]; then
-        r.mapcalc MskdModPOS_sigpac$i = "if (olive_monoculture_sigpac_2018 == 1, MskdModPOS$i, null())"
+        r.mapcalc "MskdModPOS_sigpac$i = if (olive_monoculture_sigpac_2018 == 1, MskdModPOS$i, null())"
         echo "Raster statistics by province:" | tee -a "$SaveDir/$i.txt"
         echo "" | tee -a "$SaveDir/$i.txt"
         # need to implement this by developing a raster with state categories
