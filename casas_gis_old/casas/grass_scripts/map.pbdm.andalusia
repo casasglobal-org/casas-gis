@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 
 ############################################################################
 #
@@ -541,8 +541,10 @@ elif [ "$CROP" == "none" ]; then
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 fi
 
-# Write header in the log file.
-echo "This log reports names of input files used for analysis:" | tee -a "$SaveDir/${LEG1}.log"
+# Write header in the log file (avoiding white space in filename).
+LEG1FILE=`echo ${LEG1} | tr -s ' ' '_'`
+mkdir -p "$SaveDir"
+echo "This log reports names of input files used for analysis:" | tee -a "$SaveDir/${LEG1FILE}.log"
 
 # Retrieve range min and max values for possible use in legend drawing.
 # Maybe check if the files exists...
@@ -788,7 +790,7 @@ for i in $(ls); do
     d.mon stop=png
 
     # Write a log with names of input files.
-    echo "$i" | tee -a "$SaveDir"/"$LEG1".log
+    echo "$i" | tee -a "$SaveDir/${LEG1FILE}.log"
 
     # Raster statistics based on vector areas (tuned to labeled raster areas)
     # If flag -r is checked, then write raster statistics.
@@ -861,16 +863,16 @@ echo "GIS script syntax used:
 
 	map.pbdm.andalusia
 	w=$GIS_FLAG_W g=$GIS_FLAG_G l=$GIS_FLAG_L x=$GIS_FLAG_X
-    a=$GIS_FLAG_A d=$GIS_FLAG_D u=$GIS_FLAG_U c=$GIS_FLAG_C
+        a=$GIS_FLAG_A d=$GIS_FLAG_D u=$GIS_FLAG_U c=$GIS_FLAG_C
 	r=$GIS_FLAG_R p=$GIS_FLAG_P
 	SaveDir=$SaveDir longitude=$LON latitude=$LAT year=$YEAR
 	parameter=$PAR interpolation=$SURF numpoints=$PNTS
-	lowercut=$CUT uppercut=$HICUT legend1=$LEG1 provinces=$PROVINCES
+	lowercut=$CUT uppercut=$HICUT legend1=\"$LEG1\" provinces=$PROVINCES
 	alt=$ALT resolution=$FIGRES lowBarCol=$LOWBARCOL upBarCol=$UPBARCOL
-	crop=$CROP crop_threshold=$CROP_THRESHOLD" | tee -a "$SaveDir/${LEG1}.log"
+	crop=$CROP crop_threshold=$CROP_THRESHOLD" | tee -a "$SaveDir/${LEG1FILE}.log"
 
 # Write date in the log file.
-echo "($(date -R | tr -s ' ' ' '))" | tee -a "$SaveDir/${LEG1}.log"
+echo "($(date -R | tr -s ' ' ' '))" | tee -a "$SaveDir/${LEG1FILE}.log"
 
 # Display & save a map with weather stations used for analysis
 # or simply a map with major geographic features of the area.
