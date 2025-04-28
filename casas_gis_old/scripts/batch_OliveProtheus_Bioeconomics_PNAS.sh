@@ -99,7 +99,7 @@ for i in 24; do
     #~ parameter="$i"
     #~ legend="olive yield delta CV"
     #~ # Run GIS routine
-    #~ medPresentClimate -p -m -w SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ medPresentClimate -p -m -w save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=-10000 region=-1 alt=900 resolution=1\
     #~ legend1="$legend" lowBarCol=-34.8554307206397 upBarCol=22.9235309499502
     #~ wait
@@ -111,7 +111,7 @@ for i in 24; do
     #~ parameter="$i"
     #~ legend="olive infestation delta IQR"
     #~ # Run GIS routine
-    #~ medPresentClimate -p -m -w SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ medPresentClimate -p -m -w save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=-10000 region=-1 alt=900 resolution=1\
     #~ legend1="$legend" lowBarCol=-24.4430010546617 upBarCol=21.1323842803864
     #~ wait
@@ -123,7 +123,7 @@ for i in 24; do
         parameter="$i"
         legend="olive profit delta"
         # Run GIS routine
-        medPresentClimate -p -m -w SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" interpolation="idw" lowercut=-10000 region=-1 alt=900 resolution=1 legend1="$legend" lowBarCol=-256.458 upBarCol=430.768
+        medPresentClimate -p -m -w save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" interpolation="idw" lowercut=-10000 region=-1 alt=900 resolution=1 legend1="$legend" lowBarCol=-256.458 upBarCol=430.768
         wait
     fi
 done

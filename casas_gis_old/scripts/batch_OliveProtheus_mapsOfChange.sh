@@ -47,7 +47,7 @@ for i in 12 14 16 17 22 23 24 25 28 30; do
     #~ parameter="$i"
     #~ legend="Day degrees"
     #~ # Run GIS routine
-    #~ medPresentClimate -c -p SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ medPresentClimate -c -p save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" lowercut=0 uppercut=0 region='21 22 23 25 31 32 33 35' alt=700 resolution=1\
     #~ legend1="$legend"
     #~ wait
@@ -60,7 +60,7 @@ for i in 12 14 16 17 22 23 24 25 28 30; do
     #~ parameter="$i"
     #~ legend="Fruit weight"
     #~ # Run GIS routine
-    #~ medPresentClimate -c -p -m SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ medPresentClimate -c -p -m save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=-999999 uppercut=0 region=-1 alt=900 resolution=1\
     #~ legend1="$legend"
     #~ wait
@@ -73,7 +73,7 @@ for i in 12 14 16 17 22 23 24 25 28 30; do
     #~ parameter="$i"
     #~ legend="Bloom date"
     #~ # Run GIS routine
-    #~ medPresentClimate -c -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ medPresentClimate -c -p -m -u save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=-999999 uppercut=0 region=-1 alt=900 resolution=1\
     #~ legend1="$legend"
     #~ wait
@@ -86,9 +86,9 @@ for i in 12 14 16 17 22 23 24 25 28 30; do
     #~ parameter="$i"
     #~ legend="Years with bloom"
     #~ # Run GIS routine
-    #~ medPresentClimate -c -p -d -x SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ medPresentClimate -c -p -d -x save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" lowercut=-999999 uppercut=0 region='21 22 23 25 31 32 33 35' alt=700 resolution=1\
-    #~ legend1="$legend" colorRuleDivergent=4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0
+    #~ legend1="$legend" color_rule_divergent=4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0
     #~ # This color is Panoply with white in the middle (divergent)
     #~ wait
     #~ fi
@@ -104,7 +104,7 @@ for i in 12 14 16 17 22 23 24 25 28 30; do
     #~ parameter="$i"
     #~ legend="OF egg days"
     #~ # Run GIS routine
-    #~ medPresentClimate -c -p SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ medPresentClimate -c -p save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" lowercut=1 uppercut=0 region='21 22 23 25 31 32 33 35' alt=700 resolution=1\
     #~ legend1="$legend"
     #~ wait
@@ -116,7 +116,7 @@ for i in 12 14 16 17 22 23 24 25 28 30; do
     #~ parameter="$i"
     #~ legend="OF larvae days"
     #~ # Run GIS routine
-    #~ medPresentClimate -c -p SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ medPresentClimate -c -p save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" lowercut=0 uppercut=0 region='21 22 23 25 31 32 33 35' alt=700 resolution=1\
     #~ legend1="$legend"
     #~ wait
@@ -128,7 +128,7 @@ for i in 12 14 16 17 22 23 24 25 28 30; do
     #~ parameter="$i"
     #~ legend="OF pupae days"
     #~ # Run GIS routine
-    #~ medPresentClimate -c -p SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ medPresentClimate -c -p save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" lowercut=0 uppercut=0 region='21 22 23 25 31 32 33 35' alt=700 resolution=1\
     #~ legend1="$legend"
     #~ wait
@@ -140,7 +140,7 @@ for i in 12 14 16 17 22 23 24 25 28 30; do
     #~ parameter="$i"
     #~ legend="OF adult days"
     #~ # Run GIS routine
-    #~ medPresentClimate -c -p SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ medPresentClimate -c -p save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" lowercut=1 uppercut=0 region='21 22 23 25 31 32 33 35' alt=700 resolution=1\
     #~ legend1="$legend"
     #~ wait
@@ -153,7 +153,7 @@ for i in 12 14 16 17 22 23 24 25 28 30; do
         parameter="$i"
         legend="OF pupae CumSum delta"
         # Run GIS routine
-        medPresentClimate -c -p -m SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" interpolation="idw" lowercut=-999999 uppercut=0 region=-1 alt=900 resolution=1 legend1="$legend"
+        medPresentClimate -c -p -m save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" interpolation="idw" lowercut=-999999 uppercut=0 region=-1 alt=900 resolution=1 legend1="$legend"
     fi
 
     #~ # Percent fruit attacked
@@ -163,7 +163,7 @@ for i in 12 14 16 17 22 23 24 25 28 30; do
     #~ parameter="$i"
     #~ legend="Percent fruit attacked delta"
     #~ # Run GIS routine
-    #~ medPresentClimate  -c -p -m SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ medPresentClimate  -c -p -m save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=-999999 uppercut=0 region=-1 alt=900 resolution=1\
     #~ legend1="$legend"
     #~ fi

@@ -54,7 +54,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="rain"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -69,7 +69,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="MortSummer"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -84,7 +84,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="tcold"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -99,7 +99,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="EggPerYr"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -114,7 +114,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="LarvaePerYr"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -129,7 +129,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="PuapePerYr"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -144,7 +144,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="AdultsPerYr"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -159,7 +159,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="RIxPupae"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -176,7 +176,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="rain"
     #~ # Run GIS routine
-    #~ LibyaTunisia -g SaveDir="$directory"\
+    #~ LibyaTunisia -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -191,7 +191,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="MortSummer"
     #~ # Run GIS routine
-    #~ LibyaTunisia -g SaveDir="$directory"\
+    #~ LibyaTunisia -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -206,7 +206,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="tcold"
     #~ # Run GIS routine
-    #~ LibyaTunisia -g SaveDir="$directory"\
+    #~ LibyaTunisia -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -221,7 +221,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="EggPerYr"
     #~ # Run GIS routine
-    #~ LibyaTunisia -g SaveDir="$directory"\
+    #~ LibyaTunisia -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -236,7 +236,7 @@ for i in 12 22 23 24 25 26 27 28; do
         parameter="$i"
         legend="LarvaePerYr"
         # Run GIS routine
-        LibyaTunisia -g SaveDir="$directory" \
+        LibyaTunisia -g save_directory="$directory" \
             longitude=5 latitude=6 year=11 parameter="$parameter" \
             interpolation=idw numpoints=7 lowercut=0 uppercut=0 legend1="$legend" \
             alt=900 resolution=1 lowBarCol=6.183 upBarCol=339.366
@@ -250,7 +250,7 @@ for i in 12 22 23 24 25 26 27 28; do
         parameter="$i"
         legend="PuapePerYr"
         # Run GIS routine
-        LibyaTunisia -g SaveDir="$directory" \
+        LibyaTunisia -g save_directory="$directory" \
             longitude=5 latitude=6 year=11 parameter="$parameter" \
             interpolation=idw numpoints=7 lowercut=0 uppercut=0 legend1="$legend" \
             alt=900 resolution=1 lowBarCol=4.551 upBarCol=249.767
@@ -264,7 +264,7 @@ for i in 12 22 23 24 25 26 27 28; do
         parameter="$i"
         legend="AdultsPerYr"
         # Run GIS routine
-        LibyaTunisia -g SaveDir="$directory" \
+        LibyaTunisia -g save_directory="$directory" \
             longitude=5 latitude=6 year=11 parameter="$parameter" \
             interpolation=idw numpoints=7 lowercut=0 uppercut=0 legend1="$legend" \
             alt=900 resolution=1 lowBarCol=2.721 upBarCol=227.218
@@ -278,7 +278,7 @@ for i in 12 22 23 24 25 26 27 28; do
         parameter="$i"
         legend="RIxPupae"
         # Run GIS routine
-        LibyaTunisia -g SaveDir="$directory" \
+        LibyaTunisia -g save_directory="$directory" \
             longitude=5 latitude=6 year=11 parameter="$parameter" \
             interpolation=idw numpoints=7 lowercut=0 uppercut=0 legend1="$legend" \
             alt=900 resolution=1 lowBarCol=0.02 upBarCol=158.419

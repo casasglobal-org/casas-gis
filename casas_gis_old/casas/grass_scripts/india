@@ -908,7 +908,7 @@ echo "GIS script syntax used:
 
 cat >> "$SaveDir"/"${LEG1}".log << EOF
 
-GIS script sintax used:
+GIS script syntax used:
 
     india
     w=$GIS_FLAG_W g=$GIS_FLAG_G e=$GIS_FLAG_E l=$GIS_FLAG_L x=$GIS_FLAG_X a=$GIS_FLAG_A d=$GIS_FLAG_D u=$GIS_FLAG_U c=$GIS_FLAG_C r=$GIS_FLAG_R p=$GIS_FLAG_P

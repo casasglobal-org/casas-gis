@@ -29,7 +29,7 @@ for i in 19 28 30; do
     #~ parameter="$i"
     #~ legend="Cumulative olive fly pupae"
     #~ # Run GIS routine
-    #~ medPresentClimate -g -p -m SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ medPresentClimate -g -p -m save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=0 uppercut=50000\
     #~ region=-1 alt=900 resolution=2 legend1="$legend" lowBarCol=0.001666667 upBarCol=8315.186
     #~ wait
@@ -41,7 +41,7 @@ for i in 19 28 30; do
     #~ parameter="$i"
     #~ legend="Delta pupae POS"
     #~ # Run GIS routine
-    #~ medPresentClimate -w -g -p -m SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ medPresentClimate -w -g -p -m save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=0 uppercut=50000\
     #~ region=-1 alt=900 resolution=2 legend1="$legend" lowBarCol=37.645 upBarCol=5147.558
     #~ wait
@@ -53,7 +53,7 @@ for i in 19 28 30; do
     #~ parameter="$i"
     #~ legend="Delta pupae NEG"
     #~ # Run GIS routine
-    #~ medPresentClimate -u -w -g -p -m SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ medPresentClimate -u -w -g -p -m save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=-5000 uppercut=0\
     #~ region=-1 alt=900 resolution=2 legend1="$legend" lowBarCol=-3115.578 upBarCol=-6.420238
     #~ wait
@@ -65,7 +65,7 @@ for i in 19 28 30; do
     #~ parameter="$i"
     #~ legend="Delta infestation POS"
     #~ # Run GIS routine
-    #~ medPresentClimate -w -g -p -m SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ medPresentClimate -w -g -p -m save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=0 uppercut=50000\
     #~ region=-1 alt=900 resolution=2 legend1="$legend" lowBarCol=0.0997619 upBarCol=40.49238
     #~ wait
@@ -77,7 +77,7 @@ for i in 19 28 30; do
     #~ parameter="$i"
     #~ legend="Delta infestation NEG"
     #~ # Run GIS routine
-    #~ medPresentClimate -u -g -p -m SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ medPresentClimate -u -g -p -m save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=-5000 uppercut=0\
     #~ region=-1 alt=900 resolution=2 legend1="$legend"
     #~ wait
@@ -89,7 +89,7 @@ for i in 19 28 30; do
     #~ parameter="$i"
     #~ legend="Delta profit POS"
     #~ # Run GIS routine
-    #~ medPresentClimate -w -g -p -m SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ medPresentClimate -w -g -p -m save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=0 uppercut=50000\
     #~ region=-1 alt=900 resolution=2 legend1="$legend" lowBarCol=0.06739467 upBarCol=807.9007
     #~ wait
@@ -101,7 +101,7 @@ for i in 19 28 30; do
         parameter="$i"
         legend="Delta profit NEG"
         # Run GIS routine
-        medPresentClimate -u -g -p -m SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" interpolation="idw" lowercut=-5000 uppercut=0 region=-1 alt=900 resolution=2 legend1="$legend" lowBarCol=-350.1798 upBarCol=-0.6018674
+        medPresentClimate -u -g -p -m save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" interpolation="idw" lowercut=-5000 uppercut=0 region=-1 alt=900 resolution=2 legend1="$legend" lowBarCol=-350.1798 upBarCol=-0.6018674
         wait
     fi
 done

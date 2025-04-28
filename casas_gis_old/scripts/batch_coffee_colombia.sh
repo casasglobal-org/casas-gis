@@ -42,10 +42,10 @@ run_test_coffee() {
             parameter="$i"
             legend="meandamnum"
             # Run GIS routine
-            map.pbdm.colombia -r -p SaveDir="$directory" \
+            map.pbdm.colombia -r -p save_directory="$directory" \
                 longitude=4 latitude=5 year=12 parameter="$parameter" \
                 interpolation=bspline numpoints=3 legend1="$legend" \
-                colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
+                color_rule_regular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
                 lowercut=0 uppercut=0 departments=all crop=coffee cropthreshold=0.01 alt=10000 resolution=1
             wait
         fi
@@ -57,10 +57,10 @@ run_test_coffee() {
             parameter="$i"
             legend="meanripemass"
             # Run GIS routine
-            map.pbdm.colombia -r -p SaveDir="$directory" \
+            map.pbdm.colombia -r -p save_directory="$directory" \
                 longitude=4 latitude=5 year=12 parameter="$parameter" \
                 interpolation=bspline numpoints=3 legend1="$legend" \
-                colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
+                color_rule_regular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
                 lowercut=0 uppercut=0 departments=all crop=coffee cropthreshold=0.01 alt=10000 resolution=1
             wait
         fi
@@ -72,10 +72,10 @@ run_test_coffee() {
             parameter="$i"
             legend="meanTdda"
             # Run GIS routine
-            map.pbdm.colombia -r -p SaveDir="$directory" \
+            map.pbdm.colombia -r -p save_directory="$directory" \
                 longitude=4 latitude=5 year=12 parameter="$parameter" \
                 interpolation=bspline numpoints=3 legend1="$legend" \
-                colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
+                color_rule_regular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
                 lowercut=0 uppercut=0 departments=all crop=coffee cropthreshold=0.01 alt=10000 resolution=1
             wait
         fi
@@ -87,10 +87,10 @@ run_test_coffee() {
             parameter="$i"
             legend="meanRain"
             # Run GIS routine
-            map.pbdm.colombia -r -p SaveDir="$directory" \
+            map.pbdm.colombia -r -p save_directory="$directory" \
                 longitude=4 latitude=5 year=12 parameter="$parameter" \
                 interpolation=bspline numpoints=3 legend1="$legend" \
-                colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
+                color_rule_regular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
                 lowercut=0 uppercut=0 departments=all crop=coffee cropthreshold=0.01 alt=10000 resolution=1
             wait
         fi
@@ -102,10 +102,10 @@ run_test_coffee() {
             parameter="$i"
             legend="meanLangl"
             # Run GIS routine
-            map.pbdm.colombia -r -p SaveDir="$directory" \
+            map.pbdm.colombia -r -p save_directory="$directory" \
                 longitude=4 latitude=5 year=12 parameter="$parameter" \
                 interpolation=bspline numpoints=3 legend1="$legend" \
-                colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
+                color_rule_regular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
                 lowercut=0 uppercut=0 departments=all crop=coffee cropthreshold=0.01 alt=10000 resolution=1
             wait
         fi
@@ -141,10 +141,10 @@ run_test_coffee_no_crop_constraint() {
             parameter="$i"
             legend="meandamnum"
             # Run GIS routine
-            map.pbdm.colombia -r -p SaveDir="$directory" \
+            map.pbdm.colombia -r -p save_directory="$directory" \
                 longitude=4 latitude=5 year=12 parameter="$parameter" \
                 interpolation=bspline numpoints=3 legend1="$legend" \
-                colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
+                color_rule_regular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
                 lowercut=0 uppercut=0 departments=all crop=none cropthreshold=0.01 alt=10000 resolution=1
             wait
         fi
@@ -156,10 +156,10 @@ run_test_coffee_no_crop_constraint() {
             parameter="$i"
             legend="meanripemass"
             # Run GIS routine
-            map.pbdm.colombia -r -p SaveDir="$directory" \
+            map.pbdm.colombia -r -p save_directory="$directory" \
                 longitude=4 latitude=5 year=12 parameter="$parameter" \
                 interpolation=bspline numpoints=3 legend1="$legend" \
-                colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
+                color_rule_regular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
                 lowercut=0 uppercut=0 departments=all crop=none cropthreshold=0.01 alt=10000 resolution=1
             wait
         fi
@@ -171,10 +171,10 @@ run_test_coffee_no_crop_constraint() {
             parameter="$i"
             legend="meanTdda"
             # Run GIS routine
-            map.pbdm.colombia -r -p SaveDir="$directory" \
+            map.pbdm.colombia -r -p save_directory="$directory" \
                 longitude=4 latitude=5 year=12 parameter="$parameter" \
                 interpolation=bspline numpoints=3 legend1="$legend" \
-                colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
+                color_rule_regular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
                 lowercut=0 uppercut=0 departments=all crop=none cropthreshold=0.01 alt=10000 resolution=1
             wait
         fi
@@ -186,10 +186,10 @@ run_test_coffee_no_crop_constraint() {
             parameter="$i"
             legend="meanRain"
             # Run GIS routine
-            map.pbdm.colombia -r -p SaveDir="$directory" \
+            map.pbdm.colombia -r -p save_directory="$directory" \
                 longitude=4 latitude=5 year=12 parameter="$parameter" \
                 interpolation=bspline numpoints=3 legend1="$legend" \
-                colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
+                color_rule_regular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
                 lowercut=0 uppercut=0 departments=all crop=none cropthreshold=0.01 alt=10000 resolution=1
             wait
         fi
@@ -201,10 +201,10 @@ run_test_coffee_no_crop_constraint() {
             parameter="$i"
             legend="meanLangl"
             # Run GIS routine
-            map.pbdm.colombia -r -p SaveDir="$directory" \
+            map.pbdm.colombia -r -p save_directory="$directory" \
                 longitude=4 latitude=5 year=12 parameter="$parameter" \
                 interpolation=bspline numpoints=3 legend1="$legend" \
-                colorRuleRegular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
+                color_rule_regular="4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0" \
                 lowercut=0 uppercut=0 departments=all crop=none cropthreshold=0.01 alt=10000 resolution=1
             wait
         fi

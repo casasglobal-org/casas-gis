@@ -47,7 +47,7 @@ for i in 17; do
     #~ india -c -r \
     #~ states=India \
     #~ clip=cotton_full \
-    #~ SaveDir="$directory" \
+    #~ save_directory="$directory" \
     #~ longitude=5 latitude=6 year=11 \
     #~ parameter="$parameter" \
     #~ interpolation="bspline" \
@@ -67,7 +67,7 @@ for i in 17; do
         india -c -r \
             states=India \
             clip="cotton_irrig" \
-            SaveDir="$directory" \
+            save_directory="$directory" \
             longitude=5 latitude=6 year=11 \
             parameter="$parameter" \
             interpolation="bspline" \
@@ -87,7 +87,7 @@ for i in 17; do
     #~ india -c -r \
     #~ states=India \
     #~ clip="cotton_rainfed" \
-    #~ SaveDir="$directory" \
+    #~ save_directory="$directory" \
     #~ longitude=5 latitude=6 year=11 \
     #~ parameter="$parameter" \
     #~ interpolation="bspline" \

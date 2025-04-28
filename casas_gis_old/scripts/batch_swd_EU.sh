@@ -54,7 +54,7 @@ for i in 27; do
         legend="pupae per year"
         # Run GIS routine
 		EurMedGrape -w -r -p \
-            SaveDir="$directory" \
+            save_directory="$directory" \
 			longitude=5 latitude=6 year=11 parameter="$parameter" \
 			interpolation=bspline lowercut=0 uppercut=0 \
             legend1="$legend" \
@@ -78,7 +78,7 @@ COMMENT
         legend="pupae per year"
         # Run GIS routine
         EurMedGrape -r -p \
-            SaveDir="$directory" \
+            save_directory="$directory" \
             longitude=5 latitude=6 year=11 parameter="$parameter" \
             interpolation=bspline lowercut=0 uppercut=0 \
             legend1="$legend" \

@@ -54,7 +54,7 @@ for i in 12 23 28; do
     #~ parameter="$i"
     #~ legend="rain (mm yr-1)"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -69,7 +69,7 @@ for i in 12 23 28; do
     #~ parameter="$i"
     #~ legend="FallWinMort"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -84,7 +84,7 @@ for i in 12 23 28; do
     #~ parameter="$i"
     #~ legend="RIxPup"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -101,7 +101,7 @@ for i in 12 23 28; do
     #~ parameter="$i"
     #~ legend="rain (mm yr-1)"
     #~ # Run GIS routine
-    #~ LibyaTunisia -g SaveDir="$directory"\
+    #~ LibyaTunisia -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -118,7 +118,7 @@ for i in 12 23 28; do
     #~ parameter="$i"
     #~ legend="FallWinMort"
     #~ # Run GIS routine
-    #~ LibyaTunisia -g SaveDir="$directory"\
+    #~ LibyaTunisia -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -135,7 +135,7 @@ for i in 12 23 28; do
         parameter="$i"
         legend="RIxPup"
         # Run GIS routine
-        LibyaTunisia -g SaveDir="$directory" \
+        LibyaTunisia -g save_directory="$directory" \
             longitude=5 latitude=6 year=11 parameter="$parameter" \
             interpolation=idw numpoints=7 lowercut=0 uppercut=0 legend1="$legend" \
             alt=900 resolution=1

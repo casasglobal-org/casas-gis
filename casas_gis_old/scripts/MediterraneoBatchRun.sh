@@ -34,7 +34,7 @@ for i in 12 14 16 17 22 23 24 25 26 28; do
     #~ parameter="$i"
     #~ legend="Day degrees"
     #~ # Run GIS routine
-    #~ mediterraneo -c SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ mediterraneo -c save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2\
     #~ legend1="$legend"
     #~ wait
@@ -46,7 +46,7 @@ for i in 12 14 16 17 22 23 24 25 26 28; do
     #~ parameter="$i"
     #~ legend="Fruit weight"
     #~ # Run GIS routine
-    #~ mediterraneo -c SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ mediterraneo -c save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2\
     #~ legend1="$legend"
     #~ wait
@@ -58,7 +58,7 @@ for i in 12 14 16 17 22 23 24 25 26 28; do
     #~ parameter="$i"
     #~ legend="Bloom date"
     #~ # Run GIS routine
-    #~ mediterraneo -c SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ mediterraneo -c save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2\
     #~ legend1="$legend"
     #~ wait
@@ -70,7 +70,7 @@ for i in 12 14 16 17 22 23 24 25 26 28; do
     #~ parameter="$i"
     #~ legend="Years with bloom"
     #~ # Run GIS routine
-    #~ mediterraneoBloomYears -c SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ mediterraneoBloomYears -c save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" lowercut=0 uppercut=0 region=NA alt=700 resolution=2\
     #~ legend1="$legend"
     #~ wait
@@ -82,7 +82,7 @@ for i in 12 14 16 17 22 23 24 25 26 28; do
     #~ parameter="$i"
     #~ legend="OF egg days"
     #~ # Run GIS routine
-    #~ mediterraneo -c SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ mediterraneo -c save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2\
     #~ legend1="$legend"
     #~ wait
@@ -94,7 +94,7 @@ for i in 12 14 16 17 22 23 24 25 26 28; do
     #~ parameter="$i"
     #~ legend="OF larvae days"
     #~ # Run GIS routine
-    #~ mediterraneo -c SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ mediterraneo -c save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2\
     #~ legend1="$legend"
     #~ wait
@@ -106,7 +106,7 @@ for i in 12 14 16 17 22 23 24 25 26 28; do
     #~ parameter="$i"
     #~ legend="OF pupae days"
     #~ # Run GIS routine
-    #~ mediterraneo -c SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ mediterraneo -c save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2\
     #~ legend1="$legend"
     #~ wait
@@ -118,7 +118,7 @@ for i in 12 14 16 17 22 23 24 25 26 28; do
     #~ parameter="$i"
     #~ legend="OF adult days"
     #~ # Run GIS routine
-    #~ mediterraneo -c SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ mediterraneo -c save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2\
     #~ legend1="$legend"
     #~ wait
@@ -130,7 +130,7 @@ for i in 12 14 16 17 22 23 24 25 26 28; do
     #~ parameter="$i"
     #~ legend="OF pupae CumSum"
     #~ # Run GIS routine
-    #~ mediterraneo -c SaveDir="$directory" longitude=5 latitude=6 year=11\
+    #~ mediterraneo -c save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2\
     #~ legend1="$legend"
     #~ wait
@@ -142,7 +142,7 @@ for i in 12 14 16 17 22 23 24 25 26 28; do
         parameter="$i"
         legend="Percent fruit attacked"
         # Run GIS routine
-        mediterraneo -c SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2 legend1="$legend"
+        mediterraneo -c save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=1 uppercut=0 region=NA alt=700 resolution=2 legend1="$legend"
         wait
     fi
 done

@@ -50,7 +50,7 @@ for i in 24; do
         parameter="$i"
         legend="Yield (tons per ha)"
         # Run GIS routine
-        medPresentClimate -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=7 parameter="$parameter" interpolation="idw" lowercut=-10 uppercut=50000 region=-1 alt=900 resolution=1 legend1="$legend"
+        medPresentClimate -p -m -u save_directory="$directory" longitude=5 latitude=6 year=7 parameter="$parameter" interpolation="idw" lowercut=-10 uppercut=50000 region=-1 alt=900 resolution=1 legend1="$legend"
         wait
     fi
     # Delta yield
@@ -60,7 +60,7 @@ for i in 24; do
         parameter="$i"
         legend="Delta yield (tons per ha) EH5OM"
         # Run GIS routine
-        medPresentClimate -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=7 parameter="$parameter" interpolation="idw" lowercut=-10 uppercut=50000 region=-1 alt=900 resolution=1 legend1="$legend"
+        medPresentClimate -p -m -u save_directory="$directory" longitude=5 latitude=6 year=7 parameter="$parameter" interpolation="idw" lowercut=-10 uppercut=50000 region=-1 alt=900 resolution=1 legend1="$legend"
         wait
     fi
     # Delta infestation
@@ -70,7 +70,7 @@ for i in 24; do
         parameter="$i"
         legend="Delta infestation (%) EH5OM"
         # Run GIS routine
-        medPresentClimate -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=7 parameter="$parameter" interpolation="idw" lowercut=-10000 uppercut=50000 region=-1 alt=900 resolution=1 legend1="$legend"
+        medPresentClimate -p -m -u save_directory="$directory" longitude=5 latitude=6 year=7 parameter="$parameter" interpolation="idw" lowercut=-10000 uppercut=50000 region=-1 alt=900 resolution=1 legend1="$legend"
         wait
     fi
     # Delta profit with EU aid
@@ -80,7 +80,7 @@ for i in 24; do
         parameter="$i"
         legend="Delta profit (USD per ha)"
         # Run GIS routine
-        medPresentClimate -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=7 parameter="$parameter" interpolation="idw" lowercut=-5000000 uppercut=35000000 region=-1 alt=900 resolution=1 legend1="$legend"
+        medPresentClimate -p -m -u save_directory="$directory" longitude=5 latitude=6 year=7 parameter="$parameter" interpolation="idw" lowercut=-5000000 uppercut=35000000 region=-1 alt=900 resolution=1 legend1="$legend"
         wait
     fi
     # Delta profit without EU aid
@@ -90,7 +90,7 @@ for i in 24; do
         parameter="$i"
         legend="Delta profit no aid (USD per ha) EH5OM"
         # Run GIS routine
-        medPresentClimate -p -m -u SaveDir="$directory" longitude=5 latitude=6 year=7 parameter="$parameter" interpolation="idw" lowercut=-5000000 uppercut=35000000 region=-1 alt=900 resolution=1 legend1="$legend"
+        medPresentClimate -p -m -u save_directory="$directory" longitude=5 latitude=6 year=7 parameter="$parameter" interpolation="idw" lowercut=-5000000 uppercut=35000000 region=-1 alt=900 resolution=1 legend1="$legend"
         wait
     fi
 done
