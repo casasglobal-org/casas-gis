@@ -310,15 +310,15 @@ cleanup
 
 # Set user-defined directory where to save
 # output maps.
-if [ -n "$GIS_OPT_SAVEDIR" ]; then
-    if [ -d "${OUTFILES}/$GIS_OPT_SAVEDIR" ]; then
+if [ -n "$GIS_OPT_SAVE_DIRECTORY" ]; then
+    if [ -d "${OUTFILES}/$GIS_OPT_SAVE_DIRECTORY" ]; then
         echo ""
-        echo "The directory \"$GIS_OPT_SAVEDIR\" already exists."
+        echo "The directory \"$GIS_OPT_SAVE_DIRECTORY\" already exists."
         echo "Please, choose a different name."
         echo ""
         exit 1
     else
-        SaveDir="${OUTFILES}/$GIS_OPT_SAVEDIR"
+        SaveDir="${OUTFILES}/$GIS_OPT_SAVE_DIRECTORY"
         mkdir -p "$SaveDir"
     fi
 fi
@@ -871,21 +871,21 @@ fi
 # One may want to save palette used for analysis.
 if [ "$GIS_FLAG_G" -eq 1 ]; then
     if [ "$GIS_FLAG_X" -eq 1 ]; then
-        cp ${PALETTES}/customColorRule.txt ${OUTFILES}/$GIS_OPT_SAVEDIR
+        cp ${PALETTES}/customColorRule.txt ${OUTFILES}/$GIS_OPT_SAVE_DIRECTORY
     else
-        cp ${PALETTES}/greyColorRule ${OUTFILES}/$GIS_OPT_SAVEDIR
+        cp ${PALETTES}/greyColorRule ${OUTFILES}/$GIS_OPT_SAVE_DIRECTORY
     fi
 else
     if [ "$GIS_FLAG_X" -eq 1 ]; then
-        cp ${PALETTES}/customColorRule.txt ${OUTFILES}/$GIS_OPT_SAVEDIR
+        cp ${PALETTES}/customColorRule.txt ${OUTFILES}/$GIS_OPT_SAVE_DIRECTORY
     else
-        cp ${PALETTES}/defaultColorRule ${OUTFILES}/$GIS_OPT_SAVEDIR
+        cp ${PALETTES}/defaultColorRule ${OUTFILES}/$GIS_OPT_SAVE_DIRECTORY
     fi
 fi
 
 # How about saving also data used for analysis?
-mkdir -p ${OUTFILES}/$GIS_OPT_SAVEDIR/data/
-cp ${OUTFILES}/*.txt ${OUTFILES}/$GIS_OPT_SAVEDIR/data/
+mkdir -p ${OUTFILES}/$GIS_OPT_SAVE_DIRECTORY/data/
+cp ${OUTFILES}/*.txt ${OUTFILES}/$GIS_OPT_SAVE_DIRECTORY/data/
 
 # Perform final cleanup.
 #~ cleanup
@@ -893,7 +893,7 @@ cp ${OUTFILES}/*.txt ${OUTFILES}/$GIS_OPT_SAVEDIR/data/
 # Set default browser for HTML visual summary.
 GRASS_HTML_BROWSER=firefox.exe
 # Open HTML visual summary.
-$GRASS_HTML_BROWSER "file:///C:/cygwin/home/andy/outfiles/$GIS_OPT_SAVEDIR/${LEG1}.html"
-#$GRASS_HTML_BROWSER "${OUTFILES}/$GIS_OPT_SAVEDIR/${LEG1}.html"
+$GRASS_HTML_BROWSER "file:///C:/cygwin/home/andy/outfiles/$GIS_OPT_SAVE_DIRECTORY/${LEG1}.html"
+#$GRASS_HTML_BROWSER "${OUTFILES}/$GIS_OPT_SAVE_DIRECTORY/${LEG1}.html"
 
 exit 0
