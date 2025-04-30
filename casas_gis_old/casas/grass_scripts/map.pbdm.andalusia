@@ -649,7 +649,7 @@ for i in $(ls); do
     fi
 
     # Remove MASK that would otherwise prevent full map display.
-    g.remove -f type=raster name=MASK
+    g.remove -f --q type=raster name=MASK
 
     # Remove stuff outside cutting points from interpolated raster.
     if [ -n "$(cat ${CASAS_HOME}/voronoi.txt)" ]; then
@@ -668,7 +668,7 @@ for i in $(ls); do
 
     # Remove voronoi-related stuff.
     \rm -f ${CASAS_HOME}/voronoi*.txt
-    g.remove -f type=vector pattern="voronoi*"
+    g.remove -f --q type=vector pattern="voronoi*"
 
     # If flag -g is checked, output is a greyscale figure
     if [ "$GIS_FLAG_G" -eq 1 ]; then
