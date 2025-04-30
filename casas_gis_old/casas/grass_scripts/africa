@@ -550,7 +550,7 @@ for i in $(ls); do
     v.proj input=map$i project=latlong mapset=luigi output=map$i
 
     # Add a column to vector containing altitudes uploaded from raster DEM.
-    v.db.addcol map=map$i columns="elevation REAL"
+    v.db.addcolumn map=map$i columns="elevation REAL"
     wait
     v.what.rast map=map$i raster=elevation_1KMmd_GMTEDmd column="elevation"
     wait

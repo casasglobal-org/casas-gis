@@ -246,7 +246,7 @@ export GRASS_OVERWRITE=1
 # % key: cropthreshold
 # % type: double
 # % answer: 0.20
-# % description: Threshold for crop harvested area fraction above which mapping will occur (output will no be mapped below the threshold). Only used with crop=olive.
+# % description: Threshold for crop harvested area fraction above which mapping will occur (output will not be mapped below the threshold). Only used with crop=olive.
 # % required: yes
 # %end
 
