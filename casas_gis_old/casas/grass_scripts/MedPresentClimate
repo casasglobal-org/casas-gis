@@ -791,13 +791,13 @@ if [ "$GIS_FLAG_G" -eq 1 ]; then
     #~ color=255:255:255 fcolor=0:0:0
     #~ d.font.freetype font="C:\Windows\Fonts\arial.ttf";
     #~ Weather="Weather stations";
-    #~ echo $Weather > ${OUTFILES}/weather.txt;
-    #~ d.text size=5 color=black at=3,90 input=${OUTFILES}/weather.txt;
+    #~ echo $Weather > ${CASAS_HOME}/weather.txt;
+    #~ d.text size=5 color=black at=3,90 input=${CASAS_HOME}/weather.txt;
 
-    d.grid -w size=5:0:0 origin=0,0 color=gray bordercolor=black textcolor=black fontsize=25
+    d.grid -w size=5:0:0 origin=0,0 color=grey bordercolor=black textcolor=black fontsize=25
     # d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=png
     #~ d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=eps
-    # d.mon stop=x0
+
     d.barscale at=50,7
     d.mon stop=png
 else
@@ -822,7 +822,7 @@ else
     d.grid -w size=5:0:0 origin=0,0 color=grey bordercolor=black textcolor=black fontsize=25
     # d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=png
     #~ d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=eps
-    # d.mon stop=x0
+
     # Display scale bar.
     d.barscale at=50,7
     d.mon stop=png
