@@ -1,14 +1,31 @@
 #!/bin/bash
+
+# Batch run MedPresentClimate CASAS GIS
 #
-# Batch run medPresentClimate CASAS GIS
-#
-# To run it from 64-SVN DOS text, please enter
-# "%GRASS_SH%" batch_oliveProtheusWin.sh
+# OLD:
+#  To run it from 64-SVN DOS text, please enter
+#  "%GRASS_SH%" batch_oliveProtheusWin.sh
+# NEW:
+#  grass84 $HOME/data/casas/grass8data_casas/latlong/luigi/ --exec $HOME/software/casas-gis/casas_gis_old/scripts/batch_OliveProtheus.sh
 #
 # Author: Luigi Ponti quartese gmail.com
 # Copyright: (c) 2014 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 07 Jan 2014
+############
+
+# fail on error
+set -e
+
+export PATH="$PATH:$HOME/software/casas-gis/casas_gis_old/casas/grass_scripts/"
+
+# Check for user break (signal list: trap -l)
+trap 'exitprocedure' 1 2 3 15
+# Ensure that we are in a GRASS session
+if test "$GISBASE" = ""; then
+    echo 'You must be in GRASS GIS to run this program.' >&2
+    exit 1
+fi
 
 #~ YIELD
 
@@ -99,7 +116,7 @@ for i in 24; do
     #~ parameter="$i"
     #~ legend="olive yield delta CV"
     #~ # Run GIS routine
-    #~ medPresentClimate -p -m -w save_directory="$directory" longitude=5 latitude=6 year=11\
+    #~ MedPresentClimate -p -m -w save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=-10000 region=-1 alt=900 resolution=1\
     #~ legend1="$legend" lowBarCol=-34.8554307206397 upBarCol=22.9235309499502
     #~ wait
@@ -111,7 +128,7 @@ for i in 24; do
     #~ parameter="$i"
     #~ legend="olive infestation delta IQR"
     #~ # Run GIS routine
-    #~ medPresentClimate -p -m -w save_directory="$directory" longitude=5 latitude=6 year=11\
+    #~ MedPresentClimate -p -m -w save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=-10000 region=-1 alt=900 resolution=1\
     #~ legend1="$legend" lowBarCol=-24.4430010546617 upBarCol=21.1323842803864
     #~ wait
@@ -123,7 +140,7 @@ for i in 24; do
         parameter="$i"
         legend="olive profit delta"
         # Run GIS routine
-        medPresentClimate -p -m -w save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" interpolation="idw" lowercut=-10000 region=-1 alt=900 resolution=1 legend1="$legend" lowBarCol=-256.458 upBarCol=430.768
+        MedPresentClimate -p -m -w save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" interpolation="idw" lowercut=-10000 region=-1 alt=900 resolution=1 legend1="$legend" lowBarCol=-256.458 upBarCol=430.768
         wait
     fi
 done

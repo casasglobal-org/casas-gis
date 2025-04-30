@@ -2,13 +2,30 @@
 #
 # Batch run screwwrom in Libya-Tunisia
 #
-# To run it from 64-SVN DOS text, please e
-# "%GRASS_SH%" batch_LibyaTunisia_screwworm.sh
+# Run from LibyaTunisia shell with following command
+# OLD:
+#  "C:\Program Files (x86)\GRASS GIS 6.4.4\msys\bin\sh.exe" batch_LibyaTunisia_screwworm.sh
+# NEW:
+#  grass84 $HOME/data/casas/grass8data_casas/latlong/luigi/ --exec $HOME/software/casas-gis/casas_gis_old/scripts/batch_LibyaTunisia_screwworm.sh
 #
 # Author: Luigi Ponti quartese gmail.com
 # Copyright: (c) 2012 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 18 June 2012
+############
+
+# fail on error
+set -e
+
+export PATH="$PATH:$HOME/software/casas-gis/casas_gis_old/casas/grass_scripts/"
+
+# Check for user break (signal list: trap -l)
+trap 'exitprocedure' 1 2 3 15
+# Ensure that we are in a GRASS session
+if test "$GISBASE" = ""; then
+    echo 'You must be in GRASS GIS to run this program.' >&2
+    exit 1
+fi
 
 #~ The following column names were found:
 
@@ -47,7 +64,7 @@ for i in 12 23 28; do
 
     ############ Yearly output ############
 
-    #~ # Rain.
+    #~ # Rain
     #~ if [ $i -eq 12 ] ; then
     #~ # Set run
     #~ directory="screwworm_rain_1989-2005"

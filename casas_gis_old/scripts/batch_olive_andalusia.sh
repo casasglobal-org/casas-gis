@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Batch run medPresentClimate CASAS GIS
+# Batch run map.pbdm.andalusia CASAS GIS
 #
-# Run from Andalusia shell with following command
+# Run from map.pbdm.andalusia shell with following command
 # OLD:
 #  "C:\Program Files (x86)\GRASS GIS 6.4.4\msys\bin\sh.exe" batch_olive_andalusia.sh
 # NEW:
@@ -12,8 +12,10 @@
 # Copyright: (c) 2019 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 02 October 2019
+############
 
 # -r and -p flags are for raster stat report and histograms
+
 # fail on error
 set -e
 

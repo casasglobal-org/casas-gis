@@ -6,7 +6,20 @@
 # Copyright: (c) 2009 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 10 July 2009
-#
+############
+
+# fail on error
+set -e
+
+export PATH="$PATH:$HOME/software/casas-gis/casas_gis_old/casas/grass_scripts/"
+
+# Check for user break (signal list: trap -l)
+trap 'exitprocedure' 1 2 3 15
+# Ensure that we are in a GRASS session
+if test "$GISBASE" = ""; then
+    echo 'You must be in GRASS GIS to run this program.' >&2
+    exit 1
+fi
 
 #~ 12. dd
 #~ 13. ddbZero

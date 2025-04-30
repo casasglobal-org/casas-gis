@@ -1,14 +1,31 @@
 #!/bin/sh
+
+# Batch run EurMedGrape CASAS GIS
 #
-# Batch run medPresentClimate CASAS GIS
-#
-# To run it from 64-SVN DOS text, please e
-# "%GRASS_SH%" batch_oliveProtheusWin.sh
+# OLD:
+#  To run it from 64-SVN DOS text, please enter
+#  "%GRASS_SH%" batch_oliveProtheusWin.sh
+# NEW:
+#  grass84 $HOME/data/casas/grass8data_casas/latlong/luigi/ --exec $HOME/software/casas-gis/casas_gis_old/scripts/batch_OliveProtheus.sh
 #
 # Author: Luigi Ponti quartese gmail.com
 # Copyright: (c) 2010 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 17 March 2010
+############
+
+# fail on error
+set -e
+
+export PATH="$PATH:$HOME/software/casas-gis/casas_gis_old/casas/grass_scripts/"
+
+# Check for user break (signal list: trap -l)
+trap 'exitprocedure' 1 2 3 15
+# Ensure that we are in a GRASS session
+if test "$GISBASE" = ""; then
+    echo 'You must be in GRASS GIS to run this program.' >&2
+    exit 1
+fi
 
 # 1. Model
 # 2. Date
