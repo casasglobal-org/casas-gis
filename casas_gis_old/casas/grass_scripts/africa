@@ -484,7 +484,7 @@ if [ "$REG" == "-1" ]; then
 elif [ "$REG" != "-1" ]; then
     # New clip based on countries
     echo $REG > ${CASAS_HOME}/clipRegion.txt
-    perl ${PERLSCRIPTS}/cliparse_TC.pl "$HOME" "NAME_EN" 'string' "clipRegion.txt" "formula.txt"
+    perl ${PERLSCRIPTS}/cliparse_TC.pl ${CASAS_HOME} "NAME_EN" 'string' "clipRegion.txt" "formula.txt"
     v.extract input=africa output=EtoSelect where="$(cat ${OUTFILES}/formula.txt)"
     # Adjust region settings
     g.region vector=EtoSelect

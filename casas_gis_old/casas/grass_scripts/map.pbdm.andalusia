@@ -511,7 +511,7 @@ else
     perl ${PERLSCRIPTS}/cliparse_TC.pl "${CASAS_HOME}" 'iso_3166_2' 'string' "states.txt" "formulaStates.txt"
     v.extract input=andalusia_provinces output=selectedStates where="$(cat ${CASAS_HOME}/formulaStates.txt)"
     # Define the extent of the map and its grid resolution (currently 1 km).
-    g.region -a vect=selectedStates
+    g.region -a vector=selectedStates
     v.to.rast input=selectedStates output=EtoSelectMask use=val value=1
     # Make some room on the margins.
     g.region n=n+7000 s=s-7000 e=e+7000 w=w-7000

@@ -459,9 +459,9 @@ else
         g.copy raster=era40dem_resamp,ElevMask
         r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
     else
-        echo $REG > ${OUTFILES}/clipRegion.txt
-        perl ${PERLSCRIPTS}/cliparse_TC.pl "$HOME" "GEZ_CODE" 'number' "clipRegion.txt" "formula.txt"
-        v.extract input=ecoZonesFaoMedOlive output=EtoSelect where="$(cat ${OUTFILES}/formula.txt)"
+        echo $REG > ${CASAS_HOME}/clipRegion.txt
+        perl ${PERLSCRIPTS}/cliparse_TC.pl ${CASAS_HOME} "GEZ_CODE" 'number' "clipRegion.txt" "formula.txt"
+        v.extract input=ecoZonesFaoMedOlive output=EtoSelect where="$(cat ${CASAS_HOME}/formula.txt)"
         v.to.rast input=EtoSelect output=EtoSelectMask use=val value=1
         # Get mask to clip sites with elevation over $ALT
         # and outside selected ecological regions.
@@ -730,8 +730,8 @@ for i in $(ls); do
 
     # If flag -r is checked, then write raster statistics.
     if [ "$GIS_FLAG_R" -eq 1 ]; then
-        r.report -en map=regioni_istat,MskdModPOS$i units=k,p nsteps=4 > "$SaveDir"/$i.txt
-        r.univar map=MskdModPOS$i | tee -a "$SaveDir"/$i.txt
+        r.report -en map=regioni_istat,MskdModPOS$i units=k,p nsteps=4 > "$SaveDir/$i.txt"
+        r.univar map=MskdModPOS$i | tee -a "$SaveDir/$i.txt"
         if [ $n -eq 1 ]; then
             echo 'There is no stat report for weather stations!' > "$SaveDir"/WeatherStations.txt
             if [ "$GIS_FLAG_P" -eq 1 ]; then
@@ -816,8 +816,8 @@ else
     #~ color=255:255:255 fcolor=0:0:0;
     #~ d.font.freetype font="C:\Windows\Fonts\arial.ttf";
     #~ Weather="Weather stations";
-    #~ echo $Weather > ${OUTFILES}/weather.txt;
-    #~ d.text size=5 color=black at=3,90 input=${OUTFILES}/weather.txt;
+    #~ echo $Weather > ${CASAS_HOME}/weather.txt;
+    #~ d.text size=5 color=black at=3,90 input=${CASAS_HOME}/weather.txt;
 
     d.grid -w size=5:0:0 origin=0,0 color=grey bordercolor=black textcolor=black fontsize=25
     # d.out.file output="$SaveDir"/WeatherStations res=$FIGRES format=png
