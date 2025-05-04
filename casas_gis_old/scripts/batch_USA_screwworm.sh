@@ -114,7 +114,7 @@ for i in 12 23 26 28 29 30 31 32 33 34; do
         usa -w states='TX' \
             save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" \
             interpolation="idw" numpoints=3 lowercut=0 uppercut=2000 legend1="$legend" \
-            alt=2000 resolution=2 lowBarCol=0.00 upBarCol=2549.70
+            alt=2000 resolution=2 low_bar_col=0.00 up_bar_col=2549.70
         wait
     fi
 

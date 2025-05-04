@@ -48,7 +48,7 @@ for i in 19 28 30; do
     #~ # Run GIS routine
     #~ MedPresentClimate -g -p -m save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=0 uppercut=50000\
-    #~ region=-1 alt=900 resolution=2 legend1="$legend" lowBarCol=0.001666667 upBarCol=8315.186
+    #~ region=-1 alt=900 resolution=2 legend1="$legend" low_bar_col=0.001666667 up_bar_col=8315.186
     #~ wait
     #~ fi
     # Change in olive fly pupae POS
@@ -60,7 +60,7 @@ for i in 19 28 30; do
     #~ # Run GIS routine
     #~ MedPresentClimate -w -g -p -m save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=0 uppercut=50000\
-    #~ region=-1 alt=900 resolution=2 legend1="$legend" lowBarCol=37.645 upBarCol=5147.558
+    #~ region=-1 alt=900 resolution=2 legend1="$legend" low_bar_col=37.645 up_bar_col=5147.558
     #~ wait
     #~ fi
     # Change in olive fly pupae NEG
@@ -72,7 +72,7 @@ for i in 19 28 30; do
     #~ # Run GIS routine
     #~ MedPresentClimate -u -w -g -p -m save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=-5000 uppercut=0\
-    #~ region=-1 alt=900 resolution=2 legend1="$legend" lowBarCol=-3115.578 upBarCol=-6.420238
+    #~ region=-1 alt=900 resolution=2 legend1="$legend" low_bar_col=-3115.578 up_bar_col=-6.420238
     #~ wait
     #~ fi
     # Change in % fruit attacked POS
@@ -84,7 +84,7 @@ for i in 19 28 30; do
     #~ # Run GIS routine
     #~ MedPresentClimate -w -g -p -m save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=0 uppercut=50000\
-    #~ region=-1 alt=900 resolution=2 legend1="$legend" lowBarCol=0.0997619 upBarCol=40.49238
+    #~ region=-1 alt=900 resolution=2 legend1="$legend" low_bar_col=0.0997619 up_bar_col=40.49238
     #~ wait
     #~ fi
     # Change in % fruit attacked NEG
@@ -108,7 +108,7 @@ for i in 19 28 30; do
     #~ # Run GIS routine
     #~ MedPresentClimate -w -g -p -m save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=0 uppercut=50000\
-    #~ region=-1 alt=900 resolution=2 legend1="$legend" lowBarCol=0.06739467 upBarCol=807.9007
+    #~ region=-1 alt=900 resolution=2 legend1="$legend" low_bar_col=0.06739467 up_bar_col=807.9007
     #~ wait
     #~ fi
     # Change in olive oil profit (no aid) NEG
@@ -118,7 +118,7 @@ for i in 19 28 30; do
         parameter="$i"
         legend="Delta profit NEG"
         # Run GIS routine
-        MedPresentClimate -u -g -p -m save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" interpolation="idw" lowercut=-5000 uppercut=0 region=-1 alt=900 resolution=2 legend1="$legend" lowBarCol=-350.1798 upBarCol=-0.6018674
+        MedPresentClimate -u -g -p -m save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" interpolation="idw" lowercut=-5000 uppercut=0 region=-1 alt=900 resolution=2 legend1="$legend" low_bar_col=-350.1798 up_bar_col=-0.6018674
         wait
     fi
 done

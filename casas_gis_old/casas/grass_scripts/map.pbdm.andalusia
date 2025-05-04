@@ -883,7 +883,7 @@ echo "GIS script syntax used:
 	SaveDir=$SaveDir longitude=$LON latitude=$LAT year=$YEAR
 	parameter=$PAR interpolation=$SURF numpoints=$PNTS
 	lowercut=$CUT uppercut=$HICUT legend1=\"$LEG1\" provinces=$PROVINCES
-	alt=$ALT resolution=$FIGRES lowBarCol=$LOWBARCOL upBarCol=$UPBARCOL
+	alt=$ALT resolution=$FIGRES low_bar_col=$LOWBARCOL up_bar_col=$UPBARCOL
 	crop=$CROP crop_threshold=$CROP_THRESHOLD" | tee -a "$SaveDir/${LEG1FILE}.log"
 
 # Write date in the log file.

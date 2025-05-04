@@ -77,8 +77,8 @@ for i in 27; do
             legend1="$legend" \
 			region=-1 \
             alt=2000 resolution=1 \
-			lowBarCol=0 \
-			upBarCol=1295.219
+			low_bar_col=0 \
+			up_bar_col=1295.219
         wait
     fi
 

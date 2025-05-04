@@ -118,7 +118,7 @@ for i in 24; do
     #~ # Run GIS routine
     #~ MedPresentClimate -p -m -w save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=-10000 region=-1 alt=900 resolution=1\
-    #~ legend1="$legend" lowBarCol=-34.8554307206397 upBarCol=22.9235309499502
+    #~ legend1="$legend" low_bar_col=-34.8554307206397 up_bar_col=22.9235309499502
     #~ wait
     #~ fi
     #~ # Infestation
@@ -130,7 +130,7 @@ for i in 24; do
     #~ # Run GIS routine
     #~ MedPresentClimate -p -m -w save_directory="$directory" longitude=5 latitude=6 year=11\
     #~ parameter="$parameter" interpolation="idw" lowercut=-10000 region=-1 alt=900 resolution=1\
-    #~ legend1="$legend" lowBarCol=-24.4430010546617 upBarCol=21.1323842803864
+    #~ legend1="$legend" low_bar_col=-24.4430010546617 up_bar_col=21.1323842803864
     #~ wait
     #~ fi
     # Profit
@@ -140,7 +140,7 @@ for i in 24; do
         parameter="$i"
         legend="olive profit delta"
         # Run GIS routine
-        MedPresentClimate -p -m -w save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" interpolation="idw" lowercut=-10000 region=-1 alt=900 resolution=1 legend1="$legend" lowBarCol=-256.458 upBarCol=430.768
+        MedPresentClimate -p -m -w save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" interpolation="idw" lowercut=-10000 region=-1 alt=900 resolution=1 legend1="$legend" low_bar_col=-256.458 up_bar_col=430.768
         wait
     fi
 done

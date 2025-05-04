@@ -75,7 +75,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=0.00 upBarCol=1280
+    #~ alt=900 resolution=1 low_bar_col=0.00 up_bar_col=1280
     #~ wait
     #~ fi
 
@@ -90,7 +90,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=0.011 upBarCol=3.334
+    #~ alt=900 resolution=1 low_bar_col=0.011 up_bar_col=3.334
     #~ wait
     #~ fi
 
@@ -105,7 +105,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=6.384 upBarCol=32.441
+    #~ alt=900 resolution=1 low_bar_col=6.384 up_bar_col=32.441
     #~ wait
     #~ fi
 
@@ -120,7 +120,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=13.786 upBarCol=467.974
+    #~ alt=900 resolution=1 low_bar_col=13.786 up_bar_col=467.974
     #~ wait
     #~ fi
 
@@ -135,7 +135,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=6.183 upBarCol=339.366
+    #~ alt=900 resolution=1 low_bar_col=6.183 up_bar_col=339.366
     #~ wait
     #~ fi
 
@@ -150,7 +150,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=4.551 upBarCol=249.767
+    #~ alt=900 resolution=1 low_bar_col=4.551 up_bar_col=249.767
     #~ wait
     #~ fi
 
@@ -165,7 +165,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=2.721 upBarCol=227.218
+    #~ alt=900 resolution=1 low_bar_col=2.721 up_bar_col=227.218
     #~ wait
     #~ fi
 
@@ -180,7 +180,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=0.02 upBarCol=158.419
+    #~ alt=900 resolution=1 low_bar_col=0.02 up_bar_col=158.419
     #~ wait
     #~ fi
 
@@ -197,7 +197,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=0.00 upBarCol=1280
+    #~ alt=900 resolution=1 low_bar_col=0.00 up_bar_col=1280
     #~ wait
     #~ fi
 
@@ -212,7 +212,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=0.011 upBarCol=3.334
+    #~ alt=900 resolution=1 low_bar_col=0.011 up_bar_col=3.334
     #~ wait
     #~ fi
 
@@ -227,7 +227,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=6.384 upBarCol=32.441
+    #~ alt=900 resolution=1 low_bar_col=6.384 up_bar_col=32.441
     #~ wait
     #~ fi
 
@@ -242,7 +242,7 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=13.786 upBarCol=467.974
+    #~ alt=900 resolution=1 low_bar_col=13.786 up_bar_col=467.974
     #~ wait
     #~ fi
 
@@ -256,7 +256,7 @@ for i in 12 22 23 24 25 26 27 28; do
         LibyaTunisia -g save_directory="$directory" \
             longitude=5 latitude=6 year=11 parameter="$parameter" \
             interpolation=idw numpoints=7 lowercut=0 uppercut=0 legend1="$legend" \
-            alt=900 resolution=1 lowBarCol=6.183 upBarCol=339.366
+            alt=900 resolution=1 low_bar_col=6.183 up_bar_col=339.366
         wait
     fi
 
@@ -270,7 +270,7 @@ for i in 12 22 23 24 25 26 27 28; do
         LibyaTunisia -g save_directory="$directory" \
             longitude=5 latitude=6 year=11 parameter="$parameter" \
             interpolation=idw numpoints=7 lowercut=0 uppercut=0 legend1="$legend" \
-            alt=900 resolution=1 lowBarCol=4.551 upBarCol=249.767
+            alt=900 resolution=1 low_bar_col=4.551 up_bar_col=249.767
         wait
     fi
 
@@ -284,7 +284,7 @@ for i in 12 22 23 24 25 26 27 28; do
         LibyaTunisia -g save_directory="$directory" \
             longitude=5 latitude=6 year=11 parameter="$parameter" \
             interpolation=idw numpoints=7 lowercut=0 uppercut=0 legend1="$legend" \
-            alt=900 resolution=1 lowBarCol=2.721 upBarCol=227.218
+            alt=900 resolution=1 low_bar_col=2.721 up_bar_col=227.218
         wait
     fi
 
@@ -298,7 +298,7 @@ for i in 12 22 23 24 25 26 27 28; do
         LibyaTunisia -g save_directory="$directory" \
             longitude=5 latitude=6 year=11 parameter="$parameter" \
             interpolation=idw numpoints=7 lowercut=0 uppercut=0 legend1="$legend" \
-            alt=900 resolution=1 lowBarCol=0.02 upBarCol=158.419
+            alt=900 resolution=1 low_bar_col=0.02 up_bar_col=158.419
         wait
     fi
 

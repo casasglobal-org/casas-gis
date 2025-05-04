@@ -958,8 +958,8 @@ GIS script syntax used:
     resolution=$FIGRES
     colorRuleDivergent=$RULE_DIV
     colorRuleRegular=$RULE_REG
-    lowBarCol=$LOWBARCOL
-    upBarCol=$UPBARCOL
+    low_bar_col=$LOWBARCOL
+    up_bar_col=$UPBARCOL
 
 " | tee -a "$SaveDir/${LEG1FILE}.log"
 
