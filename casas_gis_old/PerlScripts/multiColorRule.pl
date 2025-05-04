@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # Script that writes color rules file to apply a unique color rule 
-# to models raters based on overall range of data.
+# to models rasters based on overall range of data.
 
 # Compared to rangeColorRule.pl, this version can use any
 # combination of any number of colors.
@@ -28,6 +28,7 @@ chdir ("$HomeDir/models_temp/");
 opendir(DIR, "$HomeDir/models_temp/") || die "can't opendir $HomeDir/models_temp/: $!";
 
 # Import model output files for reading
+# TODO: careful with wildcard here?
 while (my $file = <*>)
 {
     open (IN, "<$file") or die "Can't open $file for reading: $!";
@@ -56,7 +57,7 @@ while (my $file = <*>)
 }
 closedir DIR;
 
-# Sort and get maximum and minimun of overall range of data.
+# Sort and get maximum and minimum of overall range of data.
 my @sortedRange = sort { $a <=> $b } @range;
 my $min = $sortedRange[0];
 my $max = $sortedRange[-1];
