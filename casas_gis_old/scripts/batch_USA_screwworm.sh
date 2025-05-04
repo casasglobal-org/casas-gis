@@ -1,15 +1,31 @@
 #!/bin/sh
 #
-# Batch run medPresentClimate CASAS GIS
+# Batch run MedPresentClimate CASAS GIS
 #
-# To run it from 64-SVN DOS text, please e
-# "%GRASS_SH%" batch_oliveProtheusWin.sh
+# Run from usa shell with following command
+# OLD:
+#  "C:\Program Files (x86)\GRASS GIS 6.4.4\msys\bin\sh.exe" batch_oliveProtheusWin.sh
+# NEW:
+#  grass84 $HOME/data/casas/grass8data_casas/latlong/luigi/ --exec $HOME/software/casas-gis/casas_gis_old/scripts/batch_OliveProtheus.sh
 #
 # Author: Luigi Ponti quartese gmail.com
 # Copyright: (c) 2011 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 17 November 2011
-#
+############
+
+# fail on error
+set -e
+
+export PATH="$PATH:$HOME/software/casas-gis/casas_gis_old/casas/grass_scripts/"
+
+# Check for user break (signal list: trap -l)
+trap 'exitprocedure' 1 2 3 15
+# Ensure that we are in a GRASS session
+if test "$GISBASE" = ""; then
+    echo 'You must be in GRASS GIS to run this program.' >&2
+    exit 1
+fi
 
 #~ The following column names were found:
 
@@ -54,7 +70,7 @@ for i in 12 23 26 28 29 30 31 32 33 34; do
     #~ legend="rain (mm/year)"
     #~ # Run GIS routine
     #~ usa states='AL AZ CA FL GA LA MS MX NC NM SC TX'\
-    #~ SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=10000\
+    #~ save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=10000\
     #~ legend1="$legend"\
     #~ alt=10000 resolution=1
     #~ wait
@@ -68,7 +84,7 @@ for i in 12 23 26 28 29 30 31 32 33 34; do
     #~ legend="screwworm fall winter mortality"
     #~ # Run GIS routine
     #~ usa states='AL AZ CA FL GA LA MS MX NC NM SC TX'\
-    #~ SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=10000\
+    #~ save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=10000\
     #~ legend1="$legend"\
     #~ alt=10000 resolution=1
     #~ wait
@@ -82,7 +98,7 @@ for i in 12 23 26 28 29 30 31 32 33 34; do
     #~ legend="screwworm cumulative pupae"
     #~ # Run GIS routine
     #~ usa states='AL AZ CA FL GA LA MS MX NC NM SC TX'\
-    #~ SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=10000\
+    #~ save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=10000\
     #~ legend1="$legend"\
     #~ alt=10000 resolution=1
     #~ wait
@@ -96,9 +112,9 @@ for i in 12 23 26 28 29 30 31 32 33 34; do
         legend="rain"
         # Run GIS routine
         usa -w states='TX' \
-            SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" \
+            save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" \
             interpolation="idw" numpoints=3 lowercut=0 uppercut=2000 legend1="$legend" \
-            alt=2000 resolution=2 lowBarCol=0.00 upBarCol=2549.70
+            alt=2000 resolution=2 low_bar_col=0.00 up_bar_col=2549.70
         wait
     fi
 
@@ -110,7 +126,7 @@ for i in 12 23 26 28 29 30 31 32 33 34; do
     #~ legend="screwworm rain index"
     #~ # Run GIS routine
     #~ usa states='AL AZ CA FL GA LA MS MX NC NM SC TX'\
-    #~ SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=10000\
+    #~ save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=10000\
     #~ legend1="$legend"\
     #~ alt=10000 resolution=1
     #~ wait
@@ -124,7 +140,7 @@ for i in 12 23 26 28 29 30 31 32 33 34; do
     #~ legend="screwworm favorability"
     #~ # Run GIS routine
     #~ usa states='AL AZ CA FL GA LA MS MX NC NM SC TX'\
-    #~ SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=10000\
+    #~ save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=10000\
     #~ legend1="$legend"\
     #~ alt=10000 resolution=1
     #~ wait
@@ -138,7 +154,7 @@ for i in 12 23 26 28 29 30 31 32 33 34; do
     #~ legend="screwworm survival index"
     #~ # Run GIS routine
     #~ usa states='AL AZ CA FL GA LA MS MX NC NM SC TX'\
-    #~ SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=10000\
+    #~ save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=10000\
     #~ legend1="$legend"\
     #~ alt=10000 resolution=1
     #~ wait
@@ -152,7 +168,7 @@ for i in 12 23 26 28 29 30 31 32 33 34; do
     #~ legend="screwworm rain cold index"
     #~ # Run GIS routine
     #~ usa states='AL AZ CA FL GA LA MS MX NC NM SC TX'\
-    #~ SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=0\
+    #~ save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=0\
     #~ legend1="$legend"\
     #~ alt=10000 resolution=1
     #~ wait
@@ -166,7 +182,7 @@ for i in 12 23 26 28 29 30 31 32 33 34; do
     #~ legend="Surviving pupae (limiting rain only)"
     #~ # Run GIS routine
     #~ usa states='AL AZ CA FL GA LA MS MX NC NM SC TX'\
-    #~ SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=0\
+    #~ save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=0\
     #~ legend1="$legend"\
     #~ alt=10000 resolution=1
     #~ wait
@@ -180,7 +196,7 @@ for i in 12 23 26 28 29 30 31 32 33 34; do
     #~ legend="Surviving pupae"
     #~ # Run GIS routine
     #~ usa states='AL AZ CA FL GA LA MS MX NC NM SC TX'\
-    #~ SaveDir="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=0\
+    #~ save_directory="$directory" longitude=5 latitude=6 year=11 parameter="$parameter" lowercut=0 uppercut=0\
     #~ legend1="$legend"\
     #~ alt=10000 resolution=1
     #~ wait

@@ -2,15 +2,32 @@
 #
 # Batch run screwwrom in Libya-Tunisia
 #
-# To run it from 64-SVN DOS text, please e
-# "%GRASS_SH%" batch_LibyaTunisia_sw_majorRev.sh
+# Run from LibyaTunisia shell with following command
+# OLD:
+#  "C:\Program Files (x86)\GRASS GIS 6.4.4\msys\bin\sh.exe" batch_LibyaTunisia_sw_majorRev.sh
+# NEW:
+#  grass84 $HOME/data/casas/grass8data_casas/latlong/luigi/ --exec $HOME/software/casas-gis/casas_gis_old/scripts/batch_LibyaTunisia_sw_majorRev.sh
 #
 # Author: Luigi Ponti quartese gmail.com
 # Copyright: (c) 2012 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 18 June 2012
+############
 
-#~ The following column names
+# fail on error
+set -e
+
+export PATH="$PATH:$HOME/software/casas-gis/casas_gis_old/casas/grass_scripts/"
+
+# Check for user break (signal list: trap -l)
+trap 'exitprocedure' 1 2 3 15
+# Ensure that we are in a GRASS session
+if test "$GISBASE" = ""; then
+    echo 'You must be in GRASS GIS to run this program.' >&2
+    exit 1
+fi
+
+#~ The following column names were found:
 
 #~ 1. Model
 #~ 2. Date
@@ -54,11 +71,11 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="rain"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=0.00 upBarCol=1280
+    #~ alt=900 resolution=1 low_bar_col=0.00 up_bar_col=1280
     #~ wait
     #~ fi
 
@@ -69,11 +86,11 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="MortSummer"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=0.011 upBarCol=3.334
+    #~ alt=900 resolution=1 low_bar_col=0.011 up_bar_col=3.334
     #~ wait
     #~ fi
 
@@ -84,11 +101,11 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="tcold"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=6.384 upBarCol=32.441
+    #~ alt=900 resolution=1 low_bar_col=6.384 up_bar_col=32.441
     #~ wait
     #~ fi
 
@@ -99,11 +116,11 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="EggPerYr"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=13.786 upBarCol=467.974
+    #~ alt=900 resolution=1 low_bar_col=13.786 up_bar_col=467.974
     #~ wait
     #~ fi
 
@@ -114,11 +131,11 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="LarvaePerYr"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=6.183 upBarCol=339.366
+    #~ alt=900 resolution=1 low_bar_col=6.183 up_bar_col=339.366
     #~ wait
     #~ fi
 
@@ -129,11 +146,11 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="PuapePerYr"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=4.551 upBarCol=249.767
+    #~ alt=900 resolution=1 low_bar_col=4.551 up_bar_col=249.767
     #~ wait
     #~ fi
 
@@ -144,11 +161,11 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="AdultsPerYr"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=2.721 upBarCol=227.218
+    #~ alt=900 resolution=1 low_bar_col=2.721 up_bar_col=227.218
     #~ wait
     #~ fi
 
@@ -159,11 +176,11 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="RIxPupae"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=0.02 upBarCol=158.419
+    #~ alt=900 resolution=1 low_bar_col=0.02 up_bar_col=158.419
     #~ wait
     #~ fi
 
@@ -176,11 +193,11 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="rain"
     #~ # Run GIS routine
-    #~ LibyaTunisia -g SaveDir="$directory"\
+    #~ LibyaTunisia -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=0.00 upBarCol=1280
+    #~ alt=900 resolution=1 low_bar_col=0.00 up_bar_col=1280
     #~ wait
     #~ fi
 
@@ -191,11 +208,11 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="MortSummer"
     #~ # Run GIS routine
-    #~ LibyaTunisia -g SaveDir="$directory"\
+    #~ LibyaTunisia -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=0.011 upBarCol=3.334
+    #~ alt=900 resolution=1 low_bar_col=0.011 up_bar_col=3.334
     #~ wait
     #~ fi
 
@@ -206,11 +223,11 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="tcold"
     #~ # Run GIS routine
-    #~ LibyaTunisia -g SaveDir="$directory"\
+    #~ LibyaTunisia -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=6.384 upBarCol=32.441
+    #~ alt=900 resolution=1 low_bar_col=6.384 up_bar_col=32.441
     #~ wait
     #~ fi
 
@@ -221,11 +238,11 @@ for i in 12 22 23 24 25 26 27 28; do
     #~ parameter="$i"
     #~ legend="EggPerYr"
     #~ # Run GIS routine
-    #~ LibyaTunisia -g SaveDir="$directory"\
+    #~ LibyaTunisia -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=13.786 upBarCol=467.974
+    #~ alt=900 resolution=1 low_bar_col=13.786 up_bar_col=467.974
     #~ wait
     #~ fi
 
@@ -236,10 +253,10 @@ for i in 12 22 23 24 25 26 27 28; do
         parameter="$i"
         legend="LarvaePerYr"
         # Run GIS routine
-        LibyaTunisia -g SaveDir="$directory" \
+        LibyaTunisia -g save_directory="$directory" \
             longitude=5 latitude=6 year=11 parameter="$parameter" \
             interpolation=idw numpoints=7 lowercut=0 uppercut=0 legend1="$legend" \
-            alt=900 resolution=1 lowBarCol=6.183 upBarCol=339.366
+            alt=900 resolution=1 low_bar_col=6.183 up_bar_col=339.366
         wait
     fi
 
@@ -250,10 +267,10 @@ for i in 12 22 23 24 25 26 27 28; do
         parameter="$i"
         legend="PuapePerYr"
         # Run GIS routine
-        LibyaTunisia -g SaveDir="$directory" \
+        LibyaTunisia -g save_directory="$directory" \
             longitude=5 latitude=6 year=11 parameter="$parameter" \
             interpolation=idw numpoints=7 lowercut=0 uppercut=0 legend1="$legend" \
-            alt=900 resolution=1 lowBarCol=4.551 upBarCol=249.767
+            alt=900 resolution=1 low_bar_col=4.551 up_bar_col=249.767
         wait
     fi
 
@@ -264,10 +281,10 @@ for i in 12 22 23 24 25 26 27 28; do
         parameter="$i"
         legend="AdultsPerYr"
         # Run GIS routine
-        LibyaTunisia -g SaveDir="$directory" \
+        LibyaTunisia -g save_directory="$directory" \
             longitude=5 latitude=6 year=11 parameter="$parameter" \
             interpolation=idw numpoints=7 lowercut=0 uppercut=0 legend1="$legend" \
-            alt=900 resolution=1 lowBarCol=2.721 upBarCol=227.218
+            alt=900 resolution=1 low_bar_col=2.721 up_bar_col=227.218
         wait
     fi
 
@@ -278,10 +295,10 @@ for i in 12 22 23 24 25 26 27 28; do
         parameter="$i"
         legend="RIxPupae"
         # Run GIS routine
-        LibyaTunisia -g SaveDir="$directory" \
+        LibyaTunisia -g save_directory="$directory" \
             longitude=5 latitude=6 year=11 parameter="$parameter" \
             interpolation=idw numpoints=7 lowercut=0 uppercut=0 legend1="$legend" \
-            alt=900 resolution=1 lowBarCol=0.02 upBarCol=158.419
+            alt=900 resolution=1 low_bar_col=0.02 up_bar_col=158.419
         wait
     fi
 
