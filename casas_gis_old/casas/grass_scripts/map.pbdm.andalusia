@@ -747,15 +747,15 @@ for i in $(ls); do
         else
             if [ "$GIS_FLAG_E" -eq 1 ]; then
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    r.colors -e -g map=MskdModPOS$i rules=${CASAS_HOME}/defaultColorRule
+                    r.colors -e -g map=MskdModPOS$i rules=${PALETTES}/defaultColorRule
                 else
-                    r.colors -e map=MskdModPOS$i rules=${CASAS_HOME}/defaultColorRule
+                    r.colors -e map=MskdModPOS$i rules=${PALETTES}/defaultColorRule
                 fi
             else
                 if [ "$GIS_FLAG_L" -eq 1 ]; then
-                    r.colors -g map=MskdModPOS$i rules=${CASAS_HOME}/defaultColorRule
+                    r.colors -g map=MskdModPOS$i rules=${PALETTES}/defaultColorRule
                 else
-                    r.colors map=MskdModPOS$i rules=${CASAS_HOME}/defaultColorRule
+                    r.colors map=MskdModPOS$i rules=${PALETTES}/defaultColorRule
                 fi
             fi
         fi
