@@ -642,8 +642,8 @@ for i in $(ls); do
     MskdModPOS$i
 
     # Set png file for output.
-    GRASS_PNGFILE="$SaveDir"/"$i".png
-    export GRASS_PNGFILE
+    GRASS_RENDER_FILE="$SaveDir"/"$i".png
+    export GRASS_RENDER_FILE
     d.mon stop=png # in case the previous model run failed
     d.mon start=png
     d.erase
@@ -821,8 +821,8 @@ for i in $(ls); do
         # Not working for now since G6 r.stats is buggy. -- check for G8
         #~ r.stats -anr input=MskdModPOS$i fs=tab nsteps=4 > "$SaveDir"/$i.tot
         #~ r.stats -anr input=regioni_istat,MskdModPOS$i fs=tab nsteps=4 > "$SaveDir"/$i.rep
-        GRASS_PNGFILE="$SaveDir/$i-HIST.png"
-        export GRASS_PNGFILE
+        GRASS_RENDER_FILE="$SaveDir/$i-HIST.png"
+        export GRASS_RENDER_FILE
         d.mon start=png
         d.erase
         d.histogram map="MskdModPOS$i"
@@ -858,8 +858,8 @@ echo "($(date -R | tr -s ' ' ' '))" | tee -a "$SaveDir/${LEG1FILE}.log"
 # If flag -g is checked, output is a greyscale figure (no lakes)
 if [ "$GIS_FLAG_G" -eq 1 ]; then
     # Set png file for output.
-    GRASS_PNGFILE="$SaveDir/WeatherStations.png"
-    export GRASS_PNGFILE
+    GRASS_RENDER_FILE="$SaveDir/WeatherStations.png"
+    export GRASS_RENDER_FILE
     d.mon start=png
     d.erase
     d.rast map=GRAY_HR_SR_OB_DR_colombia
@@ -875,8 +875,8 @@ if [ "$GIS_FLAG_G" -eq 1 ]; then
 else
     # If flag -g is not checked, output is a color figure (with lakes)
     # Set png file for output.
-    GRASS_PNGFILE="$SaveDir/WeatherStations.png"
-    export GRASS_PNGFILE
+    GRASS_RENDER_FILE="$SaveDir/WeatherStations.png"
+    export GRASS_RENDER_FILE
     d.mon start=png
     d.erase
     r.mapcalc 'selectedStates.composite = if(EtoSelectMask, NE1_HR_LC_SR_W_DR.composite_colombia, null())'
