@@ -25,7 +25,7 @@ open (IN, "<$input") or die "Can't open $input for reading: $!";
 my @regions;
 while (my $line = <IN>)
 {
-	# This is for compatibility with scripts that take space-separted lists
+	# This is for compatibility with scripts that take space-separated lists
 	# as input. The EurMedGrape script uses a list of country names that
 	# is comma separated because some country names include spaces, and hence
 	# the script would not know where to split based on spaces.
