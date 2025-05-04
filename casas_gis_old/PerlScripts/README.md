@@ -2,14 +2,14 @@
 
 ### `cliparse_TC.pl`
 
-`cliparse_TC.pl`: This Perl script is designed to transform a string containing attribute values from a DBF (dBase) file into a formula suitable for use in GRASS GIS (Geographic Resources Analysis Support System) clipping operations.
+`cliparse_TC.pl`: This Perl script transforms a string containing attribute values from a database file into a formula suitable for use in GRASS GIS (Geographic Resources Analysis Support System) clipping operations.
 
 Input:
 
 1. **Command-line Arguments:**
 
-   - `$HomeDir`: The home directory where the script should operate.
-   - `$fieldName`: The name of the attribute column in the DBF file.
+   - `$HomeDir`: The CASAS home directory where the script should operate.
+   - `$fieldName`: The name of the attribute column in the database file.
    - `$fieldType`: The type of the attribute column (either 'number' or 'string').
    - `$input`: The path to the input file containing the attribute values.
    - `$output`: The path to the output file where the formula will be written.
@@ -31,24 +31,24 @@ If the input file contains the values `USA, Canada, Mexico` and the field type i
 
 ### `convertITA.pl`
 
-`convertITA.pl`: This Perl script is designed to process output tables from CASAS systems models for import into GRASS-GIS, where they can be used for interpolation and visualization. Here's a breakdown of what the script does:
+`convertITA.pl`: This Perl script processes output tables from CASAS systems models for import into GRASS GIS, where they can be used for interpolation and visualization.
 
 Input:
 
-1. **Directory Path**: The script expects the path to a home directory as its first command-line argument (`$ARGV[0]`).
+1. `$HomeDir`: The script expects the path to the CASAS home directory as its first command-line argument.
 2. **Configuration File**: Within this directory, it looks for a file named `inputPar.txt`, which contains three integers indicating the columns for longitude, latitude, and a parameter in the model output files.
-3. **Model Output Files**: The script processes `.txt` files located in the `outfiles` subdirectory of the home directory.
+3. **Model Output Files**: The script processes `.txt` The only `*.txt` files resulting from the PBDM simulation located in the `outfiles` subdirectory of the CASAS home directory.
 
 Output:
 
-- The script creates a temporary directory called `models_temp` within the home directory.
+- The script creates a temporary directory called `models_temp` within the CASAS home directory.
 - It processes each `.txt` file in the `outfiles` directory, extracts specific columns (longitude, latitude, and parameter), and writes the modified data to new files in the `models_temp` directory. These new files are named based on the parameter and the original file name.
 
 Key Operations:
 
 - **Column Extraction**: The script uses the column indices from `inputPar.txt` to extract the relevant data from each line of the model output files.
 - **File Naming**: The output files are named by combining the parameter name and the original file name (without the `.txt` extension).
-- **Data Formatting**: The script ensures that the data is formatted correctly for import into GRASS-GIS, including handling newline characters and whitespace.
+- **Data Formatting**: The script ensures that the data is formatted correctly for import into GRASS GIS, including handling newline characters and whitespace.
 
 ### `HtmlPlotC.pl`
 
@@ -56,12 +56,12 @@ Key Operations:
 
 Input:
 
-1. **Directory Path (`$SaveDir`)**: The first argument (`$ARGV[0]`) is the directory where the histogram images are stored.
-2. **Legend String (`$LegendString`)**: The second argument (`$ARGV[1]`) is a string used to name the HTML file and as a title within the HTML content.
+1. **Directory Path (`$SaveDir`)**: The first argument is the directory where the histogram images are stored.
+2. **Legend String (`$LegendString`)**: The second argument is a string used to name the HTML file and as a title within the HTML content.
 
 Output:
 
-- An HTML file named `"$LegendString-PLOTc.html"` is created in the specified directory (`$SaveDir`). This HTML file contains:
+- `$SaveDir`: An HTML file named `"$LegendString-PLOTc.html"` is created in the specified directory (`$SaveDir`). This HTML file contains:
   - A title derived from the `$LegendString`.
   - A series of histogram images (`.png` files) that match the pattern `.-HIST.png`.
   - Each histogram image is displayed with a corresponding caption indicating the input file name.
@@ -71,8 +71,6 @@ Output:
 `htmlSum.pl`: This Perl script generates an HTML visual summary for CASAS models.
 
 Input:
-
-The script takes several command-line arguments:
 
 1. `$SaveDir`: The directory where the maps are saved.
 2. `$LegendString`: A string used for naming the HTML file and other related files.
@@ -96,53 +94,54 @@ The script generates an HTML file named `$LegendString.html` in the specified di
 
 ### `multiColorRule.pl`
 
-`multiColorRule.pl`: This Perl script is designed to generate a color rule file based on the range of data found in model output files.
+`multiColorRule.pl`: This Perl script generates a color rule file based on the range of data found in model output files. It can use any combination of any number of colors.
 
 Input:
 
 1. **Command-line Arguments:**
 
-   - `$HomeDir`: The directory where the script will look for temporary model output files and where it will write the output files.
+   - `$HomeDir`: The directory where the script will look for temporary model output files in `$HomeDir/models_temp/` and where it will write the output files.
    - `$rule`: A string of colors separated by dashes (e.g., "red-blue-green") that will be used to create the color rules.
    - `$lowCut`: The lower cutoff value for the data range.
    - `$hiCut`: The upper cutoff value for the data range.
    - `$divergentRule`: A flag ("divYes" or "divNo") indicating whether the color rule should be divergent.
 
 2. **Model Output Files:**
-   - The script reads temporary files from the `models_temp` directory within the specified home directory. These files contain data that will be used to determine the range for the color rules.
+   - The script reads temporary files from the `models_temp` directory within the specified CASAS home directory. These files contain data that will be used to determine the range for the color rules.
 
 Output:
 
 1. **`customColorRule.txt`:**
 
    - A file containing the color rules, where each line consists of a coefficient and a corresponding color.
-   - The file ends with the word "end".
+   - The file ends with the word "end" as required by GRASS GIS.
 
 2. **`min.txt`:**
 
    - A file containing the minimum value of the data range.
 
 3. **`max.txt`:**
+
    - A file containing the maximum value of the data range.
 
 ### `printCols.pl`
 
-`printCols.pl`: This Perl script is designed to process model output files located in a specified directory. It reads the files, extracts column and row names, and prints them to the standard output.
+`printCols.pl`: This Perl script processes model output files located in a specified directory. It reads the files, extracts column and row names, and prints them to the standard output.
 
 Input:
 
-- The script takes a single command-line argument, which is the home directory path (`$HomeDir`). This directory is expected to contain a subdirectory named `outfiles/`, where the model output files are stored.
+- `$HomeDir`: The script takes a single command-line argument, which is the CASAS home directory path (`$HomeDir`). This directory is expected to contain a subdirectory named `outfiles` containing resulting files from the PBDM simulation.
 
 Output:
 
-- The script prints the column names and the number of rows from the first `.txt` file it encounters in the `outfiles/` directory.
+- The script prints the column names and the number of rows from the first `.txt` file (resulting from the PBDM simulation) it encounters in the `outfiles` directory.
 
 Note:
 
 - The script does not handle the extraction and printing of years. This functionality has been moved to a separate script called `printYear.pl`.
 
 Example Output:
-If the first `.txt` file in the `outfiles/` directory has the following content:
+If the first `.txt` file in the `outfiles` directory has the following content:
 
 ```
 Column1    Column2    Column3
@@ -164,55 +163,34 @@ Number of rows is 3.
 
 ### `printYear.pl`
 
-`printYear.pl`: This Perl script is designed to process text files in a specified directory, extract specific data from them, and write the extracted data to new output files. Here's a breakdown of what the script does:
+`printYear.pl`: This Perl script processes text files resulting from the PBDM simulation in `$HomeDir/outfiles/` to extract analysis years from them, and writes the extracted data to new output files for use in d.legend of GRASS GIS.
 
 Input:
 
-1. **Command-Line Argument**: The script expects a single command-line argument, which is the path to a home directory (`$HomeDir`).
-2. **Directory Structure**: Within the home directory, it looks for a subdirectory named `outfiles/` containing `.txt` files.
-3. **Configuration File**: It also expects a file named `inputPar.txt` in the home directory, which contains configuration data.
-
-Process:
-
-1. **Directory Reading**: The script opens the `outfiles/` directory and reads all `.txt` files within it.
-2. **File Processing**: For each `.txt` file:
-   - It reads the file line by line and stores the lines in an array (`@table`).
-   - It then reads the `inputPar.txt` file to determine which column in the `.txt` file contains the year data.
-   - The script extracts the year from the specified column of the second line of the `.txt` file.
-   - It writes the extracted year to a new output file named `yearX.txt`, where `X` is a sequential number.
+1. :`$HomeDir` The script expects a single command-line argument, which is the path to the CASAS home directory.
+2. **Directory Structure**: Within the CASAS home directory, it looks for a subdirectory named `outfiles` containing `.txt` files (resulting from the PBDM simulation).
+3. **Configuration File**: It also expects a file named `inputPar.txt` in the CASAS home directory, which contains configuration data.
 
 Output:
 
-- **Output Files**: For each `.txt` file processed, the script creates a corresponding `yearX.txt` file in the home directory, containing the extracted year.
-
-Additional Notes:
-
-- The script uses strict mode (`use strict;`) to enforce good coding practices.
-- It handles errors gracefully, dying with an error message if it cannot open a file or directory.
-- There are commented-out sections at the end of the script that suggest additional functionality for joining years and writing them to a single file, but this functionality is not active.
+- **Output Files**: For each `.txt` file processed, the script creates a corresponding `yearX.txt` file in the CASAS home directory, containing the extracted year.
 
 Example:
 
-If the `outfiles/` directory contains `file1.txt` and `file2.txt`, and `inputPar.txt` specifies that the year is in the 4th column, the script will create `year1.txt` and `year2.txt` in the home directory, each containing the year extracted from the respective file.
+If the `outfiles` directory contains `file1.txt` and `file2.txt`, and `inputPar.txt` specifies that the year is in the 4th column, the script will create `year1.txt` and `year2.txt` in the CASAS home directory, each containing the year extracted from the respective file.
 
 ### `voroparse.pl`
 
-`voroparse.pl`: This Perl script is designed to transform a list of categories from a file into a formula suitable for use with the `v.extract` command in GRASS GIS. Here's a breakdown of what the script does:
+`voroparse.pl`: This Perl script transforms a list of categories from a file into a formula suitable for use with the `v.extract` command in GRASS GIS.
 
 Input:
 
-1. **Command-Line Argument**: The script expects a single command-line argument, which is the home directory (`$HomeDir`).
-2. **File**: Within the specified home directory, the script reads a file named `voronoi.txt`. This file is expected to contain a list of categories, each on a new line.
-
-Process:
-
-1. **Reading the File**: The script opens `voronoi.txt` and reads its contents line by line, storing each line in an array called `@regions`.
-2. **Formula Construction**: For each category in `@regions`, the script constructs a string in the format `(cat=category)` and stores these strings in another array called `@formula`.
-3. **Joining the Formula**: The script then joins all the strings in `@formula` with the word "or" to create a single string that represents a logical OR condition for all categories.
+1. `$HomeDir`: The script expects a single command-line argument, which is the CASAS home directory).
+2. `voronoi.txt`: Within the specified CASAS home directory, the script reads a file named `voronoi.txt`. This file is expected to contain a list of categories, each on a new line.
 
 Output:
 
-- The script writes the resulting formula to a file named `voronoiFormula.txt` in the specified home directory. This formula can be used in GRASS GIS to extract vector features based on the categories listed in `voronoi.txt`.
+- `voronoiFormula.txt`: The script writes the resulting formula to a file named `voronoiFormula.txt` in the specified CASAS home directory. This formula can be used in GRASS GIS to extract vector features based on the categories listed in `voronoi.txt`.
 
 Example:
 
@@ -230,4 +208,4 @@ The output file `voronoiFormula.txt` will contain:
 (cat=1) or (cat=2) or (cat=3)
 ```
 
-This formula can then be used in GRASS GIS to select and extract Voronoi polygons that match any of the specified categories.
+This formula can then be used in GRASS GIS (`v.extract` command) to select and extract Voronoi polygons that match any of the specified categories.
