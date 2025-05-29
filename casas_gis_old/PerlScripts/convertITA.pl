@@ -24,13 +24,13 @@ open (IN, "<$file") or die "Can't open $file for reading: $!";
 my @inputs;
 my $inputs;
 while (my $line = <IN>)
-    {
-        @inputs = split(/\s/, $line);
-    }
+{
+	@inputs = split(/\s/, $line);
+}
 close IN;
 
 # Import files in models directory for reading.
-my $models_dir = './outfiles/';
+my $models_dir = '$HomeDir/outfiles/';
 opendir(DIR, $models_dir) || die "can't opendir $models_dir: $!";
 
 # Set column numbers imported from GRASS parser as array indices
@@ -45,7 +45,7 @@ while (my $file = readdir(DIR))
 {
 	if ($file =~ /.\.txt/)
 	{
-		chdir ("$HomeDir/outfiles/"); 
+		chdir ("$HomeDir/outfiles/");
 		open (IN, "<$file") or die "Can't open $file for reading: $!";
 		# Put rows as elements of the @table array.
 		my @table;
@@ -55,7 +55,7 @@ while (my $file = readdir(DIR))
 			# This makes your code work on Unix and Linux whether the input file is from Windows or from Unix.  
 			# As a side effect, it also removes any trailing whitespace on each line which is usually but not always an advantage.
 			# Source: http://www.wellho.net/forum/Perl-Programming/New-line-characters-beware.html
-			$line =~ s/\s+$//;                       
+			$line =~ s/\s+$//;
 			# chomp $line;
 			push(@table, $line) if $line =~ /\S/;
 		}
@@ -74,12 +74,12 @@ while (my $file = readdir(DIR))
 				my @tempLine = split(/\t/, $table[0]);
 				$parName = "$tempLine[$par]";
 				chomp $parName;
-			}                        
+			}
 			$table[$i] = join("\t", $tempLine[$lon], $tempLine[$lat], "$tempLine[$par]\n");
-		}				   
-			
-		# Get rid of column names (as to GRASS 6.0.0, there is no way ot skip header line).
-		shift(@table); 
+		}
+		
+		# Get rid of column names (as to GRASS 6.0.0, there is no way to skip header line).
+		shift(@table);
 		
 		# Write tweaked files to the temporary directory from where they
 		# should be imported by the main shell script.
@@ -87,7 +87,7 @@ while (my $file = readdir(DIR))
 		chdir ("../models_temp/");
 		# $file =~ tr/OUT.*\.txt/\n/;
 		$file =~ s/\.txt//;
-		$file2 = join("",$parName,"_", $file);
+		$file2 = join("",$parName, "_", $file);
 		my $output = "$file2";
 		open (OUTFILE, ">$output") or die "Can't open $output for writing: $!";
 		print OUTFILE join ("", @table);                    
