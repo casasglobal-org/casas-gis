@@ -42,7 +42,7 @@ Input:
 Output:
 
 - The script creates a temporary directory called `models_temp` within the CASAS home directory.
-- It processes each `.txt` file in the `outfiles` directory, extracts specific columns (longitude, latitude, and parameter), and writes the modified data to new files in the `models_temp` directory. These new files are named based on the parameter and the original file name.
+- It processes each `.txt` file in the `outfiles` directory, extracts specific columns (longitude, latitude, and parameter), and writes the extracted data to new files in the `models_temp` directory. These new files are named based on the parameter and the original file name.
 
 Key Operations:
 
@@ -66,7 +66,7 @@ Output:
   - A series of histogram images (`.png` files) that match the pattern `.-HIST.png`.
   - Each histogram image is displayed with a corresponding caption indicating the input file name.
 
-###
+### `htmlSum.pl`
 
 `htmlSum.pl`: This Perl script generates an HTML visual summary for CASAS models.
 
@@ -78,7 +78,7 @@ Input:
 4. `$LowerCut`: The lower cutting point for the map.
 5. `$UpperCut`: The upper cutting point for the map.
 6. `$AltClip`: The altitude clip value.
-7. `$SurfCut`: The surface cut value.
+7. `$SurfCut`: yes/no indicating if stations above altitude clip were used to interpolate.
 8. `$EtoClip`: The region clip value.
 9. `$Plots`: A flag indicating whether to include links to barchart plots.
 
