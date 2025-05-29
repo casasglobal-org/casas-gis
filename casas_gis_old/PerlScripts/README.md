@@ -29,6 +29,8 @@ If the input file contains the values `USA, Canada, Mexico` and the field type i
 (fieldName='USA')or(fieldName='Canada')or(fieldName='Mexico')
 ```
 
+**Variants of this script**: `cliparse.pl`, `cliparseITA.pl`, `cliparse_US.pl`
+
 ### `convertITA.pl`
 
 `convertITA.pl`: This Perl script processes output tables from CASAS systems models for import into GRASS GIS, where they can be used for interpolation and visualization.
@@ -50,6 +52,8 @@ Key Operations:
 - **File Naming**: The output files are named by combining the parameter name and the original file name (without the `.txt` extension).
 - **Data Formatting**: The script ensures that the data is formatted correctly for import into GRASS GIS, including handling newline characters and whitespace.
 
+**Variant of this script**: `convert.pl`
+
 ### `HtmlPlotC.pl`
 
 `HtmlPlotC.pl`: This Perl script generates an HTML page that displays histogram images produced by d.histogram from GRASS GIS and saves the HTML page in a specified directory.
@@ -65,6 +69,8 @@ Output:
   - A title derived from the `$LegendString`.
   - A series of histogram images (`.png` files) that match the pattern `.-HIST.png`.
   - Each histogram image is displayed with a corresponding caption indicating the input file name.
+
+**Variants of this script**: `HtmlPlotA.pl`, `HtmlPlotA_ita.pl`, `HtmlPlotB.pl`
 
 ### `htmlSum.pl`
 
@@ -209,3 +215,7 @@ The output file `voronoiFormula.txt` will contain:
 ```
 
 This formula can then be used in GRASS GIS (`v.extract` command) to select and extract Voronoi polygons that match any of the specified categories.
+
+### Further PERL scripts
+
+`getBoxplotColorRule.pl`, `makePlotData.pl`, `SubtractOutput.pl`, `subtract.pl`, `test.pl`
