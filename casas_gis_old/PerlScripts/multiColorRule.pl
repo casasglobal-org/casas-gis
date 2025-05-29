@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# Script that writes color rules file to apply a unique color rule 
+# Script that writes color rules file to apply a unique color rule
 # to models rasters based on overall range of data.
 
 # Compared to rangeColorRule.pl, this version can use any
@@ -22,26 +22,26 @@ my $hiCut = $ARGV[3];
 my $divergentRule = $ARGV[4];
 my @table;
 my @range;
+my $dirname;
 
 # Read temporary files.
-chdir ("$HomeDir/models_temp/");
-opendir(DIR, "$HomeDir/models_temp/") || die "can't opendir $HomeDir/models_temp/: $!";
+$dirname = "$HomeDir/models_temp/";
+opendir(DIR, $dirname) or die "Could not open $dirname\n";
 
 # Import model output files for reading
-# TODO: careful with wildcard here?
-while (my $file = <*>)
+while (my $filename = readdir(DIR))
 {
-    open (IN, "<$file") or die "Can't open $file for reading: $!";
+    open (IN, "<$filename") or die "Can't open $filename for reading: $!";
 	# Put rows as elements of the @table array.
 	while (my $line = <IN>)
 	{
 		# Source: http://www.wellho.net/forum/Perl-Programming/New-line-characters-beware.html
-		$line =~ s/\s+$//;                       
+		$line =~ s/\s+$//;
 		push(@table, $line);
 	}
 	close IN;
 	
-	# Process input.            
+	# Process input.
 	my $array_size = scalar @table;
 	for (my $i = 0; $i < $array_size; $i++)
 	{
