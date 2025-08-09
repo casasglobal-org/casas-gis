@@ -52,7 +52,7 @@ Key Operations:
 - **File Naming**: The output files are named by combining the parameter name and the original file name (without the `.txt` extension).
 - **Data Formatting**: The script ensures that the data is formatted correctly for import into GRASS GIS, including handling newline characters and whitespace.
 
-**Variant of this script**: `convert.pl`
+**Variant of this script**: `convert.pl`. The major difference between the two scripts is: in `convert.pl`, longitude is multiplied by -1 to make it negative (see [note](https://github.com/casasglobal-org/casas-gis/pull/142/commits/bc7ca21973b9286091501a8b27669be55f6ea153#r2108680514)).
 
 ### `HtmlPlotC.pl`
 
