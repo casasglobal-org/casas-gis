@@ -40,7 +40,7 @@ export GRASS_OVERWRITE=1
 ### GRASS parser section
 # %Module
 # % description: Import and map the output of CASAS PBDM models for Italy
-# % keywords: MED-GOLD project
+# % keywords: GlobalChangeBiology project
 # % keywords: GRASS GIS
 # % keywords: physiologically based demographic models (PBDM)
 # % keywords: olive

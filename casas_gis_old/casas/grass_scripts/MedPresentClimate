@@ -42,7 +42,7 @@ export GRASS_OVERWRITE=1
 ### GRASS parser section
 # %Module
 # % description: Map output of CASAS PBDMs for Mediterranean Basin
-# % keywords: MED-GOLD project
+# % keywords: GlobalChangeBiology project
 # % keywords: GRASS GIS
 # % keywords: physiologically based demographic models (PBDM)
 # % keywords: olive

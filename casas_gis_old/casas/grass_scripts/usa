@@ -53,7 +53,7 @@ export GRASS_OVERWRITE=1
 ### GRASS parser section
 # %Module
 # % description: Map the output of CASAS models for the conterminous United States, Mexico, and Central America
-# % keywords: MED-GOLD project
+# % keywords: GlobalChangeBiology project
 # % keywords: GRASS GIS
 # % keywords: physiologically based demographic models (PBDM)
 # % keywords: tomato
