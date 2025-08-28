@@ -15,9 +15,11 @@
 #               Voronoi part was reimplemented as in Mediterraneo
 #               and flag -s removed because no longer used.
 #
+# Funding support: GlobalChangeBiology project (https://cordis.europa.eu/project/id/224091)
+#
 # Copyright:    (c) 2005-2012 CASAS Global (Center for the Analysis
 #               of Sustainable Agricultural Systems)
-#               https://www.casasglobal.org/).
+#               https://www.casasglobal.org/
 #
 #               SPDX-License-Identifier: GPL-2.0-or-later
 #

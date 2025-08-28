@@ -31,9 +31,11 @@
 #               2021-04-19 Added ability to perform statistics on SIGPAC 2018
 #                          original area and to save raster output as GeoTIFF
 #
+# Funding support: MED-GOLD project (https://cordis.europa.eu/project/id/776467)
+#
 # Copyright:    (c) 2005-2021 CASAS Global (Center for the Analysis
 #               of Sustainable Agricultural Systems)
-#               https://www.casasglobal.org/).
+#               https://www.casasglobal.org/
 #
 #               SPDX-License-Identifier: GPL-2.0-or-later
 #
