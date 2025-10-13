@@ -15,3 +15,7 @@
 4. save maps to PNG output files
 5. compute statistics with the interpolated raster (etc.)
 6. display a visual summary as a web page (saved PNGs, links to statistics, log of commands and settings used for the mapping task).
+
+## Funding
+
+The Center for the Analysis of Sustainable Agricultural Systems (CASAS) has been supported through the Global Collaboration for Resilient Food Systems (CRFS), a program of the McKnight Foundation (grant numbers 22-341 and 24-124; see <https://www.ccrp.org/grants/python-based-platform-to-evaluate-crop-pest-systems/>).
