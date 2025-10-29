@@ -2,13 +2,30 @@
 #
 # Batch run screwwrom in Libya-Tunisia
 #
-# To run it from 64-SVN DOS text, please e
-# "%GRASS_SH%" batch_LibyaTunisia_screwworm.sh
+# Run from LibyaTunisia shell with following command
+# OLD:
+#  "C:\Program Files (x86)\GRASS GIS 6.4.4\msys\bin\sh.exe" batch_LibyaTunisia_screwworm.sh
+# NEW:
+#  grass84 $HOME/data/casas/grass8data_casas/latlong/luigi/ --exec $HOME/software/casas-gis/casas_gis_old/scripts/batch_LibyaTunisia_screwworm.sh
 #
 # Author: Luigi Ponti quartese gmail.com
 # Copyright: (c) 2012 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Date: 18 June 2012
+############
+
+# fail on error
+set -e
+
+export PATH="$PATH:$HOME/software/casas-gis/casas_gis_old/casas/grass_scripts/"
+
+# Check for user break (signal list: trap -l)
+trap 'exitprocedure' 1 2 3 15
+# Ensure that we are in a GRASS session
+if test "$GISBASE" = ""; then
+    echo 'You must be in GRASS GIS to run this program.' >&2
+    exit 1
+fi
 
 #~ The following column names were found:
 
@@ -47,18 +64,18 @@ for i in 12 23 28; do
 
     ############ Yearly output ############
 
-    #~ # Rain.
+    #~ # Rain
     #~ if [ $i -eq 12 ] ; then
     #~ # Set run
     #~ directory="screwworm_rain_1989-2005"
     #~ parameter="$i"
     #~ legend="rain (mm yr-1)"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=0.00 upBarCol=1243.40
+    #~ alt=900 resolution=1 low_bar_col=0.00 up_bar_col=1243.40
     #~ wait
     #~ fi
 
@@ -69,11 +86,11 @@ for i in 12 23 28; do
     #~ parameter="$i"
     #~ legend="FallWinMort"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=6.61 upBarCol=32.44
+    #~ alt=900 resolution=1 low_bar_col=6.61 up_bar_col=32.44
     #~ wait
     #~ fi
 
@@ -84,11 +101,11 @@ for i in 12 23 28; do
     #~ parameter="$i"
     #~ legend="RIxPup"
     #~ # Run GIS routine
-    #~ LibyaTunisia -w -g SaveDir="$directory"\
+    #~ LibyaTunisia -w -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
-    #~ alt=900 resolution=1 lowBarCol=0.01 upBarCol=111.39
+    #~ alt=900 resolution=1 low_bar_col=0.01 up_bar_col=111.39
     #~ wait
     #~ fi
 
@@ -101,7 +118,7 @@ for i in 12 23 28; do
     #~ parameter="$i"
     #~ legend="rain (mm yr-1)"
     #~ # Run GIS routine
-    #~ LibyaTunisia -g SaveDir="$directory"\
+    #~ LibyaTunisia -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -118,7 +135,7 @@ for i in 12 23 28; do
     #~ parameter="$i"
     #~ legend="FallWinMort"
     #~ # Run GIS routine
-    #~ LibyaTunisia -g SaveDir="$directory"\
+    #~ LibyaTunisia -g save_directory="$directory"\
     #~ longitude=5 latitude=6 year=11 parameter="$parameter"\
     #~ interpolation=idw numpoints=7\
     #~ lowercut=0 uppercut=0 legend1="$legend"\
@@ -135,7 +152,7 @@ for i in 12 23 28; do
         parameter="$i"
         legend="RIxPup"
         # Run GIS routine
-        LibyaTunisia -g SaveDir="$directory" \
+        LibyaTunisia -g save_directory="$directory" \
             longitude=5 latitude=6 year=11 parameter="$parameter" \
             interpolation=idw numpoints=7 lowercut=0 uppercut=0 legend1="$legend" \
             alt=900 resolution=1
