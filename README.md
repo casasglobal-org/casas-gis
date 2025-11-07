@@ -1,5 +1,7 @@
 # CASAS GIS - Geospatial software based on GRASS GIS
 
+[![DOI](https://zenodo.org/badge/364206056.svg)](https://doi.org/10.5281/zenodo.17551909)
+
 CASAS GIS is software for geospatial mapping and analysis of physiologically based demographic models (PBDMs) developed by [CASAS Global - Center for the Analysis of Sustainable Agricultural Systems](https://www.casasglobal.org/).
 
 ## Repository structure
