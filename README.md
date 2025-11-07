@@ -4,7 +4,7 @@ CASAS GIS is software for geospatial mapping and analysis of physiologically bas
 
 ## Repository structure
 
-- **casas_gis_old/**: Legacy GRASS GIS scripts used by CASAS Global for PBDM/GIS analyses since 2005
+- **casas_gis_old/**: Legacy GRASS GIS scripts used by CASAS Global for [PBDM/GIS analyses](https://www.casasglobal.org/publications/) since 2005
   - Contains Bash shell scripts originally developed for GRASS GIS version 6, currently being transitioned to GRASS GIS version 8
   - Includes Perl scripts for data preprocessing and other utilities
   - Reference implementation of CASAS geospatial analysis workflow
@@ -57,5 +57,5 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 ## Authors
 
-- Luigi Ponti (ENEA - Agenzia nazionale per le nuove tecnologie, l'energia e lo sviluppo economico sostenibile / CASAS Global)
-- Markus Neteler (mundialis GmbH & Co KG)
+- Luigi Ponti (ENEA - Agenzia nazionale per le nuove tecnologie, l'energia e lo sviluppo economico sostenibile / CASAS Global - Center for the Analysis of Sustainable Agricultural Systems)
+- Markus Neteler (mundialis GmbH & Co KG / CASAS Global)
