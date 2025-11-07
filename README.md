@@ -1,8 +1,8 @@
 # CASAS GIS - Geospatial software based on GRASS GIS
 
-CASAS-GIS is software for geospatial mapping and analysis of physiologically based demographic models (PBDMs) developed by [CASAS Global - Center for the Analysis of Sustainable Agricultural Systems](https://www.casasglobal.org/).
+CASAS GIS is software for geospatial mapping and analysis of physiologically based demographic models (PBDMs) developed by [CASAS Global - Center for the Analysis of Sustainable Agricultural Systems](https://www.casasglobal.org/).
 
-## Repository Structure
+## Repository structure
 
 - **casas_gis_old/**: Legacy GRASS GIS scripts used by CASAS Global for PBDM/GIS analyses since 2005
   - Contains Bash shell scripts originally developed for GRASS GIS version 6, currently being transitioned to GRASS GIS version 8
@@ -16,7 +16,7 @@ CASAS-GIS is software for geospatial mapping and analysis of physiologically bas
   - Aims to provide a more maintainable and user-friendly interface
   - Compatible with current GRASS GIS versions
 
-## Basic CASAS GIS Workflow
+## Basic CASAS GIS workflow
 
 The core workflow implemented in CASAS GIS scripts follows these steps:
 
