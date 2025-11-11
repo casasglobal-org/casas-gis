@@ -13,7 +13,7 @@ The upgrade steps are (in a loop):
 - all maps: rebuilding of the vector topology from GRASS GIS 6 (a few
   GRASS GIS 5 vector maps have been discovered as well) to GRASS GIS 8
 - all DBF-mapsets: attribute transfer from DBF to SQLite; susequent
-  deletion of `dbf/` subdirectory in respecive mapset if file is empty
+  deletion of `dbf/` subdirectory in respective mapset if file is empty
 
 It took approx 40 min on an Intel Core i7 system to upgrade the GRASS
 GIS 6 vector data to GRASS GIS 8 including the rebuilding of vector

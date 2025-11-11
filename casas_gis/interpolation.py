@@ -12,7 +12,7 @@
 #
 #               SPDX-License-Identifier: GPL-3.0-or-later
 
-""" Library of funcitonality reeated to interpolation. """
+""" Library of functionality reeated to interpolation. """
 
 import pandas as pd
 
@@ -30,7 +30,7 @@ def select_interpolation_points(digital_elevation_map,
     """ Extract vector points greater than cutting point, since some values
         (e.g., bloom day <= 0) may be of little or no meaning. Enable user to
         exclude from interpolation those verctor points located at altitude
-        greater than an threshold value and/or with point value greather than
+        greater than an threshold value and/or with point value greater than
         or equal to a threshold. """
     vector_list = grass.list_strings(type="vector",
                                      pattern=f"{k.IMPORTED_PREFIX}*",
@@ -84,7 +84,7 @@ def interpolate_points_idw(vector_layer: Optional[str] = 1,
                           npoints=number_of_points,
                           power=power)
         # Clip interpolated raster to mapping region using map
-        # calculator becuase r.mask does not work with v.surf.idw
+        # calculator because r.mask does not work with v.surf.idw
         # see https://trac.osgeo.org/grass/ticket/3363
         calc_expression_mask = (f"{output_map} = "
                                 f"if ({k.REGION_RASTER}, "

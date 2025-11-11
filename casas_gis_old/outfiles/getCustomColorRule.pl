@@ -31,7 +31,7 @@ my $ruleDivNo = "255:255:255-208:216:251-186:197:247-143:161:241-97:122:236-4:14
 my $ruleDivYes = "4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0";
 
 # Panoply divergent
-# "0:0:121" botton outliers if necessary
+# "0:0:121" bottom outliers if necessary
 # "87:0:0" top outliers if necessary
 # "4:14:216-32:80:255-65:150:255-109:193:255-134:217:255-156:238:255-175:245:255-206:255:255-255:254:71-255:235:0-255:196:0-255:144:0-255:72:0-255:0:0-213:0:0-158:0:0";
 
@@ -248,14 +248,14 @@ elsif ($divergentRule eq "divYes")
 	{
         for (my $k = 0; $k < $numOfColors; $k++)
         {
-            print OUTFILE join('',  sprintf("%.3f", $coefficients[$k]), '% ', "$colors[$k]\n"); # Addd % if needed
+            print OUTFILE join('',  sprintf("%.3f", $coefficients[$k]), '% ', "$colors[$k]\n"); # Add % if needed
         }
     }
     else
     {
         for (my $k = 0; $k < $numOfColors; $k++)
         {
-            print OUTFILE join('',  sprintf("%.3f", $coefficients[$k]), ' ', "$colors[$k]\n"); # Addd % if needed
+            print OUTFILE join('',  sprintf("%.3f", $coefficients[$k]), ' ', "$colors[$k]\n"); # Add % if needed
         }
     }
 	print OUTFILE "end\n";

@@ -52,7 +52,7 @@ END_OF_USAGE
 
 }
 
-# get the substition regex
+# get the substitution regex
 $op = shift or (usage() and exit(1));
 
 # go through file names

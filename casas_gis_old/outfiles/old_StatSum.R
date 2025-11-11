@@ -8,7 +8,7 @@
 # Date: 7 April 2010
 
 # Updated 13 November 2010: fixedPart <- aggregate
-# replace by a simple array selction by rows and cols.
+# replace by a simple array selection by rows and cols.
 
 # Updated 22 June 2012: outputs an *_ALL.txt file with
 # with contents of yearly files merged for computations

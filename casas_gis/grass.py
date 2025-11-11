@@ -189,7 +189,7 @@ def set_output_image(fig_resolution,
         fig_width *= fig_resolution
         fig_height = number_of_rows * fig_resolution
     else:
-        # Make room on the botton
+        # Make room on the bottom
         fig_width = number_of_cols * fig_resolution
         fig_height = (number_of_rows + (number_of_rows *
                       k.legend_settings["room_for_bottom_legend"]))

@@ -137,7 +137,7 @@ Boxplot stats:  25.6 511.28 1901.98 3158.82 7110.47
 OfPupSum_noOutliers <- ERA40_water$OfPupSum[ERA40_water$OfPupSum<=4394.253]
 quantBrks(OfPupSum_noOutliers)
 
-# Added use n=20 classes and set firt element to zero if it gets a slightly different value.
+# Added use n=20 classes and set first element to zero if it gets a slightly different value.
 OfPupSum_noOutliers_brks <- c("0.00", "0.0260", "0.3150", "2.9132", "11.2520", "26.0970", "57.1096", "105.2551", "182.9168", "323.0763", "526.4510", "779.7342", "1004.2614", "1278.8831", "1552.5308", "1967.7235", "2454.6158", "2944.9340", "3363.4318", "3816.4473", "4394.2530", "4394.2530","17320")
 
 h5JetHaxbyOutliers <- c("255:255:255","208:216:251","186:197:247","143:161:241","97:122:236","0:0:191","0:0:255","0:63:255","0:127:255","0:191:255","0:255:255","63:255:255","127:255:191","191:255:127","255:255:63","255:255:0","255:191:0","255:127:0","255:63:0","255:0:0","191:0:0","139:0:0","139:0:0")
@@ -155,7 +155,7 @@ sink()
 FruWgt_noOutliers <- ERA40_water$FruWgt[ERA40_water$FruWgt<=9182.73]
 quantBrks(FruWgt_noOutliers)
 
-# Added use n=20 classes and set firt element to zero if it gets a slightly different value.
+# Added use n=20 classes and set first element to zero if it gets a slightly different value.
 FruWgt_noOutliers_brks <- c("0.00", "0.48", "5.98", "52.53", "170.69", "343.68", "620.92", "942.25", "1420.73", "1982.31", "2510.61", "3014.68", "3460.18", "3935.02", "4347.23", "4787.47", "5291.75", "6041.69", "6600.15", "6997.84", "9182.73", "9182.73","9471")
 
 h5JetHaxbyOutliers <- c("255:255:255","208:216:251","186:197:247","143:161:241","97:122:236","0:0:191","0:0:255","0:63:255","0:127:255","0:191:255","0:255:255","63:255:255","127:255:191","191:255:127","255:255:63","255:255:0","255:191:0","255:127:0","255:63:0","255:0:0","191:0:0","139:0:0","139:0:0")
