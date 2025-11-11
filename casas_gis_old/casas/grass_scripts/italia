@@ -456,7 +456,7 @@ g.mapset mapset=luigi project=EurLCC
 # Define the extent of the map and its grid resolution (currently 1 km).
 g.region res=1000
 
-# Build a mask to select the region of interst to the study
+# Build a mask to select the region of interest to the study
 # based on Italian admnistrative regions (ISTAT codes).
 cd $GISDBASE
 echo $REG > ${OUTFILES}/clipRegion.txt

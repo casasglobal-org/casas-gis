@@ -91,7 +91,7 @@ def concat_dfs(input_dir=INPUT_DIR):
 
 def test_df_concat(input_dir=INPUT_DIR):
     """ This would be for generating more CSV files that include
-        summary statisics for mapping e.g., mean, stardard deviation
+        summary statistics for mapping e.g., mean, standard deviation
         and coefficient of variation of yearly values for multi year
         simulations."""
     df_dict = {}

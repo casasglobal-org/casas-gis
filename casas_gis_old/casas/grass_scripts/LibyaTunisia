@@ -443,7 +443,7 @@ g.mapset mapset=libya project=AEA_Med
 # Define the extent of the map and its grid resolution (currently 3 km).
 g.region -a n=-3000 s=-2040000 w=-726000 e=1116000 res=3000
 
-# Build a mask to select the region of interst to the study
+# Build a mask to select the region of interest to the study
 # based on FAO ecological regions. If -1 value is given, whole
 # region is used.
 
