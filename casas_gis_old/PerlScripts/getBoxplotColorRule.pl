@@ -231,7 +231,7 @@ elsif ($divergentRule eq "divYes")
         # Non outlier part
         for (my $k = 0; $k < $numOfColors; $k++)
         {
-            print OUTFILE join('',  sprintf("%.3f", $coefficients[$k]), '% ', "$colors[$k]\n"); # Addd % if needed
+            print OUTFILE join('',  sprintf("%.3f", $coefficients[$k]), '% ', "$colors[$k]\n"); # Add % if needed
         }
         # Outlier high
         if ($absMax != $max)
@@ -251,7 +251,7 @@ elsif ($divergentRule eq "divYes")
         # Non outlier part
         for (my $k = 0; $k < $numOfColors; $k++)
         {
-            print OUTFILE join('',  sprintf("%.3f", $coefficients[$k]), ' ', "$colors[$k]\n"); # Addd % if needed
+            print OUTFILE join('',  sprintf("%.3f", $coefficients[$k]), ' ', "$colors[$k]\n"); # Add % if needed
         }
         # Outlier high
         if ($absMax != $max)
