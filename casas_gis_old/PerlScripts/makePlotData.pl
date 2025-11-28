@@ -9,11 +9,14 @@
 
 use strict;
 
-# Read directory where maps are saved and 
+# Read directory where maps are saved and
 # other parameters from script arguments.
-my $SaveDir=$ARGV[0]; 
+if ($#ARGV == -1) {
+    die "No argument defined!\n";
+}
+my $SaveDir=$ARGV[0];
 
-# Read string from GRASS parser. 
+# Read string from GRASS parser.
 chdir ("$SaveDir");
 opendir(DIR, $SaveDir) || die "Can't opendir $SaveDir: $!";
 

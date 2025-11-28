@@ -10,6 +10,9 @@ use strict;
 
 # Read Directory where maps are saved and 
 # other parameters from script arguments.
+if ($#ARGV == -1) {
+    die "No argument defined!\n";
+}
 my $SaveDir=$ARGV[0];
 my $LegendString=$ARGV[1];
 my $MapPar=$ARGV[2];

@@ -7,6 +7,8 @@
 
 # The central color will get a zero value.
 
+# Note: the HomeDir variable below describes the data directory, typically <$HOME/CASAS_DATA/outfiles/>
+
 # Author: Luigi Ponti quartese gmail.com
 # Copyright: (c) 2008 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
@@ -15,6 +17,9 @@
 use strict;
 
 # Set some variables.
+if ($#ARGV == -1) {
+    die "No argument (<\$HOME/CASAS_DATA/outfiles/>) defined!\n";
+}
 my $HomeDir = $ARGV[0];
 my $rule = $ARGV[1];
 my $lowCut = $ARGV[2];

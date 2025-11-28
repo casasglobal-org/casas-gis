@@ -6,6 +6,8 @@
 # _TC means type check--it checks type of column to know
 # if quoting is necessary. Number or string.
 
+# Note: the HomeDir variable below describes the data directory, typically <$HOME/CASAS_DATA/
+
 # Author: Luigi Ponti quartese gmail.com
 # Copyright: (c) 2010 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
@@ -13,6 +15,9 @@
 
 use strict;
 # Read string from GRASS parser.
+if ($#ARGV == -1) {
+    die "No argument (<\$HOME/CASAS_DATA/outfiles/>) defined!\n";
+}
 my $HomeDir = $ARGV[0];
 my $fieldName = $ARGV[1];
 my $fieldType = $ARGV[2];
