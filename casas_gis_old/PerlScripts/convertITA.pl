@@ -4,6 +4,8 @@
 
 # This version accept outfiles names such as as "Olive-02Mar06-00003.txt".
 
+# Note: the HomeDir variable below describes the data directory, typically <$HOME/CASAS_DATA/outfiles/>
+
 # Author: Luigi Ponti quartese gmail.com
 # Copyright: (c) 2006 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
@@ -12,8 +14,13 @@
 use strict;
 
 # Create a temporary folder for tweaked files.
+# read cmdline arguments
+if ($#ARGV == -1) {
+    die "No argument (<\$HOME/CASAS_DATA/outfiles/>) defined!\n";
+}
 my $HomeDir=$ARGV[0];
-mkdir ("$HomeDir/models_temp/", 0777);
+
+mkdir ("$HomeDir/models_temp/", 0777)  || die "can't mkdir $HomeDir/models_temp/: $!";
 
 # Read string from GRASS parser.
 chdir ("$HomeDir"); 

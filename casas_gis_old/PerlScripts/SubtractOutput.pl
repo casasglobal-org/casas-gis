@@ -17,6 +17,9 @@
 use strict;
 
 # Read arguments.
+if ($#ARGV == -1) {
+    die "No argument defined!\n";
+}
 my $workDir = $ARGV[0];
 my $warmFile = $ARGV[1];
 my $obsFile = $ARGV[2];

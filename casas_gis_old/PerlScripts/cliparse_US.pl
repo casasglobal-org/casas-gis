@@ -4,6 +4,8 @@
 # This version takes more arguments so that also attribute
 # column name, and input and output files can be specified.
 
+# Note: the HomeDir variable below describes the data directory, typically <$HOME/CASAS_DATA/outfiles/>
+
 # Author: Luigi Ponti quartese gmail.com
 # Copyright: (c) 2010 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
@@ -11,6 +13,9 @@
 
 use strict;
 # Read string from GRASS parser.
+if ($#ARGV == -1) {
+    die "No argument (<\$HOME/CASAS_DATA/outfiles/>) defined!\n";
+}
 my $HomeDir=$ARGV[0];
 my $fieldName=$ARGV[1];
 my $input=$ARGV[2];
