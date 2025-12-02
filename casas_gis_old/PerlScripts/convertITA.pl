@@ -12,6 +12,7 @@
 # Date: 13 April 2006
 
 use strict;
+use File::Path qw(make_path);
 
 # Create a temporary folder for tweaked files.
 # read cmdline arguments
@@ -20,7 +21,10 @@ if ($#ARGV == -1) {
 }
 my $HomeDir=$ARGV[0];
 
-mkdir ("$HomeDir/models_temp/", 0777)  || die "can't mkdir $HomeDir/models_temp/: $!";
+my $dir = "$HomeDir/models_temp/";
+unless (-d $dir) {
+    make_path($dir, { mode => 0777 }) || die "can't mkdir $dir: $!";
+}
 
 # Read string from GRASS parser.
 chdir ("$HomeDir"); 
@@ -38,6 +42,7 @@ close IN;
 
 # Import files in models directory for reading.
 my $models_dir = "$HomeDir/outfiles/";
+#print "Directory path: <$models_dir>\n";
 opendir(DIR, $models_dir) || die "can't opendir $models_dir: $!";
 
 # Set column numbers imported from GRASS parser as array indices
