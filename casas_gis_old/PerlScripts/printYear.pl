@@ -16,7 +16,7 @@ if ($#ARGV == -1) {
     die "No argument (<\$HOME/CASAS_DATA/outfiles/>) defined!\n";
 }
 my $HomeDir=$ARGV[0];
-my $models_dir="$HomeDir/outfiles/";
+my $models_dir = "$HomeDir/";
 opendir(DIR, $models_dir) || die "can't opendir $models_dir: $!";
 my $fileNumber = 1;
 my @years;
