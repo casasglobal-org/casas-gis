@@ -41,7 +41,7 @@ while (my $line = <IN>)
 close IN;
 
 # Import files in models directory for reading.
-my $models_dir = "$HomeDir/outfiles/";
+my $models_dir = "$HomeDir/";
 #print "Directory path: <$models_dir>\n";
 opendir(DIR, $models_dir) || die "can't opendir $models_dir: $!";
 
@@ -57,7 +57,7 @@ while (my $file = readdir(DIR))
 {
 	if ($file =~ /.\.txt/)
 	{
-		chdir ("$HomeDir/outfiles/");
+		chdir ("$HomeDir/");
 		open (IN, "<$file") or die "Can't open $file for reading: $!";
 		# Put rows as elements of the @table array.
 		my @table;
