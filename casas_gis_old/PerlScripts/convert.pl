@@ -41,7 +41,7 @@ while (my $line = <IN>)
 close IN;
 
 # Import files in models directory for reading.
-my $models_dir = '$HomeDir/outfiles/';
+my $models_dir = "$HomeDir/outfiles/";
 opendir(DIR, $models_dir) || die "can't opendir $models_dir: $!";
 
 # Set column numbers imported from GRASS parser as array indices
