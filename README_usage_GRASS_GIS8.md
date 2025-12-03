@@ -114,8 +114,8 @@ africa EurMedGrape india italia LibyaTunisia map.pbdm.andalusia map.pbdm.colombi
 
 ### Flowchart
 
-<!--
-# render in https://mermaid.live
+(render next in <https://mermaid.live>)
+
 ```mermaid
 graph TD
     A[Start: Launch GRASS 8 GUI] --> B[Run map.pbdm.andalusia]
@@ -124,9 +124,7 @@ graph TD
     C --> D[Display Column Info in GUI]
     D --> E[Run Main Script Logic]
     E --> F[End]
-
 ```
--->
 
 ![casas_pbdm_grass8_scripts_workflow](casas_pbdm_grass8_scripts_workflow.png)
 
