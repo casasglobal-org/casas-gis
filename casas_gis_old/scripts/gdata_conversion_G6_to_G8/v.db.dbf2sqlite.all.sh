@@ -51,7 +51,7 @@ if test "$driver" != "dbf"; then
     g.message message="Skipping this mapset..."
     exit 0
 else
-    # so we convert attibute tables to SQLite...
+    # so we convert attribute tables to SQLite...
     g.message message="Rebuilding topology for all vector maps in current mapset ... (1/3)"
     # first rebuild topology for all vector maps in current mapset
     v.build.all

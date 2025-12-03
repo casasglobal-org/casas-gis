@@ -6,6 +6,8 @@
 # The central color may be placed at an arbitrary value ($scaleCenter).
 # getBoxplotColorRule.pl whiskerLow whiskerHigh absMin absMax zeroCentered(divNo|divYes) rasterMapName
 
+# Note: the HomeDir variable below describes the data directory, typically <$HOME/CASAS_DATA/outfiles/>
+
 # Author: Luigi Ponti quartese gmail.com
 # Copyright: (c) 2013 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
@@ -231,7 +233,7 @@ elsif ($divergentRule eq "divYes")
         # Non outlier part
         for (my $k = 0; $k < $numOfColors; $k++)
         {
-            print OUTFILE join('',  sprintf("%.3f", $coefficients[$k]), '% ', "$colors[$k]\n"); # Addd % if needed
+            print OUTFILE join('',  sprintf("%.3f", $coefficients[$k]), '% ', "$colors[$k]\n"); # Add % if needed
         }
         # Outlier high
         if ($absMax != $max)
@@ -251,7 +253,7 @@ elsif ($divergentRule eq "divYes")
         # Non outlier part
         for (my $k = 0; $k < $numOfColors; $k++)
         {
-            print OUTFILE join('',  sprintf("%.3f", $coefficients[$k]), ' ', "$colors[$k]\n"); # Addd % if needed
+            print OUTFILE join('',  sprintf("%.3f", $coefficients[$k]), ' ', "$colors[$k]\n"); # Add % if needed
         }
         # Outlier high
         if ($absMax != $max)

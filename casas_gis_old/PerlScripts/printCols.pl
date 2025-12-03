@@ -4,6 +4,8 @@
 # The part that prints years for legend has been
 # transferred to a printYear.pl script (NOTE).
 
+# Note: the HomeDir variable below describes the data directory, typically <$HOME/CASAS_DATA/outfiles/>
+
 # Author: Luigi Ponti quartese gmail.com
 # Copyright: (c) 2006 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
 # SPDX-License-Identifier: GPL-2.0-or-later
@@ -12,8 +14,11 @@
 use strict;
 
 # Import files in models directory for reading.
+if ($#ARGV == -1) {
+    die "No argument (<\$HOME/CASAS_DATA/outfiles/>) defined!\n";
+}
 my $HomeDir=$ARGV[0];
-my $models_dir = "$HomeDir/outfiles/";
+my $models_dir = "$HomeDir/";
 opendir(DIR, $models_dir) || die "can't opendir $models_dir: $!";
 my $fileNumber = 1;
 my @years;
@@ -21,7 +26,7 @@ while (my $file = readdir(DIR))
 {
 	if ($file =~ /.\.txt/)
 	{
-		chdir ("$HomeDir/outfiles/");
+		chdir ("$HomeDir/");
 		open (IN, "<$file") or die "Can't open $file for reading: $!";
 		
 		# Put rows as elements of the @table array.

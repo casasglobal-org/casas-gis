@@ -1,11 +1,13 @@
 #!/usr/bin/perl -w
-# Script that writes color rules file to apply a unique color rule 
-# to models raters based on overall range of data.
+# Script that writes color rules file to apply a unique color rule
+# to models rasters based on overall range of data.
 
 # Compared to rangeColorRule.pl, this version can use any
 # combination of any number of colors.
 
 # The central color will get a zero value.
+
+# Note: the HomeDir variable below describes the data directory, typically <$HOME/CASAS_DATA/outfiles/>
 
 # Author: Luigi Ponti quartese gmail.com
 # Copyright: (c) 2008 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
@@ -15,6 +17,9 @@
 use strict;
 
 # Set some variables.
+if ($#ARGV == -1) {
+    die "No argument (<\$HOME/CASAS_DATA/outfiles/>) defined!\n";
+}
 my $HomeDir = $ARGV[0];
 my $rule = $ARGV[1];
 my $lowCut = $ARGV[2];
@@ -22,25 +27,26 @@ my $hiCut = $ARGV[3];
 my $divergentRule = $ARGV[4];
 my @table;
 my @range;
+my $dirname;
 
 # Read temporary files.
-chdir ("$HomeDir/models_temp/");
-opendir(DIR, "$HomeDir/models_temp/") || die "can't opendir $HomeDir/models_temp/: $!";
+$dirname = "$HomeDir/models_temp/";
+opendir(DIR, $dirname) or die "Could not open $dirname\n";
 
 # Import model output files for reading
-while (my $file = <*>)
+while (my $filename = readdir(DIR))
 {
-    open (IN, "<$file") or die "Can't open $file for reading: $!";
+    open (IN, "<$filename") or die "Can't open $filename for reading: $!";
 	# Put rows as elements of the @table array.
 	while (my $line = <IN>)
 	{
 		# Source: http://www.wellho.net/forum/Perl-Programming/New-line-characters-beware.html
-		$line =~ s/\s+$//;                       
+		$line =~ s/\s+$//;
 		push(@table, $line);
 	}
 	close IN;
 	
-	# Process input.            
+	# Process input.
 	my $array_size = scalar @table;
 	for (my $i = 0; $i < $array_size; $i++)
 	{
@@ -56,7 +62,7 @@ while (my $file = <*>)
 }
 closedir DIR;
 
-# Sort and get maximum and minimun of overall range of data.
+# Sort and get maximum and minimum of overall range of data.
 my @sortedRange = sort { $a <=> $b } @range;
 my $min = $sortedRange[0];
 my $max = $sortedRange[-1];

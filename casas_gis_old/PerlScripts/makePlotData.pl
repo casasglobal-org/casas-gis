@@ -9,11 +9,14 @@
 
 use strict;
 
-# Read directory where maps are saved and 
+# Read directory where maps are saved and
 # other parameters from script arguments.
-my $SaveDir=$ARGV[0]; 
+if ($#ARGV == -1) {
+    die "No argument defined!\n";
+}
+my $SaveDir=$ARGV[0];
 
-# Read string from GRASS parser. 
+# Read string from GRASS parser.
 chdir ("$SaveDir");
 opendir(DIR, $SaveDir) || die "Can't opendir $SaveDir: $!";
 
@@ -37,7 +40,7 @@ while (my $file = readdir(DIR))
 	my $array_size = scalar @table;
 	my @firstLine = split(/\t/, $table[0]);
 	my @lastLine = split(/\t/, $table[$array_size-1]);
-	# Get the lowest and higest zone index in table
+	# Get the lowest and highest zone index in table
 	my $firstZone = $firstLine[0];	 
 	my $currZone = $firstZone;
 	my $prevZone = $currZone;
@@ -91,7 +94,7 @@ while (my $file = readdir(DIR))
 		}
 		$prevZone = $currZone
 	}
-	# Oherwise the last line does not get printed
+	# Otherwise the last line does not get printed
 	my $tablePush = join ("\t", @newLine);
 	push(@newTable, "$tablePush\n");
 	$file =~ s/\.rep/.tab/;

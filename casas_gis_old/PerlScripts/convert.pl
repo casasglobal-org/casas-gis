@@ -1,8 +1,10 @@
 #!/usr/bin/perl -w
-# Script that tweaks output tables form CASAS systems models
+# Script that tweaks output tables from CASAS systems models
 # for import to GRASS-GIS, interpolation & visualization.
 
 # This version accept outfiles names such as as "Olive_02Mar06_00003.txt".
+
+# Note: the HomeDir variable below describes the data directory, typically <$HOME/CASAS_DATA/outfiles/>
 
 # Author: Luigi Ponti quartese gmail.com
 # Copyright: (c) 2006 CASAS (Center for the Analysis of Sustainable Agricultural Systems, https://www.casasglobal.org/)
@@ -10,15 +12,23 @@
 # Date: 2 February 2006
 
 use strict;
+use File::Path qw(make_path);
 
 # Create a temporary folder for tweaked files.
+# read cmdline arguments
+if ($#ARGV == -1) {
+    die "No argument (<\$HOME/CASAS_DATA/outfiles/>) defined!\n";
+}
 my $HomeDir=$ARGV[0];
 
 # Permissive chmod
 # https://www.perlmonks.org/?node_id=543062
 umask 0;
 
-mkdir ("$HomeDir/models_temp/", 0777);
+my $dir = "$HomeDir/models_temp/";
+unless (-d $dir) {
+    make_path($dir, { mode => 0777 }) || die "can't mkdir $dir: $!";
+}
 
 # Read string from GRASS parser.
 chdir ("$HomeDir"); 
@@ -35,7 +45,8 @@ while (my $line = <IN>)
 close IN;
 
 # Import files in models directory for reading.
-my $models_dir = './outfiles/';
+my $models_dir = "$HomeDir/";
+#print "Directory path: <$models_dir>\n";
 opendir(DIR, $models_dir) || die "can't opendir $models_dir: $!";
 
 # Set column numbers imported from GRASS parser as array indices
@@ -50,7 +61,7 @@ while (my $file = readdir(DIR))
 {
 	if ($file =~ /.\.txt/)
 	{
-		chdir ("$HomeDir/outfiles/");                
+		chdir ("$HomeDir/");
 		open (IN, "<$file") or die "Can't open $file for reading: $!";
 		# Put rows as elements of the @table array.
 		my @table;
@@ -66,36 +77,36 @@ while (my $file = readdir(DIR))
 		}
 		close IN;
 		
-	# Make longitude negative (necessary for import to LatLong location).            
-	my $array_size = scalar @table; 
-	for (my $i = 1; $i < $array_size; $i++)
-	{
-		my @tempLine = split(/\t/, $table[$i]);                                              
-		$tempLine[$lon] = $tempLine[$lon]*(-1);
-			
-		# Get name of the parameter being mapped.
-		if ($i == 1)
+		# Make longitude negative (necessary for import to LatLong location).            
+		my $array_size = scalar @table; 
+		for (my $i = 1; $i < $array_size; $i++)
 		{
-			my @tempLine = split(/\t/, $table[0]);
-			$parName = "$tempLine[$par]";                
+			my @tempLine = split(/\t/, $table[$i]);                                              
+			$tempLine[$lon] = $tempLine[$lon]*(-1);
+			
+			# Get name of the parameter being mapped.
+			if ($i == 1)
+			{
+				my @tempLine = split(/\t/, $table[0]);
+				$parName = "$tempLine[$par]";
+			}
+			$table[$i] = join("\t", $tempLine[$lon], $tempLine[$lat], "$tempLine[$par]\n");
 		}
-		$table[$i] = join("\t", $tempLine[$lon], $tempLine[$lat], "$tempLine[$par]\n");
-	}
 		
-	# Get rid of column names (as to GRASS 6.0.0, there is no way ot skip header line).
-	shift(@table); 
-                
-	# Write tweaked files to the temporary directory from where they
-	# should be imported by the main shell script.
-	my $file2;
-	chdir ("../models_temp/");
-	# $file =~ tr/OUT.*\.txt/\n/;
-	$file =~ s/\.txt//;
-	$file2 = join("",$parName , "_", $file);
-	my $output = "$file2";
-	open (OUTFILE, ">$output") or die "Can't open $output for writing: $!";
-	print OUTFILE join ("", @table);                    
-	close OUTFILE;                
+		# Get rid of column names (as to GRASS 6.0.0, there is no way to skip header line).
+		shift(@table);
+		
+		# Write tweaked files to the temporary directory from where they
+		# should be imported by the main shell script.
+		my $file2;
+		chdir ("../models_temp/");
+		# $file =~ tr/OUT.*\.txt/\n/;
+		$file =~ s/\.txt//;
+		$file2 = join("",$parName, "_", $file);
+		my $output = "$file2";
+		open (OUTFILE, ">$output") or die "Can't open $output for writing: $!";
+		print OUTFILE join ("", @table);                    
+		close OUTFILE;                
 	}
 }
 closedir DIR;
