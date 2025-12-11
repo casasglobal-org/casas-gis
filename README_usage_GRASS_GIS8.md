@@ -67,7 +67,10 @@ latlong_medgold/
 
 ## CASAS-PBDM modeling input data
 
-As an example for a modeling input file, use `Olive_30set19_Avg.txt`.
+The PBDM simulation files are to be stored in `$HOME/CASAS_DATA/infiles/`
+
+As an example for a modeling input file, use
+[Olive_30set19_Avg.txt](https://github.com/casasglobal-org/casas-gis/blob/main/casas_gis_old/infiles/Olive_30set19_Avg.txt).
 
 ## Script organization
 
