@@ -33,7 +33,7 @@ Reference:
 Gutierrez, A.P., 1996. Applied population ecology: A supply-demand approach.
 John Wiley and Sons, New York, ISBN: 978-0-471-13586-9.
 
-For reference: The original source code version ("t_0", developed for GRASS GIS 6) is found at
+For reference: The original source code version ("`t_0`", developed for GRASS GIS 6) is found at
 <https://github.com/casasglobal-org/casas-gis/tree/8762935cfb28c16b1b3e157bad1be37942e6ca2e/casas_gis_old>.
 
 ## CASAS-PBDM geospatial dataset
@@ -64,6 +64,10 @@ latlong3/
 latlong_for_casas/
 latlong_medgold/
 ```
+
+## CASAS-PBDM modeling input data
+
+As an example for a modeling input file, use `Olive_30set19_Avg.txt`.
 
 ## Script organization
 
