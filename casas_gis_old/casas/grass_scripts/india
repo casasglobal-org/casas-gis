@@ -29,6 +29,7 @@ set -e
 export CASAS_HOME="${HOME}/software/casas-gis/casas_gis_old/"
 export PERLSCRIPTS="${CASAS_HOME}/PerlScripts"
 
+# The CASAS_DATA/ directory include INFILES and OUTFILES
 export DATADIR="${HOME}/CASAS_DATA/"
 export OUTFILES="${DATADIR}/outfiles"
 export PALETTES="${CASAS_HOME}/palettes"
