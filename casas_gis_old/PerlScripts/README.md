@@ -151,7 +151,7 @@ Input:
 
 Output:
 
-- `customColorRule.txt`: A file containing the color rules, where each line consists of a coefficient and a corresponding color. The file ends with the word "end" as required by GRASS GIS.
+- `customColorRule`: A file containing the color rules, where each line consists of a coefficient and a corresponding color. The file ends with the word "end" as required by GRASS GIS.
 - `min.txt`: A file containing the minimum value of the data range.
 - `max.txt`: A file containing the maximum value of the data range.
 
