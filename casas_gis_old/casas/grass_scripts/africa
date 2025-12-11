@@ -37,7 +37,9 @@ export PERLSCRIPTS="${CASAS_HOME}/PerlScripts"
 
 # The CASAS_DATA/ directory include INFILES and OUTFILES
 export DATADIR="${HOME}/CASAS_DATA/"
+export INFILES="${DATADIR}/infiles"
 export OUTFILES="${DATADIR}/outfiles"
+
 export PALETTES="${CASAS_HOME}/palettes"
 export FONTDIR='C:\Windows\Fonts\'
 
@@ -431,7 +433,7 @@ echo "$LON $LAT $PAR $YEAR" > ${OUTFILES}/inputPar.txt
 perl ${PERLSCRIPTS}/printYear.pl "${OUTFILES}"
 
 # Run a perl script that gets rid of column names
-perl ${PERLSCRIPTS}/convertITA.pl "${OUTFILES}"
+perl ${PERLSCRIPTS}/convertITA.pl "${INFILES}"
 
 # Do we want to use the same legend range for all maps?
 if [ "$GIS_FLAG_X" -eq 1 ]; then
