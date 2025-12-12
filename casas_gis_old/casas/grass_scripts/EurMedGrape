@@ -41,7 +41,7 @@
 set -e
 
 # Set some environmental variables
-export CASAS_HOME="${HOME}/software/casas-gis/casas_gis_old/"
+export CASAS_HOME="${HOME}/Documents/maxtor/git_casas/casas-gis/casas_gis_old/"
 export PERLSCRIPTS="${CASAS_HOME}/PerlScripts"
 
 # The CASAS_DATA/ directory include INFILES and OUTFILES
@@ -336,7 +336,7 @@ exitprocedure() {
 trap 'exitprocedure' 1 2 3 15
 
 # Print column names of model output files.
-perl ${PERLSCRIPTS}/printCols.pl "${OUTFILES}" > ${OUTFILES}/varList.txt
+perl ${PERLSCRIPTS}/printCols.pl "${INFILES}" > ${OUTFILES}/varList.txt
 
 if [ "$1" != "@ARGS_PARSED@" ]; then
     exec g.parser "$0" "$@"
@@ -439,10 +439,10 @@ fi
 echo "$LON $LAT $PAR $YEAR" > ${OUTFILES}/inputPar.txt
 
 # Print years to text files for use in legend.
-perl ${PERLSCRIPTS}/printYear.pl "${OUTFILES}"
+perl ${PERLSCRIPTS}/printYear.pl "${OUTFILES}" "${INFILES}"
 
 # Run a perl script that gets rid of column names
-perl ${PERLSCRIPTS}/convertITA.pl "${INFILES}"
+perl ${PERLSCRIPTS}/convertITA.pl "${OUTFILES}" "${INFILES}"
 
 # Do we want to use the same legend range for all maps?
 if [ "$GIS_FLAG_X" -eq 1 ]; then
