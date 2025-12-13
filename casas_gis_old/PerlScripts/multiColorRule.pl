@@ -76,7 +76,7 @@ $min = $lowCut if $lowCut > $min;
 
 # Initialize color rule file.
 chdir ("$HomeDir");
-my $output = "customColorRule.txt";
+my $output = "customColorRule";
 
 # Put colors into an array.
 my @colors = split(/-/, $rule);
