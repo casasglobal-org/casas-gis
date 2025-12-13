@@ -17,9 +17,10 @@ use File::Path qw(make_path);
 # Create a temporary folder for tweaked files.
 # read cmdline arguments
 if ($#ARGV == -1) {
-    die "No argument (<\$HOME/CASAS_DATA/outfiles/>) defined!\n";
+    die "No argument (<\$HOME/CASAS_DATA/infiles/>) defined!\n";
 }
-my $HomeDir=$ARGV[0];
+my $HomeDir = $ARGV[0];
+my $models_dir = $ARGV[1];
 
 my $dir = "$HomeDir/models_temp/";
 unless (-d $dir) {
@@ -41,7 +42,6 @@ while (my $line = <IN>)
 close IN;
 
 # Import files in models directory for reading.
-my $models_dir = "$HomeDir/";
 #print "Directory path: <$models_dir>\n";
 opendir(DIR, $models_dir) || die "can't opendir $models_dir: $!";
 
@@ -57,7 +57,7 @@ while (my $file = readdir(DIR))
 {
 	if ($file =~ /.\.txt/)
 	{
-		chdir ("$HomeDir/");
+		chdir ("$models_dir/");
 		open (IN, "<$file") or die "Can't open $file for reading: $!";
 		# Put rows as elements of the @table array.
 		my @table;
@@ -96,7 +96,7 @@ while (my $file = readdir(DIR))
 		# Write tweaked files to the temporary directory from where they
 		# should be imported by the main shell script.
 		my $file2;
-		chdir ("../models_temp/");
+		chdir ($dir);
 		# $file =~ tr/OUT.*\.txt/\n/;
 		$file =~ s/\.txt//;
 		$file2 = join("",$parName, "_", $file);

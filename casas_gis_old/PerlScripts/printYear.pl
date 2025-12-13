@@ -15,8 +15,8 @@ use strict;
 if ($#ARGV == -1) {
     die "No argument (<\$HOME/CASAS_DATA/outfiles/>) defined!\n";
 }
-my $HomeDir=$ARGV[0];
-my $models_dir = "$HomeDir/";
+my $HomeDir = $ARGV[0];
+my $models_dir = $ARGV[1];
 opendir(DIR, $models_dir) || die "can't opendir $models_dir: $!";
 my $fileNumber = 1;
 my @years;
@@ -50,7 +50,7 @@ while (my $file = readdir(DIR))
                     }
                 close IN;
                 my $yearColumn = $inputs[3] - 1;
-                
+                # This chdir is probably not necessary
                 chdir ("$HomeDir");                
                 my @columns = split(/\t/, $table[1]);
                 $years[$fileNumber-1] = $columns[$yearColumn];

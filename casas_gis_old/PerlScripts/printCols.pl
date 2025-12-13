@@ -15,10 +15,9 @@ use strict;
 
 # Import files in models directory for reading.
 if ($#ARGV == -1) {
-    die "No argument (<\$HOME/CASAS_DATA/outfiles/>) defined!\n";
+    die "No argument (<\$HOME/CASAS_DATA/infiles/>) defined!\n";
 }
-my $HomeDir=$ARGV[0];
-my $models_dir = "$HomeDir/";
+my $models_dir = $ARGV[0];
 opendir(DIR, $models_dir) || die "can't opendir $models_dir: $!";
 my $fileNumber = 1;
 my @years;
@@ -26,7 +25,7 @@ while (my $file = readdir(DIR))
 {
 	if ($file =~ /.\.txt/)
 	{
-		chdir ("$HomeDir/");
+		chdir ("$models_dir/");
 		open (IN, "<$file") or die "Can't open $file for reading: $!";
 		
 		# Put rows as elements of the @table array.
