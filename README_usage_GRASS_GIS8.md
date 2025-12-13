@@ -135,18 +135,13 @@ graph TD
 
 ![casas_pbdm_grass8_scripts_workflow](casas_pbdm_grass8_scripts_workflow.png)
 
-
 ### Key Differences among the script versions
-
-```
 
 | Feature                      | GRASS GIS 6 version       | GRASS GIS 8 version  |
 | ---------------------------- | ------------------------- | -------------------- |
 | Column Info Display          | DOS Command Prompt        | GRASS GUI/Terminal   |
 | Script Invocation            | Batch File + GRASS Script | Unified GRASS Script |
 | Cross-Platform Compatibility | Limited                   | Enhanced             |
-
-````
 
 ### Data directory initialization
 
@@ -168,7 +163,7 @@ rm -rf $HOME/CASAS_DATA/* ;
 mkdir -p $HOME/CASAS_DATA/outfiles/
 # use sample PBDM modelling txt files
 cp -p $HOME/software/casas-gis/casas_gis_old/*.txt $HOME/CASAS_DATA/outfiles/
-````
+```
 
 The text files in `outfiles/*.txt` are output files from a PBDM simulation.
 Here the relevant files, resulting from PDBM modelling, are:
