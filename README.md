@@ -17,6 +17,7 @@ CASAS GIS is software for geospatial mapping and analysis of physiologically bas
   - Built on modern GRASS GIS Python API
   - Aims to provide a more maintainable and user-friendly interface
   - Compatible with current GRASS GIS versions
+  - Usage documentation: [README_usage_GRASS_GIS8.md](README_usage_GRASS_GIS8.md)
 
 ## Basic CASAS GIS workflow
 
