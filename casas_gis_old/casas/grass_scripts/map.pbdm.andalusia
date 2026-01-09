@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 
 ############################################################################
 #
@@ -45,7 +45,7 @@
 set -e
 
 # Set some environmental variables
-export CASAS_HOME="${HOME}/Documents/maxtor/git_casas/casas-gis/casas_gis_old/"
+export CASAS_HOME="${HOME}/software/casas-gis/casas_gis_old/"
 export PERLSCRIPTS="${CASAS_HOME}/PerlScripts"
 
 # The CASAS_DATA/ directory include INFILES and OUTFILES
@@ -503,11 +503,11 @@ for i in $(ls); do
     fi
 done
 
-# Change to GRASS location where projected maps are.
+# Change to GRASS location where andalusia maps are.
 g.mapset mapset=medgold project=laea_andalusia
 
 # Selection of based on vector areas.
-if [ "$PROVINCES" = 'all' ]; then
+if [ "$PROVINCES" = "all" ]; then
     # Full region for the Andalusia mapping routine
     g.region vector=andalusia_provinces
     v.to.rast input=andalusia_provinces output=EtoSelectMask use=val value=1
@@ -518,10 +518,11 @@ if [ "$PROVINCES" = 'all' ]; then
 else
     # Set region to an arbitrary subset of provinces
     echo $PROVINCES > ${OUTFILES}/states.txt
-    perl ${PERLSCRIPTS}/cliparse_TC.pl "${OUTFILES}" 'iso_3166_2' 'string' "states.txt" "formulaStates.txt"
+    perl ${PERLSCRIPTS}/cliparse_TC.pl "${OUTFILES}" "iso_3166_2" "string" "states.txt" "formulaStates.txt"
     v.extract input=andalusia_provinces output=selectedStates where="$(cat ${OUTFILES}/formulaStates.txt)"
     # Define the extent of the map and its grid resolution (currently 1 km).
-    g.region -a vector=selectedStates
+    # TODO: better make this one g.region call along with res=xxx above
+    g.region vector=selectedStates
     v.to.rast input=selectedStates output=EtoSelectMask use=val value=1
     # Make some room on the margins.
     g.region n=n+7000 s=s-7000 e=e+7000 w=w-7000
@@ -530,24 +531,24 @@ else
 fi
 
 # Use various olive growing areas for masking model output
-if [ "$CROP" == "olive" ]; then
+if [ "$CROP" = "olive" ]; then
     r.mapcalc "ElevMask = if ((EtoSelectMask && olive_HarvestedAreaFraction_andalusia > $CROP_THRESHOLD), elevation_1KMmd_GMTEDmd_andalusia, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 # Use SIGPAC olive monocolture data (resampled at 3 km)
-elif [ "$CROP" == "sigpac" ]; then
+elif [ "$CROP" = "sigpac" ]; then
     r.mapcalc "ElevMask = if ((EtoSelectMask && olive_monoculture_sigpac_2018_3km == 1), elevation_1KMmd_GMTEDmd_andalusia, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 # Use SIGPAC olive monocolture data (r.grow with 5km buffer radius)
-elif [ "$CROP" == "sigpac_buffered_5km" ]; then
+elif [ "$CROP" = "sigpac_buffered_5km" ]; then
     r.mapcalc "ElevMask = if ((EtoSelectMask && olive_monoculture_sigpac_2018_grow_5000 == 1), elevation_1KMmd_GMTEDmd_andalusia, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 # Use SIGPAC olive monocolture data (r.grow with 3km buffer radius)
-elif [ "$CROP" == "sigpac_buffered_3km" ]; then
+elif [ "$CROP" = "sigpac_buffered_3km" ]; then
     r.mapcalc "ElevMask = if ((EtoSelectMask && olive_monoculture_sigpac_2018_grow_3000 == 1), elevation_1KMmd_GMTEDmd_andalusia, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 # Use no mask for model output
-elif [ "$CROP" == "none" ]; then
-    r.mapcalc 'ElevMask = if (EtoSelectMask, elevation_1KMmd_GMTEDmd_andalusias, null())'
+elif [ "$CROP" = "none" ]; then
+    r.mapcalc "ElevMask = if (EtoSelectMask, elevation_1KMmd_GMTEDmd_andalusias, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 fi
 
@@ -656,7 +657,7 @@ for i in $(ls); do
     # Set mask for interpolation.
     g.copy raster=ElevAltMask,MASK
 
-    if [ $SURF == "idw" ]; then
+    if [ $SURF = "idw" ]; then
         # Interpolate the reprojected vector after proper masking by
         # elevation and administrative regions.
         # v.to.rast may be appropriate with PROTHEUS data.
@@ -844,7 +845,7 @@ for i in $(ls); do
         echo "" | tee -a "$SaveDir/$i.txt"
         wait
         if [ "$mapcycle" -eq 1 ]; then
-            echo 'There is no stat report for weather stations!' > "$SaveDir"/WeatherStations.txt
+            echo "There is no stat report for weather stations!" > "$SaveDir"/WeatherStations.txt
             if [ "$GIS_FLAG_P" -eq 1 ]; then
                 Plots=1
             else
@@ -926,7 +927,7 @@ else
     export GRASS_RENDER_FILE="$SaveDir/WeatherStations.png"
     d.mon start=png
     d.erase
-    r.mapcalc 'selectedStates.composite = if(EtoSelectMask, NE1_HR_LC_SR_W_DR.composite_andalusia_250m, null())'
+    r.mapcalc "selectedStates.composite = if(EtoSelectMask, NE1_HR_LC_SR_W_DR.composite_andalusia_250m, null())"
     r.colors map=selectedStates.composite raster=NE1_HR_LC_SR_W_DR.composite_andalusia_250m
     d.his i=SR_HR_andalusia_clip_250m h=selectedStates.composite brighten=5
     d.vect map=ne_10m_coastline_andalusia type=boundary color=150:150:150 width=3
@@ -945,15 +946,15 @@ fi
 
 # Set default value with no upper cutting point.
 if [ "$GIS_FLAG_U" -eq 0 ]; then
-    HICUT='none'
+    HICUT="none"
 fi
 
 # Let HTML summary know if stations above altitude
 # clip have been used in interpolation or not.
 if [ "$GIS_FLAG_C" -eq 0 ]; then
-    SurfCut='yes'
+    SurfCut="yes"
 else
-    SurfCut='no'
+    SurfCut="no"
 fi
 
 # Write html pages.

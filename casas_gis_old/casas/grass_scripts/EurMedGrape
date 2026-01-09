@@ -41,7 +41,7 @@
 set -e
 
 # Set some environmental variables
-export CASAS_HOME="${HOME}/Documents/maxtor/git_casas/casas-gis/casas_gis_old/"
+export CASAS_HOME="${HOME}/software/casas-gis/casas_gis_old/"
 export PERLSCRIPTS="${CASAS_HOME}/PerlScripts"
 
 # The CASAS_DATA/ directory include INFILES and OUTFILES
@@ -497,7 +497,7 @@ g.region -a vector=admin0_10m_naturalEarth_MED res=3000
 # region is used.
 
 # Map whole region
-if [ "$REG" == "-1" ]; then
+if [ "$REG" = "-1" ]; then
     g.region -a vector=region_EurMedGrape res=3000
     v.to.rast input=region_EurMedGrape output=EtoSelectMask use=val value=1
 # Map subset of countries
@@ -510,48 +510,48 @@ elif [ "$REG" != "-1" ]; then
     # Adjust region settings
     g.region vector=EtoSelect
     # For Canary Islands problem in Spain
-    if [ "$REG" == "Spain" ]; then
+    if [ "$REG" = "Spain" ]; then
         g.region w=-2073635.08 s=-24171.35
     fi
     # Make some room on the margins.
     g.region n=n+50000 s=s-50000 e=e+50000 w=w-50000
-    g.region res=3000 -a
+    g.region -a res=3000
 fi
 
 # Use various crop growing areas for masking model output
-if [ "$CROP" == "grape" ]; then
-    r.mapcalc 'ElevMask = if ((EtoSelectMask && grape_growing_area_raster_below1000), Med_dem, null())'
+if [ "$CROP" = "grape" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && grape_growing_area_raster_below1000), Med_dem, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
-elif [ "$CROP" == "tomato_harvested" ]; then
-    r.mapcalc 'ElevMask = if ((EtoSelectMask && tomato_YieldPerHectare_175_above_0_mask), Med_dem, null())'
+elif [ "$CROP" = "tomato_harvested" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && tomato_YieldPerHectare_175_above_0_mask), Med_dem, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
-elif [ "$CROP" == "tomato_h_temperate" ]; then
-    r.mapcalc 'ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_temperate), Med_dem, null())'
+elif [ "$CROP" = "tomato_h_temperate" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_temperate), Med_dem, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
-elif [ "$CROP" == "tomato_h_tropical" ]; then
-    r.mapcalc 'ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_tropical), Med_dem, null())'
+elif [ "$CROP" = "tomato_h_tropical" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_tropical), Med_dem, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
-elif [ "$CROP" == "tomato_h_combined" ]; then
-    r.mapcalc 'ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_combined), Med_dem, null())'
+elif [ "$CROP" = "tomato_h_combined" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_combined), Med_dem, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
-elif [ "$CROP" == "alfalfa_harvested" ]; then
-    r.mapcalc 'ElevMask = if ((EtoSelectMask && alfalfa_harvarea_EurMedGrape_binary), US_dem, null())'
+elif [ "$CROP" = "alfalfa_harvested" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && alfalfa_harvarea_EurMedGrape_binary), US_dem, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 # No crop constraint
-elif [ "$CROP" == "none" ]; then
-    r.mapcalc 'ElevMask = if (EtoSelectMask, Med_dem, null())'
+elif [ "$CROP" = "none" ]; then
+    r.mapcalc "ElevMask = if (EtoSelectMask, Med_dem, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 fi
 
 # Old clip based on ecological regions
 # echo $REG > ${OUTFILES}/clipRegion.txt;
-# perl ${PERLSCRIPTS}/cliparse_TC.pl ${OUTFILES} "GEZ_CODE" 'number' "clipRegion.txt" "formula.txt"
+# perl ${PERLSCRIPTS}/cliparse_TC.pl ${OUTFILES} "GEZ_CODE" "number" "clipRegion.txt" "formula.txt"
 # v.extract input=ecoZonesFaoEra40 output=EtoSelect\
 # where="`cat ${OUTFILES}/formula.txt`"
 # v.to.rast input=EtoSelect output=EtoSelectMask use=val value=1
 # Get mask to clip sites with elevation over $ALT
 # and outside selected ecological regions.
-# r.mapcalc 'ElevMask = if (EtoSelectMask, Med_dem, null())'
+# r.mapcalc "ElevMask = if (EtoSelectMask, Med_dem, null())"
 # r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 
 # Write header in the log file (avoiding white space in filename).
@@ -598,7 +598,7 @@ export GRASS_FONT='/usr/share/fonts/msttcore/arial.ttf'
 # d.erase
 
 # Start interpolation process.
-mapcycle=1
+mapcycle=1 # this is just a counter
 # TODO: improve `ls` part: limit to files of interest
 for i in $(ls); do
     # Reproject imported model vectors to current location.
@@ -663,7 +663,7 @@ for i in $(ls); do
     # Set mask for interpolation.
     g.copy raster=ElevAltMask,MASK
 
-    if [ $SURF == "idw" ]; then
+    if [ $SURF = "idw" ]; then
         # Interpolate the reprojected vector after proper masking by
         # elevation and administrative regions.
         # v.to.rast may be appropriate with PROTHEUS data.
@@ -741,7 +741,7 @@ for i in $(ls); do
         #~ d.rast map=MSR_50M_land
         d.rast -o map=MskdModPOS$i
         d.vect map=admin0_10m_naturalEarth_MED type=boundary width=3
-        d.grid -wn size=5:0:0 color=black bordercolor=black
+        d.grid -wn size=5:0:0 color=black bordercolor=black # This draws a black border
     else
         # If flag -g is not checked, output is a color figure
         # Set color table for interpolated raster
@@ -789,7 +789,7 @@ for i in $(ls); do
         #~ d.vect map=waterareas type=boundary,area \
         color=0:255:255 fcolor=190:255:255
         d.vect map=admin0_10m_naturalEarth_MED type=boundary width=3
-        d.grid -wn size=5:0:0 color=black bordercolor=black
+        d.grid -wn size=5:0:0 color=black bordercolor=black # This draws a black border
     fi
 
     # Display a legend for model raster with screen
@@ -859,7 +859,7 @@ for i in $(ls); do
         echo "" | tee -a "$SaveDir/$i.txt"
         wait
         if [ "$mapcycle" -eq 1 ]; then
-            echo 'There is no stat report for weather stations!' > "$SaveDir"/WeatherStations.txt
+            echo "There is no stat report for weather stations!" > "$SaveDir"/WeatherStations.txt
             if [ "$GIS_FLAG_P" -eq 1 ]; then
                 Plots=1
             else
@@ -908,11 +908,9 @@ echo "GIS script syntax used:
     c=$GIS_FLAG_C r=$GIS_FLAG_R p=$GIS_FLAG_P
     SaveDir=$SaveDir longitude=$LON latitude=$LAT year=$YEAR
     parameter=$PAR interpolation=$SURF numpoints=$PNTS
-    lowercut=$CUT uppercut=$HICUT legend1=$LEG1 region=$REG alt=$ALT
+    lowercut=$CUT uppercut=$HICUT legend1=\"$LEG1\" region=$REG alt=$ALT
     resolution=$FIGRES low_bar_col=$LOWBARCOL up_bar_col=$UPBARCOL
-	crop=$CROP
-	
-" | tee -a "$SaveDir/${LEG1FILE}.log"
+	crop=$CROP" | tee -a "$SaveDir/${LEG1FILE}.log"
 
 # Write date in the log file.
 echo "($(date -R | tr -s ' ' ' '))" | tee -a "$SaveDir/${LEG1FILE}.log"
@@ -943,7 +941,6 @@ else
     # If flag -g is not checked, output is a color figure (with lakes)
     # Set png file for output.
     export GRASS_RENDER_FILE="$SaveDir/WeatherStations.png"
-    export GRASS_RENDER_FILE
     d.mon start=png
     d.erase
 
@@ -967,15 +964,15 @@ fi
 
 # Set default value with no upper cutting point.
 if [ "$GIS_FLAG_U" -eq 0 ]; then
-    HICUT='none'
+    HICUT="none"
 fi
 
 # Let HTML summary know if stations above altitude
 # clip have been used in interpolation or not.
 if [ "$GIS_FLAG_C" -eq 0 ]; then
-    SurfCut='yes'
+    SurfCut="yes"
 else
-    SurfCut='no'
+    SurfCut="no"
 fi
 
 # Write html pages.

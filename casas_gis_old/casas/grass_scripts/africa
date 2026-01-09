@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 
 ############################################################################
 #
@@ -327,7 +327,7 @@ exitprocedure() {
 trap 'exitprocedure' 1 2 3 15
 
 # Print column names of model output files.
-perl ${PERLSCRIPTS}/printCols.pl "${OUTFILES}" > ${OUTFILES}/varList.txt
+perl ${PERLSCRIPTS}/printCols.pl "${INFILES}" > ${OUTFILES}/varList.txt
 
 if [ "$1" != "@ARGS_PARSED@" ]; then
     exec g.parser "$0" "$@"
@@ -430,10 +430,10 @@ fi
 echo "$LON $LAT $PAR $YEAR" > ${OUTFILES}/inputPar.txt
 
 # Print years to text files for use in legend.
-perl ${PERLSCRIPTS}/printYear.pl "${OUTFILES}"
+perl ${PERLSCRIPTS}/printYear.pl "${OUTFILES}" "${INFILES}"
 
 # Run a perl script that gets rid of column names
-perl ${PERLSCRIPTS}/convertITA.pl "${INFILES}"
+perl ${PERLSCRIPTS}/convertITA.pl "${OUTFILES}" "${INFILES}"
 
 # Do we want to use the same legend range for all maps?
 if [ "$GIS_FLAG_X" -eq 1 ]; then
@@ -487,7 +487,7 @@ g.mapset mapset=luigi project=africa_aea
 # region is used.
 
 # Map whole region
-if [ "$REG" == "-1" ]; then
+if [ "$REG" = "-1" ]; then
     # Exclude some small off-coast islands
     g.region vector=africa_region_box
     g.region -a res=3000
@@ -497,7 +497,7 @@ if [ "$REG" == "-1" ]; then
 elif [ "$REG" != "-1" ]; then
     # New clip based on countries
     echo $REG > ${OUTFILES}/clipRegion.txt
-    perl ${PERLSCRIPTS}/cliparse_TC.pl ${OUTFILES} "NAME_EN" 'string' "clipRegion.txt" "formula.txt"
+    perl ${PERLSCRIPTS}/cliparse_TC.pl ${OUTFILES} "NAME_EN" "string" "clipRegion.txt" "formula.txt"
     v.extract input=africa output=EtoSelect where="$(cat ${OUTFILES}/formula.txt)"
     # Adjust region settings
     g.region vector=EtoSelect
@@ -508,24 +508,24 @@ elif [ "$REG" != "-1" ]; then
 fi
 
 # Use various crop growing areas for masking model output
-if [ "$CROP" == "cassava" ]; then
-    r.mapcalc 'ElevMask = if ((EtoSelectMask && cassava_harvarea_binary), elevation_1KMmd_GMTEDmd, null())'
+if [ "$CROP" = "cassava" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && cassava_harvarea_binary), elevation_1KMmd_GMTEDmd, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
-elif [ "$CROP" == "tomato_harvested" ]; then
-    r.mapcalc 'ElevMask = if ((EtoSelectMask && tomato_YieldPerHectare_175_above_0_mask), elevation_1KMmd_GMTEDmd, null())'
+elif [ "$CROP" = "tomato_harvested" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && tomato_YieldPerHectare_175_above_0_mask), elevation_1KMmd_GMTEDmd, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
-elif [ "$CROP" == "tomato_h_temperate" ]; then
-    r.mapcalc 'ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_temperate), elevation_1KMmd_GMTEDmd, null())'
+elif [ "$CROP" = "tomato_h_temperate" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_temperate), elevation_1KMmd_GMTEDmd, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
-elif [ "$CROP" == "tomato_h_tropical" ]; then
-    r.mapcalc 'ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_tropical), elevation_1KMmd_GMTEDmd, null())'
+elif [ "$CROP" = "tomato_h_tropical" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_tropical), elevation_1KMmd_GMTEDmd, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
-elif [ "$CROP" == "tomato_h_combined" ]; then
-    r.mapcalc 'ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_combined), elevation_1KMmd_GMTEDmd, null())'
+elif [ "$CROP" = "tomato_h_combined" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_combined), elevation_1KMmd_GMTEDmd, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 # No crop constraint
-elif [ "$CROP" == "none" ]; then
-    r.mapcalc 'ElevMask = if (EtoSelectMask, elevation_1KMmd_GMTEDmd, null())'
+elif [ "$CROP" = "none" ]; then
+    r.mapcalc "ElevMask = if (EtoSelectMask, elevation_1KMmd_GMTEDmd, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 fi
 
@@ -570,9 +570,12 @@ export GRASS_RENDER_TRUECOLOR=TRUE
 
 # Choose a font for figure text.
 export GRASS_FONT='/usr/share/fonts/msttcore/arial.ttf'
-
 # d.erase
-mapcycle=1
+
+
+# Start interpolation process.
+mapcycle=1 # this is just a counter
+# TODO: improve `ls` part: limit to files of interest
 for i in $(ls); do
     # Reproject imported model vectors to current location.
     echo "reprojecting map$i ..."
@@ -626,7 +629,8 @@ for i in $(ls); do
     fi
     perl ${PERLSCRIPTS}/voroparse.pl "${OUTFILES}"
     #~ v.extract input=voronoi output=voronoiSel\
-    #~ where="`cat ${OUTFILES}/voronoiFormula.txt`"; wait;
+    #~ where="`cat ${OUTFILES}/voronoiFormula.txt`"
+    #wait
     # Version without DB query.
     v.extract input=voronoi output=voronoiSel file=${OUTFILES}/voronoi.txt
 
@@ -636,7 +640,7 @@ for i in $(ls); do
     # Set mask for interpolation.
     g.copy raster=ElevAltMask,MASK
 
-    if [ $SURF == "idw" ]; then
+    if [ $SURF = "idw" ]; then
         # Interpolate the reprojected vector after proper masking by
         # elevation and administrative regions.
         # v.to.rast may be appropriate with PROTHEUS data.
@@ -667,9 +671,8 @@ for i in $(ls); do
     fi
 
     # Set png file for output.
-    GRASS_RENDER_FILE="$SaveDir"/"$i".png
-    export GRASS_RENDER_FILE
-    d.mon stop=png # in case the previous model run failed
+    export GRASS_RENDER_FILE="$SaveDir"/"$i".png
+    d.mon -l 2> /dev/null | grep png && d.mon stop=png # in case the previous model run failed
     d.mon start=png
     d.erase
 
@@ -802,6 +805,7 @@ for i in $(ls); do
     Legend1="$(cat ${OUTFILES}/legend1.txt)"
     Year="$(cat ${OUTFILES}/year$mapcycle.txt)"
     echo $Legend1 $Year "($CROP)" > ${OUTFILES}/legend1$mapcycle.txt
+
     # Text for legend (at = percentage, x,y with [0,0] being left lower).
     d.text size=4 color=black at=5,92 input=${OUTFILES}/legend1$mapcycle.txt
 
@@ -893,7 +897,7 @@ echo "GIS script syntax used:
     c=$GIS_FLAG_C r=$GIS_FLAG_R p=$GIS_FLAG_P
     SaveDir=$SaveDir longitude=$LON latitude=$LAT year=$YEAR
     parameter=$PAR interpolation=$SURF numpoints=$PNTS
-    lowercut=$CUT uppercut=$HICUT legend1=$LEG1 region=$REG alt=$ALT
+    lowercut=$CUT uppercut=$HICUT legend1=\"$LEG1\" region=$REG alt=$ALT
     resolution=$FIGRES low_bar_col=$LOWBARCOL up_bar_col=$UPBARCOL
 	crop=$CROP
 " | tee -a "$SaveDir/${LEG1FILE}.log"

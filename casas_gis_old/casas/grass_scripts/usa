@@ -323,7 +323,7 @@ cleanup() {
     g.mapset mapset=luigi project=latlong
     g.remove -f --q type=vector pattern="map*"
     # Remove gis temp files in mapping location
-    if [ "$GIS_OPT_STATES" = 'HI' ]; then
+    if [ "$GIS_OPT_STATES" = "HI" ]; then
         g.mapset mapset=luigi project=AEA_Hawaii
     else
         g.mapset mapset=luigi project=AEA_US_mex_central_america
@@ -355,7 +355,7 @@ exitprocedure() {
 trap 'exitprocedure' 1 2 3 15
 
 # Print column names of model output files.
-perl ${PERLSCRIPTS}/printCols.pl "${OUTFILES}" > ${OUTFILES}/varList.txt
+perl ${PERLSCRIPTS}/printCols.pl "${INFILES}" > ${OUTFILES}/varList.txt
 
 if [ "$1" != "@ARGS_PARSED@" ]; then
     exec g.parser "$0" "$@"
@@ -461,7 +461,7 @@ fi
 echo "$LON $LAT $PAR $YEAR" > ${OUTFILES}/inputPar.txt
 
 # Print years to text files for use in legend.
-perl ${PERLSCRIPTS}/printYear.pl "${OUTFILES}"
+perl ${PERLSCRIPTS}/printYear.pl "${OUTFILES}" "${INFILES}"
 
 # Run a perl script that gets rid of column names
 perl ${PERLSCRIPTS}/convert.pl "${INFILES}"
@@ -507,14 +507,14 @@ for i in $(ls); do
 done
 
 # Change to GRASS location where US maps are.
-if [ "$STATES" = 'HI' ]; then
+if [ "$STATES" = "HI" ]; then
     g.mapset mapset=luigi project=AEA_Hawaii
 else
     g.mapset mapset=luigi project=AEA_US_mex_central_america
 fi
 
 # Transform dummy value for conterminous US.
-if [ "$STATES" = 'US_conterminous' ]; then
+if [ "$STATES" = "US_conterminous" ]; then
     STATES='AL AZ AR CA CO CT DC DE FL GA ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY'
     g.region res=3000
     # Set region to an arbitrary subset of US states.
@@ -528,7 +528,7 @@ if [ "$STATES" = 'US_conterminous' ]; then
     g.region -a n=n+50000 s=s-50000 e=e+50000 w=w-50000
 
 # Transform dummy value for conterminous US plus Mexico.
-elif [ "$STATES" = 'US_conterm_Mex' ]; then
+elif [ "$STATES" = "US_conterm_Mex" ]; then
     STATES='MX AL AZ AR CA CO CT DC DE FL GA ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY'
     g.region res=3000
     # Set region to an arbitrary subset of US states
@@ -542,7 +542,7 @@ elif [ "$STATES" = 'US_conterm_Mex' ]; then
     g.region -a n=n+50000 s=s-50000 e=e+50000 w=w-50000
 
 # Transform dummy value for conterminous US plus Mexico and Central America.
-elif [ "$STATES" = 'US_Mex_CentralAmerica' ]; then
+elif [ "$STATES" = "US_Mex_CentralAmerica" ]; then
     STATES='MX AL AZ AR CA CO CT DC DE FL GA ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY BZ GT HN SV NI CR PN'
     g.region res=3000
     # Set region to an arbitrary subset of US states
@@ -556,7 +556,7 @@ elif [ "$STATES" = 'US_Mex_CentralAmerica' ]; then
     g.region -a n=n+50000 s=s+110000 e=e+50000 w=w-50000
 
 # Hawaii is really a tiny place.
-elif [ "$STATES" = 'HI' ]; then
+elif [ "$STATES" = "HI" ]; then
     g.region res=1000
     # Set region to an arbitrary subset of US states
     echo $STATES > ${OUTFILES}/states.txt
@@ -596,24 +596,24 @@ fi
 g.copy raster=selectedStatesRaster,EtoSelectMask
 
 # Use various tomato growing areas for masking model output
-if [ "$CROP" == "tomato_harvested" ]; then
-    r.mapcalc 'ElevMask = if ((EtoSelectMask && tomato_YieldPerHectare_175_above_0_mask), US_dem, null())'
+if [ "$CROP" = "tomato_harvested" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && tomato_YieldPerHectare_175_above_0_mask), US_dem, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
-elif [ "$CROP" == "tomato_h_temperate" ]; then
-    r.mapcalc 'ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_temperate), US_dem, null())'
+elif [ "$CROP" = "tomato_h_temperate" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_temperate), US_dem, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
-elif [ "$CROP" == "tomato_h_tropical" ]; then
-    r.mapcalc 'ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_tropical), US_dem, null())'
+elif [ "$CROP" = "tomato_h_tropical" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_tropical), US_dem, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
-elif [ "$CROP" == "tomato_h_combined" ]; then
-    r.mapcalc 'ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_combined), US_dem, null())'
+elif [ "$CROP" = "tomato_h_combined" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && tomato_y_175crops_t_gaez_combined), US_dem, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
-elif [ "$CROP" == "alfalfa_harvested" ]; then
-    r.mapcalc 'ElevMask = if ((EtoSelectMask && alfalfa_harvarea_usa_binary), US_dem, null())'
+elif [ "$CROP" = "alfalfa_harvested" ]; then
+    r.mapcalc "ElevMask = if ((EtoSelectMask && alfalfa_harvarea_usa_binary), US_dem, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 # No crop constraint
-elif [ "$CROP" == "none" ]; then
-    r.mapcalc 'ElevMask = if (EtoSelectMask, US_dem, null())'
+elif [ "$CROP" = "none" ]; then
+    r.mapcalc "ElevMask = if (EtoSelectMask, US_dem, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 fi
 
@@ -722,7 +722,7 @@ for i in $(ls); do
     # Set mask for interpolation.
     g.copy raster=ElevAltMask,MASK
 
-    if [ $SURF == "idw" ]; then
+    if [ $SURF = "idw" ]; then
         # Interpolate the reprojected vector after proper masking by
         # elevation and administrative regions.
         # v.to.rast may be appropriate with PROTHEUS data.
@@ -876,7 +876,7 @@ for i in $(ls); do
         # flag is selected in the GUI.
         if [ "$GIS_FLAG_T" -eq 1 ]; then
             if [ "$GIS_FLAG_S" -eq 1 ]; then
-                if [ "$GIS_OPT_STATES" = 'US_conterminous' ] || [ "$GIS_OPT_STATES" = 'US_conterm_Mex' ]; then
+                if [ "$GIS_OPT_STATES" = "US_conterminous" ] || [ "$GIS_OPT_STATES" = 'US_conterm_Mex' ]; then
                     d.vect map=mapPos$i display=shape icon=basic/cross1 size=16 layer=1 color=255:255:255 fcolor=0:0:0 width=2
                     d.vect map=mapZero$i display=shape icon=basic/diamond size=13 layer=1 color=0:0:0 fcolor=255:255:255 width=2
                     d.vect map=mapHigh$i display=shape icon=basic/triangle size=11 layer=1 color=0:0:0 fcolor=255:255:255 width=2
@@ -886,7 +886,7 @@ for i in $(ls); do
                     d.vect map=mapHigh$i display=shape icon=basic/triangle size=15 layer=1 color=0:0:0 fcolor=255:255:255 width=2
                 fi
             else
-                if [ "$GIS_OPT_STATES" = 'US_conterminous' ] || [ "$GIS_OPT_STATES" = 'US_conterm_Mex' ]; then
+                if [ "$GIS_OPT_STATES" = "US_conterminous" ] || [ "$GIS_OPT_STATES" = 'US_conterm_Mex' ]; then
                     d.vect map=mapPos$i display=shape icon=basic/cross1 size=16 layer=1 color=255:255:255 fcolor=0:0:0 width=2
                     d.vect map=mapZero$i display=shape icon=basic/point size=16 layer=1 color=255:255:255 fcolor=0:0:0 width=2
                     d.vect map=mapHigh$i display=shape icon=basic/point size=16 layer=1 color=255:255:255 fcolor=0:0:0 width=2
@@ -966,7 +966,7 @@ for i in $(ls); do
         echo "" | tee -a "$SaveDir/$i.txt"
         wait
         if [ "$mapcycle" -eq 1 ]; then
-            echo 'There is no stat report for weather stations!' > "$SaveDir"/WeatherStations.txt
+            echo "There is no stat report for weather stations!" > "$SaveDir"/WeatherStations.txt
             if [ "$GIS_FLAG_P" -eq 1 ]; then
                 Plots=1
             else
@@ -1035,7 +1035,7 @@ if [ "$GIS_FLAG_G" -eq 1 ]; then
     d.rast map=MSR_50M_land
     d.vect map=world_bounds type=boundary color=150:150:150 width=2
     d.vect map=us_conterm_hawaii_mex_centr_am type=boundary width=4
-    # if [ "$GIS_OPT_STATES" = 'US_conterminous' ] || [ "$GIS_OPT_STATES" = 'US_conterm_Mex' ] ; then
+    # if [ "$GIS_OPT_STATES" = "US_conterminous" ] || [ "$GIS_OPT_STATES" = "US_conterm_Mex" ] ; then
     # d.vect map=map$i display=shape icon=basic/point size=30 layer=1\
     # color=255:255:255 fcolor=0:0:0 width=4
     # else
@@ -1060,7 +1060,7 @@ else
     d.vect map=us_conterm_hawaii_mex_centr_am type=boundary width=3
     d.vect map=US_conterm_lakes_wwf type=boundary,area \
         color=150:150:150 fcolor=215:240:255 width=1
-    # if [ "$GIS_OPT_STATES" = 'US_conterminous' ] || [ "$GIS_OPT_STATES" = 'US_conterm_Mex' ] ; then
+    # if [ "$GIS_OPT_STATES" = "US_conterminous" ] || [ "$GIS_OPT_STATES" = "US_conterm_Mex" ] ; then
     # d.vect map=map$i display=shape icon=basic/cross1 size=30 layer=1\
     # color=255:255:255 fcolor=0:0:0 width=4
     # else
@@ -1079,15 +1079,15 @@ fi
 
 # Set default value with no upper cutting point.
 if [ "$GIS_FLAG_U" -eq 0 ]; then
-    HICUT='none'
+    HICUT="none"
 fi
 
 # Let HTML summary know if stations above altitude
 # clip have been used in interpolation or not.
 if [ "$GIS_FLAG_C" -eq 0 ]; then
-    SurfCut='yes'
+    SurfCut="yes"
 else
-    SurfCut='no'
+    SurfCut="no"
 fi
 
 # Write html pages.
