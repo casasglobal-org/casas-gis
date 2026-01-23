@@ -357,7 +357,7 @@ exitprocedure() {
 trap 'exitprocedure' 1 2 3 15
 
 # Print column names of model output files.
-perl ${PERLSCRIPTS}/printCols.pl "${OUTFILES}" > ${OUTFILES}/varList.txt
+perl ${PERLSCRIPTS}/printCols.pl "${INFILES}" > ${OUTFILES}/varList.txt
 
 if [ "$1" != "@ARGS_PARSED@" ]; then
     exec g.parser "$0" "$@"
@@ -475,10 +475,10 @@ fi
 echo "$LON $LAT $PAR $YEAR" > ${OUTFILES}/inputPar.txt
 
 # Print years to text files for use in legend.
-perl ${PERLSCRIPTS}/printYear.pl "${OUTFILES}"
+perl ${PERLSCRIPTS}/printYear.pl "${OUTFILES}" "${INFILES}"
 
 # Run a perl script that gets rid of column names
-perl ${PERLSCRIPTS}/convertITA.pl "${INFILES}"
+perl ${PERLSCRIPTS}/convertITA.pl "${OUTFILES}" "${INFILES}"
 
 # Do we want to use the same legend range for all maps?
 if [ "$GIS_FLAG_X" -eq 1 ]; then
@@ -524,7 +524,7 @@ done
 g.mapset mapset=luigi project=LAEA_India
 
 # Transform dummy value for conterminous US.
-if [ "$STATES" = 'India' ]; then
+if [ "$STATES" = "India" ]; then
     FIGRES=1
     STATES='CH DL HP HR JK AP KL LD OR DN KA MH AS MN NL ML PB RJ UP UT JH WB BR SK CT MP PY TN GJ GA AR MZ TR DD'
     # Set region to all of India states and territories minus Andaman islands.
@@ -535,42 +535,42 @@ if [ "$STATES" = 'India' ]; then
     g.region vector=selectedStates
     # Make some room on the margins.
     g.region n=n+50000 s=s-50000 e=e+50000 w=w-50000
-    g.region res=3000 -a
+    g.region -a res=3000
     # Make raster mask
     v.to.rast input=selectedStates output=selectedStatesRaster use=val value=1
 else
     # Set region to an arbitrary subset of India states
     FIGRES=2
     echo $STATES > ${OUTFILES}/states.txt
-    perl ${PERLSCRIPTS}/cliparse_US.pl ${OUTFILES} "POSTAL" "states.txt" "formulaStates.txt"
+    perl ${PERLSCRIPTS}/cliparse_US.pl "${OUTFILES}" "POSTAL" "states.txt" "formulaStates.txt"
     v.extract input=india_states output=selectedStates where="$(cat ${OUTFILES}/formulaStates.txt)"
     # Define the extent of the map and its grid resolution (currently 1 km).
     g.region vector=selectedStates
     # Make some room on the margins.
     g.region n=n+50000 s=s-50000 e=e+50000 w=w-50000
-    g.region res=3000 -a
+    g.region -a res=3000
     # Make raster mask
     v.to.rast input=selectedStates output=selectedStatesRaster use=val value=1
 fi
 
 # Clip to various cotton cropping areas (or not)
 # Clip to cotton crop area
-if [ "$CLIP" = 'cotton_full' ]; then
-    r.mapcalc EtoSelectMask='if(cotton_harea_175crops2000_india, selectedStatesRaster, null())'
+if [ "$CLIP" = "cotton_full" ]; then
+    r.mapcalc EtoSelectMask="if(cotton_harea_175crops2000_india, selectedStatesRaster, null())"
 # Clip to cotton crop area irrigated
-elif [ "$CLIP" = 'cotton_irrig' ]; then
-    r.mapcalc EtoSelectMask='if(cotton_area_irrig_fraction_M3, selectedStatesRaster, null())'
+elif [ "$CLIP" = "cotton_irrig" ]; then
+    r.mapcalc EtoSelectMask="if(cotton_area_irrig_fraction_M3, selectedStatesRaster, null())"
 # Clip to cotton crop area rainfed
-elif [ "$CLIP" = 'cotton_rainfed' ]; then
-    r.mapcalc EtoSelectMask='if(cotton_area_rainf_fraction_M3, selectedStatesRaster, null())'
+elif [ "$CLIP" = "cotton_rainfed" ]; then
+    r.mapcalc EtoSelectMask="if(cotton_area_rainf_fraction_M3, selectedStatesRaster, null())"
 # No clip
-elif [ "$CLIP" = 'no_clip' ]; then
+elif [ "$CLIP" = "no_clip" ]; then
     g.copy raster=selectedStatesRaster,EtoSelectMask
 fi
 
 # Get mask to clip sites with elevation over $ALT
 # and outside selected ecological regions.
-r.mapcalc 'ElevMask = if (EtoSelectMask, india_dem, null())'
+r.mapcalc "ElevMask = if (EtoSelectMask, india_dem, null())"
 r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
 
 # Write header in the log file (avoiding white space in filename).
@@ -678,7 +678,7 @@ for i in $(ls); do
     # Set mask for interpolation.
     g.copy raster=ElevAltMask,MASK
 
-    if [ $SURF == "idw" ]; then
+    if [ $SURF = "idw" ]; then
         # Interpolate the reprojected vector after proper masking by
         # elevation and administrative regions.
         # v.to.rast may be appropriate with PROTHEUS data.
@@ -851,8 +851,8 @@ for i in $(ls); do
     # If flag -r is checked, then write raster statistics.
     if [ "$GIS_FLAG_R" -eq 1 ]; then
         if [ $n -eq 1 ]; then
-            echo 'There is no stat report for weather stations!'
-            echo 'There is no stat report for weather stations!' > "$SaveDir"/WeatherStations.txt
+            echo "There is no stat report for weather stations!"
+            echo "There is no stat report for weather stations!" > "$SaveDir"/WeatherStations.txt
             if [ "$GIS_FLAG_P" -eq 1 ]; then
                 Plots=1
             else
@@ -939,11 +939,6 @@ done
 echo "GIS script syntax used:
 
 # Use g.parser -s to send so the options and flags are written to stdout, hence e.g.
-#
-
-echo "GIS script syntax used:
-
-GIS script syntax used:
 
     india
     w=$GIS_FLAG_W g=$GIS_FLAG_G e=$GIS_FLAG_E l=$GIS_FLAG_L x=$GIS_FLAG_X a=$GIS_FLAG_A d=$GIS_FLAG_D u=$GIS_FLAG_U c=$GIS_FLAG_C r=$GIS_FLAG_R p=$GIS_FLAG_P
@@ -996,7 +991,7 @@ else
     export GRASS_RENDER_FILE="$SaveDir/WeatherStations.png"
     d.mon start=png
     d.erase
-    r.mapcalc 'selectedStates.composite = if(selectedStatesRaster, natural_earth_color.composite, null())'
+    r.mapcalc "selectedStates.composite = if(selectedStatesRaster, natural_earth_color.composite, null())"
     r.colors map=selectedStates.composite raster=natural_earth_color.composite
     d.his i=india_shaded_60_315_10 h=selectedStates.composite
     d.vect map=india_region_world_bounds type=boundary color=150:150:150 width=2
@@ -1015,15 +1010,15 @@ fi
 
 # Set default value with no upper cutting point.
 if [ "$GIS_FLAG_U" -eq 0 ]; then
-    HICUT='none'
+    HICUT="none"
 fi
 
 # Let HTML summary know if stations above altitude
 # clip have been used in interpolation or not.
 if [ "$GIS_FLAG_C" -eq 0 ]; then
-    SurfCut='yes'
+    SurfCut="yes"
 else
-    SurfCut='no'
+    SurfCut="no"
 fi
 
 # Write html pages.

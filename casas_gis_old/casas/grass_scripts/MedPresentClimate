@@ -306,7 +306,7 @@ exitprocedure() {
 trap 'exitprocedure' 1 2 3 15
 
 # Print column names of model output files.
-perl ${PERLSCRIPTS}/printCols.pl "${OUTFILES}" > ${OUTFILES}/varList.txt
+perl ${PERLSCRIPTS}/printCols.pl "${INFILES}" > ${OUTFILES}/varList.txt
 
 if [ "$1" != "@ARGS_PARSED@" ]; then
     exec g.parser "$0" "$@"
@@ -400,10 +400,10 @@ fi
 echo "$LON $LAT $PAR $YEAR" > ${OUTFILES}/inputPar.txt
 
 # Print years to text files for use in legend.
-perl ${PERLSCRIPTS}/printYear.pl "${OUTFILES}"
+perl ${PERLSCRIPTS}/printYear.pl "${OUTFILES}" "${INFILES}"
 
 # Run a perl script that gets rid of column names
-perl ${PERLSCRIPTS}/convertITA.pl "${INFILES}"
+perl ${PERLSCRIPTS}/convertITA.pl "${OUTFILES}" "${INFILES}"
 
 # Do we want to use the same legend range for all maps?
 if [ "$GIS_FLAG_X" -eq 1 ]; then
@@ -462,23 +462,23 @@ g.region -a n=900000 s=-930000 e=2050000 w=-2343000 res=3000
 if [ "$GIS_FLAG_M" -eq 1 ]; then
     # Get mask to clip sites with elevation over $ALT
     # and outside selected ecological regions.
-    r.mapcalc 'ElevMask = if (olive_groves_new_raster_masked_below900, era40dem_resamp, null())'
+    r.mapcalc "ElevMask = if (olive_groves_new_raster_masked_below900, era40dem_resamp, null())"
     r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
     # Previous olive growing area: olive_density_contour_area_masked
 else
-    if [ "$REG" == "-1" ]; then
+    if [ "$REG" = "-1" ]; then
         v.to.rast input=ecoZonesFaoEra40 output=EtoSelectMask use=val value=1
         # Get mask to clip sites with elevation over $ALT
         g.copy raster=era40dem_resamp,ElevMask
         r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
     else
         echo $REG > ${OUTFILES}/clipRegion.txt
-        perl ${PERLSCRIPTS}/cliparse_TC.pl ${OUTFILES} "GEZ_CODE" 'number' "clipRegion.txt" "formula.txt"
+        perl ${PERLSCRIPTS}/cliparse_TC.pl ${OUTFILES} "GEZ_CODE" "number" "clipRegion.txt" "formula.txt"
         v.extract input=ecoZonesFaoMedOlive output=EtoSelect where="$(cat ${OUTFILES}/formula.txt)"
         v.to.rast input=EtoSelect output=EtoSelectMask use=val value=1
         # Get mask to clip sites with elevation over $ALT
         # and outside selected ecological regions.
-        r.mapcalc 'ElevMask = if (EtoSelectMask, era40dem_resamp, null())'
+        r.mapcalc "ElevMask = if (EtoSelectMask, era40dem_resamp, null())"
         r.mapcalc "ElevAltMask = if (ElevMask < $ALT, ElevMask, null())"
     fi
 fi
@@ -593,7 +593,7 @@ for i in $(ls); do
     # Set mask for interpolation.
     g.copy raster=ElevAltMask,MASK
 
-    if [ $SURF == "idw" ]; then
+    if [ $SURF = "idw" ]; then
         # Interpolate the reprojected vector after proper masking by
         # elevation and administrative regions.
         # v.to.rast may be appropriate with PROTHEUS data.
@@ -746,8 +746,8 @@ for i in $(ls); do
     d.text size=5 color=black at=5,91 input=${OUTFILES}/legend1$n.txt
 
     # Save display to .png file (increasing resolution (res) = 1, 2, or 4)
-    # d.out.file output="$SaveDir"/"$i" res=$FIGRES format=png
-    #~ d.out.file output="$SaveDir"/"$i" res=$FIGRES format=eps
+    # d.out.file output="$SaveDir/$i" res=$FIGRES format=png
+    #~ d.out.file output="$SaveDir/$i" res=$FIGRES format=eps
     # Save display to .png file.
     d.mon stop=png
     # Write a log with names of input files.
@@ -764,7 +764,7 @@ for i in $(ls); do
         r.report -en map=regioni_istat,MskdModPOS$i units=k,p nsteps=4 > "$SaveDir/$i.txt"
         r.univar map=MskdModPOS$i | tee -a "$SaveDir/$i.txt"
         if [ $n -eq 1 ]; then
-            echo 'There is no stat report for weather stations!' > "$SaveDir"/WeatherStations.txt
+            echo "There is no stat report for weather stations!" > "$SaveDir"/WeatherStations.txt
             if [ "$GIS_FLAG_P" -eq 1 ]; then
                 Plots=1
             else
@@ -860,15 +860,15 @@ fi
 
 # Set default value with no upper cutting point.
 if [ "$GIS_FLAG_U" -eq 0 ]; then
-    HICUT='none'
+    HICUT="none"
 fi
 
 # Let HTML summary know if stations above altitude
 # clip have been used in interpolation or not.
 if [ "$GIS_FLAG_C" -eq 0 ]; then
-    SurfCut='yes'
+    SurfCut="yes"
 else
-    SurfCut='no'
+    SurfCut="no"
 fi
 
 # Write html pages.
