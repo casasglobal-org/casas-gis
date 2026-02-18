@@ -11,7 +11,7 @@ CASAS GIS is software for geospatial mapping and analysis of physiologically bas
   - Includes Perl scripts for data preprocessing and other utilities
   - Reference implementation of CASAS geospatial analysis workflow
   - Usage documentation: [README_usage_GRASS_GIS6.md](README_usage_GRASS_GIS6.md) (old GRASS 6)
-  - Usage documentation: [README_usage_GRASS_GIS8.md](README_usage_GRASS_GIS8.md) (old GRASS 8)
+  - Usage documentation: [README_usage_GRASS_GIS8.md](README_usage_GRASS_GIS8.md) (new GRASS 8)
 
 - **casas_gis/**: New Python implementation (under development)
   - Unifies functionality from legacy scripts into a single Python application
