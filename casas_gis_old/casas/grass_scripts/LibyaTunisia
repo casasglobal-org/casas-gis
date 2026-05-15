@@ -27,7 +27,7 @@
 set -e
 
 # Set some environmental variables
-export CASAS_HOME=`$(dirname "$0") | cut -d'/' -f-2`;
+export CASAS_HOME=`"$(realpath "$0") | cut -d'/' -f-3"`;
 export PERLSCRIPTS="${CASAS_HOME}/PerlScripts"
 
 # The CASAS_DATA/ directory include INFILES and OUTFILES
