@@ -11,7 +11,10 @@
 # fail on error
 set -e
 
-export PATH="$PATH:$HOME/software/casas-gis/casas_gis_old/casas/grass_scripts/"
+# Set path to GRASS GIS scripts and add to PATH
+THIS_PATH=`pwd`;
+FINAL_PATH="${THIS_PATH}/../casas/grass_scripts/";
+export PATH="$PATH:$FINAL_PATH:$THIS_PATH"
 
 # Check for user break (signal list: trap -l)
 trap 'exitprocedure' 1 2 3 15
