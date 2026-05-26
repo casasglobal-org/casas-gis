@@ -12,7 +12,7 @@
 set -e
 
 # Set path to GRASS GIS scripts and add to PATH
-THIS_PATH=`$(dirname "$0")`;
+THIS_PATH=$(dirname "$0");
 FINAL_PATH="${THIS_PATH}/../casas/grass_scripts/";
 export PATH="$PATH:$FINAL_PATH:$THIS_PATH"
 
