@@ -45,6 +45,13 @@ os.environ["GRASS_ADDON_PATH"] = str(current_dir)
 
 
 def main():
+    """Print the directory where to store output maps and return 0.
+
+    The 'savedir' option comes from the GRASS command line parser (see
+    the %option block at the top of this module).
+
+    Returns:
+        int: 0 on successful completion."""
     print(options["savedir"])
     return 0
 
