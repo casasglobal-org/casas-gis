@@ -29,13 +29,38 @@ def select_interpolation_points(digital_elevation_map,
                                 upper_bound: Optional[float] = None):
     """ Extract vector points greater than cutting point, since some values
         (e.g., bloom day <= 0) may be of little or no meaning. Enable user to
-        exclude from interpolation those verctor points located at altitude
+        exclude from interpolation those vector points located at altitude
         greater than an threshold value and/or with point value greater than
-        or equal to a threshold. """
+        or equal to a threshold.
+
+        Raises ValueError when no imported (imp_*) vector maps exist or
+        when the extraction produces no selected (sel_*) vector maps.
+
+        Args:
+            digital_elevation_map (str): Raster map used to sample the
+                elevation of the interpolation points.
+            altitude_cap (float, optional): Exclude stations above this
+                altitude (meters).
+            lower_bound (float, optional): Exclude points with value
+                below this cutting point.
+            upper_bound (float, optional): Exclude points with value
+                above this cutting point.
+
+        Returns:
+            None."""
     vector_list = grass.list_strings(type="vector",
                                      pattern=f"{k.IMPORTED_PREFIX}*",
                                      mapset=".")
+    if not vector_list:
+        raise ValueError(
+            f"No '{k.IMPORTED_PREFIX}*' vector maps found in the current "
+            f"mapset. Did the ASCII files of '{k.IMPORTED_PREFIX}*' succeed "
+            "in the lat/long location and get projected to the mapping "
+            "location?")
     for vector_map in vector_list:
+        # list_strings() may include the '@mapset' suffix, which is not
+        # valid inside SQL identifiers used by v.extract.
+        plain_map_name = vector_map.split("@")[0]
         grass.run_command("v.db.addcolumn",
                           map=vector_map,
                           columns="elevation double precision")
@@ -43,30 +68,82 @@ def select_interpolation_points(digital_elevation_map,
                           map=vector_map,
                           raster=digital_elevation_map,
                           column="elevation")
+        # Combine, in a single query (as in the legacy scripts), the
+        # value cutting points and, optionally, the altitude cap. The
+        # value column is the name of the imported parameter, i.e., the
+        # imported vector name without the 'imp_' prefix.
+        base_map_name = plain_map_name.replace(k.IMPORTED_PREFIX, "", 1)
         sql_conditions = []
+        if lower_bound is not None:
+            sql_conditions.append(f"({base_map_name} >= {lower_bound})")
+        if upper_bound is not None:
+            sql_conditions.append(f"({base_map_name} <= {upper_bound})")
         if altitude_cap is not None:
             sql_conditions.append(f"(elevation < {altitude_cap})")
-        elif upper_bound is not None:
-            sql_conditions.append(f"({vector_map} <= {upper_bound})")
-        elif lower_bound is not None:
-            sql_conditions.append(f"({vector_map} >= {lower_bound})")
         sql_formula = " and ".join(sql_conditions)
-        output_map = vector_map.replace(k.IMPORTED_PREFIX,
-                                        k.SELECTED_PREFIX, 1)
+        output_map = plain_map_name.replace(k.IMPORTED_PREFIX,
+                                            k.SELECTED_PREFIX, 1)
         grass.run_command("v.extract", overwrite=True,
                           input=vector_map,
                           output=output_map,
                           where=sql_formula)
+        topo_info = grass.vector_info_topo(output_map)
+        no_of_features = sum(
+            topo_info.get(key, 0)
+            for key in ("points", "lines", "boundaries", "centroids")
+        )
+        if no_of_features == 0:
+            raise ValueError(
+                f"No feature was extracted into '{output_map}' by "
+                "v.extract. All stations were dropped, because they are "
+                "outside the current computational region or excluded by "
+                f"the cutting points '{sql_formula}'. Check that the "
+                "station coordinates fall inside the region bounds and "
+                "that the projection of the mapping location matches the "
+                "stations (a misspecified location CRS reprojects the "
+                "stations far away, leaving nothing inside the region).")
+    selected = grass.list_strings(type="vector",
+                                  pattern=f"{k.SELECTED_PREFIX}*",
+                                  mapset=".")
+    if not selected:
+        raise ValueError(
+            f"No '{k.SELECTED_PREFIX}*' vector maps were produced by "
+            "v.extract. Check that the value cutting points and the "
+            f"altitude cap {altitude_cap} do not exclude all stations, "
+            "that the digital elevation model "
+            f"'{digital_elevation_map}' has values at the stations, "
+            "and that the station coordinates are inside the current "
+            "computational region (v.extract drops features outside it).")
 
 
 def interpolate_points_idw(vector_layer: Optional[str] = 1,
                            number_of_points: Optional[int] = 3,
                            power: Optional[float] = 2.0):
     """ Generate interpolated raster surface from vector point data based on
-        inverse distance weighting using v.surf.idw GRASS GIS command. """
+        inverse distance weighting using v.surf.idw GRASS GIS command.
+
+        Raises ValueError when no selected (sel_*) vector map exists.
+
+        Args:
+            vector_layer (str, optional): Layer of the input vector to
+                use. Defaults to 1.
+            number_of_points (int, optional): Number of points to use
+                for the interpolation. Defaults to 3.
+            power (float, optional): Power of the interpolation weight.
+                Defaults to 2.0.
+
+        Returns:
+            tuple: (abs_max_idw, abs_min_idw) float values of the
+                global maximum and minimum of the interpolated
+                rasters."""
     vector_list = grass.list_strings(type="vector",
                                      pattern=f"{k.SELECTED_PREFIX}*",
                                      mapset=".")
+    if not vector_list:
+        raise ValueError(
+            f"No '{k.SELECTED_PREFIX}*' vector maps found in the current "
+            "mapset. 'select_interpolation_points()' must be run first to "
+            "create the interpolation point vectors.")
     raster_stats = {}
     max_values = []
     min_values = []
@@ -113,10 +190,36 @@ def interpolate_points_bspline(vector_layer: Optional[str] = "1",
         bicubic or bilinear spline interpolation with Tykhonov regularization
         using v.surf.bspline GRASS GIS command. See also
         https://lists.osgeo.org/pipermail/grass-user/2010-February/054868.html
-        """
+
+        Raises ValueError when no selected (sel_*) vector map exists.
+
+        Args:
+            vector_layer (str, optional): Layer of the input vector to
+                use. Defaults to "1".
+            avg_west_distance (float, optional): Average west-east
+                distance between points; if None it is estimated with
+                get_distance_points_bspline().
+            avg_north_distance (float, optional): Average north-south
+                distance between points; if None it is estimated with
+                get_distance_points_bspline().
+            method (str, optional): "bicubic" or "bilinear".
+                Defaults to "bicubic".
+            smoothing_parameter (float, optional): Tykhonov
+                regularization (lambda) parameter; if None it is
+                obtained by cross validation.
+
+        Returns:
+            tuple: (abs_max_bspline, abs_min_bspline) float values of
+                the global maximum and minimum of the interpolated
+                rasters."""
     vector_list = grass.list_strings(type="vector",
                                      pattern=f"{k.SELECTED_PREFIX}*",
                                      mapset=".")
+    if not vector_list:
+        raise ValueError(
+            f"No '{k.SELECTED_PREFIX}*' vector maps found in the current "
+            "mapset. 'select_interpolation_points()' must be run first to "
+            "create the interpolation point vectors.")
     compute_distance_between_points = (avg_west_distance or
                                        avg_north_distance) is None
     compute_smoothing_parameter = smoothing_parameter is None
@@ -188,7 +291,20 @@ def get_distance_points_bspline(input_vector_map: str,
                                 vector_layer: Optional[str] = "1"):
     """ Run v.surf.bspline with the -e flag first to get estimated mean
         distance between points. That needs to be multiplied by two and
-        assigned to ew_step and ns_step. """
+        assigned to ew_step and ns_step.
+
+        Args:
+            input_vector_map (str): Name of the input vector map.
+            output_raster_map (str): Name of the temporary output
+                raster map.
+            column_name (str): Attribute column used for interpolation.
+            vector_layer (str, optional): Layer of the input vector to
+                use. Defaults to "1".
+
+        Returns:
+            tuple: (avg_west_distance, avg_north_distance) float
+                values of the average east-west and north-south
+                distances between points."""
     distance_output = grass.read_command("v.surf.bspline",
                                          overwrite=True,
                                          flags="e",
@@ -212,7 +328,23 @@ def cross_validate_bspline(input_vector_map: str,
                            vector_layer: Optional[str] = "1"):
     """ Run v.surf.bspline with the -c flag to find the best Tykhonov
         regularizing parameter using a "leave-one-out" cross validation
-        method, and assign the resulting value to lambda_i (smoothing). """
+        method, and assign the resulting value to lambda_i (smoothing).
+
+        Args:
+            input_vector_map (str): Name of the input vector map.
+            output_raster_map (str): Name of the temporary output
+                raster map.
+            column_name (str): Attribute column used for interpolation.
+            avg_west_distance (float): Average east-west distance
+                between points.
+            avg_north_distance (float): Average north-south distance
+                between points.
+            method (str): "bicubic" or "bilinear".
+            vector_layer (str, optional): Layer of the input vector to
+                use. Defaults to "1".
+
+        Returns:
+            float: The selected smoothing (lambda_i) parameter."""
     cross_validation_output = grass.read_command(
         "v.surf.bspline",
         overwrite=True,

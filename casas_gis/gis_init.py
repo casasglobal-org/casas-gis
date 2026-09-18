@@ -2,9 +2,9 @@
 #
 # AUTHOR(S):    Luigi Ponti quartese gmail com
 #
-# PURPOSE:      
+# PURPOSE:
 #
-# NOTE:         
+# NOTE:
 #
 # Copyright:    (c) 2021-2024 CASAS (Center for the Analysis
 #                   of Sustainable Agricultural Systems).
@@ -12,11 +12,21 @@
 #
 #               SPDX-License-Identifier: GPL-3.0-or-later
 
+import os
 import pathlib
 
 # define GRASS DATABASE
-# add your path to grassdata (GRASS GIS database) directory
-gisdb = pathlib.Path.home() / "grassdata"
-# the following path is the default path on MS Windows
-# gisdb = os.path.join(os.path.expanduser("~"), "Documents/grassdata")
+# Prefer GRASSDATA, then the GISDBASE of an active GRASS session.
+grassdata = os.environ.get("GRASSDATA") or os.environ.get("GISDBASE")
+if grassdata is None:
+    try:
+        import grass.script as grass
+
+        grassdata = grass.gisenv()["GISDBASE"]
+    except Exception:
+        # Allow importing the package without a GRASS installation,
+        # e.g., for unit tests or while not inside a GRASS session.
+        grassdata = str(pathlib.Path.home() / "grassdata")
+grassdata = pathlib.Path(grassdata)
+gisdb = grassdata
 print(gisdb)

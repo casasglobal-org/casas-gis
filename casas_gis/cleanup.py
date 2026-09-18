@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 #
 # AUTHOR(S):    Luigi Ponti quartese gmail com
+# AUTHOR(S):    Luca Delucchi, luca delucchi fmach it, Fondazione Edmund Mach
+# AUTHOR(S):    big-pickle AI model
 #
-# PURPOSE:      
+# PURPOSE:
 #
-# NOTE:         
+# NOTE:
 #
 # Copyright:    (c) 2021-2024 CASAS (Center for the Analysis
 #                   of Sustainable Agricultural Systems).
@@ -29,38 +31,88 @@ grassbin = os.getenv("GRASSBIN")
 
 
 def print_grass_environment():
-    """ Print current GIS environmental variables. """
-    print('\nCurrent GIS environmental variables:\n')
+    """Print current GIS environmental variables.
+
+    Returns:
+        None."""
+    print("\nCurrent GIS environmental variables:\n")
     grass_env = grass.parse_command("g.gisenv", flags="n")
     for key, value in grass_env.items():
-        print('{:16}{}'.format(f"{key}:", value))
+        print("{:16}{}".format(f"{key}:", value))
 
 
 def list_vector_maps():
-    """ List vector maps in current location. """
+    """List vector maps in current location.
+
+    Returns:
+        None."""
     grass_env = grass.parse_command("g.gisenv", flags="n")
-    print(f"\nVector maps in location '{grass_env['LOCATION_NAME']}'"
-          f" and mapset '{grass_env['MAPSET']}':\n")
-    grass.run_command("g.list",
-                      flags="p", verbose=True,
-                      type="vector", mapset=".")
+    print(
+        f"\nVector maps in location '{grass_env['LOCATION_NAME']}'"
+        f" and mapset '{grass_env['MAPSET']}':\n"
+    )
+    grass.run_command("g.list", flags="p", verbose=True, type="vector", mapset=".")
 
 
 def clean_up_vectors():
-    """ Clean up GIS files that are no longer needed. """
-    print('\nRemove previously imported vector maps:\n')
-    grass.run_command("g.remove",
-                      flags="f", verbose=True,
-                      type="vector", pattern=f"{k.IMPORTED_PREFIX}*")
-    grass.run_command("g.remove",
-                      flags="f", verbose=True,
-                      type="vector", pattern=f"{k.SELECTED_PREFIX}*")
+    """Clean up GIS files that are no longer needed.
+
+    Removes previously imported (imp_*) and selected (sel_*) vector
+    maps from the current mapset.
+
+    Returns:
+        None."""
+    print("\nRemove previously imported vector maps:\n")
+    try:
+        grass.run_command(
+            "g.remove",
+            flags="f",
+            verbose=True,
+            type="vector",
+            pattern=f"{k.IMPORTED_PREFIX}*",
+        )
+        grass.run_command(
+            "g.remove",
+            flags="f",
+            verbose=True,
+            type="vector",
+            pattern=f"{k.SELECTED_PREFIX}*",
+        )
+    except Exception as e:
+        print(f"Error removing vector maps: {e}")
 
 
 def clean_up_rasters():
-    grass.run_command("g.remove",
-                      flags="f", verbose=True,
-                      type="raster", pattern=f"{k.IDW_PREFIX}*")
-    grass.run_command("g.remove",
-                      flags="f", verbose=True,
-                      type="raster", pattern=f"{k.BSPLINE_PREFIX}*")
+    """Remove previously interpolated raster maps (idw_*/bspline_*)
+    from the current mapset.
+
+    Returns:
+        None."""
+    try:
+        grass.run_command(
+            "g.remove",
+            flags="f",
+            verbose=True,
+            type="raster",
+            pattern=f"{k.IDW_PREFIX}*",
+        )
+        grass.run_command(
+            "g.remove",
+            flags="f",
+            verbose=True,
+            type="raster",
+            pattern=f"{k.BSPLINE_PREFIX}*",
+        )
+    except Exception as e:
+        print(f"Error removing raster maps: {e}")
+
+
+def clean_up_tmp():
+    """Remove text files left in the temporary directory.
+
+    Returns:
+        None."""
+    import pathlib
+
+    for path in pathlib.Path(k.TMP_DIR).glob("*.txt"):
+        path.unlink()

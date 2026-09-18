@@ -15,10 +15,14 @@
 import pytest
 
 from casas_gis import __version__
-from casas_gis.grass import set_mapping_region, mapping_session, Session
+from casas_gis.gis import set_mapping_region, mapping_session, Session
 
 
 def test_version():
+    """Check the package version.
+
+    Returns:
+        None."""
     assert __version__ == '0.1.0'
 
 
@@ -44,6 +48,15 @@ def test_version():
     ],
 )
 def test_set_mapping_region(selected_subregions, expected, capfd):
+    """Check the computational region set by set_mapping_region().
+
+    Args:
+        selected_subregions (str): Comma separated subregion codes.
+        expected (str): Expected g.region output.
+        capfd (pytest.CaptureFixture): Fixture capturing stdout.
+
+    Returns:
+        None."""
     with Session(**mapping_session):
         set_mapping_region(
             map_of_subregions="andalusia_provinces",

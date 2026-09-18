@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 #
 # AUTHOR(S):    Luigi Ponti quartese gmail com
+# AUTHOR(S):    Luca Delucchi, luca delucchi fmach it, Fondazione Edmund Mach
+# AUTHOR(S):    big-pickle AI model
 #
-# PURPOSE:      
+# PURPOSE:
 #
-# NOTE:         
+# NOTE:
 #
 # Copyright:    (c) 2021-2024 CASAS (Center for the Analysis
 #                   of Sustainable Agricultural Systems).
@@ -12,15 +14,28 @@
 #
 #               SPDX-License-Identifier: GPL-3.0-or-later
 
+import os
 import pathlib
 import locations as loc
 
+# Select the region to process. The default is "colombia"; set the
+# CASAS_REGION environment variable to process another region, e.g.
+#   CASAS_REGION=mediterranean python gis.py
+# Valid regions are the keys of loc.regions (see locations.py).
+_region_name = os.environ.get("CASAS_REGION", "colombia")
+if _region_name not in loc.regions:
+    raise ValueError(
+        f"Unknown CASAS_REGION '{_region_name}'.\n"
+        f"Available regions: {', '.join(loc.regions)}"
+    )
+_region = loc.regions[_region_name]
+
 # Specify (existing) locations and mapsets
-latlong_session = loc.colombia["latlong_session"]
-mapping_session = loc.colombia["mapping_session"]
-mapping_data = loc.colombia["mapping_data"]
-legend_settings = loc.colombia["legend_settings"]
-region = loc.colombia["region_settings"]
+latlong_session = _region["latlong_session"]
+mapping_session = _region["mapping_session"]
+mapping_data = _region["mapping_data"]
+legend_settings = _region["legend_settings"]
+region = _region["region_settings"]
 
 # Contents of the following dirs should be copied to a results directory
 # and cleaned up for the next run?
